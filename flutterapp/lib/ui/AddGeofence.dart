@@ -18,18 +18,18 @@ class _AddGeofenceState extends State<AddGeofence> {
   }
 
   _handleTap(LatLng point) {
-setState(() {
-  _markers.add(Marker(
-    markerId: MarkerId(point.toString()),
-    position: point,
-    infoWindow: InfoWindow(
-      title: 'I am a marker',
-    ),
-    icon:
-        BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueMagenta),
-  ));
-});
-}
+    setState(() {
+      _markers.add(Marker(
+        markerId: MarkerId(point.toString()),
+        position: point,
+        infoWindow: InfoWindow(
+          title: 'I am a marker',
+        ),
+        icon:
+            BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueMagenta),
+      ));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
