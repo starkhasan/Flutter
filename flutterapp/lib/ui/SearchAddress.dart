@@ -13,7 +13,7 @@ class _SearchAddressState extends State<SearchAddress> {
 
   void getLocationResult(String input) async{
     final String url = "https://maps.googleapis.com/maps/api/place/autocomplete/json";
-    String result = "$url?input=$input&key=AIzaSyBcFpWT7vu4mLXbEPmkr5GJDG5jWBI67x0&components=country:usa";
+    String result = "$url?input=$input&key=***************************************&components=country:usa";
     var response = await Dio().get(result);
     List<String> searchResponse = [];
     for(var i=0;i<response.data['predictions'].length;i++){
