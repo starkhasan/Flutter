@@ -19,8 +19,7 @@ class _spalshState extends State<Spalsh> {
 
   startTimer() {
     Timer(Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => LandingPage()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LandingPage()));
     });
   }
 
