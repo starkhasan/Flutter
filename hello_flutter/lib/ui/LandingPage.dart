@@ -59,25 +59,70 @@ class _LandingPageState extends State<LandingPage> {
                 onPressed: () => {
                       Helper.isConnected().then((intenet) {
                         if (intenet != null && intenet) {
-                          print('Connected');
+                          /*AwesomeDialog(
+                              context: context,
+                              headerAnimationLoop: false,
+                              dismissOnTouchOutside: false,
+                              dialogType: DialogType.NO_HEADER,
+                              title: 'Online',
+                              btnOkText: 'OK',
+                              desc:
+                                  'Your connection has been established',
+                              btnOkColor: Colors.green,
+                              btnOkOnPress: () {
+                                debugPrint('OnClcik');
+                              })
+                            ..show();*/
+
+                            AwesomeDialog(
+                              context: context,
+                              animType: AnimType.SCALE,
+                              headerAnimationLoop: false,
+                              dialogType: DialogType.SUCCES,
+                              title: 'Online',
+                              desc:
+                                  'Your connection has been established',
+                              btnOkOnPress: () {
+                                debugPrint('OnClcik');
+                              },
+                              btnOkText: 'OK',
+                              onDissmissCallback: () {
+                                debugPrint('Dialog Dissmiss from callback');
+                              })
+                            ..show();
                         } else {
-                          print('No Connection');
+                          /*AwesomeDialog(
+                              context: context,
+                              headerAnimationLoop: false,
+                              dismissOnTouchOutside: false,
+                              dialogType: DialogType.NO_HEADER,
+                              title: 'Connection Failed',
+                              btnOkText: 'Close',
+                              desc:
+                                  'Please check your connection status and try again',
+                              btnOkColor: Colors.red,
+                              btnOkOnPress: () {
+                                debugPrint('OnClcik');
+                              })
+                            ..show();*/
+                            AwesomeDialog(
+                              context: context,
+                              animType: AnimType.SCALE,
+                              headerAnimationLoop: false,
+                              dialogType: DialogType.ERROR,
+                              title: 'Connection Failed',
+                              desc:
+                                  'Please check your connection status and try again',
+                              btnCancelOnPress: () {
+                                debugPrint('OnClcik');
+                              },
+                              btnCancelText: 'Close',
+                              onDissmissCallback: () {
+                                debugPrint('Dialog Dissmiss from callback');
+                              })
+                            ..show();
                         }
                       }),
-                      AwesomeDialog(
-                          context: context,
-                          headerAnimationLoop: false,
-                          dismissOnTouchOutside: false,
-                          dialogType: DialogType.NO_HEADER,
-                          title: 'Connection Failed',
-                          btnOkText: 'Close',
-                          desc:
-                              'Please check your connection status and try again',
-                          btnOkColor: Colors.red,
-                          btnOkOnPress: () {
-                            debugPrint('OnClcik');
-                          })
-                        ..show()
                     })
           ],
         ),
