@@ -1,8 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hello_flutter/ui/LandingPage.dart';
+import 'package:hello_flutter/ui/HomeScreen.dart';
+
 
 class Spalsh extends StatefulWidget {
   @override
@@ -19,7 +19,7 @@ class _spalshState extends State<Spalsh> {
 
   startTimer() {
     Timer(Duration(seconds: 3), () {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LandingPage()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
     });
   }
 

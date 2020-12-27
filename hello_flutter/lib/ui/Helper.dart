@@ -1,8 +1,7 @@
-import 'package:connectivity/connectivity.dart';
 
 class Helper {
   Helper._();
-  static Future<bool> isConnected() async {
+  /*static Future<bool> isConnected() async {
     var connectivityResult =  await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.mobile) {
       return  true;
@@ -10,5 +9,5 @@ class Helper {
       return  true;
     }
     return false;
-  }
+  }*/
 }
