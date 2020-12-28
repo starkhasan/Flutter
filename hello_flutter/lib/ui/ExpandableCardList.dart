@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hello_flutter/utils/LanguageSettings/Languages.dart';
 
 class ExpandableCardList extends StatefulWidget {
   @override
@@ -14,7 +15,7 @@ class _ExpandableCardList extends State<ExpandableCardList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Expandable Card'),
+        title: Text(Languages.of(context).expandableTitle),
         centerTitle: true,
       ),
       body: Container(

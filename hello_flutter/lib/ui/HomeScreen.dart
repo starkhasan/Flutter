@@ -1,8 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hello_flutter/ui/CardSwipeScreen.dart';
 import 'package:hello_flutter/ui/ExpandableCardList.dart';
 import 'package:hello_flutter/ui/LandingPage.dart';
 import 'package:hello_flutter/ui/SwipeDeleteScreen.dart';
+import 'package:hello_flutter/ui/MultiLanguages.dart';
+import 'package:hello_flutter/utils/HomeDrawer.dart';
+import 'package:hello_flutter/utils/LanguageSettings/Languages.dart';
+
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -10,16 +15,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreen extends State<HomeScreen> {
-  List<String> itemsList = [
-    'Landing Screen',
-    'Swipe Delete',
-    'Expandable Cards'
-  ];
+  List<String> itemsList;
   @override
   Widget build(BuildContext context) {
+    itemsList = [
+    Languages.of(context).landingTitle,
+    Languages.of(context).swipeTitle,
+    Languages.of(context).expandableTitle,
+    Languages.of(context).cardTitle,
+    ];
     return Scaffold(
+      drawer: HomeDrawer(),
       appBar: AppBar(
-        title: Text('Home'),
+        title: Text(Languages.of(context).homeTitle),
         centerTitle: true,
         actions: [
           IconButton(
@@ -35,29 +43,54 @@ class _HomeScreen extends State<HomeScreen> {
       body: Container(
         child: ListView.builder(
           itemCount: itemsList.length,
-          itemBuilder: (context,index){
+          itemBuilder: (context, index) {
             return Card(
-              child: InkWell(
-                onTap: () {
-                  switch (index) {
-                    case 0:
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => LandingPage()));
-                      break;
-                    case 1:
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => SwipeDeleteScreen()));
-                      break;
-                    case 2:
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => ExpandableCardList()));
-                      break;
-                    default:
-                  }
-                },
-                child: ListTile(
-                  title: Text(itemsList[index]),
-                ),
-              )
-            );
+                child: InkWell(
+              onTap: () {
+                switch (index) {
+                  case 0:
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LandingPage()));
+                    break;
+                  case 1:
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SwipeDeleteScreen()));
+                    break;
+                  case 2:
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ExpandableCardList()));
+                    break;
+                  case 3:
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CardSwipeScreen()));
+                    break;
+                  default:
+                }
+              },
+              child: ListTile(
+                title: Text(itemsList[index]),
+              ),
+            ));
           },
+        ),
+      ),
+    );
+  }
+
+  Widget getDrawer() {
+    return Drawer(
+      elevation: 15.0,
+      child: Container(
+        child: Center(
+          child: Text(
+            'Select Language'
+          ),
         ),
       ),
     );

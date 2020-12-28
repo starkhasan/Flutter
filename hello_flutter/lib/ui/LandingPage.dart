@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:hello_flutter/utils/LanguageSettings/Languages.dart';
+
 
 class LandingPage extends StatefulWidget {
   @override
@@ -94,7 +96,7 @@ class _LandingPageState extends State<LandingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Landing'),
+        title: Text(Languages.of(context).landingTitle),
         centerTitle: true,
       ),
       body: Container(

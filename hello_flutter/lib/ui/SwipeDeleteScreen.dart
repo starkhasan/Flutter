@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hello_flutter/utils/LanguageSettings/Languages.dart';
+
 
 class SwipeDeleteScreen extends StatefulWidget {
   @override
@@ -12,7 +14,7 @@ class _SwipeDeleteScreen extends State<SwipeDeleteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Swipe Delete"),
+        title: Text(Languages.of(context).swipeTitle),
         centerTitle: true,
       ),
       body: Container(
