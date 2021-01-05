@@ -14,4 +14,6 @@ abstract class Languages {
   String get expandableTitle;
   String get cardTitle;
   String get homeDrawerTitle;
+  String get sliverScreen;
+  String get appLifeCycle;
 }

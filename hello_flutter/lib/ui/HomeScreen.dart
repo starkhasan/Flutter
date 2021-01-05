@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hello_flutter/ui/AppLifeCycle.dart';
 import 'package:hello_flutter/ui/CardSwipeScreen.dart';
 import 'package:hello_flutter/ui/ExpandableCardList.dart';
 import 'package:hello_flutter/ui/LandingPage.dart';
 import 'package:hello_flutter/ui/SwipeDeleteScreen.dart';
-import 'package:hello_flutter/ui/MultiLanguages.dart';
+import 'package:hello_flutter/ui/SilverScreen.dart';
 import 'package:hello_flutter/utils/HomeDrawer.dart';
 import 'package:hello_flutter/utils/LanguageSettings/Languages.dart';
 
@@ -23,6 +24,8 @@ class _HomeScreen extends State<HomeScreen> {
     Languages.of(context).swipeTitle,
     Languages.of(context).expandableTitle,
     Languages.of(context).cardTitle,
+    Languages.of(context).sliverScreen,
+    Languages.of(context).appLifeCycle
     ];
     return Scaffold(
       drawer: HomeDrawer(),
@@ -69,6 +72,18 @@ class _HomeScreen extends State<HomeScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => CardSwipeScreen()));
+                    break;
+                  case 4:
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SilverScreen()));
+                    break;
+                  case 5:
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AppLifeCycle()));
                     break;
                   default:
                 }

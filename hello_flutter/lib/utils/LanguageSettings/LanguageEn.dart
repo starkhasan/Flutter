@@ -19,4 +19,8 @@ class LanguageEn extends Languages {
   String get cardTitle => "Cards Swipe";
   @override
   String get homeDrawerTitle => "Home Drawer";
+  @override
+  String get sliverScreen => "Silver Screen";
+  @override
+  String get appLifeCycle => "App LifeCycle";
 }
