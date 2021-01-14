@@ -7,10 +7,11 @@ class AppLifeCycle extends StatefulWidget {
   State<StatefulWidget> createState() => _AppLifeCycle();
 }
 
-class _AppLifeCycle extends State<AppLifeCycle> {
+class _AppLifeCycle extends State<AppLifeCycle> with WidgetsBindingObserver{
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     print("Init State");
   }
 
@@ -24,8 +25,9 @@ class _AppLifeCycle extends State<AppLifeCycle> {
       ),
       body: Container(
         child: Center(
-          child: TextField(
-            
+          child: RaisedButton(
+            onPressed: () => print('Click Button'),
+            child: Text('Click'),
           )
         ),
       ),
@@ -58,7 +60,25 @@ class _AppLifeCycle extends State<AppLifeCycle> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     print("Dispose");
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    switch (state) {
+      case AppLifecycleState.inactive:
+        print('appLifeCycleState inactive');
+        break;
+      case AppLifecycleState.resumed:
+        print('appLifeCycleState resumed');
+        break;
+      case AppLifecycleState.paused:
+        print('appLifeCycleState paused');
+        break;
+      default:
+    }
   }
 }

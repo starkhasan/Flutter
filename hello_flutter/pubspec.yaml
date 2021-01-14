@@ -36,6 +36,11 @@ dependencies:
   audioplayers: ^0.17.0
   flutter_tindercard: ^0.2.0
   shared_preferences: ^0.5.12+4
+  stripe_payment: ^1.0.9
+  camera: 0.6.4+5
+  image_picker: ^0.6.7+21
+  path_provider: ^1.6.27
+  fluttertoast: ^7.1.6
     
 dev_dependencies:
   flutter_test:

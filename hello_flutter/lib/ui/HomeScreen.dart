@@ -1,14 +1,18 @@
+import 'dart:io';
+
+import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/ui/AppLifeCycle.dart';
 import 'package:hello_flutter/ui/CardSwipeScreen.dart';
 import 'package:hello_flutter/ui/ExpandableCardList.dart';
 import 'package:hello_flutter/ui/LandingPage.dart';
+import 'package:hello_flutter/ui/PaymentScreen.dart';
 import 'package:hello_flutter/ui/SwipeDeleteScreen.dart';
 import 'package:hello_flutter/ui/SilverScreen.dart';
+import 'package:hello_flutter/ui/CameraExample.dart';
 import 'package:hello_flutter/utils/HomeDrawer.dart';
 import 'package:hello_flutter/utils/LanguageSettings/Languages.dart';
-
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -17,15 +21,18 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreen extends State<HomeScreen> {
   List<String> itemsList;
+  var imagePath;
   @override
   Widget build(BuildContext context) {
     itemsList = [
-    Languages.of(context).landingTitle,
-    Languages.of(context).swipeTitle,
-    Languages.of(context).expandableTitle,
-    Languages.of(context).cardTitle,
-    Languages.of(context).sliverScreen,
-    Languages.of(context).appLifeCycle
+      Languages.of(context).landingTitle,
+      Languages.of(context).swipeTitle,
+      Languages.of(context).expandableTitle,
+      Languages.of(context).cardTitle,
+      Languages.of(context).sliverScreen,
+      Languages.of(context).appLifeCycle,
+      'Payments',
+      'Take Picture'
     ];
     return Scaffold(
       drawer: HomeDrawer(),
@@ -85,11 +92,23 @@ class _HomeScreen extends State<HomeScreen> {
                         MaterialPageRoute(
                             builder: (context) => AppLifeCycle()));
                     break;
+                  case 6:
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PaymentScreen()));
+                    break;
+                  case 7:
+                    _getImagePath();
+                    break;
                   default:
                 }
               },
               child: ListTile(
                 title: Text(itemsList[index]),
+                trailing: imagePath != null
+                    ? Image.file(File(imagePath))
+                    : Icon(Icons.cloud_upload),
               ),
             ));
           },
@@ -98,16 +117,14 @@ class _HomeScreen extends State<HomeScreen> {
     );
   }
 
-  Widget getDrawer() {
-    return Drawer(
-      elevation: 15.0,
-      child: Container(
-        child: Center(
-          child: Text(
-            'Select Language'
-          ),
-        ),
-      ),
-    );
+  _getImagePath() async {
+    final cameras = await availableCameras();
+    final camera = cameras.first;
+    var temp = await Navigator.push(context, MaterialPageRoute(builder: (context) => CameraExample(camera:camera)));
+    if (temp != null) {
+      setState(() {
+        imagePath = temp;
+      });
+    }
   }
 }

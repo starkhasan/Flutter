@@ -29,7 +29,11 @@ class _HomeDrawer extends State<HomeDrawer> {
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20,
-                            ))))),
+                            )
+                          )
+                        )
+                      )
+                    ),
             Expanded(
               child: _listViewBuilder(),
             )
