@@ -23,4 +23,10 @@ class LanguageEn extends Languages {
   String get sliverScreen => "Silver Screen";
   @override
   String get appLifeCycle => "App LifeCycle";
+  @override
+  String get takePicture => "Take Picture";
+  @override
+  String get notification => "Notification";
+  @override
+  String get payment => "Payment";
 }

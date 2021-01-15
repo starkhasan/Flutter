@@ -28,6 +28,7 @@ dependencies:
   awesome_dialog: ^1.2.1
   firebase_messaging: ^7.0.3
   firebase_core: ^0.5.3
+  firebase_auth: ^0.18.4
   contacts_service: ^0.4.6
   permission_handler: ^5.0.1+1
   flutter_local_notifications: ^3.0.2
@@ -38,9 +39,11 @@ dependencies:
   shared_preferences: ^0.5.12+4
   stripe_payment: ^1.0.9
   camera: 0.6.4+5
+  fluttertoast: ^7.1.6
+  email_validator: ^1.0.5
   image_picker: ^0.6.7+21
   path_provider: ^1.6.27
-  fluttertoast: ^7.1.6
+  flutter_progress_dialog: ^0.1.0
     
 dev_dependencies:
   flutter_test:

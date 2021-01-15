@@ -2,7 +2,6 @@ import 'package:hello_flutter/ui/SilverScreen.dart';
 import 'package:hello_flutter/utils/LanguageSettings/Languages.dart';
 
 class LanguageHindi extends Languages {
-
   @override
   String get chooseLanguage => 'हिंदी';
   @override
@@ -25,4 +24,10 @@ class LanguageHindi extends Languages {
   String get sliverScreen => "सिल्वर स्क्रीन";
   @override
   String get appLifeCycle => "अप्प लाइफ साइकिल";
+  @override
+  String get takePicture => "तस्वीर ले";
+  @override
+  String get notification => "सूचना";
+  @override
+  String get payment => "भुगतान";
 }

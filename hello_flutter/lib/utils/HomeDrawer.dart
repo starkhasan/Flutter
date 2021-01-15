@@ -1,7 +1,13 @@
+import 'dart:io';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hello_flutter/ui/CameraExample.dart';
+import 'package:hello_flutter/ui/LoginUser.dart';
 import 'package:hello_flutter/ui/MultiLanguages.dart';
+import 'package:hello_flutter/ui/RegisterUser.dart';
 import 'package:hello_flutter/utils/LanguageSettings/Languages.dart';
+import 'package:hello_flutter/utils/Preferences.dart';
 
 class HomeDrawer extends StatefulWidget {
   @override
@@ -10,9 +16,27 @@ class HomeDrawer extends StatefulWidget {
 
 class _HomeDrawer extends State<HomeDrawer> {
   List<String> listLanguage;
+  var userName = "";
+  var imagePath;
+
+  @override
+  void initState() {
+    super.initState();
+    Preferences.getName().then((value) {
+      setState(() {
+        userName = value;
+      });
+    });
+    Preferences.getImagePath().then((value) {
+      setState(() {
+        imagePath = value;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    listLanguage = [Languages.of(context).language];
+    listLanguage = ['Language', 'Register', 'Logout'];
     return Drawer(
       elevation: 15.0,
       child: Container(
@@ -21,19 +45,51 @@ class _HomeDrawer extends State<HomeDrawer> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SizedBox(
-                height: 200,
-                child: Container(
-                    color: Colors.blue[400],
-                    child: Center(
-                        child: Text(Languages.of(context).homeDrawerTitle,
-                            style: TextStyle(
+              height: 200,
+              child: Container(
+                padding: EdgeInsets.all(15),
+                color: Colors.blue,
+                child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Row(
+                      children: [
+                        InkWell(
+                            onTap: () async {
+                              final cameras = await availableCameras();
+                              final camera = cameras.first;
+                              var temp = await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          CameraExample(camera: camera)));
+                              if (temp != null) {
+                                setState(() {
+                                  Preferences.setImagePath(temp);
+                                  imagePath = temp;
+                                });
+                              }
+                            },
+                            child: CircleAvatar(
+                              radius: 30,
+                              child: imagePath == null
+                                  ? Icon(Icons.camera_alt)
+                                  : null,
+                              backgroundImage: imagePath == null
+                                  ? null
+                                  : FileImage(File(imagePath)),
+                            )),
+                        SizedBox(width: 10),
+                        Text(
+                          userName,
+                          style: TextStyle(
                               color: Colors.white,
-                              fontSize: 20,
-                            )
-                          )
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
                         )
-                      )
-                    ),
+                      ],
+                    )),
+              ),
+            ),
             Expanded(
               child: _listViewBuilder(),
             )
@@ -62,6 +118,14 @@ class _HomeDrawer extends State<HomeDrawer> {
                       MaterialPageRoute(
                           builder: (context) => MultiLanguages()));
                   break;
+                case 1:
+                  Navigator.of(context).pop();
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => RegisterUser()));
+                  break;
+                case 2:
+                  _logoutUser();
+                  break;
                 default:
               }
             },
@@ -74,7 +138,9 @@ class _HomeDrawer extends State<HomeDrawer> {
                   Icon(Icons.language, color: Colors.blue),
                   SizedBox(width: 10),
                   Text(
-                    listLanguage[index],
+                    index == 0
+                        ? Languages.of(context).language
+                        : listLanguage[index],
                     style: TextStyle(color: Colors.black),
                   )
                 ],
@@ -86,6 +152,37 @@ class _HomeDrawer extends State<HomeDrawer> {
       separatorBuilder: (context, index) {
         return Divider();
       },
+    );
+  }
+
+  _logoutUser(){
+    showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return AlertDialog(
+          title: Text('Logout'),
+          content: Text(
+            'Are you sure you want to logout?'
+          ),
+          actions: [
+            FlatButton(
+              onPressed: (){
+                Preferences.setImagePath("");
+                Preferences.setLogin(false);
+                Preferences.setName("");
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => LoginUser()), (route) => false);
+              },
+              child: Text('Yes'),
+            ),
+            FlatButton(
+              onPressed: (){
+                Navigator.pop(context);
+              },
+              child: Text('No',style: TextStyle(color: Colors.red)),
+            )
+          ],
+        );
+      }
     );
   }
 }

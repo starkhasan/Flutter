@@ -16,4 +16,7 @@ abstract class Languages {
   String get homeDrawerTitle;
   String get sliverScreen;
   String get appLifeCycle;
+  String get takePicture;
+  String get payment;
+  String get notification;
 }

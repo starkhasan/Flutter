@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hello_flutter/utils/LanguageSettings/Languages.dart';
 import 'package:stripe_payment/stripe_payment.dart';
 
 class PaymentScreen extends StatefulWidget {
@@ -53,7 +54,7 @@ class _PaymentScreen extends State<PaymentScreen> {
       backgroundColor: Colors.grey[800],
         key: _scaffoldKey,
         appBar: new AppBar(
-          title: new Text('Stripe Payment Demo',),
+          title: new Text(Languages.of(context).payment),
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.clear),
