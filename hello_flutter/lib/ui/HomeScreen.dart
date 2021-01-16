@@ -8,6 +8,8 @@ import 'package:hello_flutter/ui/CardSwipeScreen.dart';
 import 'package:hello_flutter/ui/ExpandableCardList.dart';
 import 'package:hello_flutter/ui/LandingPage.dart';
 import 'package:hello_flutter/ui/PaymentScreen.dart';
+import 'package:hello_flutter/ui/PhotoFile.dart';
+import 'package:hello_flutter/ui/Scroller.dart';
 import 'package:hello_flutter/ui/SwipeDeleteScreen.dart';
 import 'package:hello_flutter/ui/NotificationScreen.dart';
 import 'package:hello_flutter/ui/SilverScreen.dart';
@@ -35,6 +37,8 @@ class _HomeScreen extends State<HomeScreen> {
       Languages.of(context).payment,
       Languages.of(context).takePicture,
       Languages.of(context).notification,
+      'Photo File',
+      'Scroller'
     ];
     return Scaffold(
       drawer: HomeDrawer(),
@@ -105,6 +109,12 @@ class _HomeScreen extends State<HomeScreen> {
                     break;
                   case 8:
                     Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationScreen()));
+                    break;
+                  case 9:
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => PhotoFile()));
+                    break;
+                  case 10:
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Scroller()));
                     break;
                   default:
                 }
