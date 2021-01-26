@@ -13,6 +13,7 @@ class RegisterUser extends StatefulWidget {
 }
 
 class _RegisterUserState extends State<RegisterUser> {
+  
   var isVisible = false;
   var _controllerEmail = TextEditingController();
   var _controllerPassword = TextEditingController();

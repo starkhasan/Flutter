@@ -2,6 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_progress_dialog/flutter_progress_dialog.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hello_flutter/ui/HomeScreen.dart';
@@ -16,6 +17,7 @@ class LoginUser extends StatefulWidget {
 class _LoginUserState extends State<LoginUser> {
   var _controllerEmail = TextEditingController();
   var _controllerPassword = TextEditingController();
+  var _controllerPhone = TextEditingController();
   var isVisible = false;
   @override
   Widget build(BuildContext context) {
@@ -64,21 +66,74 @@ class _LoginUserState extends State<LoginUser> {
                 ),
                 SizedBox(height: 40),
                 InkWell(
-                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterUser())),
+                  onTap: () => Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => RegisterUser())),
                   child: Text(
                     'Regsiter',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold
-                    ),
+                        color: Colors.blue,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
                   ),
+                ),
+                SizedBox(height: 20),
+                TextFormField(
+                  obscureText: false,
+                  controller: _controllerPhone,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  maxLength: 10,
+                  decoration: InputDecoration(
+                    counterText: '',
+                    hintText: 'Enter your number',
+                    hintStyle: TextStyle(
+                      color: Colors.grey[400]
+                    ),
+                    labelText: 'Phone Number',
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide()
+                    )
+                  ),
+                  onFieldSubmitted: (value) {
+                    if(value.length != 10){
+                      _showToast('Please provide valid mobile number');
+                    }else{
+                      _verifyPhoneAuth(value);
+                    }
+                  },
                 )
               ],
             ),
           ),
         ));
+  }
+
+  void _verifyPhoneAuth(String phone) async{
+    await Firebase.initializeApp();
+    FirebaseAuth auth = FirebaseAuth.instance;
+    await auth.verifyPhoneNumber(
+      phoneNumber: '+91 '+phone,
+      verificationCompleted: (PhoneAuthCredential credential) async{
+        await auth.signInWithCredential(credential);
+      },
+      verificationFailed: (FirebaseException e){
+        _showToast(e.message);
+      },
+      codeSent: (String verificationId, int resendToken) async{
+        String smsCode = '564781';
+        PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.credential(verificationId: verificationId, smsCode: smsCode);
+        var user = await auth.signInWithCredential(phoneAuthCredential);
+        _showToast('User Signned in Successfully with $verificationId');
+        Preferences.setLogin(true);
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => HomeScreen()),
+            (route) => false);
+      },
+      codeAutoRetrievalTimeout: (String verificationId){
+      }
+    );
   }
 
   void _loginUser() async {
@@ -92,7 +147,10 @@ class _LoginUserState extends State<LoginUser> {
                 password: _controllerPassword.text);
         dismissProgressDialog();
         Preferences.setLogin(true);
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => HomeScreen()), (route) => false);
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => HomeScreen()),
+            (route) => false);
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
           dismissProgressDialog();

@@ -36,7 +36,7 @@ class _HomeDrawer extends State<HomeDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    listLanguage = ['Language', 'Register', 'Logout'];
+    listLanguage = ['Language','Logout'];
     return Drawer(
       elevation: 15.0,
       child: Container(
@@ -119,11 +119,6 @@ class _HomeDrawer extends State<HomeDrawer> {
                           builder: (context) => MultiLanguages()));
                   break;
                 case 1:
-                  Navigator.of(context).pop();
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => RegisterUser()));
-                  break;
-                case 2:
                   _logoutUser();
                   break;
                 default:

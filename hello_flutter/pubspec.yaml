@@ -45,6 +45,9 @@ dependencies:
   path_provider: ^1.6.27
   flutter_progress_dialog: ^0.1.0
   photo_manager: ^0.5.8
+  pie_chart: ^4.0.1
+  countdown: ^0.1.0
+  page_view_indicators: ^1.4.1
     
 dev_dependencies:
   flutter_test:
