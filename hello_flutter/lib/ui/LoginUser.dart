@@ -96,11 +96,9 @@ class _LoginUserState extends State<LoginUser> {
                     )
                   ),
                   onFieldSubmitted: (value) {
-                    if(value.length != 10){
-                      _showToast('Please provide valid mobile number');
-                    }else{
-                      _verifyPhoneAuth(value);
-                    }
+                    value.length != 10
+                      ? _showToast('Please provide valid mobile number')
+                      : _verifyPhoneAuth(value);
                   },
                 )
               ],
@@ -110,17 +108,22 @@ class _LoginUserState extends State<LoginUser> {
   }
 
   void _verifyPhoneAuth(String phone) async{
+    showProgressDialog();
     await Firebase.initializeApp();
     FirebaseAuth auth = FirebaseAuth.instance;
     await auth.verifyPhoneNumber(
       phoneNumber: '+91 '+phone,
       verificationCompleted: (PhoneAuthCredential credential) async{
+        dismissProgressDialog();
         await auth.signInWithCredential(credential);
       },
       verificationFailed: (FirebaseException e){
+        dismissProgressDialog();
         _showToast(e.message);
       },
       codeSent: (String verificationId, int resendToken) async{
+        dismissProgressDialog();
+        Preferences.setName(_controllerPhone.text);
         String smsCode = '564781';
         PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.credential(verificationId: verificationId, smsCode: smsCode);
         var user = await auth.signInWithCredential(phoneAuthCredential);
@@ -132,6 +135,7 @@ class _LoginUserState extends State<LoginUser> {
             (route) => false);
       },
       codeAutoRetrievalTimeout: (String verificationId){
+        dismissProgressDialog();
       }
     );
   }
@@ -146,6 +150,7 @@ class _LoginUserState extends State<LoginUser> {
                 email: _controllerEmail.text,
                 password: _controllerPassword.text);
         dismissProgressDialog();
+        Preferences.setName(_controllerEmail.text);
         Preferences.setLogin(true);
         Navigator.pushAndRemoveUntil(
             context,
@@ -182,12 +187,13 @@ class _LoginUserState extends State<LoginUser> {
 
   void _showToast(String message) {
     Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0);
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      fontSize: 16.0
+    );
   }
 }

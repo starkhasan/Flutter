@@ -20,7 +20,6 @@ import 'package:hello_flutter/ui/SilverScreen.dart';
 import 'package:hello_flutter/ui/CameraExample.dart';
 import 'package:hello_flutter/utils/HomeDrawer.dart';
 import 'package:hello_flutter/utils/LanguageSettings/Languages.dart';
-import 'package:photo_manager/photo_manager.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
