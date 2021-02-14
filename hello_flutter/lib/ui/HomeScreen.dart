@@ -150,7 +150,7 @@ class _HomeScreen extends State<HomeScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => PieChart()));
+                                builder: (context) => PieChartSample()));
                         break;
                       case 12:
                         Navigator.push(
