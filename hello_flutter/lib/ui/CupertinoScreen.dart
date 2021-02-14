@@ -9,7 +9,9 @@ class CupertinoScreen extends StatefulWidget {
 
 class _CupertinoScreenState extends State<CupertinoScreen> {
   var switchValue = false;
-  var setectedCountry = 'India';
+  var selectedCountry = 'India';
+  var _initialPosition = 0;
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +20,17 @@ class _CupertinoScreenState extends State<CupertinoScreen> {
         title: Text('Cupertino Style'),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _showCupertinoPicker(),
+        onPressed: () async{
+          var tempCountry = selectedCountry;
+          var tempPos = _initialPosition;
+          var data = await _showCupertinoPicker();
+          if(data == 'cancel'){
+            setState(() {
+              selectedCountry = tempCountry;
+              _initialPosition = tempPos;
+            });
+          }
+        },
         child: Icon(Icons.add),
       ),
       body: Container(
@@ -53,10 +65,10 @@ class _CupertinoScreenState extends State<CupertinoScreen> {
     );
   }
 
-  _showCupertinoPicker() {
-    showGeneralDialog(
+  _showCupertinoPicker() async{
+    var data =  await showGeneralDialog(
       barrierLabel: 'Label1',
-      barrierDismissible: true,
+      barrierDismissible: false,
       context: context,
       pageBuilder: (context, animation, secondaryAnimation) {  
         return StatefulBuilder(
@@ -69,21 +81,44 @@ class _CupertinoScreenState extends State<CupertinoScreen> {
                   color: Colors.white,
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20))
                 ),
-                child: CupertinoPicker(
-                  itemExtent: 40,
-                  useMagnifier: true,
-                  onSelectedItemChanged: (value) {
-                    setState((){
-                      setectedCountry = Helper.getCountryList()[value].data;
-                    });
-                  },
-                  children: Helper.getCountryList()
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CupertinoButton(
+                          padding: EdgeInsets.all(20),
+                          onPressed: () => Navigator.pop(context,'cancel'),
+                          child: Text('Cancel',style: TextStyle(color: Colors.red)),
+                        ),
+                        CupertinoButton(
+                          padding: EdgeInsets.all(20),
+                          onPressed: () => Navigator.pop(context,'submit'),
+                          child: Text('Submit',style: TextStyle(color: Colors.blue)),
+                        )
+                      ],
+                    ),
+                    Expanded(
+                      child: CupertinoPicker(
+                        itemExtent: 40,
+                        scrollController: FixedExtentScrollController(initialItem: _initialPosition),
+                        onSelectedItemChanged: (value) {
+                          setState((){
+                            _initialPosition = value;
+                            selectedCountry = Helper.getCountry()[value];
+                          });
+                        },
+                        children: Helper.getCountryList()
+                      )
+                    )
+                  ],
                 )
-              ),
+              )
             );
           }
         );
       }
     );
+    return data;
   }
 }
