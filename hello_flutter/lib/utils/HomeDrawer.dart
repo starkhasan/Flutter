@@ -5,7 +5,6 @@ import 'package:flutter/widgets.dart';
 import 'package:hello_flutter/ui/CameraExample.dart';
 import 'package:hello_flutter/ui/LoginUser.dart';
 import 'package:hello_flutter/ui/MultiLanguages.dart';
-import 'package:hello_flutter/ui/RegisterUser.dart';
 import 'package:hello_flutter/utils/LanguageSettings/Languages.dart';
 import 'package:hello_flutter/utils/Preferences.dart';
 

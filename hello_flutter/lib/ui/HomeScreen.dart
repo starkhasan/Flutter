@@ -19,6 +19,7 @@ import 'package:hello_flutter/ui/NotificationScreen.dart';
 import 'package:hello_flutter/ui/SilverScreen.dart';
 import 'package:hello_flutter/ui/CameraExample.dart';
 import 'package:hello_flutter/utils/HomeDrawer.dart';
+import 'package:hello_flutter/ui/CupertinoScreen.dart';
 import 'package:hello_flutter/utils/LanguageSettings/Languages.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -53,7 +54,8 @@ class _HomeScreen extends State<HomeScreen> {
       'Scroller',
       'Pie Chart',
       'Page View',
-      'Google Map'
+      'Google Map',
+      'Cupertino Style'
     ];
     return WillPopScope(
         onWillPop: () => _onWillPop(),
@@ -160,7 +162,14 @@ class _HomeScreen extends State<HomeScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => GoogleMapRoute(initialPostion: _initialPositon)));
+                                builder: (context) => GoogleMapRoute(
+                                    initialPostion: _initialPositon)));
+                        break;
+                      case 14:
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CupertinoScreen()));
                         break;
                       default:
                     }
@@ -203,8 +212,7 @@ class _HomeScreen extends State<HomeScreen> {
   _getImagePath() async {
     final cameras = await availableCameras();
     final camera = cameras.first;
-    var temp = await Navigator.push(context,
-        MaterialPageRoute(builder: (context) => CameraExample(camera: camera)));
+    var temp = await Navigator.push(context,MaterialPageRoute(builder: (context) => CameraExample(camera: camera)));
     if (temp != null) {
       setState(() {
         imagePath = temp;
