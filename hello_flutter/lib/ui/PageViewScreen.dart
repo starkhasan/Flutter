@@ -19,7 +19,7 @@ class _PageViewScreenState extends State<PageViewScreen> {
   void initState() {
     _pageController = PageController();
 
-    Timer.periodic(Duration(seconds: 5), (Timer timer) {
+    Timer.periodic(Duration(seconds: 3), (Timer timer) {
       if (currentPage < 2) {
         currentPage++;
       } else {
