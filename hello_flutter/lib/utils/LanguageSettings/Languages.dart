@@ -25,4 +25,5 @@ abstract class Languages {
   String get pageView;
   String get googleMap;
   String get cupertinoStyle;
+  String get logout;
 }

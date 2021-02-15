@@ -134,7 +134,7 @@ class _HomeDrawer extends State<HomeDrawer> {
                   Text(
                     index == 0
                         ? Languages.of(context).language
-                        : listLanguage[index],
+                        : Languages.of(context).logout,
                     style: TextStyle(color: Colors.black),
                   )
                 ],

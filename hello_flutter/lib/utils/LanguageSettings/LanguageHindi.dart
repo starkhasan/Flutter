@@ -42,4 +42,6 @@ class LanguageHindi extends Languages {
   String get googleMap => 'गूगल मैप';
   @override
   String get cupertinoStyle => 'क्यूपर्टिनो स्टाइल';
+  @override
+  String get logout => 'लॉगआउट';
 }

@@ -41,4 +41,6 @@ class LanguageEn extends Languages {
   String get googleMap => 'Google Map';
   @override
   String get cupertinoStyle => 'Cupertino Style';
+  @override
+  String get logout => 'Logout';
 }
