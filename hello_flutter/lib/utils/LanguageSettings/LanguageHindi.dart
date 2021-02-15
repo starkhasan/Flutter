@@ -30,4 +30,16 @@ class LanguageHindi extends Languages {
   String get notification => "सूचना";
   @override
   String get payment => "भुगतान";
+  @override
+  String get photoFile => 'फोटो फाइल';
+  @override
+  String get scroller => 'स्क्रोलर';
+  @override
+  String get pieChart => 'पाई चार्ट';
+  @override
+  String get pageView => 'पेज व्यू';
+  @override
+  String get googleMap => 'गूगल मैप';
+  @override
+  String get cupertinoStyle => 'क्यूपर्टिनो स्टाइल';
 }

@@ -50,12 +50,12 @@ class _HomeScreen extends State<HomeScreen> {
       Languages.of(context).payment,
       Languages.of(context).takePicture,
       Languages.of(context).notification,
-      'Photo File',
-      'Scroller',
-      'Pie Chart',
-      'Page View',
-      'Google Map',
-      'Cupertino Style'
+      Languages.of(context).photoFile,
+      Languages.of(context).scroller,
+      Languages.of(context).pieChart,
+      Languages.of(context).pageView,
+      Languages.of(context).googleMap,
+      Languages.of(context).cupertinoStyle
     ];
     return WillPopScope(
         onWillPop: () => _onWillPop(),

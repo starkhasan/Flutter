@@ -19,5 +19,10 @@ abstract class Languages {
   String get takePicture;
   String get payment;
   String get notification;
-  
+  String get photoFile;
+  String get scroller;
+  String get pieChart;
+  String get pageView;
+  String get googleMap;
+  String get cupertinoStyle;
 }

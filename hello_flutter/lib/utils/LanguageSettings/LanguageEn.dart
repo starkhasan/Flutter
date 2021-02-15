@@ -29,4 +29,16 @@ class LanguageEn extends Languages {
   String get notification => "Notification";
   @override
   String get payment => "Payment";
+  @override
+  String get photoFile => 'Photo File';
+  @override
+  String get scroller => 'Scroller';
+  @override
+  String get pieChart => 'Pie Chart';
+  @override
+  String get pageView => 'Page View';
+  @override
+  String get googleMap => 'Google Map';
+  @override
+  String get cupertinoStyle => 'Cupertino Style';
 }
