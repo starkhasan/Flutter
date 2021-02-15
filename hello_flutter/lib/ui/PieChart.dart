@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:hello_flutter/ui/BarChartModel.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
+
 import 'indicator.dart';
 
 class PieChartSample extends StatefulWidget {
@@ -10,6 +13,65 @@ class PieChartSample extends StatefulWidget {
 class _PieChartState extends State<PieChartSample> {
 
   int touchedIndex;
+  List<BarChartModel> graphData = [
+    BarChartModel(
+      year: "2014",
+      financial: 250,
+      color: charts.ColorUtil.fromDartColor
+      (Color(0xFF47505F)),
+    ),
+    BarChartModel(
+      year: "2015",
+      financial: 300,
+      color: charts.ColorUtil.fromDartColor
+      (Colors.red),
+    ),
+    BarChartModel(
+      year: "2016",
+      financial: 100,
+      color: charts.ColorUtil.fromDartColor
+      (Colors.green),
+    ),
+    BarChartModel(
+      year: "2017",
+      financial: 450,
+      color: charts.ColorUtil.fromDartColor
+      (Colors.yellow),
+    ),
+    BarChartModel(
+      year: "2018",
+      financial: 630,
+      color: charts.ColorUtil.fromDartColor
+      (Colors.lightBlueAccent),
+    ),
+    BarChartModel(
+      year: "2019",
+      financial: 1000,
+      color: charts.ColorUtil.fromDartColor
+      (Colors.pink),
+    ),
+    BarChartModel(
+      year: "2020",
+      financial: 500,
+      color: charts.ColorUtil.fromDartColor
+      (Colors.purple),
+    ),
+  ];
+
+
+  List<charts.Series<BarChartModel, String>> getList(){
+    List<charts.Series<BarChartModel, String>> series = [
+      charts.Series(
+        id: "Financial",
+        data: graphData,
+        domainFn: (BarChartModel series, _) => series.year,
+        measureFn: (BarChartModel series, _) => series.financial,
+        colorFn: (BarChartModel series, _) => series.color
+      ),
+    ];
+
+    return series;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +151,14 @@ class _PieChartState extends State<PieChartSample> {
                   width: 28,
                 ),
               ],
+            ),
+            Container(
+              width: double.infinity,
+              height: 300,
+              child: charts.BarChart(
+                getList(),
+                animate: true
+              )
             )
           ],
         ),

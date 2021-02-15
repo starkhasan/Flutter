@@ -19,4 +19,5 @@ abstract class Languages {
   String get takePicture;
   String get payment;
   String get notification;
+  
 }
