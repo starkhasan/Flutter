@@ -6,7 +6,11 @@ class Api{
     Map<String, String> headers1 = {'Accept': 'application/json'};
     try{
       var response = await http.get('https://api.covid19api.com/summary',headers: headers1);
-      return response.body;
+      if(response.statusCode == 200){
+        return response.body;
+      }else{
+        return 'Service Temporarily Unavailable';
+      }
     }catch(e){
       return 'Something went wrong';
     }
