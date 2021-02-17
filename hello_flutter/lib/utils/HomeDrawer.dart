@@ -3,6 +3,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hello_flutter/ui/CameraExample.dart';
+import 'package:hello_flutter/ui/CovidScreen.dart';
 import 'package:hello_flutter/ui/LoginUser.dart';
 import 'package:hello_flutter/ui/MultiLanguages.dart';
 import 'package:hello_flutter/utils/LanguageSettings/Languages.dart';
@@ -35,7 +36,11 @@ class _HomeDrawer extends State<HomeDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    listLanguage = ['Language','Logout'];
+    listLanguage = [
+      Languages.of(context).language,
+      Languages.of(context).logout,
+      'COVID-19 Alert'
+    ];
     return Drawer(
       elevation: 15.0,
       child: Container(
@@ -120,6 +125,10 @@ class _HomeDrawer extends State<HomeDrawer> {
                 case 1:
                   _logoutUser();
                   break;
+                case 2:
+                  Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => CovidScreen()));
+                  break;
                 default:
               }
             },
@@ -132,9 +141,7 @@ class _HomeDrawer extends State<HomeDrawer> {
                   Icon(Icons.language, color: Colors.blue),
                   SizedBox(width: 10),
                   Text(
-                    index == 0
-                        ? Languages.of(context).language
-                        : Languages.of(context).logout,
+                    listLanguage[index],
                     style: TextStyle(color: Colors.black),
                   )
                 ],
@@ -149,34 +156,34 @@ class _HomeDrawer extends State<HomeDrawer> {
     );
   }
 
-  _logoutUser(){
+  _logoutUser() {
     showDialog(
-      context: context,
-      builder: (BuildContext context){
-        return AlertDialog(
-          title: Text('Logout'),
-          content: Text(
-            'Are you sure you want to logout?'
-          ),
-          actions: [
-            FlatButton(
-              onPressed: (){
-                Preferences.setImagePath("");
-                Preferences.setLogin(false);
-                Preferences.setName("");
-                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => LoginUser()), (route) => false);
-              },
-              child: Text('Yes'),
-            ),
-            FlatButton(
-              onPressed: (){
-                Navigator.pop(context);
-              },
-              child: Text('No',style: TextStyle(color: Colors.red)),
-            )
-          ],
-        );
-      }
-    );
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Logout'),
+            content: Text('Are you sure you want to logout?'),
+            actions: [
+              FlatButton(
+                onPressed: () {
+                  Preferences.setImagePath("");
+                  Preferences.setLogin(false);
+                  Preferences.setName("");
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginUser()),
+                      (route) => false);
+                },
+                child: Text('Yes'),
+              ),
+              FlatButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('No', style: TextStyle(color: Colors.red)),
+              )
+            ],
+          );
+        });
   }
 }
