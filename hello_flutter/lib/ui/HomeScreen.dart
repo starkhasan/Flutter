@@ -7,6 +7,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:hello_flutter/ui/AppLifeCycle.dart';
 import 'package:hello_flutter/ui/CardSwipeScreen.dart';
 import 'package:hello_flutter/ui/ExpandableCardList.dart';
+import 'package:hello_flutter/ui/FutureBuilderScreen.dart';
 import 'package:hello_flutter/ui/GoogleMapRoute.dart';
 import 'package:hello_flutter/ui/LandingPage.dart';
 import 'package:hello_flutter/ui/PageViewScreen.dart';
@@ -55,7 +56,8 @@ class _HomeScreen extends State<HomeScreen> {
       Languages.of(context).pieChart,
       Languages.of(context).pageView,
       Languages.of(context).googleMap,
-      Languages.of(context).cupertinoStyle
+      Languages.of(context).cupertinoStyle,
+      'Future Builder'
     ];
     return WillPopScope(
         onWillPop: () => _onWillPop(),
@@ -170,6 +172,12 @@ class _HomeScreen extends State<HomeScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => CupertinoScreen()));
+                        break;
+                      case 15:
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => FutureBuilderScreen()));
                         break;
                       default:
                     }
