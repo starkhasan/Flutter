@@ -8,6 +8,7 @@ import 'package:hello_flutter/ui/LoginUser.dart';
 import 'package:hello_flutter/ui/MultiLanguages.dart';
 import 'package:hello_flutter/utils/LanguageSettings/Languages.dart';
 import 'package:hello_flutter/utils/Preferences.dart';
+import 'package:hello_flutter/utils/LanguageSettings/locale_constant.dart';
 
 class HomeDrawer extends StatefulWidget {
   @override
@@ -18,6 +19,7 @@ class _HomeDrawer extends State<HomeDrawer> {
   List<String> listLanguage;
   var userName = "";
   var imagePath;
+  var isDark = false;
 
   @override
   void initState() {
@@ -32,6 +34,11 @@ class _HomeDrawer extends State<HomeDrawer> {
         imagePath = value;
       });
     });
+    getDark().then((value) {
+      setState(() {
+        isDark = value;
+      });
+    });
   }
 
   @override
@@ -39,7 +46,8 @@ class _HomeDrawer extends State<HomeDrawer> {
     listLanguage = [
       Languages.of(context).language,
       Languages.of(context).logout,
-      'COVID-19 Alert'
+      'COVID-19 Alert',
+      'Dark Mode'
     ];
     return Drawer(
       elevation: 15.0,
@@ -127,7 +135,8 @@ class _HomeDrawer extends State<HomeDrawer> {
                   break;
                 case 2:
                   Navigator.pop(context);
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => CovidScreen()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => CovidScreen()));
                   break;
                 default:
               }
@@ -143,7 +152,22 @@ class _HomeDrawer extends State<HomeDrawer> {
                   Text(
                     listLanguage[index],
                     style: TextStyle(color: Colors.black),
-                  )
+                  ),
+                  Expanded(
+                      child: index == 3
+                          ? Align(
+                              alignment: Alignment.centerRight,
+                              child: Switch(
+                                value: isDark,
+                                activeColor: Colors.black,
+                                onChanged: (value) {
+                                  changeDarkMode(context, value);
+                                  setState(() {
+                                    isDark = value;
+                                  });
+                                },
+                              ))
+                          : SizedBox())
                 ],
               ),
             ),

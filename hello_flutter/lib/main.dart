@@ -9,16 +9,23 @@ void main() async {
 }
 
 class MyApp extends StatefulWidget {
-  static void setLocal(BuildContext context, Locale  newLocale) {
+  static void setLocal(BuildContext context, Locale newLocale) {
     var state = context.findAncestorStateOfType<_MyApp>();
     state.setLocale(newLocale);
   }
+
+  static void setDark(BuildContext context, bool isDark) {
+    var state = context.findAncestorStateOfType<_MyApp>();
+    state.setDarkMode(isDark);
+  }
+
   @override
   State<StatefulWidget> createState() => _MyApp();
 }
 
 class _MyApp extends State<MyApp> {
-  Locale  _locale;
+  Locale _locale;
+  bool _isDark;
 
   void setLocale(Locale locale) {
     setState(() {
@@ -26,6 +33,11 @@ class _MyApp extends State<MyApp> {
     });
   }
 
+  void setDarkMode(bool isdark) {
+    setState(() {
+      _isDark = isdark;
+    });
+  }
 
   @override
   void didChangeDependencies() async {
@@ -33,6 +45,9 @@ class _MyApp extends State<MyApp> {
       setState(() {
         _locale = locale;
       });
+    });
+    getDark().then((value) {
+      _isDark = value;
     });
     super.didChangeDependencies();
   }
@@ -42,13 +57,12 @@ class _MyApp extends State<MyApp> {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData(
+          primarySwatch: Colors.blue,
+          brightness: _isDark ? Brightness.dark : Brightness.light),
       locale: _locale,
       home: Spalsh(),
-      supportedLocales: [
-        Locale('en', ''),
-        Locale('hi', '')
-      ],
+      supportedLocales: [Locale('en', ''), Locale('hi', '')],
       localizationsDelegates: [
         AppLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,

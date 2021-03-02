@@ -27,8 +27,7 @@ class _MultiLanguages extends State<MultiLanguages> {
         return Card(
             child: InkWell(
           onTap: () {
-            changeLanguage(
-                context, LanguagesData.languageList()[index].languageCode);
+            changeLanguage(context, LanguagesData.languageList()[index].languageCode);
           },
           child: ListTile(
             leading: Icon(Icons.language),
