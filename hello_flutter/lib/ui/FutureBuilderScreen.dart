@@ -15,7 +15,7 @@ class _FutureBuilderScreenState extends State<FutureBuilderScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Future Builder'),
+        title: Text('Future Builder')
       ),
       body: FutureBuilder(
         future: fetchUser(),
@@ -24,8 +24,8 @@ class _FutureBuilderScreenState extends State<FutureBuilderScreen> {
             if(snapshot.data == '400' || snapshot.data == '500'){
               return Container(
                 child: Center(
-                  child: Text('Something went wrong'),
-                ),
+                  child: Text('Something went wrong')
+                )
               );
             }else{
               var data  = List<UserResponse>.from(json.decode(snapshot.data).map((x) => UserResponse.fromJson(x)));
@@ -37,17 +37,17 @@ class _FutureBuilderScreenState extends State<FutureBuilderScreen> {
                     shadowColor: Colors.grey[100],
                     color: Colors.white,
                     child: ListTile(
-                      title: Text(data[index].title),
+                      title: Text(data[index].title)
                     )
                   );
-                },
+                }
               );
             }
           }else{
             return Container(
               child: Center(
-                child: Text('Loading...'),
-              ),
+                child: Text('Loading...')
+              )
             );
           }
         }
