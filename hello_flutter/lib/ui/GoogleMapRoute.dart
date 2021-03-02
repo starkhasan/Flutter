@@ -100,7 +100,7 @@ class _GoogleMapRouteState extends State<GoogleMapRoute>
         position: location,
         draggable: false,
         icon: BitmapDescriptor.fromBytes(response.bodyBytes),
-        infoWindow: InfoWindow(title: 'Home', snippet: 'Wali Ganj, Arrah'),
+        infoWindow: InfoWindow(title: 'Home', snippet: 'Wali Ganj, Arrah')
       );
       setState(() {
         markers[id] = marker;
@@ -115,12 +115,11 @@ class _GoogleMapRouteState extends State<GoogleMapRoute>
         position: location,
         draggable: false,
         icon: BitmapDescriptor.defaultMarker,
-        infoWindow: InfoWindow(title: 'Home', snippet: 'Wali Ganj, Arrah'),
+        infoWindow: InfoWindow(title: 'Home', snippet: 'Wali Ganj, Arrah')
       );
       setState(() {
         markers[id] = marker;
-        mapController.animateCamera(CameraUpdate.newCameraPosition(
-            CameraPosition(target: location, zoom: 14.0)));
+        mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: location, zoom: 14.0)));
         markerCount += 1;
       });
       if (markerCount > 2) _drawRoute();
