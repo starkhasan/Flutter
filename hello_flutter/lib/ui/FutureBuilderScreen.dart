@@ -35,7 +35,6 @@ class _FutureBuilderScreenState extends State<FutureBuilderScreen> {
                   return Card(
                     elevation: 5,
                     shadowColor: Colors.grey[100],
-                    color: Colors.white,
                     child: ListTile(
                       title: Text(data[index].title)
                     )
