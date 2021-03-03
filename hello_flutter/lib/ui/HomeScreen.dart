@@ -64,6 +64,7 @@ class _HomeScreen extends State<HomeScreen> {
         child: Scaffold(
           drawer: HomeDrawer(),
           appBar: AppBar(
+            backgroundColor: Colors.pink,
             title: Text(Languages.of(context).homeTitle),
             centerTitle: true,
             actions: [

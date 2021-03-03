@@ -24,12 +24,28 @@ class _AppLifeCycle extends State<AppLifeCycle> with WidgetsBindingObserver{
         centerTitle: true,
       ),
       body: Container(
-        child: Center(
-          child: RaisedButton(
-            onPressed: () => print('Click Button'),
-            child: Text('Click'),
-          )
-        ),
+        height: double.infinity,
+        width: double.infinity,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              color: Colors.blue,
+              height: 50.0,
+              width: 50.0,
+            ),
+            Icon(Icons.adjust, size: 50.0, color: Colors.pink),
+            Icon(Icons.adjust, size: 50.0, color: Colors.purple,),
+            Icon(Icons.adjust, size: 50.0, color: Colors.greenAccent,),
+            Container(
+              color: Colors.orange,
+              height: 50.0,
+              width: 50.0,
+            ),
+            Icon(Icons.adjust, size: 50.0, color: Colors.cyan,),
+          ],
+        )
       ),
     );
   }

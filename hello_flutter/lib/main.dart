@@ -25,7 +25,7 @@ class MyApp extends StatefulWidget {
 
 class _MyApp extends State<MyApp> {
   Locale _locale;
-  bool _isDark;
+  bool _isDark = false;
 
   void setLocale(Locale locale) {
     setState(() {
@@ -58,7 +58,7 @@ class _MyApp extends State<MyApp> {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.pink,
           brightness: _isDark ? Brightness.dark : Brightness.light),
       locale: _locale,
       home: Spalsh(),
