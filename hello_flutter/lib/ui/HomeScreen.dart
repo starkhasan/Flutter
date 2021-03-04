@@ -19,6 +19,7 @@ import 'package:hello_flutter/ui/SwipeDeleteScreen.dart';
 import 'package:hello_flutter/ui/NotificationScreen.dart';
 import 'package:hello_flutter/ui/SilverScreen.dart';
 import 'package:hello_flutter/ui/CameraExample.dart';
+import 'package:hello_flutter/ui/TransformUI.dart';
 import 'package:hello_flutter/utils/HomeDrawer.dart';
 import 'package:hello_flutter/ui/CupertinoScreen.dart';
 import 'package:hello_flutter/utils/LanguageSettings/Languages.dart';
@@ -57,7 +58,8 @@ class _HomeScreen extends State<HomeScreen> {
       Languages.of(context).pageView,
       Languages.of(context).googleMap,
       Languages.of(context).cupertinoStyle,
-      'Future Builder'
+      'Future Builder',
+      'Transform UI'
     ];
     return WillPopScope(
         onWillPop: () => _onWillPop(),
@@ -179,6 +181,12 @@ class _HomeScreen extends State<HomeScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => FutureBuilderScreen()));
+                        break;
+                      case 16:
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TransformUI()));
                         break;
                       default:
                     }

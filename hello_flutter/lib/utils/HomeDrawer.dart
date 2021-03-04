@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:camera/camera.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hello_flutter/ui/CameraExample.dart';
@@ -209,5 +210,27 @@ class _HomeDrawer extends State<HomeDrawer> {
             ],
           );
         });
+  }
+
+  _logout() {
+    showDialog(
+      context: context,
+      builder: (context){
+        return CupertinoAlertDialog(
+          title: Text('Exit'),
+          content: Text('Are you sure want to exit the app'),
+          actions: [
+            CupertinoDialogAction(
+              onPressed: () => print('Exit'),
+              child: Text('No'),
+            ),
+            CupertinoDialogAction(
+              onPressed: () => print('Not Exit'),
+              child: Text('Yes'),
+            )
+          ],
+        );
+      }
+    );
   }
 }
