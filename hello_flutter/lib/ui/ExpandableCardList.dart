@@ -14,6 +14,7 @@ class ExpandableCardList extends StatefulWidget {
 class _ExpandableCardList extends State<ExpandableCardList> with TickerProviderStateMixin{
   final items = List.generate(10, (i) => "Item ${i + 1}");
   var _activeMeterIndex = 0;
+  var selected = 0;
   AnimationController animationController;
 
   @override
@@ -54,7 +55,10 @@ class _ExpandableCardList extends State<ExpandableCardList> with TickerProviderS
                   itemBuilder: (context, index) {
                     return Card(
                       child: ExpansionTile(
-                        initiallyExpanded: false,
+                        initiallyExpanded: selected == index,
+                        onExpansionChanged: (value) {
+                          selected  = index;
+                        },
                         leading: Icon(Icons.account_circle,color:Colors.pink),
                         title: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
