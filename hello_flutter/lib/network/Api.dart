@@ -29,4 +29,17 @@ class Api {
       return "500";
     }
   }
+
+  static Future<String> getUserProfile() async{
+    Map<String,String> headers1 = {'Accept': 'application/json'};
+    try{
+      var response = await http.get('https://jsonplaceholder.typicode.com/users',headers: headers1);
+      if(response.statusCode == 200)
+        return response.body;
+      else
+        return '400'; 
+    }catch(e){
+      return '500';
+    }
+  }
 }

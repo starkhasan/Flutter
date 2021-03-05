@@ -57,8 +57,8 @@ class _TransformUIState extends State<TransformUI> {
                     'Play',
                     style: TextStyle(
                       color: Colors.white
-                    ),
-                  ),
+                    )
+                  )
                 )
               )
             ),
@@ -81,10 +81,10 @@ class _TransformUIState extends State<TransformUI> {
                       blurRadius: 5
                     )
                   ]
-                ),
-              ),
+                )
+              )
             )
-          ],
+          ]
         )
       )
     );
