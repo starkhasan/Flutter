@@ -17,7 +17,7 @@
     <uses-feature android:name="android.hardware.camera" />
     <application
         android:name=".MyApplication"
-        android:label="hello_flutter"
+        android:label="Flutter Info"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <service android:name=".MyService" android:enabled="true" android:exported="true"/>

@@ -72,7 +72,7 @@ class _LoginUserState extends State<LoginUser> {
                     'Regsiter',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: Colors.blue,
+                        color: Colors.pink,
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
                   ),

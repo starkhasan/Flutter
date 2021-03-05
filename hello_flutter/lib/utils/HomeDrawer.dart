@@ -61,7 +61,7 @@ class _HomeDrawer extends State<HomeDrawer> {
               height: 200,
               child: Container(
                 padding: EdgeInsets.all(15),
-                color: Colors.blue,
+                color: Colors.pink,
                 child: Align(
                     alignment: Alignment.bottomCenter,
                     child: Row(
