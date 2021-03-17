@@ -59,7 +59,8 @@ class _HomeScreen extends State<HomeScreen> {
       Languages.of(context).googleMap,
       Languages.of(context).cupertinoStyle,
       'Future Builder',
-      'Transform UI'
+      'Transform UI',
+      'Download File'
     ];
     return WillPopScope(
         onWillPop: () => _onWillPop(),

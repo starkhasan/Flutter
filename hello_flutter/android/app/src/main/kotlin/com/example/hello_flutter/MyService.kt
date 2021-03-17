@@ -71,7 +71,7 @@ class MyService : Service(){
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        serviceFlag = intent!!.extras.get("Service") as Boolean
+        serviceFlag = intent!!.extras?.get("Service") as Boolean
         return START_STICKY
     }
 

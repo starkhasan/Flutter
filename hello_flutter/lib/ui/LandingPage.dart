@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:async';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +16,6 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
-  AudioPlayer audioPlayer = new AudioPlayer();
   String kUrl1 = 'https://luan.xyz/files/audio/ambient_c_motion.mp3';
 
   List<Contact> contacts = [];
