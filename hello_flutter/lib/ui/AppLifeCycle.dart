@@ -8,6 +8,7 @@ class AppLifeCycle extends StatefulWidget {
 }
 
 class _AppLifeCycle extends State<AppLifeCycle> with WidgetsBindingObserver{
+
   @override
   void initState() {
     super.initState();
@@ -30,6 +31,33 @@ class _AppLifeCycle extends State<AppLifeCycle> with WidgetsBindingObserver{
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Container(
+              color: Colors.pink,
+              child: Center(
+                child: Text('Ali hasan'),
+              ),
+            ),
+            Visibility(
+              visible: true,
+              child: Container(
+                color: Colors.red,
+                height: 25,
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              child: Container(
+                alignment: Alignment.center,
+                color: Colors.black,
+                child: Text(
+                  'Here is the text',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+            Container(
+              color: Colors.orange
+            ),
             Container(
               color: Colors.blue,
               height: 50.0,
@@ -93,6 +121,9 @@ class _AppLifeCycle extends State<AppLifeCycle> with WidgetsBindingObserver{
         break;
       case AppLifecycleState.paused:
         print('appLifeCycleState paused');
+        break;
+      case AppLifecycleState.detached:
+        print('appLifeCycleState detached');
         break;
       default:
     }

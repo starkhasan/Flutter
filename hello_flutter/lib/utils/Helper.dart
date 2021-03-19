@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Helper {
   Helper._();
@@ -49,6 +50,18 @@ class Helper {
     countryMap[17] = 'Nepal';
 
     return countryMap;
+  }
+
+  static showToast(String message,BuildContext context, colors){
+     Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: colors,
+      textColor: Colors.white,
+      fontSize: 16.0
+    );
   }
 
   /*static Future<bool> isConnected() async {

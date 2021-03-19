@@ -20,6 +20,8 @@ import 'package:hello_flutter/ui/NotificationScreen.dart';
 import 'package:hello_flutter/ui/SilverScreen.dart';
 import 'package:hello_flutter/ui/CameraExample.dart';
 import 'package:hello_flutter/ui/TransformUI.dart';
+import 'package:hello_flutter/ui/WidgetDemo.dart';
+import 'package:hello_flutter/utils/Helper.dart';
 import 'package:hello_flutter/utils/HomeDrawer.dart';
 import 'package:hello_flutter/ui/CupertinoScreen.dart';
 import 'package:hello_flutter/utils/LanguageSettings/Languages.dart';
@@ -60,7 +62,8 @@ class _HomeScreen extends State<HomeScreen> {
       Languages.of(context).cupertinoStyle,
       'Future Builder',
       'Transform UI',
-      'Download File'
+      'Download File',
+      'Widget Demo'
     ];
     return WillPopScope(
         onWillPop: () => _onWillPop(),
@@ -189,6 +192,14 @@ class _HomeScreen extends State<HomeScreen> {
                             MaterialPageRoute(
                                 builder: (context) => TransformUI()));
                         break;
+                      case 17:
+                        Helper.showToast('Screen Unavailable', context,Colors.red);
+                        break;
+                      case 18:
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => WidgetDemo()));
+                        break;
                       default:
                     }
                   },
@@ -230,7 +241,8 @@ class _HomeScreen extends State<HomeScreen> {
   _getImagePath() async {
     final cameras = await availableCameras();
     final camera = cameras.first;
-    var temp = await Navigator.push(context,MaterialPageRoute(builder: (context) => CameraExample(camera: camera)));
+    var temp = await Navigator.push(context,
+        MaterialPageRoute(builder: (context) => CameraExample(camera: camera)));
     if (temp != null) {
       setState(() {
         imagePath = temp;
