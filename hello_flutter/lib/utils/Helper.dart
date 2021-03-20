@@ -52,8 +52,8 @@ class Helper {
     return countryMap;
   }
 
-  static showToast(String message,BuildContext context, colors){
-     Fluttertoast.showToast(
+  static showToast(String message, colors){
+    Fluttertoast.showToast(
       msg: message,
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,

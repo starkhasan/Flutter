@@ -32,7 +32,6 @@ dependencies:
   contacts_service: ^0.4.6
   permission_handler: ^5.1.0+2
   workmanager: ^0.2.0
-  flutter_local_notifications: ^4.0.1+1
   flutter_tindercard: ^0.2.0
   shared_preferences: ^0.5.12+4
   stripe_payment: ^1.0.9
@@ -52,6 +51,10 @@ dependencies:
   charts_flutter: ^0.9.0
   http: ^0.12.2
   dio: ^3.0.10
+  path_provider: ^1.6.5
+  downloads_path_provider: ^0.1.0
+  open_file: ^3.0.1
+  flutter_local_notifications: ^4.0.1+2
     
 dev_dependencies:
   flutter_test:

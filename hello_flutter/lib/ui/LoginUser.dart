@@ -4,9 +4,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_progress_dialog/flutter_progress_dialog.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hello_flutter/ui/HomeScreen.dart';
 import 'package:hello_flutter/ui/RegisterUser.dart';
+import 'package:hello_flutter/utils/Helper.dart';
 import 'package:hello_flutter/utils/Preferences.dart';
 
 class LoginUser extends StatefulWidget {
@@ -44,7 +44,7 @@ class _LoginUserState extends State<LoginUser> {
                   obscureText: isVisible ? false : true,
                   showCursor: true,
                   maxLines: 1,
-                  textInputAction: TextInputAction.go,
+                  textInputAction: TextInputAction.done,
                   controller: _controllerPassword,
                   decoration: InputDecoration(
                       hintText: 'Password',
@@ -58,6 +58,7 @@ class _LoginUserState extends State<LoginUser> {
                             ? Icon(Icons.lock)
                             : Icon(Icons.lock_open_rounded),
                       )),
+                  onSubmitted: (value) => _loginUser(),
                 ),
                 SizedBox(height: 20),
                 RaisedButton(
@@ -97,7 +98,7 @@ class _LoginUserState extends State<LoginUser> {
                   ),
                   onFieldSubmitted: (value) {
                     value.length != 10
-                      ? _showToast('Please provide valid mobile number')
+                      ? Helper.showToast('Please provide valid mobile number'  ,Colors.red)
                       : _verifyPhoneAuth(value);
                   },
                 )
@@ -119,7 +120,7 @@ class _LoginUserState extends State<LoginUser> {
       },
       verificationFailed: (FirebaseException e){
         dismissProgressDialog();
-        _showToast(e.message);
+        Helper.showToast(e.message  ,Colors.red);
       },
       codeSent: (String verificationId, int resendToken) async{
         dismissProgressDialog();
@@ -127,7 +128,7 @@ class _LoginUserState extends State<LoginUser> {
         String smsCode = '564781';
         PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.credential(verificationId: verificationId, smsCode: smsCode);
         var user = await auth.signInWithCredential(phoneAuthCredential);
-        _showToast('User Signned in Successfully with $verificationId');
+        Helper.showToast('User Signned in Successfully with $verificationId'  ,Colors.red);
         Preferences.setLogin(true);
         Navigator.pushAndRemoveUntil(
             context,
@@ -159,10 +160,10 @@ class _LoginUserState extends State<LoginUser> {
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
           dismissProgressDialog();
-          _showToast('No user found for that email.');
+          Helper.showToast('No user found for that email.'  ,Colors.red);
         } else if (e.code == 'wrong-password') {
           dismissProgressDialog();
-          _showToast('Wrong password provided for that user.');
+          Helper.showToast('Wrong password provided for that user.'  ,Colors.red);
         }
       }
     }
@@ -170,30 +171,18 @@ class _LoginUserState extends State<LoginUser> {
 
   bool validation() {
     if (_controllerEmail.text.isEmpty) {
-      _showToast('Please provide Email');
+      Helper.showToast('Please provide Email'  ,Colors.red);
       return false;
     } else if (!EmailValidator.validate(_controllerEmail.text)) {
-      _showToast('Invalid Email');
+      Helper.showToast('Invalid Email'  ,Colors.red);
       return false;
     } else if (_controllerPassword.text.isEmpty) {
-      _showToast('Please provide password');
+      Helper.showToast('Please provide password'  ,Colors.red);
       return false;
     } else if (_controllerPassword.text.length < 6) {
-      _showToast('Password should be at least 6 characters');
+      Helper.showToast('Password should be at least 6 characters'  ,Colors.red);
       return false;
     }
     return true;
-  }
-
-  void _showToast(String message) {
-    Fluttertoast.showToast(
-      msg: message,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Colors.red,
-      textColor: Colors.white,
-      fontSize: 16.0
-    );
   }
 }

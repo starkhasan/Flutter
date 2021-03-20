@@ -3,9 +3,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter_progress_dialog/flutter_progress_dialog.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hello_flutter/ui/HomeScreen.dart';
 import 'package:hello_flutter/utils/Preferences.dart';
+import 'package:hello_flutter/utils/Helper.dart';
 
 class RegisterUser extends StatefulWidget {
   @override
@@ -52,7 +52,7 @@ class _RegisterUserState extends State<RegisterUser> {
                   obscureText: isVisible ? false : true,
                   showCursor: true,
                   maxLines: 1,
-                  textInputAction: TextInputAction.go,
+                  textInputAction: TextInputAction.done,
                   controller: _controllerPassword,
                   decoration: InputDecoration(
                       hintText: 'Password',
@@ -66,6 +66,7 @@ class _RegisterUserState extends State<RegisterUser> {
                             ? Icon(Icons.lock)
                             : Icon(Icons.lock_open_rounded),
                       )),
+                  onSubmitted: (value) => _registerUser(),
                 ),
                 SizedBox(height: 20),
                 RaisedButton(
@@ -91,15 +92,15 @@ class _RegisterUserState extends State<RegisterUser> {
         Preferences.setName(_controllerEmail.text);
         _controllerEmail.text = '';
         _controllerPassword.text = '';
-        _showToast("Account Created Successfully\n${userCredential.user.uid}");
+        Helper.showToast("Account Created Successfully\n${userCredential.user.uid}" ,Colors.red);
         Preferences.setLogin(true);
         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => HomeScreen()), (route) => false);
       } on FirebaseAuthException catch (e) {
         dismissProgressDialog();
         if (e.code == 'weak-password')
-          _showToast("Password should be at least 6 characters");
+          Helper.showToast("Password should be at least 6 characters" ,Colors.red);
         if (e.code == 'email-already-in-use')
-          _showToast('The email address is already in use by another account.');
+          Helper.showToast('The email address is already in use by another account.' ,Colors.red);
       } catch (e) {
         dismissProgressDialog();
         print(e);
@@ -109,32 +110,21 @@ class _RegisterUserState extends State<RegisterUser> {
 
   bool validation() {
     if (_controllerName.text.isEmpty) {
-      _showToast('Please provide name');
+      Helper.showToast('Please provide name' ,Colors.red);
       return false;
     } else if (_controllerEmail.text.isEmpty) {
-      _showToast('Please provide Email');
+      Helper.showToast('Please provide Email' ,Colors.red);
       return false;
     } else if (!EmailValidator.validate(_controllerEmail.text)) {
-      _showToast('Invalid Email');
+      Helper.showToast('Invalid Email' ,Colors.red);
       return false;
     } else if (_controllerPassword.text.isEmpty) {
-      _showToast('Please provide password');
+      Helper.showToast('Please provide password' ,Colors.red);
       return false;
     } else if (_controllerPassword.text.length < 6) {
-      _showToast('Password should be at least 6 characters');
+      Helper.showToast('Password should be at least 6 characters' ,Colors.red);
       return false;
     }
     return true;
-  }
-
-  void _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0);
   }
 }
