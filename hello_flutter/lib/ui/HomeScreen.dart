@@ -21,7 +21,7 @@ import 'package:hello_flutter/ui/SilverScreen.dart';
 import 'package:hello_flutter/ui/CameraExample.dart';
 import 'package:hello_flutter/ui/TransformUI.dart';
 import 'package:hello_flutter/ui/WidgetDemo.dart';
-import 'package:hello_flutter/utils/Helper.dart';
+import 'package:hello_flutter/ui/DownloadFile.dart';
 import 'package:hello_flutter/utils/HomeDrawer.dart';
 import 'package:hello_flutter/ui/CupertinoScreen.dart';
 import 'package:hello_flutter/utils/LanguageSettings/Languages.dart';
@@ -193,12 +193,16 @@ class _HomeScreen extends State<HomeScreen> {
                                 builder: (context) => TransformUI()));
                         break;
                       case 17:
-                        Helper.showToast('Screen Unavailable' , Colors.red);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DownloadFile()));
                         break;
                       case 18:
                         Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => WidgetDemo()));
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => WidgetDemo()));
                         break;
                       default:
                     }
