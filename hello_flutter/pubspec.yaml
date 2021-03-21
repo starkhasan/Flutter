@@ -55,6 +55,7 @@ dependencies:
   downloads_path_provider: ^0.1.0
   open_file: ^3.0.1
   flutter_local_notifications: ^4.0.1+2
+  audioplayers: ^0.15.0
     
 dev_dependencies:
   flutter_test:
