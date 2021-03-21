@@ -28,10 +28,37 @@ class _GoogleMapRouteState extends State<GoogleMapRoute>
   PolylinePoints polylinePoints = PolylinePoints();
   var infoWindowResponse;
 
+/*
+BitmapDescriptor originMarker;
+  BitmapDescriptor dropMarker;
+  BitmapDescriptor stopMarker;
+  BitmapDescriptor stopMarker1;
+  BitmapDescriptor stopMarker2;
+  BitmapDescriptor stopMarker3;
+
+  void setOriginMarker() async {
+    originMarker = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(size: Size(64, 64)),
+        'assets/images/origin_marker.png');
+    dropMarker = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(size: Size(64, 64)), 'assets/images/des_marker.png');
+    stopMarker = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(size: Size(64, 64)),
+        'assets/images/stop_marker.png');
+    stopMarker1 = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(size: Size(64, 64)),
+        'assets/images/stop_marker_1.png');
+    stopMarker2 = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(size: Size(64, 64)),
+        'assets/images/stop_marker_2.png');
+  }
+*/
+
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
     super.initState();
+    //setOriginMarker();
   }
 
   @override

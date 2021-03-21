@@ -12,7 +12,7 @@ class DownloadFile extends StatefulWidget {
 }
 
 class _DownloadFile extends State<StatefulWidget> {
-  final String url = 'https://file-examples-com.github.io/uploads/2017/10/file-example_PDF_1MB.pdf';
+  final String url = 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf';
   final String fileName = 'test';
   bool isEnabled = true;
 
@@ -56,7 +56,7 @@ class _DownloadFile extends State<StatefulWidget> {
         });
         showSnackBar('File Already downloaded');
       }else{
-         dio.download(url, savePath, onReceiveProgress: (rcv, total) {
+        dio.download(url, savePath, onReceiveProgress: (rcv, total) {
           print('receive ${rcv.toStringAsFixed(0)} out of total ${total.toStringAsFixed(0)}');
         }).catchError((onError) {
           setState(() {
@@ -105,4 +105,5 @@ class _DownloadFile extends State<StatefulWidget> {
   void showSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message), duration: Duration(seconds: 2)));
   }
+
 }
