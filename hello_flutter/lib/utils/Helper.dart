@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:dio/dio.dart';
+import 'dart:io';
 
 class Helper {
   Helper._();
@@ -52,16 +55,15 @@ class Helper {
     return countryMap;
   }
 
-  static showToast(String message, colors){
+  static showToast(String message, colors) {
     Fluttertoast.showToast(
-      msg: message,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
-      backgroundColor: colors,
-      textColor: Colors.white,
-      fontSize: 16.0
-    );
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: colors,
+        textColor: Colors.white,
+        fontSize: 16.0);
   }
 
   /*static Future<bool> isConnected() async {
@@ -73,4 +75,47 @@ class Helper {
     }
     return false;
   }*/
+
+  static Future<String> downloadFile(String url, String fileName) async {
+    Dio dio = Dio();
+    var isGranted = await askStoragePermission();
+    var path = '/storage/emulated/0/Download/$fileName.pdf';
+    if (isGranted) {
+      var exits = await File(path).exists();
+      if (exits) {
+        return 'File Already Downloaded';
+      } else {
+        try {
+          var response = await dio.download(url, path);
+          if (response.statusCode == 200) {
+            return 'File Downloaded Successfully';
+          } else {
+            return 'Download Filed';
+          }
+        } catch (e) {
+          return 'File Not Found';
+        }
+      }
+    } else {
+      return 'Permission Denied';
+    }
+  }
+
+  static Future<bool> askStoragePermission() async {
+    var status = await Permission.storage.isGranted;
+    if (status) {
+      return true;
+    } else {
+      status = await requestStoragePermission();
+      return status;
+    }
+  }
+
+  static Future<bool> requestStoragePermission() async {
+    var isRequested = await Permission.storage.request().isGranted;
+    if (isRequested) {
+      return true;
+    }
+    return false;
+  }
 }

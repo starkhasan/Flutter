@@ -66,7 +66,25 @@ class _LandingPageState extends State<LandingPage> {
     setState(() {
       contacts = _contacts;
     });
+    //_contacts[1].displayName
+    //_contacts[1].phones.first.value
   }
+
+	//Getting contacts from the phone contacts book
+   // Future<void> openContactBook() async {
+  //   Contact contact = await _contactPicker.selectContact();
+  //   if (contact != null) {
+  //     var contactName = contact.fullName;
+  //     var phoneNumber = contact.phoneNumber.number
+  //         .toString()
+  //         .replaceAll(new RegExp(r"\s+"), "");
+  //     setState(() {
+  //       _textPhone.text = phoneNumber;
+  //       _textContact.text = contactName;
+  //     });
+  //     mapController.setMapStyle('[]');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
