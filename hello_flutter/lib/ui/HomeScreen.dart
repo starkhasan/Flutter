@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hello_flutter/ui/AppLifeCycle.dart';
 import 'package:hello_flutter/ui/CardSwipeScreen.dart';
+import 'package:hello_flutter/ui/CounterScreen.dart';
 import 'package:hello_flutter/ui/ExpandableCardList.dart';
 import 'package:hello_flutter/ui/FutureBuilderScreen.dart';
 import 'package:hello_flutter/ui/GoogleMapRoute.dart';
@@ -63,7 +64,8 @@ class _HomeScreen extends State<HomeScreen> {
       'Future Builder',
       'Transform UI',
       'Download File',
-      'Widget Demo'
+      'Widget Demo',
+      'Counter'
     ];
     return WillPopScope(
         onWillPop: () => _onWillPop(),
@@ -203,6 +205,12 @@ class _HomeScreen extends State<HomeScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => WidgetDemo()));
+                        break;
+                      case 19:
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CounterScreen()));
                         break;
                       default:
                     }

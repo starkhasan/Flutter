@@ -55,6 +55,7 @@ dependencies:
   flutter_local_notifications: ^5.0.0
   audioplayers: ^0.18.3
   connectivity: ^3.0.3
+  provider: ^5.0.0
     
 dev_dependencies:
   flutter_test:
