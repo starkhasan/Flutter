@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_progress_dialog/flutter_progress_dialog.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:photo_manager/photo_manager.dart';
 
@@ -11,9 +10,7 @@ class PhotoFile extends StatefulWidget {
 class _PhotoFileState extends State<PhotoFile> {
   @override
   Widget build(BuildContext context) {
-    return ProgressDialog(
-        loadingText: 'Loading...',
-        child: Scaffold(
+    return Scaffold(
           appBar: AppBar(centerTitle: true, title: Text('Photo File')),
           body: Container(
             child: Center(
@@ -23,7 +20,7 @@ class _PhotoFileState extends State<PhotoFile> {
               ),
             ),
           ),
-        ));
+        );
   }
 
   _getPhotos() async {

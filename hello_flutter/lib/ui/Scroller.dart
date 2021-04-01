@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_progress_dialog/flutter_progress_dialog.dart';
 
 class Scroller extends StatefulWidget {
   @override
@@ -35,9 +34,7 @@ class _ScrollerState extends State<Scroller> {
 
   @override
   Widget build(BuildContext context) {
-    return ProgressDialog(
-      loadingText: 'Loading...',
-      child: Scaffold(
+    return Scaffold(
         floatingActionButton: isTopVisible
             ? FloatingActionButton(
                 onPressed: () {
@@ -55,8 +52,7 @@ class _ScrollerState extends State<Scroller> {
           title: Text('Scroller'),
         ),
         body: Container(child: getList()),
-      ),
-    );
+      );
   }
 
   Widget getList() {

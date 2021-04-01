@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_progress_dialog/flutter_progress_dialog.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:async';
 import 'package:page_view_indicators/page_view_indicators.dart';
@@ -46,9 +45,7 @@ class _PageViewScreenState extends State<PageViewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ProgressDialog(
-      loadingText: 'Loading...',
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           centerTitle: true,
           title: Text('Page View'),
@@ -110,8 +107,7 @@ class _PageViewScreenState extends State<PageViewScreen> {
               )
             ]
           ),
-      ),
-    );
+      );
   }
 
   void _showToast(String message) {

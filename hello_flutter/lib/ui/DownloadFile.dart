@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
-import 'dart:io';
 import 'package:hello_flutter/utils/Helper.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class DownloadFile extends StatefulWidget {
   @override
@@ -12,8 +9,7 @@ class DownloadFile extends StatefulWidget {
 
 class _DownloadFile extends State<StatefulWidget> {
   final String url = 'https://gfgc.kar.nic.in/sirmv-science/GenericDocHandler/138-a2973dc6-c024-4d81-be6d-5c3344f232ce.pdf';
-  final String fileName = 'test';
-  bool isEnabled = true;
+  final String fileName = 'The Complete Reference of Java';
   bool isDownloading = true;
 
   @override
@@ -43,8 +39,8 @@ class _DownloadFile extends State<StatefulWidget> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-          backgroundColor: isEnabled ? Colors.pink : Colors.pink[100],
-          icon: isEnabled
+          backgroundColor: isDownloading ? Colors.pink : Colors.pink[100],
+          icon: isDownloading
               ? Icon(Icons.download_sharp)
               : SizedBox(
                   height: 20,
@@ -54,70 +50,21 @@ class _DownloadFile extends State<StatefulWidget> {
                     backgroundColor: Colors.white,
                   )),
           label: Text('Download'),
-          onPressed: () => isEnabled
-              ? _askStoragePermission()
-              : showSnackBar('Fil downloading...')),
+          onPressed: () async{
+            if(isDownloading){
+              setState(() {isDownloading = false;});
+              var value = await Helper.downloadFile(url,fileName);
+              Helper.showToast(value, Colors.black);
+              setState(() {isDownloading = true;});
+            }else{
+              Helper.showToast('File Downloading....', Colors.black);
+            }
+          }
+        ),
     );
   }
 
-  Future<void> downloadFile(url, fileName) async {
-    String savePath = await getFilePath(fileName);
-    var dio = new Dio();
-    File(savePath).exists().then((value) {
-      if (value) {
-        setState(() {
-          isEnabled = true;
-        });
-        showSnackBar('File Already downloaded');
-      } else {
-        dio.download(url, savePath, onReceiveProgress: (rcv, total) {
-          print('receive ${rcv.toStringAsFixed(0)} out of total ${total.toStringAsFixed(0)}');
-        }).catchError((onError) {
-          setState(() {
-            isEnabled = true;
-          });
-          showSnackBar('File not found');
-        }).then((value) {
-          setState(() {
-            isEnabled = true;
-          });
-          showSnackBar('File downloaded successfully');
-        });
-      }
-    });
-  }
-
-  Future<String> getFilePath(uniqueFileName) async {
-    String path = '';
-    path = '/storage/emulated/0/Download/$uniqueFileName.pdf';
-    return path;
-  }
-
-  Future<void> _askStoragePermission() async {
-    setState(() {
-      isEnabled = false;
-    });
-    var status = await Permission.storage.status;
-    if (status.isGranted) {
-      downloadFile(url, fileName);
-    } else {
-      _getStoragePermission();
-    }
-  }
-
-  Future<void> _getStoragePermission() async {
-    if (await Permission.storage.request().isGranted) {
-      downloadFile(url, fileName);
-    } else {
-      Helper.showToast('Please grant permission to download file', Colors.red);
-      setState(() {
-        isEnabled = true;
-      });
-    }
-  }
-
   void showSnackBar(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(message), duration: Duration(seconds: 2)));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message), duration: Duration(seconds: 2)));
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
+import 'package:hello_flutter/utils/Helper.dart';
 
 class TransformUI extends StatefulWidget {
   @override
@@ -65,22 +66,28 @@ class _TransformUIState extends State<TransformUI> {
             Transform.scale(
               //angle: math.pi / 4,
               scale: 0.5,
-              child: Container(
-                height: 200,
-                width: 200,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  border: Border.all(
-                    color: Colors.grey,
-                    width: 1
-                  ),
-                  boxShadow: [
-                    BoxShadow(
+              child: InkWell(
+                onTap: () async{
+                  var connection = await Helper.isConnected();
+                  print(connection);
+                },
+                child: Container(
+                  height: 200,
+                  width: 200,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    border: Border.all(
                       color: Colors.grey,
-                      blurRadius: 5
-                    )
-                  ]
+                      width: 1
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey,
+                        blurRadius: 5
+                      )
+                    ]
+                  )
                 )
               )
             )

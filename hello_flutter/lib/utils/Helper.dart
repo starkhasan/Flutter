@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:dio/dio.dart';
 import 'dart:io';
+import 'package:connectivity/connectivity.dart';
 
 class Helper {
   Helper._();
@@ -66,15 +67,15 @@ class Helper {
         fontSize: 16.0);
   }
 
-  /*static Future<bool> isConnected() async {
-    var connectivityResult =  await (Connectivity().checkConnectivity());
+  static Future<bool> isConnected() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.mobile) {
-      return  true;
+      return true;
     } else if (connectivityResult == ConnectivityResult.wifi) {
-      return  true;
+      return true;
     }
     return false;
-  }*/
+  }
 
   static Future<String> downloadFile(String url, String fileName) async {
     Dio dio = Dio();

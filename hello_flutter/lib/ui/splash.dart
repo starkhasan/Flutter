@@ -13,7 +13,7 @@ class Spalsh extends StatefulWidget {
 }
 
 class _spalshState extends State<Spalsh> {
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  //final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   var isLogin = false;
   @override
   void initState() {
@@ -23,32 +23,32 @@ class _spalshState extends State<Spalsh> {
         isLogin = value;
       });
     });
-    _firebaseMessaging.configure(
-      onMessage: (Map<String, dynamic> message) async {
-        print("onMessage: $message");
-      },
-      onLaunch: (Map<String, dynamic> message) async {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => NotificationScreen()));
-        print("onLaunch: $message");
-      },
-      onResume: (Map<String, dynamic> message) async {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => NotificationScreen()));
-        print("onResume: $message");
-      },
-    );
-    _firebaseMessaging.requestNotificationPermissions(
-        const IosNotificationSettings(
-            sound: true, badge: true, alert: true, provisional: true));
-    _firebaseMessaging.onIosSettingsRegistered
-        .listen((IosNotificationSettings settings) {
-      print("Settings registered: $settings");
-    });
-    _firebaseMessaging.getToken().then((String token) {
-      assert(token != null);
-      print(token);
-    });
+    // _firebaseMessaging.configure(
+    //   onMessage: (Map<String, dynamic> message) async {
+    //     print("onMessage: $message");
+    //   },
+    //   onLaunch: (Map<String, dynamic> message) async {
+    //     Navigator.push(context,
+    //         MaterialPageRoute(builder: (context) => NotificationScreen()));
+    //     print("onLaunch: $message");
+    //   },
+    //   onResume: (Map<String, dynamic> message) async {
+    //     Navigator.push(context,
+    //         MaterialPageRoute(builder: (context) => NotificationScreen()));
+    //     print("onResume: $message");
+    //   },
+    // );
+    // _firebaseMessaging.requestNotificationPermissions(
+    //     const IosNotificationSettings(
+    //         sound: true, badge: true, alert: true, provisional: true));
+    // _firebaseMessaging.onIosSettingsRegistered
+    //     .listen((IosNotificationSettings settings) {
+    //   print("Settings registered: $settings");
+    // });
+    // _firebaseMessaging.getToken().then((String token) {
+    //   assert(token != null);
+    //   print(token);
+    // });
     startTimer();
   }
 

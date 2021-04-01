@@ -4,7 +4,6 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/network/Api.dart';
-import 'package:flutter_progress_dialog/flutter_progress_dialog.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hello_flutter/network/response/GlobalSummaryResponse.dart';
 
@@ -30,10 +29,8 @@ class _CovidScreenState extends State<CovidScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ProgressDialog(
-      loadingText: 'Loading...',
-      child: Scaffold(
-        resizeToAvoidBottomPadding: false,
+    return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: Colors.red,
           centerTitle: true,
@@ -221,8 +218,7 @@ class _CovidScreenState extends State<CovidScreen> {
             ),
           )
         )
-      )
-    );
+      );
   }
 
   Widget _getListView(){
@@ -335,9 +331,7 @@ class _CovidScreenState extends State<CovidScreen> {
   }
 
   _apiGetGlobalSummary() {
-    showProgressDialog();
     fetchGlobalSummary().then((result) {
-      dismissProgressDialog();
       try {
         setState(() {
           response = GlobalSummaryResponse.fromJson(json.decode(result));

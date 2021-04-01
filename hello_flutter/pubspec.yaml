@@ -24,38 +24,37 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
+  cupertino_icons: ^1.0.2
   awesome_dialog: ^1.2.1
-  firebase_messaging: ^7.0.3
-  firebase_core: ^0.5.3
-  firebase_auth: ^0.18.4
-  contacts_service: ^0.4.6
-  permission_handler: ^5.1.0+2
-  workmanager: ^0.2.0
+  firebase_messaging: ^9.1.0
+  firebase_core: ^1.0.2
+  firebase_auth: ^1.0.1
+  contacts_service: ^0.5.0-nullsafety.0
+  permission_handler: ^6.1.1
   flutter_tindercard: ^0.2.0
-  shared_preferences: ^0.5.12+4
-  stripe_payment: ^1.0.9
-  camera: 0.6.4+5
-  fluttertoast: ^7.1.6
-  email_validator: ^1.0.5
-  image_picker: ^0.6.7+21
-  flutter_progress_dialog: ^0.1.0
-  photo_manager: ^0.5.8
-  pie_chart: ^4.0.1
+  shared_preferences: ^2.0.5
+  stripe_payment: ^1.0.11
+  camera: ^0.8.1
+  fluttertoast: ^8.0.3
+  email_validator: ^2.0.1
+  image_picker: ^0.7.4
+  photo_manager: ^1.0.6
+  pie_chart: ^5.0.0
   countdown: ^0.1.0
-  page_view_indicators: ^1.4.1
-  google_maps_flutter: ^1.1.1
-  geolocator: ^6.1.14
-  flutter_polyline_points: ^0.2.4
-  fl_chart: ^0.12.2
-  charts_flutter: ^0.9.0
-  http: ^0.12.2
-  dio: ^3.0.10
-  path_provider: ^1.6.5
+  page_view_indicators: ^2.0.0
+  google_maps_flutter: ^2.0.2
+  geolocator: ^7.0.1
+  flutter_polyline_points: ^0.2.6
+  fl_chart: ^0.35.0
+  charts_flutter: ^0.10.0
+  http: ^0.13.1
+  dio: ^4.0.0
+  path_provider: ^2.0.1
   downloads_path_provider: ^0.1.0
-  open_file: ^3.0.1
-  flutter_local_notifications: ^4.0.1+2
-  audioplayers: ^0.15.0
+  open_file: ^3.1.0
+  flutter_local_notifications: ^5.0.0
+  audioplayers: ^0.18.3
+  connectivity: ^3.0.3
     
 dev_dependencies:
   flutter_test:

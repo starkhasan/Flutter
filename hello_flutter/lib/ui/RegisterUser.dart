@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:flutter_progress_dialog/flutter_progress_dialog.dart';
 import 'package:hello_flutter/ui/HomeScreen.dart';
 import 'package:hello_flutter/utils/Preferences.dart';
 import 'package:hello_flutter/utils/Helper.dart';
@@ -21,9 +20,7 @@ class _RegisterUserState extends State<RegisterUser> {
 
   @override
   Widget build(BuildContext context) {
-    return ProgressDialog(
-        loadingText: 'Loading...',
-        child: Scaffold(
+    return Scaffold(
           appBar: AppBar(
             title: Text('Register User'),
             centerTitle: true,
@@ -76,19 +73,17 @@ class _RegisterUserState extends State<RegisterUser> {
               ],
             ),
           ),
-        ));
+        );
   }
 
   void _registerUser() async {
     await Firebase.initializeApp();
     if (validation()) {
-      showProgressDialog();
       try {
         var userCredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(
                 email: _controllerEmail.text,
                 password: _controllerPassword.text);
-        dismissProgressDialog();
         Preferences.setName(_controllerEmail.text);
         _controllerEmail.text = '';
         _controllerPassword.text = '';
@@ -96,13 +91,11 @@ class _RegisterUserState extends State<RegisterUser> {
         Preferences.setLogin(true);
         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => HomeScreen()), (route) => false);
       } on FirebaseAuthException catch (e) {
-        dismissProgressDialog();
         if (e.code == 'weak-password')
           Helper.showToast("Password should be at least 6 characters" ,Colors.red);
         if (e.code == 'email-already-in-use')
           Helper.showToast('The email address is already in use by another account.' ,Colors.red);
       } catch (e) {
-        dismissProgressDialog();
         print(e);
       }
     }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-import 'package:flutter_progress_dialog/flutter_progress_dialog.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:dio/dio.dart';
@@ -77,9 +76,7 @@ BitmapDescriptor originMarker;
 
   @override
   Widget build(BuildContext context) {
-    return ProgressDialog(
-      loadingText: 'Loading...',
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           centerTitle: true,
           title: Text('Map Route'),
@@ -114,13 +111,12 @@ BitmapDescriptor originMarker;
             }
           },
         )),
-      ),
-    );
+      );
   }
 
   void infoWindowApi(LatLng location, MarkerId id, String address) async {
     var url = "https://textoverimage.moesif.com/image?image_url=https://i.ibb.co/jL1DkDx/pickup.png&text=$address&text_size=32&x_align=center&text_color=%2333af3bff&margin=20";
-    http.Response response = await http.get(url);
+    http.Response response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       Marker marker = Marker(
         markerId: id,

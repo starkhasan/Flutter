@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_progress_dialog/flutter_progress_dialog.dart';
 import 'package:hello_flutter/ui/HomeScreen.dart';
 import 'package:hello_flutter/ui/RegisterUser.dart';
 import 'package:hello_flutter/utils/Helper.dart';
@@ -21,9 +20,7 @@ class _LoginUserState extends State<LoginUser> {
   var isVisible = false;
   @override
   Widget build(BuildContext context) {
-    return ProgressDialog(
-        loadingText: 'Loading...',
-        child: Scaffold(
+    return Scaffold(
           appBar: AppBar(
             title: Text('Login User'),
             centerTitle: true,
@@ -105,25 +102,21 @@ class _LoginUserState extends State<LoginUser> {
               ],
             ),
           ),
-        ));
+        );
   }
 
   void _verifyPhoneAuth(String phone) async{
-    showProgressDialog();
     await Firebase.initializeApp();
     FirebaseAuth auth = FirebaseAuth.instance;
     await auth.verifyPhoneNumber(
       phoneNumber: '+91 '+phone,
       verificationCompleted: (PhoneAuthCredential credential) async{
-        dismissProgressDialog();
         await auth.signInWithCredential(credential);
       },
       verificationFailed: (FirebaseException e){
-        dismissProgressDialog();
         Helper.showToast(e.message  ,Colors.red);
       },
       codeSent: (String verificationId, int resendToken) async{
-        dismissProgressDialog();
         Preferences.setName(_controllerPhone.text);
         String smsCode = '564781';
         PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.credential(verificationId: verificationId, smsCode: smsCode);
@@ -136,7 +129,6 @@ class _LoginUserState extends State<LoginUser> {
             (route) => false);
       },
       codeAutoRetrievalTimeout: (String verificationId){
-        dismissProgressDialog();
       }
     );
   }
@@ -144,13 +136,11 @@ class _LoginUserState extends State<LoginUser> {
   void _loginUser() async {
     await Firebase.initializeApp();
     if (validation()) {
-      showProgressDialog();
       try {
         var userCredential = await FirebaseAuth.instance
             .signInWithEmailAndPassword(
                 email: _controllerEmail.text,
                 password: _controllerPassword.text);
-        dismissProgressDialog();
         Preferences.setName(_controllerEmail.text);
         Preferences.setLogin(true);
         Navigator.pushAndRemoveUntil(
@@ -159,10 +149,8 @@ class _LoginUserState extends State<LoginUser> {
             (route) => false);
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
-          dismissProgressDialog();
           Helper.showToast('No user found for that email.'  ,Colors.red);
         } else if (e.code == 'wrong-password') {
-          dismissProgressDialog();
           Helper.showToast('Wrong password provided for that user.'  ,Colors.red);
         }
       }
