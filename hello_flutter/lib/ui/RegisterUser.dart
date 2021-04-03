@@ -2,9 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:hello_flutter/providers/LoginProvider.dart';
 import 'package:hello_flutter/ui/HomeScreen.dart';
 import 'package:hello_flutter/utils/Preferences.dart';
 import 'package:hello_flutter/utils/Helper.dart';
+import 'package:provider/provider.dart';
 
 class RegisterUser extends StatefulWidget {
   @override
@@ -13,67 +15,66 @@ class RegisterUser extends StatefulWidget {
 
 class _RegisterUserState extends State<RegisterUser> {
   
-  var isVisible = false;
   var _controllerEmail = TextEditingController();
   var _controllerPassword = TextEditingController();
-  var _controllerName = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-          appBar: AppBar(
-            title: Text('Register User'),
-            centerTitle: true,
-          ),
-          body: Container(
-            padding: EdgeInsets.all(15),
-            child: Column(
-              children: <Widget>[
-                TextField(
-                  maxLines: 1,
-                  controller: _controllerName,
-                  textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(hintText: 'Name'),
-                ),
-                SizedBox(height: 5),
-                TextField(
-                  maxLines: 1,
-                  controller: _controllerEmail,
-                  textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(hintText: 'Email'),
-                ),
-                SizedBox(height: 5),
-                TextField(
-                  obscureText: isVisible ? false : true,
-                  showCursor: true,
-                  maxLines: 1,
-                  textInputAction: TextInputAction.done,
-                  controller: _controllerPassword,
-                  decoration: InputDecoration(
-                      hintText: 'Password',
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            isVisible = isVisible ? false : true;
-                          });
-                        },
-                        icon: isVisible
-                            ? Icon(Icons.lock)
-                            : Icon(Icons.lock_open_rounded),
-                      )),
-                  onSubmitted: (value) => _registerUser(),
-                ),
-                SizedBox(height: 20),
-                RaisedButton(
-                  onPressed: () => _registerUser(),
-                  child: Text('Go'),
-                ),
-              ],
-            ),
-          ),
-        );
+      appBar: AppBar(
+        title: Text('Register User'),
+        centerTitle: true,
+      ),
+      body: Container(
+        padding: EdgeInsets.all(15),
+        child: ChangeNotifierProvider<LoginProvider>(
+          create: (context) => LoginProvider(),
+          child: Consumer<LoginProvider>(
+            builder: (context,loginProvider,child){
+              return SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(height: 5),
+                    TextField(
+                      maxLines: 1,
+                      controller: _controllerEmail,
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(hintText: 'Email'),
+                      onChanged: (value) => loginProvider.checkLoginField(_controllerEmail.text.toString(), _controllerPassword.text.toString()),
+                    ),
+                    SizedBox(height: 5),
+                    TextField(
+                      obscureText: loginProvider.isPasswordVisible ? false : true,
+                      showCursor: true,
+                      maxLines: 1,
+                      textInputAction: TextInputAction.done,
+                      controller: _controllerPassword,
+                      decoration: InputDecoration(
+                          hintText: 'Password',
+                          suffixIcon: IconButton(
+                            onPressed: () => loginProvider.passwordVisible(),
+                            icon:loginProvider.isPasswordVisible ? Icon(Icons.lock) : Icon(Icons.lock_open_rounded)
+                          )),
+                      onSubmitted: (value) => _registerUser(),
+                      onChanged: (value) => loginProvider.checkLoginField(_controllerEmail.text.toString(), _controllerPassword.text.toString()),
+                    ),
+                    SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: loginProvider.isFilled ? () => _registerUser() : null,
+                      child: Text('Register'),
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.all(10)
+                      ),
+                    ),
+                  ],
+                )
+              );
+            },
+          )
+        )
+      ),
+    );
   }
 
   void _registerUser() async {
@@ -102,10 +103,7 @@ class _RegisterUserState extends State<RegisterUser> {
   }
 
   bool validation() {
-    if (_controllerName.text.isEmpty) {
-      Helper.showToast('Please provide name' ,Colors.red);
-      return false;
-    } else if (_controllerEmail.text.isEmpty) {
+    if (_controllerEmail.text.isEmpty) {
       Helper.showToast('Please provide Email' ,Colors.red);
       return false;
     } else if (!EmailValidator.validate(_controllerEmail.text)) {

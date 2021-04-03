@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:hello_flutter/providers/Counter.dart';
 import 'package:provider/provider.dart';
 
-class CounterScreen extends StatelessWidget {
+class CounterScreen extends StatefulWidget {
+  @override
+  _CounterScreenState createState() => _CounterScreenState();
+}
+
+class _CounterScreenState extends State<CounterScreen> {
   @override
   Widget build(BuildContext context) {
+    print('Build Again');
     return ChangeNotifierProvider<Counter>(
       create: (context) => Counter(),
       child: Consumer<Counter>(
