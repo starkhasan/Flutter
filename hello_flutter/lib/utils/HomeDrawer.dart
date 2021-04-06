@@ -92,15 +92,17 @@ class _HomeDrawer extends State<HomeDrawer> {
                                   : FileImage(File(imagePath)),
                             )),
                         SizedBox(width: 10),
-                        Text(
-                          userName,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
+                        Flexible(
+                          child: Text(
+                            userName,
+                            softWrap: true,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20),
+                          )
                         )
                       ],
-                    )),
+                    )
+                  ),
               ),
             ),
             Expanded(

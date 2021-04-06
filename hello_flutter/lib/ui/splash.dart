@@ -53,7 +53,7 @@ class _spalshState extends State<Spalsh> {
   }
 
   startTimer() {
-    Timer(Duration(seconds: 2), () {
+    Timer(Duration(seconds: 1), () {
       if(isLogin){
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
       }else{

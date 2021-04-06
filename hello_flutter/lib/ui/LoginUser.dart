@@ -1,6 +1,6 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hello_flutter/providers/LoginProvider.dart';
@@ -64,12 +64,12 @@ class _LoginUserState extends State<LoginUser> {
                               icon: loginProvider.isPasswordVisible ? Icon(Icons.lock) : Icon(Icons.lock_open_rounded),
                             )
                           ),
-                          onSubmitted: (value) => _loginUser(),
+                          onSubmitted: (value) => loginProvider.loginUser(context,_controllerEmail.text,_controllerPassword.text),
                           onChanged: (value) => loginProvider.checkLoginField(_controllerEmail.text.toString(), _controllerPassword.text.toString()),
                         ),
                         SizedBox(height: 20),
                         ElevatedButton(
-                          onPressed: loginProvider.isFilled ? () => _loginUser() : null,
+                          onPressed: loginProvider.isFilled ? () => loginProvider.loginUser(context,_controllerEmail.text,_controllerPassword.text) : null,
                           child: Text('Login'),
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.fromLTRB(20, 10, 20, 10)
@@ -135,46 +135,5 @@ class _LoginUserState extends State<LoginUser> {
       codeAutoRetrievalTimeout: (String verificationId){
       }
     );
-  }
-
-  void _loginUser() async {
-    await Firebase.initializeApp();
-    if (validation()) {
-      try {
-        var userCredential = await FirebaseAuth.instance
-            .signInWithEmailAndPassword(
-                email: _controllerEmail.text,
-                password: _controllerPassword.text);
-        Preferences.setName(_controllerEmail.text);
-        Preferences.setLogin(true);
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => HomeScreen()),
-            (route) => false);
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'user-not-found') {
-          Helper.showToast('No user found for that email.'  ,Colors.red);
-        } else if (e.code == 'wrong-password') {
-          Helper.showToast('Wrong password provided for that user.'  ,Colors.red);
-        }
-      }
-    }
-  }
-
-  bool validation() {
-    if (_controllerEmail.text.isEmpty) {
-      Helper.showToast('Please provide Email'  ,Colors.red);
-      return false;
-    } else if (!EmailValidator.validate(_controllerEmail.text)) {
-      Helper.showToast('Invalid Email'  ,Colors.red);
-      return false;
-    } else if (_controllerPassword.text.isEmpty) {
-      Helper.showToast('Please provide password'  ,Colors.red);
-      return false;
-    } else if (_controllerPassword.text.length < 6) {
-      Helper.showToast('Password should be at least 6 characters'  ,Colors.red);
-      return false;
-    }
-    return true;
   }
 }
