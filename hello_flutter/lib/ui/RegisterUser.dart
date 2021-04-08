@@ -81,10 +81,7 @@ class _RegisterUserState extends State<RegisterUser> {
     await Firebase.initializeApp();
     if (validation()) {
       try {
-        var userCredential = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(
-                email: _controllerEmail.text,
-                password: _controllerPassword.text);
+        var userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _controllerEmail.text,password: _controllerPassword.text);
         Preferences.setName(_controllerEmail.text);
         _controllerEmail.text = '';
         _controllerPassword.text = '';

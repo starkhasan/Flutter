@@ -49,6 +49,14 @@ class LoginProvider extends ChangeNotifier {
     }
   }
 
+  void googleLogin(BuildContext _context) async{
+    if(await Helper.isConnected()){
+      
+    }else{
+      showDialog(context: _context, builder: (context) => ConnectivityDialog());
+    }
+  }
+
   bool validation(String email,String password){
     if (email.isEmpty) {
       Helper.showToast('Please provide Email'  ,Colors.red);

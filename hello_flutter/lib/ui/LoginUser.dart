@@ -9,6 +9,7 @@ import 'package:hello_flutter/ui/RegisterUser.dart';
 import 'package:hello_flutter/utils/Helper.dart';
 import 'package:hello_flutter/utils/Preferences.dart';
 import 'package:provider/provider.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginUser extends StatefulWidget {
   @override
@@ -19,7 +20,27 @@ class _LoginUserState extends State<LoginUser> {
   var _controllerEmail = TextEditingController();
   var _controllerPassword = TextEditingController();
   var _controllerPhone = TextEditingController();
+  GoogleSignInAccount _currentUser;
 
+  GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: <String>['email','https://www.googleapis.com/auth/contacts.readonly',
+    ],
+  );
+
+
+  @override
+  void initState() {
+    super.initState();
+    _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account){
+      setState(() {
+        _currentUser = account;
+      });
+      if (_currentUser != null) {
+        //_handleGetContact(_currentUser);
+      }
+    });
+    _googleSignIn.signInSilently();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,7 +119,9 @@ class _LoginUserState extends State<LoginUser> {
                               ? Helper.showToast('Please provide valid mobile number'  ,Colors.red)
                               : _verifyPhoneAuth(value);
                           },
-                        )
+                        ),
+                        SizedBox(height: 20),
+                        _buildbody()
                       ],
                     )
                   )
@@ -107,6 +130,47 @@ class _LoginUserState extends State<LoginUser> {
             )
           )
       );
+  }
+
+  Future<void> _handleSingIn() async{
+    try{
+      var user = await _googleSignIn.signIn();
+      print(user);
+    }catch(error){
+      print(error);
+    }
+  }
+
+  Widget _buildbody(){
+    GoogleSignInAccount user = _currentUser;
+    if(user != null){
+      return Column(
+        children: <Widget>[
+          ListTile(
+            leading: GoogleUserCircleAvatar(
+              identity: user,
+            ),
+            title: Text(user.displayName ?? ''),
+            subtitle: Text(user.email),
+          ),
+          const Text("Signed in successfully."),
+          Text('_contactText'),
+          ElevatedButton(
+            child: const Text('SIGN OUT'),
+            onPressed: null,
+          ),
+          ElevatedButton(
+            child: const Text('REFRESH'),
+            onPressed: () => null,
+          ),
+        ]
+      );
+    }else{
+      return ElevatedButton(
+        onPressed: _handleSingIn,
+        child: Text('Login with Google'),
+      );
+    }
   }
 
   void _verifyPhoneAuth(String phone) async{
