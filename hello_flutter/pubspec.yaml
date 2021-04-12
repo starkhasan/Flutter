@@ -53,7 +53,6 @@ dependencies:
   downloads_path_provider: ^0.1.0
   open_file: ^3.1.0
   flutter_local_notifications: ^5.0.0
-  audioplayers: ^0.18.3
   connectivity: ^3.0.3
   provider: ^5.0.0
   google_sign_in: ^5.0.1
@@ -90,6 +89,7 @@ flutter:
     - assets/images/signal_light.png
     - assets/images/sos_list.png
     - assets/images/sensor_light.png
+    - assets/images/googlebutton.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

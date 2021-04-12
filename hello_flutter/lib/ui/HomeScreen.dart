@@ -15,6 +15,7 @@ import 'package:hello_flutter/ui/PageViewScreen.dart';
 import 'package:hello_flutter/ui/PaymentScreen.dart';
 import 'package:hello_flutter/ui/PhotoFile.dart';
 import 'package:hello_flutter/ui/PieChart.dart';
+import 'package:hello_flutter/ui/ScrollAnimation.dart';
 import 'package:hello_flutter/ui/Scroller.dart';
 import 'package:hello_flutter/ui/SwipeDeleteScreen.dart';
 import 'package:hello_flutter/ui/NotificationScreen.dart';
@@ -65,7 +66,8 @@ class _HomeScreen extends State<HomeScreen> {
       'Transform UI',
       'Download File',
       'Widget Demo',
-      'Counter'
+      'Counter',
+      'Scroll Animation'
     ];
     return WillPopScope(
         onWillPop: () => _onWillPop(),
@@ -211,6 +213,12 @@ class _HomeScreen extends State<HomeScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => CounterScreen()));
+                        break;
+                      case 20:
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ScrollAnimation()));
                         break;
                       default:
                     }

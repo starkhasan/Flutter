@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:hello_flutter/utils/Helper.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'dart:io';
 
 class WidgetDemo extends StatefulWidget {
@@ -12,7 +11,6 @@ class WidgetDemo extends StatefulWidget {
 
 class _WidgetDemoState extends State<WidgetDemo> {
   List<dynamic> _listSongs = [];
-  AudioPlayer audioPlayer = AudioPlayer();
   int songIndex = -1;
   bool isPlaying = false;
 
@@ -36,28 +34,28 @@ class _WidgetDemoState extends State<WidgetDemo> {
           itemBuilder: (context, index) {
             return InkWell(
               onTap: () {
-                if (audioPlayer.state != null) {
-                  if (audioPlayer.state.index == 2)
-                    audioPlayer.play(_listSongs[index].path, isLocal: true);
-                  else {
-                    if (songIndex == index) {
-                      isPlaying = isPlaying ? false : true;
-                      audioPlayer.pause();
-                    } else {
-                      audioPlayer.play(_listSongs[index].path, isLocal: true);
-                      isPlaying = true;
-                    }
-                  }
-                  setState(() {
-                    songIndex = index;
-                  });
-                } else {
-                  audioPlayer.play(_listSongs[index].path, isLocal: true);
-                  setState(() {
-                    isPlaying = true;
-                    songIndex = index;
-                  });
-                }
+                // if (audioPlayer.state != null) {
+                //   if (audioPlayer.state.index == 2)
+                //     audioPlayer.play(_listSongs[index].path, isLocal: true);
+                //   else {
+                //     if (songIndex == index) {
+                //       isPlaying = isPlaying ? false : true;
+                //       audioPlayer.pause();
+                //     } else {
+                //       audioPlayer.play(_listSongs[index].path, isLocal: true);
+                //       isPlaying = true;
+                //     }
+                //   }
+                //   setState(() {
+                //     songIndex = index;
+                //   });
+                // } else {
+                //   audioPlayer.play(_listSongs[index].path, isLocal: true);
+                //   setState(() {
+                //     isPlaying = true;
+                //     songIndex = index;
+                //   });
+                // }
               },
               child: Card(
                 color: songIndex == index ? Colors.pink[200] : Colors.white,

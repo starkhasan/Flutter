@@ -28,14 +28,25 @@ class Preferences {
     return name;
   }
 
-  static void setImagePath(dynamic value) async {
+  static void setImagePath(String value) async {
     pref = await SharedPreferences.getInstance();
     pref.setString(Cv.USERIMAGE, value);
   }
 
-  static Future<dynamic> getImagePath() async {
+  static Future<String> getImagePath() async {
     pref = await SharedPreferences.getInstance();
-    dynamic imagePath = pref.getString(Cv.USERIMAGE) ?? null;
+    String imagePath = pref.getString(Cv.USERIMAGE) ?? '';
+    return imagePath;
+  }
+
+  static void setGoogleImage(String value) async {
+    pref = await SharedPreferences.getInstance();
+    pref.setString(Cv.GOOGLEPROFILE, value);
+  }
+
+  static Future<String> getGoogleImage() async {
+    pref = await SharedPreferences.getInstance();
+    String imagePath = pref.getString(Cv.GOOGLEPROFILE) ?? '';
     return imagePath;
   }
 }

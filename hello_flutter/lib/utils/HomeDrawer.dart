@@ -1,9 +1,8 @@
 import 'dart:io';
-import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:hello_flutter/ui/CameraExample.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hello_flutter/ui/CovidScreen.dart';
 import 'package:hello_flutter/ui/LoginUser.dart';
 import 'package:hello_flutter/ui/MultiLanguages.dart';
@@ -19,15 +18,24 @@ class HomeDrawer extends StatefulWidget {
 class _HomeDrawer extends State<HomeDrawer> {
   List<String> listLanguage;
   var userName = "";
-  var imagePath;
+  var imagePath = '';
   var isDark = false;
+  var googleImage = '';
+  GoogleSignIn googleSignIn = GoogleSignIn(
+    scopes: <String>[
+      'email',
+      'https://www.googleapis.com/auth/contacts.readonly',
+    ],
+  );
 
   @override
   void initState() {
     super.initState();
-    Preferences.getName().then((value) {
+    Preferences.getName().then((value) => userName = value);
+    Preferences.getGoogleImage().then((value) {
       setState(() {
-        userName = value;
+        imagePath = '';
+        googleImage = value;
       });
     });
     Preferences.getImagePath().then((value) {
@@ -67,42 +75,29 @@ class _HomeDrawer extends State<HomeDrawer> {
                     child: Row(
                       children: [
                         InkWell(
-                            onTap: () async {
-                              final cameras = await availableCameras();
-                              final camera = cameras.first;
-                              var temp = await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          CameraExample(camera: camera)));
-                              if (temp != null) {
-                                setState(() {
-                                  Preferences.setImagePath(temp);
-                                  imagePath = temp;
-                                });
-                              }
-                            },
+                            onTap: () => null,
                             child: CircleAvatar(
                               radius: 30,
-                              child: imagePath == null
+                              child: googleImage == ''
                                   ? Icon(Icons.camera_alt)
                                   : null,
-                              backgroundImage: imagePath == null
-                                  ? null
+                              backgroundImage: imagePath == ''
+                                  ? NetworkImage(googleImage)
                                   : FileImage(File(imagePath)),
                             )),
                         SizedBox(width: 10),
                         Flexible(
-                          child: Text(
-                            userName,
-                            softWrap: true,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20),
-                          )
-                        )
+                            child: Text(
+                          userName,
+                          softWrap: true,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                        ))
                       ],
-                    )
-                  ),
+                    )),
               ),
             ),
             Expanded(
@@ -191,8 +186,10 @@ class _HomeDrawer extends State<HomeDrawer> {
             title: Text('Logout'),
             content: Text('Are you sure you want to logout?'),
             actions: [
-              FlatButton(
+              ElevatedButton(
                 onPressed: () {
+                  if (googleImage != '') googleSignIn.signOut();
+                  Preferences.setGoogleImage('');
                   Preferences.setImagePath("");
                   Preferences.setLogin(false);
                   Preferences.setName("");
@@ -203,11 +200,11 @@ class _HomeDrawer extends State<HomeDrawer> {
                 },
                 child: Text('Yes'),
               ),
-              FlatButton(
+              ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text('No', style: TextStyle(color: Colors.red)),
+                child: Text('No', style: TextStyle(color: Colors.white)),
               )
             ],
           );
@@ -216,23 +213,22 @@ class _HomeDrawer extends State<HomeDrawer> {
 
   _logout() {
     showDialog(
-      context: context,
-      builder: (context){
-        return CupertinoAlertDialog(
-          title: Text('Exit'),
-          content: Text('Are you sure want to exit the app'),
-          actions: [
-            CupertinoDialogAction(
-              onPressed: () => print('Exit'),
-              child: Text('No'),
-            ),
-            CupertinoDialogAction(
-              onPressed: () => print('Not Exit'),
-              child: Text('Yes'),
-            )
-          ],
-        );
-      }
-    );
+        context: context,
+        builder: (context) {
+          return CupertinoAlertDialog(
+            title: Text('Exit'),
+            content: Text('Are you sure want to exit the app'),
+            actions: [
+              CupertinoDialogAction(
+                onPressed: () => print('Exit'),
+                child: Text('No'),
+              ),
+              CupertinoDialogAction(
+                onPressed: () => print('Not Exit'),
+                child: Text('Yes'),
+              )
+            ],
+          );
+        });
   }
 }
