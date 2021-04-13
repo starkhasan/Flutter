@@ -72,7 +72,6 @@ class _YouTubeFlutterState extends State<YouTubeFlutter> {
                   itemCount: youTubeVideosResponse.items.length,
                   itemBuilder: (context,index){
                     return Container(
-                      height: MediaQuery.of(context).size.height * 0.15,
                       padding: EdgeInsets.all(5),
                       margin: EdgeInsets.all(3),
                       decoration: BoxDecoration(
