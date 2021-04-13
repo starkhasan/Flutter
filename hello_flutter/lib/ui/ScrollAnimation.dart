@@ -21,13 +21,13 @@ class _ScrollAnimationState extends State<ScrollAnimation> {
   } 
 
   _scrollListener() {
-    if(scrollController.offset.round() > 50 && !closeTopContainer){
+    if(scrollController.offset.round() > 10 && !closeTopContainer){
       setState(() {
         closeTopContainer = true;
       });
     }
 
-    if(scrollController.offset.round() < 50 && closeTopContainer){
+    if(scrollController.offset.round() < 10 && closeTopContainer){
       setState(() {
         closeTopContainer = false;
       });
@@ -47,9 +47,9 @@ class _ScrollAnimationState extends State<ScrollAnimation> {
           children: [
             AnimatedOpacity(
               opacity: closeTopContainer ? 0 : 1,
-              duration: Duration(milliseconds: 300),
+              duration: Duration(milliseconds: 200),
               child: AnimatedContainer(
-                duration: Duration(milliseconds: 300),
+                duration: Duration(milliseconds: 200),
                 width: MediaQuery.of(context).size.width,
                 alignment: Alignment.topCenter,
                 height: closeTopContainer ? 0 : 150,
