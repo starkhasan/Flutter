@@ -24,6 +24,7 @@ import 'package:hello_flutter/ui/CameraExample.dart';
 import 'package:hello_flutter/ui/TransformUI.dart';
 import 'package:hello_flutter/ui/WidgetDemo.dart';
 import 'package:hello_flutter/ui/DownloadFile.dart';
+import 'package:hello_flutter/ui/YouTubeFlutter.dart';
 import 'package:hello_flutter/utils/HomeDrawer.dart';
 import 'package:hello_flutter/ui/CupertinoScreen.dart';
 import 'package:hello_flutter/utils/LanguageSettings/Languages.dart';
@@ -67,7 +68,8 @@ class _HomeScreen extends State<HomeScreen> {
       'Download File',
       'Widget Demo',
       'Counter',
-      'Scroll Animation'
+      'Scroll Animation',
+      'YouTube Flutter'
     ];
     return WillPopScope(
         onWillPop: () => _onWillPop(),
@@ -219,6 +221,12 @@ class _HomeScreen extends State<HomeScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ScrollAnimation()));
+                        break;
+                      case 21:
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => YouTubeFlutter()));
                         break;
                       default:
                     }
