@@ -67,7 +67,7 @@ class _HomeScreen extends State<HomeScreen> {
       'Transform UI',
       'Download File',
       'Widget Demo',
-      'Counter',
+      'CheckboxListTile',
       'Scroll Animation',
       'YouTube Flutter'
     ];

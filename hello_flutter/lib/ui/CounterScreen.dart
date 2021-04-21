@@ -8,6 +8,9 @@ class CounterScreen extends StatefulWidget {
 }
 
 class _CounterScreenState extends State<CounterScreen> {
+  var _listItem = List.generate(25, (index) => index + 1);
+
+  var _listItemBool = List.generate(25, (index) => false);
   @override
   Widget build(BuildContext context) {
     print('Build Again');
@@ -16,22 +19,36 @@ class _CounterScreenState extends State<CounterScreen> {
       child: Consumer<Counter>(
         builder: (context, counter, child) {
           return Scaffold(
-            floatingActionButton: FloatingActionButton(
-              onPressed: () => counter.increment(),
-              child: Icon(Icons.add),
-            ),
             appBar: AppBar(
               centerTitle: true,
-              title: Text('Counter'),
+              title: Text('Checkbox ListTile'),
             ),
             body: Container(
-              child: Center(
-                child: Text('Incremnt Counter ${counter.count.toString()}'),
-              ),
+              child: _getCheckBoxTile()
             ),
           );
         },
       ),
+    );
+  }
+
+  Widget _getCheckBoxTile(){
+    return ListView.builder(
+      itemCount: _listItem.length,
+      itemBuilder: (context,index){
+        return Card(
+          child: CheckboxListTile(
+            title: Text('Check Mate'),
+            secondary: Icon(Icons.unfold_more),
+            controlAffinity: ListTileControlAffinity.leading,
+            value: _listItemBool[index],
+            onChanged: (value) {
+              _listItemBool[index] = _listItemBool[index] ? false : true;
+              setState(() {});
+            }
+          )
+        );
+      }
     );
   }
 }

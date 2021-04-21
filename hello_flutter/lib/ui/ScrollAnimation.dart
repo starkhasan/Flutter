@@ -9,6 +9,7 @@ class ScrollAnimation extends StatefulWidget {
 class _ScrollAnimationState extends State<ScrollAnimation> {
   var _horizontalList = List.generate(10, (index) => index + 1);
   var _verticalList = List.generate(50, (index) => index + 1);
+  var _scaleTop = 1.0;
 
   ScrollController scrollController;
   bool closeTopContainer = false;
@@ -23,12 +24,14 @@ class _ScrollAnimationState extends State<ScrollAnimation> {
   _scrollListener() {
     if(scrollController.offset.round() > 10 && !closeTopContainer){
       setState(() {
+        _scaleTop = 0.0;
         closeTopContainer = true;
       });
     }
 
     if(scrollController.offset.round() < 10 && closeTopContainer){
       setState(() {
+        _scaleTop = 1.0;
         closeTopContainer = false;
       });
     }
@@ -47,9 +50,9 @@ class _ScrollAnimationState extends State<ScrollAnimation> {
           children: [
             AnimatedOpacity(
               opacity: closeTopContainer ? 0 : 1,
-              duration: Duration(milliseconds: 200),
+              duration: Duration(milliseconds: 400),
               child: AnimatedContainer(
-                duration: Duration(milliseconds: 200),
+                duration: Duration(milliseconds: 400),
                 width: MediaQuery.of(context).size.width,
                 alignment: Alignment.topCenter,
                 height: closeTopContainer ? 0 : 150,
