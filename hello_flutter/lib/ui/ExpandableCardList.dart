@@ -13,7 +13,6 @@ class ExpandableCardList extends StatefulWidget {
 
 class _ExpandableCardList extends State<ExpandableCardList> with TickerProviderStateMixin{
   final items = List.generate(10, (i) => "Item ${i + 1}");
-  var _activeMeterIndex = 0;
   var selected = 0;
   AnimationController animationController;
 
@@ -64,9 +63,9 @@ class _ExpandableCardList extends State<ExpandableCardList> with TickerProviderS
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text(response[index].name),
+                            Text(response[index].name,style: TextStyle(fontFamily: 'PoppinsBlackMedium')),
                             SizedBox(height: 2),
-                            Text(response[index].email,style: TextStyle(color: Colors.grey,fontSize: 12)),
+                            Text(response[index].email,style: TextStyle(color: Colors.grey,fontSize: 12,fontFamily: 'PoppinsBlackMedium')),
                           ]
                         ),
                         children: [

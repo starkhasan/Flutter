@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hello_flutter/utils/HomeDrawer.dart';
 import 'package:hello_flutter/utils/LanguageSettings/Languages.dart';
 import 'package:hello_flutter/utils/LanguageSettings/LanguagesData.dart';
 import 'package:hello_flutter/utils/LanguageSettings/locale_constant.dart';
@@ -14,6 +15,7 @@ class _MultiLanguages extends State<MultiLanguages> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:AppBar(title: Text(Languages.of(context).labelSelectLanguage), centerTitle: true),
+      drawer: HomeDrawer(title: 'Languages'),
       body: Container(padding: EdgeInsets.all(15), child: _languageList()),
     );
   }

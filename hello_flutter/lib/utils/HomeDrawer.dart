@@ -11,6 +11,8 @@ import 'package:hello_flutter/utils/Preferences.dart';
 import 'package:hello_flutter/utils/LanguageSettings/locale_constant.dart';
 
 class HomeDrawer extends StatefulWidget {
+  final String title;
+  HomeDrawer({this.title});
   @override
   State<StatefulWidget> createState() => _HomeDrawer();
 }
@@ -123,18 +125,14 @@ class _HomeDrawer extends State<HomeDrawer> {
               switch (index) {
                 case 0:
                   Navigator.of(context).pop();
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => MultiLanguages()));
+                  if(widget.title != 'Languages') Navigator.push(context,MaterialPageRoute(builder: (context) => MultiLanguages()));
                   break;
                 case 1:
                   _logoutUser();
                   break;
                 case 2:
                   Navigator.pop(context);
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => CovidScreen()));
+                  if(widget.title != 'CovidSreen') Navigator.push(context,MaterialPageRoute(builder: (context) => CovidScreen()));
                   break;
                 default:
               }

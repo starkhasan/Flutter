@@ -52,10 +52,11 @@ class _YouTubeFlutterState extends State<YouTubeFlutter> {
         backgroundColor: Colors.red,
         actions: [
           IconButton(
+            tooltip: 'Get Videos',
             onPressed: () => _getYouTubeVideos(), 
             icon: Icon(Icons.video_collection)
           )
-        ],
+        ]
       ),
       body: Container(
         child: Column(

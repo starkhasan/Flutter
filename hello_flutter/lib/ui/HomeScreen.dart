@@ -74,7 +74,7 @@ class _HomeScreen extends State<HomeScreen> {
     return WillPopScope(
         onWillPop: () => _onWillPop(),
         child: Scaffold(
-          drawer: HomeDrawer(),
+          drawer: HomeDrawer(title: 'Home'),
           appBar: AppBar(
             backgroundColor: Colors.pink,
             title: Text(Languages.of(context).homeTitle),

@@ -58,8 +58,9 @@ class _MyApp extends State<MyApp> {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          primarySwatch: Colors.pink,
-          brightness: _isDark ? Brightness.dark : Brightness.light),
+        fontFamily: 'PoppinsRegular',
+        primarySwatch: Colors.pink,
+        brightness: _isDark ? Brightness.dark : Brightness.light),
       locale: _locale,
       home: Spalsh(),
       supportedLocales: [Locale('en', ''), Locale('hi', '')],
