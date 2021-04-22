@@ -11,6 +11,7 @@ import 'package:hello_flutter/ui/ExpandableCardList.dart';
 import 'package:hello_flutter/ui/FutureBuilderScreen.dart';
 import 'package:hello_flutter/ui/GoogleMapRoute.dart';
 import 'package:hello_flutter/ui/LandingPage.dart';
+import 'package:hello_flutter/ui/LocationStream.dart';
 import 'package:hello_flutter/ui/PageViewScreen.dart';
 import 'package:hello_flutter/ui/PaymentScreen.dart';
 import 'package:hello_flutter/ui/PhotoFile.dart';
@@ -69,7 +70,8 @@ class _HomeScreen extends State<HomeScreen> {
       'Widget Demo',
       'CheckboxListTile',
       'Scroll Animation',
-      'YouTube Flutter'
+      'YouTube Flutter',
+      'Location'
     ];
     return WillPopScope(
         onWillPop: () => _onWillPop(),
@@ -227,6 +229,12 @@ class _HomeScreen extends State<HomeScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => YouTubeFlutter()));
+                        break;
+                      case 22:
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LocationStream()));
                         break;
                       default:
                     }

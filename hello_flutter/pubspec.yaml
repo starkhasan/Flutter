@@ -56,6 +56,7 @@ dependencies:
   provider: ^5.0.0
   google_sign_in: ^5.0.1
   youtube_player_flutter: ^8.0.0
+  location: ^4.1.1
     
 dev_dependencies:
   flutter_test:
