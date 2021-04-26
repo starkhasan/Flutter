@@ -57,6 +57,7 @@ dependencies:
   youtube_player_flutter: ^8.0.0
   location: ^4.1.1
   flutter_local_notifications: ^5.0.0+1
+  firebase_ml_vision: ^0.12.0+1
     
 dev_dependencies:
   flutter_test:

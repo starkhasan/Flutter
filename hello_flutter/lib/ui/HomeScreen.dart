@@ -24,6 +24,7 @@ import 'package:hello_flutter/ui/SwipeDeleteScreen.dart';
 import 'package:hello_flutter/ui/NotificationScreen.dart';
 import 'package:hello_flutter/ui/SilverScreen.dart';
 import 'package:hello_flutter/ui/CameraExample.dart';
+import 'package:hello_flutter/ui/TextRecog.dart';
 import 'package:hello_flutter/ui/TransformUI.dart';
 import 'package:hello_flutter/ui/WidgetDemo.dart';
 import 'package:hello_flutter/ui/DownloadFile.dart';
@@ -131,7 +132,8 @@ class _HomeScreen extends State<HomeScreen> {
       'CheckboxListTile',
       'Scroll Animation',
       'YouTube Flutter',
-      'Location'
+      'Location',
+      'Text Recognition'
     ];
     return WillPopScope(
         onWillPop: () => _onWillPop(),
@@ -295,6 +297,12 @@ class _HomeScreen extends State<HomeScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => LocationStream()));
+                        break;
+                      case 23:
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TextRecog()));
                         break;
                       default:
                     }
