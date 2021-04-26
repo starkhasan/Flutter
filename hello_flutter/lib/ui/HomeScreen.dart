@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:camera/camera.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hello_flutter/ui/AppLifeCycle.dart';
 import 'package:hello_flutter/ui/CardSwipeScreen.dart';
@@ -30,6 +32,8 @@ import 'package:hello_flutter/utils/HomeDrawer.dart';
 import 'package:hello_flutter/ui/CupertinoScreen.dart';
 import 'package:hello_flutter/utils/LanguageSettings/Languages.dart';
 
+import '../main.dart';
+
 class HomeScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _HomeScreen();
@@ -40,10 +44,66 @@ class _HomeScreen extends State<HomeScreen> {
   var imagePath;
   Position _initialPositon;
 
+  static const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('app_icon');
+  static const IOSInitializationSettings initializationSettingsIOS = IOSInitializationSettings();
+  static const MacOSInitializationSettings initializationSettingsMacOS = MacOSInitializationSettings();
+  final InitializationSettings initializationSettings = InitializationSettings(
+      android: initializationSettingsAndroid,
+      iOS: initializationSettingsIOS,
+      macOS: initializationSettingsMacOS);
+
   @override
   void initState() {
     _getCurrentLocation();
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    //When the application is the background
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print('A  onMessageOpenedApp event was published! when in background');
+      Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationScreen()));
+    });
+    //When Application is Terminated
+    FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage message) {
+      print('A  getInitialMessage() published! when is closed');
+      if (message != null) {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationScreen()));
+      }
+    });
+    //when the application is in foreground
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      RemoteNotification notification = message.notification;
+      AndroidNotification android = message.notification?.android;
+      if (notification != null && android != null) {
+        flutterLocalNotificationsPlugin.show(
+          notification.hashCode,
+          notification.title,
+          notification.body,
+          NotificationDetails(
+            android: AndroidNotificationDetails(
+              channel.id,
+              channel.name,
+              channel.description,
+              icon: 'launch_background',
+            ),
+          )
+        );
+      }
+    });
+    flutterLocalNotificationsPlugin.initialize(initializationSettings,onSelectNotification: selectNotification);
+  }
+
+  Future selectNotification(String payload) async {
+    if (payload != null) {
+      debugPrint('notification payload: $payload');
+    }
+    await Navigator.push(
+      context,
+      MaterialPageRoute<void>(builder: (context) => NotificationScreen()),
+    );
   }
 
   @override
@@ -256,17 +316,17 @@ class _HomeScreen extends State<HomeScreen> {
     return (await showDialog(
           barrierDismissible: false,
           context: context,
-          builder: (context) => new AlertDialog(
-            title: new Text('Exit'),
-            content: new Text('Do you want to exit an App'),
+          builder: (context) =>  AlertDialog(
+            title:  Text('Exit'),
+            content:  Text('Do you want to exit an App'),
             actions: <Widget>[
-              new FlatButton(
+               ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(false),
-                child: new Text('No', style: TextStyle(color: Colors.red)),
+                child:  Text('No', style: TextStyle(color: Colors.red)),
               ),
-              new FlatButton(
+               ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(true),
-                child: new Text('Yes'),
+                child:  Text('Yes'),
               ),
             ],
           ),
