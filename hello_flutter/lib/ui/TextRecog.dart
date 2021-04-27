@@ -39,12 +39,19 @@ class _TextRecogState extends State<TextRecog> {
         child: Column(
           children: [
             Container(
-              child: Visibility(
-                visible: _imagePath!= '',
-                child: Image.file(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.50,
+              color: Colors.grey[100],
+              child: _imagePath != ''
+              ? Image.file(
                   File(_imagePath),
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 0.50
+                )
+              : Center(
+                child: Text(
+                  'Please Select Images',
+                  style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)
                 )
               )
             ),
