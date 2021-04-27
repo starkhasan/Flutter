@@ -13,12 +13,17 @@ class TextRecog extends StatefulWidget {
 class _TextRecogState extends State<TextRecog> {
   var _imagePath = '';
   final TextRecognizer textRecognizer = FirebaseVision.instance.textRecognizer();
+  final FaceDetector faceDetector = FirebaseVision.instance.faceDetector();
   var _visionImage;
   var _visionText;
   var _imageText = '';
   RegExp regExp =  RegExp(r"^[0-9]+(\.[0-9]{1,2})?$");
   var _amount = 0.0;
   var _imageSource = ImageSource.gallery;
+
+  var _totalPeople = 0;
+  List<Rect> rect = [];
+  var isProcessing = false;
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +33,15 @@ class _TextRecogState extends State<TextRecog> {
         title: Text('Text Recongnition'),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async{
+        backgroundColor: isProcessing
+          ? Colors.grey
+          : null,
+        onPressed: isProcessing
+         ? null
+         : () async{
           _imageSource = await _chooseSource()??ImageSource.gallery;
-          _processImage(_imageSource);
+          //_textRecongnition(_imageSource);
+          _detectFace(_imageSource);
         },
         child: Icon(Icons.camera_alt, size: 30, color: Colors.white),
       ),
@@ -57,10 +68,11 @@ class _TextRecogState extends State<TextRecog> {
             ),
             Container(
               margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child: Text(
+              child: isProcessing
+                ? CircularProgressIndicator()
+                : Text(
                 _imageText,
                 style: TextStyle(
-                  color: Colors.black,
                   fontSize: 20,
                   fontWeight: FontWeight.bold
                 )
@@ -91,11 +103,10 @@ class _TextRecogState extends State<TextRecog> {
         );
       }
     );
-
     return imageSource;
   }
 
-  Future<void> _processImage(ImageSource _source) async{
+  Future<void> _textRecongnition(ImageSource _source) async{
     var image = await ImagePicker().getImage(source: _source);
     if (image != null) {
       _amount = 0.0;
@@ -120,4 +131,27 @@ class _TextRecogState extends State<TextRecog> {
     }
     setState(() {});
   }
+
+
+  Future<void> _detectFace(ImageSource _source) async{
+    var image = await ImagePicker().getImage(source: _source);
+    if (image != null) {
+      setState(() {isProcessing = true;});
+      _totalPeople = 0;
+      _imageText = '';
+      _imagePath = image.path;
+      _visionImage = FirebaseVisionImage.fromFilePath(image.path);
+      List<Face> _listFace = await faceDetector.processImage(_visionImage);
+      _imageText = 'Total People in Frame    =    ' + _listFace.length.toString();
+      // for (Face face in _listFace) {
+      //   rect.add(face.boundingBox);
+      // }
+      isProcessing = false;
+    }else{
+      _imageText = "Couldn't get the image, Please try again!";
+    }
+    setState(() {});
+  }
 }
+
+
