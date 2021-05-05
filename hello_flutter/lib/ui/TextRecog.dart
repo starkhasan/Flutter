@@ -20,8 +20,6 @@ class _TextRecogState extends State<TextRecog> {
   RegExp regExp =  RegExp(r"^[0-9]+(\.[0-9]{1,2})?$");
   var _amount = 0.0;
   var _imageSource = ImageSource.gallery;
-
-  var _totalPeople = 0;
   List<Rect> rect = [];
   var isProcessing = false;
 
@@ -86,6 +84,7 @@ class _TextRecogState extends State<TextRecog> {
 
   Future<ImageSource> _chooseSource() async{
     var imageSource = await showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (context){
         return CupertinoAlertDialog(
@@ -93,11 +92,11 @@ class _TextRecogState extends State<TextRecog> {
           actions: [
             CupertinoDialogAction(
               child: Text('Camera'),
-              onPressed: () => Navigator.pop(context,ImageSource.camera),
+              onPressed: () => Navigator.pop(context, ImageSource.camera),
             ),
             CupertinoDialogAction(
               child: Text('Gallery',style: TextStyle(color: Colors.red)),
-              onPressed: () => Navigator.pop(context,ImageSource.gallery),
+              onPressed: () => Navigator.pop(context, ImageSource.gallery),
             )
           ],
         );
@@ -117,9 +116,7 @@ class _TextRecogState extends State<TextRecog> {
       for (TextBlock block in _visionText.blocks) {
         for (TextLine line in block.lines) {
           if(regExp.hasMatch(line.text)){
-            if(_amount == 0.0){
-              _amount = double.parse(line.text);
-            }else if(_amount < double.parse(line.text)){
+            if(_amount < double.parse(line.text)){
               _amount = double.parse(line.text);
             }
           }
@@ -137,7 +134,6 @@ class _TextRecogState extends State<TextRecog> {
     var image = await ImagePicker().getImage(source: _source);
     if (image != null) {
       setState(() {isProcessing = true;});
-      _totalPeople = 0;
       _imageText = '';
       _imagePath = image.path;
       _visionImage = FirebaseVisionImage.fromFilePath(image.path);

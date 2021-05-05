@@ -9,6 +9,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:hello_flutter/ui/AppLifeCycle.dart';
 import 'package:hello_flutter/ui/CardSwipeScreen.dart';
 import 'package:hello_flutter/ui/CounterScreen.dart';
+import 'package:hello_flutter/ui/DraggableScrollSheet.dart';
 import 'package:hello_flutter/ui/ExpandableCardList.dart';
 import 'package:hello_flutter/ui/FutureBuilderScreen.dart';
 import 'package:hello_flutter/ui/GoogleMapRoute.dart';
@@ -133,7 +134,8 @@ class _HomeScreen extends State<HomeScreen> {
       'Scroll Animation',
       'YouTube Flutter',
       'Location',
-      'Text Recognition'
+      'Text Recognition',
+      'DragableScrollSheet'
     ];
     return WillPopScope(
         onWillPop: () => _onWillPop(),
@@ -303,6 +305,12 @@ class _HomeScreen extends State<HomeScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => TextRecog()));
+                        break;
+                      case 24:
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DraggableScrollSheet()));
                         break;
                       default:
                     }
