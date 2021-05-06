@@ -5,7 +5,7 @@ class Api {
     Map<String, String> headers1 = {'Accept': 'application/json'};
     var uri = Uri.parse('https://api.covid19api.com/summary');
     try {
-      var response = await http.get(uri,headers: headers1);
+      var response = await http.get(uri, headers: headers1);
       if (response.statusCode == 200) {
         return response.body;
       } else {
@@ -44,4 +44,28 @@ class Api {
       return '500';
     }
   }
+
+  static Future<dynamic> getCountries() async {
+    Map<String, String> headers = {'Accept': 'application/json'};
+    var uri = Uri.parse('https://api.covid19api.com/countries');
+    try {
+      var response = await http.get(uri, headers: headers);
+      return response;
+    } catch (e) {
+      return e;
+    }
+  }
+
+  static Future<dynamic> getCountriesCases(String country) async {
+    Map<String, String> headers = {'Accept': 'application/json'};
+    var uri = Uri.parse('https://api.covid19api.com/total/dayone/country/$country');
+    try {
+      var response = await http.get(uri, headers: headers);
+      return response;
+    } catch (e) {
+      return e;
+    }
+  }
+
+
 }

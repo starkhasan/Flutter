@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hello_flutter/ui/LoginUser.dart';
 import 'package:hello_flutter/ui/HomeScreen.dart';
 import 'package:hello_flutter/utils/Preferences.dart';
@@ -17,6 +18,10 @@ class _SplashState extends State<Spalsh> {
   @override
   void initState() {
     super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.portraitUp
+    ]);
     Preferences.getLogin().then((value) {
       setState(() {
         isLogin = value;

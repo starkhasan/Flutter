@@ -135,7 +135,7 @@ class _HomeScreen extends State<HomeScreen> {
       'YouTube Flutter',
       'Location',
       'Text Recognition',
-      'DragableScrollSheet'
+      'Covid19 Dashboard'
     ];
     return WillPopScope(
         onWillPop: () => _onWillPop(),
