@@ -337,12 +337,18 @@ class _HomeScreen extends State<HomeScreen> {
             content:  Text('Do you want to exit an App'),
             actions: <Widget>[
                ElevatedButton(
+                style: ElevatedButton.style(
+                  primary: Colors.red
+                ),
                 onPressed: () => Navigator.of(context).pop(false),
-                child:  Text('No', style: TextStyle(color: Colors.red)),
+                child:  Text('No', style: TextStyle(color: Colors.white)),
               ),
                ElevatedButton(
+                 style: ElevatedButton.style(
+                  primary: Colors.blue
+                ),
                 onPressed: () => Navigator.of(context).pop(true),
-                child:  Text('Yes'),
+                child:  Text('Yes',style: TextStyle(color: Colors.white)),
               ),
             ],
           ),
