@@ -32,6 +32,44 @@ class Helper {
     return listText;
   }
 
+  static List<Widget> cupertinoCountryList(List<dynamic> listCountry) {
+    List<Widget> _listCountryWidget = [];
+    for (var i = 0; i < listCountry.length; i++) {
+      _listCountryWidget.add(
+        Center(
+          heightFactor: 5.0,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.network(
+                'https://www.countryflags.io/${listCountry[i].iso2}/shiny/64.png',
+                height: 20,
+                width: 20,
+                errorBuilder: (context,exception,stackTrace){return Icon(Icons.flag);},
+              ),
+              SizedBox(width: 5),
+              Text(listCountry[i].country,style: TextStyle(fontSize: 14))
+            ],
+          ),
+        )
+      );
+    }
+    return _listCountryWidget;
+  }
+
+  static List<Widget> cupertinoDateList(List<dynamic> apiResponse) {
+    List<Widget> _listDatesWidget = [];
+    var size = apiResponse.length;
+    for (var i = size-1; i >= 0; i--) {
+      _listDatesWidget.add(
+        Center(
+          child: Text(apiResponse[i].date.toString().substring(0,10).split("-").reversed.join(" - "),style: TextStyle(fontSize: 14))
+        )
+      );
+    }
+    return _listDatesWidget;
+  }
+
   static Map<int, String> getCountry() {
     var countryMap = Map<int, String>();
     countryMap[0] = 'India';
@@ -69,7 +107,8 @@ class Helper {
 
   static Future<bool> isConnected() async {
     var connectivityResult = await Connectivity().checkConnectivity();
-    if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
       return true;
     }
     return false;
@@ -117,6 +156,4 @@ class Helper {
     }
     return false;
   }
-
-
 }

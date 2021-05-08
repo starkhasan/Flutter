@@ -56,9 +56,9 @@ class Api {
     }
   }
 
-  static Future<dynamic> getCountriesCases(String country) async {
+  static Future<dynamic> getCountriesCases(String country,String date) async {
     Map<String, String> headers = {'Accept': 'application/json'};
-    var uri = Uri.parse('https://api.covid19api.com/total/dayone/country/$country');
+    var uri = Uri.parse('https://api.covid19api.com/country/$country?from=2020-01-30T00:00:00Z&to=$date');
     try {
       var response = await http.get(uri, headers: headers);
       return response;
