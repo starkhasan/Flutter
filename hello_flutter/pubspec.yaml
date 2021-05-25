@@ -26,7 +26,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   awesome_dialog: ^1.2.1
-  firebase_messaging: ^9.1.0
+  firebase_messaging: ^10.0.0
   firebase_core: ^1.0.2
   firebase_auth: ^1.0.1
   contacts_service: ^0.5.0-nullsafety.0
@@ -42,7 +42,7 @@ dependencies:
   pie_chart: ^5.0.0
   countdown: ^0.1.0
   page_view_indicators: ^2.0.0
-  google_maps_flutter: ^2.0.2
+  google_maps_flutter: ^2.0.5
   geolocator: ^7.0.1
   flutter_polyline_points: ^0.2.6
   fl_chart: ^0.35.0
@@ -57,7 +57,8 @@ dependencies:
   youtube_player_flutter: ^8.0.0
   location: ^4.1.1
   flutter_local_notifications: ^5.0.0+1
-  firebase_ml_vision: ^0.12.0+1
+  google_ml_kit: ^0.4.0
+  firebase_database: ^7.0.0
     
 dev_dependencies:
   flutter_test:

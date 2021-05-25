@@ -27,6 +27,7 @@ import 'package:hello_flutter/ui/SilverScreen.dart';
 import 'package:hello_flutter/ui/CameraExample.dart';
 import 'package:hello_flutter/ui/TextRecog.dart';
 import 'package:hello_flutter/ui/TransformUI.dart';
+import 'package:hello_flutter/ui/VirtualChart.dart';
 import 'package:hello_flutter/ui/WidgetDemo.dart';
 import 'package:hello_flutter/ui/DownloadFile.dart';
 import 'package:hello_flutter/ui/YouTubeFlutter.dart';
@@ -135,7 +136,8 @@ class _HomeScreen extends State<HomeScreen> {
       'YouTube Flutter',
       'Location',
       'Text Recognition',
-      'Covid19 Dashboard'
+      'Covid19 Dashboard',
+      'Virtual Chat'
     ];
     return WillPopScope(
         onWillPop: () => _onWillPop(),
@@ -312,6 +314,12 @@ class _HomeScreen extends State<HomeScreen> {
                             MaterialPageRoute(
                                 builder: (context) => DraggableScrollSheet()));
                         break;
+                      case 25:
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => VirtualChart()));
+                        break;
                       default:
                     }
                   },
@@ -337,14 +345,14 @@ class _HomeScreen extends State<HomeScreen> {
             content:  Text('Do you want to exit an App'),
             actions: <Widget>[
                ElevatedButton(
-                style: ElevatedButton.style(
+                style: ElevatedButton.styleFrom(
                   primary: Colors.red
                 ),
                 onPressed: () => Navigator.of(context).pop(false),
                 child:  Text('No', style: TextStyle(color: Colors.white)),
               ),
                ElevatedButton(
-                 style: ElevatedButton.style(
+                 style: ElevatedButton.styleFrom(
                   primary: Colors.blue
                 ),
                 onPressed: () => Navigator.of(context).pop(true),
