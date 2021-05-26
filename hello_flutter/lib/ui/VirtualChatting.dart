@@ -45,7 +45,7 @@ class _VirtualChattingState extends State<VirtualChatting> {
                       var snapshot = event.snapshot;
                       var message = snapshot.value['ali-shahid'].keys;
                       for (var item in message) {
-                        print('$count = $item');
+                        print('= $item');
                       }
                       //String value = snapshot.value['Relay1']['Data'];
                       //print(message);

@@ -47,7 +47,7 @@ class _HomeScreen extends State<HomeScreen> {
   var imagePath;
   Position _initialPositon;
 
-  static const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('app_icon');
+  static const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
   static const IOSInitializationSettings initializationSettingsIOS = IOSInitializationSettings();
   static const MacOSInitializationSettings initializationSettingsMacOS = MacOSInitializationSettings();
   final InitializationSettings initializationSettings = InitializationSettings(
