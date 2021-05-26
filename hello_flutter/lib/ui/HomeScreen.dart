@@ -47,7 +47,7 @@ class _HomeScreen extends State<HomeScreen> {
   var imagePath;
   Position _initialPositon;
 
-  static const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
+  static const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/app_icon');
   static const IOSInitializationSettings initializationSettingsIOS = IOSInitializationSettings();
   static const MacOSInitializationSettings initializationSettingsMacOS = MacOSInitializationSettings();
   final InitializationSettings initializationSettings = InitializationSettings(
@@ -90,7 +90,7 @@ class _HomeScreen extends State<HomeScreen> {
               channel.id,
               channel.name,
               channel.description,
-              icon: 'launch_background',
+              icon: '@mipmap/app_icon',
             ),
           )
         );
@@ -103,10 +103,7 @@ class _HomeScreen extends State<HomeScreen> {
     if (payload != null) {
       debugPrint('notification payload: $payload');
     }
-    await Navigator.push(
-      context,
-      MaterialPageRoute<void>(builder: (context) => NotificationScreen()),
-    );
+    await Navigator.push(context, MaterialPageRoute<void>(builder: (context) => NotificationScreen()));
   }
 
   @override

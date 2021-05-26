@@ -22,7 +22,7 @@
         android:label="Flutter Info"
         android:usesCleartextTraffic="true"
         android:requestLegacyExternalStorage = "true"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/app_icon">
         <service android:name=".MyService" android:enabled="true" android:exported="true"/>
 
         <activity
@@ -57,6 +57,11 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="high_importance_channel" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/launch_background" />
+
         <meta-data
         android:name="com.google.mlkit.vision.DEPENDENCIES"
         android:value="ocr" />
