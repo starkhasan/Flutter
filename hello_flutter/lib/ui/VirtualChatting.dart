@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/utils/CustomChatBubble.dart';
+import 'package:lottie/lottie.dart';
 
 class VirtualChatting extends StatefulWidget {
   @override
@@ -17,8 +18,18 @@ class _VirtualChattingState extends State<VirtualChatting> {
   var database;
   var _contMessage = TextEditingController();
   var snapShot;
-  var sender = 'Shahid';
+  var sender = 'Ali';
   var _scrollController = ScrollController();
+  var lottieHeight = 0.0;
+  var lottieWidth = 0.0;
+
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    lottieHeight = MediaQuery.of(context).size.height * 0.40;
+    lottieWidth = MediaQuery.of(context).size.width * 0.40;
+  }
 
   @override
   void initState() {
@@ -89,7 +100,7 @@ class _VirtualChattingState extends State<VirtualChatting> {
                         }
                       );                    
                     }else
-                      return Container(child: Center(child:Text('No Message',style: TextStyle(color:  Colors.black))));
+                      return Container(child: Center(child: Lottie.asset('assets/animationLottie/emptyScreen.json',height: lottieHeight,width: lottieWidth)));
                   }
                 ),
               ),

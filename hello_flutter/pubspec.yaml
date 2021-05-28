@@ -59,6 +59,7 @@ dependencies:
   flutter_local_notifications: ^5.0.0+1
   google_ml_kit: ^0.4.0
   firebase_database: ^7.0.0
+  lottie: ^1.0.1
     
 dev_dependencies:
   flutter_test:
@@ -93,6 +94,7 @@ flutter:
     - assets/images/sos_list.png
     - assets/images/sensor_light.png
     - assets/images/googlebutton.png
+    - assets/animationLottie/emptyScreen.json
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
