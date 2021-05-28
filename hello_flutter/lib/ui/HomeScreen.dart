@@ -11,6 +11,7 @@ import 'package:hello_flutter/ui/CardSwipeScreen.dart';
 import 'package:hello_flutter/ui/CounterScreen.dart';
 import 'package:hello_flutter/ui/DraggableScrollSheet.dart';
 import 'package:hello_flutter/ui/ExpandableCardList.dart';
+import 'package:hello_flutter/ui/FirebaseStorage.dart';
 import 'package:hello_flutter/ui/FutureBuilderScreen.dart';
 import 'package:hello_flutter/ui/GoogleMapRoute.dart';
 import 'package:hello_flutter/ui/LandingPage.dart';
@@ -134,7 +135,8 @@ class _HomeScreen extends State<HomeScreen> {
       'Location',
       'Text Recognition',
       'Covid19 Dashboard',
-      'Virtual Chat'
+      'Virtual Chat',
+      'Firebase Storage'
     ];
     return WillPopScope(
         onWillPop: () => _onWillPop(),
@@ -316,6 +318,12 @@ class _HomeScreen extends State<HomeScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => VirtualChart()));
+                        break;
+                      case 26:
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => FirebaseStorage()));
                         break;
                       default:
                     }

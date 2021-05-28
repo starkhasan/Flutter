@@ -14,7 +14,7 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -60,6 +60,7 @@ dependencies:
   google_ml_kit: ^0.4.0
   firebase_database: ^7.0.0
   lottie: ^1.0.1
+  firebase_storage: ^8.1.0
     
 dev_dependencies:
   flutter_test:

@@ -2,9 +2,12 @@ import 'dart:async';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/utils/CustomChatBubble.dart';
 import 'package:lottie/lottie.dart';
+
 
 class VirtualChatting extends StatefulWidget {
   @override
@@ -122,6 +125,7 @@ class _VirtualChattingState extends State<VirtualChatting> {
                         controller: _contMessage,
                         keyboardType: TextInputType.multiline,
                         textInputAction: TextInputAction.newline,
+                        maxLines: null,
                         cursorColor: Colors.black,
                         cursorWidth: 1.5,
                         style: TextStyle(color: Colors.black),
@@ -130,6 +134,20 @@ class _VirtualChattingState extends State<VirtualChatting> {
                           hintStyle: TextStyle(color: Colors.grey[400])
                         )
                       )
+                    )
+                  ),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.01),
+                  InkWell(
+                    onTap: () => {
+                      sendImage()
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.grey[400]
+                      ),
+                      child: Icon(Icons.image,color: Colors.white)
                     )
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.01),
@@ -153,6 +171,26 @@ class _VirtualChattingState extends State<VirtualChatting> {
           ]
         )
       )
+    );
+  }
+
+  sendImage() async{
+    showDialog(
+      barrierDismissible: true,
+      context: context,
+      builder: (context){
+        return CupertinoAlertDialog(
+          title: Text('Choose image from'),
+          actions: [
+            CupertinoDialogAction(
+              child: Text("Camera",style: TextStyle(color: Colors.red))
+            ),
+            CupertinoDialogAction(
+              child: Text("Gallery")
+            )
+          ]
+        );
+      }
     );
   }
 
