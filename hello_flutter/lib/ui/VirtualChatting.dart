@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:hello_flutter/utils/CustomChatBubble.dart';
 
 class VirtualChatting extends StatefulWidget {
   @override
@@ -28,12 +29,18 @@ class _VirtualChattingState extends State<VirtualChatting> {
     super.initState();
   }
 
+  scrollToBottom() {
+    Timer(Duration(milliseconds: 100), () => _scrollController.animateTo(_scrollController.position.maxScrollExtent, duration: Duration(milliseconds: 100), curve: Curves.easeOut));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blue,
         centerTitle: true,
-        title: Text('Chat')
+        title: Text('Chat'),
+        brightness: Brightness.dark
       ),
       body: Container(
         color: Colors.grey[200],
@@ -47,34 +54,42 @@ class _VirtualChattingState extends State<VirtualChatting> {
                   stream: myRefSender.child('ali-shahid').onValue,
                   builder: (context,snapshot){
                     if(snapshot.hasData){
+                      scrollToBottom();
                       var notes = snapshot.data.snapshot.value;
                       return ListView.builder(
+                        reverse: false,
                         controller: _scrollController,
                         shrinkWrap: true,
                         physics: BouncingScrollPhysics(),
                         itemCount: notes.length,
                         itemBuilder: (context,index){
                           var key = notes.keys.elementAt(index);
-                          Timer(Duration(milliseconds: 100), () => _scrollController.animateTo(_scrollController.position.maxScrollExtent, duration: Duration(milliseconds: 100), curve: Curves.easeOut));
                           return Align(
                             alignment: notes[key]['sender'] == sender ? Alignment.centerRight : Alignment.centerLeft,
-                              child: Container(
-                                margin: EdgeInsets.all(2),
-                                padding: EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                  color: notes[key]['sender'] == sender ? Colors.green[100] : Colors.white,
-                                  borderRadius: BorderRadius.all(Radius.circular(8))
-                                ),
-                              child: Text(
-                                notes[key]['message'],
-                                style: TextStyle(color: Colors.black)
+                            child: Container(
+                              margin: EdgeInsets.fromLTRB(10, 2, 10, 0),
+                              child: CustomPaint(
+                                  painter: CustomChatBubble(color: notes[key]['sender'] == sender ? Colors.blue : Colors.white,isSender: notes[key]['sender'] == sender ? true : false),
+                                  child: Container(
+                                    padding: EdgeInsets.fromLTRB(8, 5, 8, 5),
+                                    decoration: BoxDecoration(
+                                      color: notes[key]['sender'] == sender ? Colors.blue : Colors.white,
+                                      borderRadius: BorderRadius.all(Radius.circular(5))
+                                    ),
+                                  child: Text(
+                                    notes[key]['message'],
+                                    style: TextStyle(color: notes[key]['sender'] == sender ? Colors.white : Colors.black)
+                                  )
+                                )
                               )
                             )
                           );
                         }
-                      );                      
-                    }
-                    return Container(child: Center(child:Text('No Message')));
+                      );                    
+                    }else if(snapshot.hasError)
+                      return Container(child: Center(child:Text('No Message')));
+                    else
+                      return Container(child: Center(child:  CircularProgressIndicator(color: Colors.blue,strokeWidth: 3))); 
                   }
                 ),
               ),
@@ -85,34 +100,38 @@ class _VirtualChattingState extends State<VirtualChatting> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Expanded(
+                  Flexible(
                     child: Container(
                       padding: EdgeInsets.all(12),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(20))
+                        borderRadius: BorderRadius.all(Radius.circular(25))
                       ),
                       child: TextField(
                         controller: _contMessage,
                         keyboardType: TextInputType.multiline,
-                        textInputAction: TextInputAction.send,
+                        textInputAction: TextInputAction.newline,
+                        cursorColor: Colors.black,
+                        cursorWidth: 1.5,
                         style: TextStyle(color: Colors.black),
                         decoration: InputDecoration.collapsed(
                           hintText: 'Type a message',
-                          hintStyle: TextStyle(color: Colors.grey)
-                        ),
-                        onSubmitted: (message) => sendMessage(),
+                          hintStyle: TextStyle(color: Colors.grey[400])
+                        )
                       )
                     )
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.01),
                   InkWell(
-                    onTap: () => sendMessage(),
+                    onTap: () => {
+                      sendMessage(),
+                      scrollToBottom()
+                    },
                     child: Container(
                       padding: EdgeInsets.all(12),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.pink
+                        color: Colors.blue
                       ),
                       child: Icon(Icons.send,color: Colors.white)
                     )
