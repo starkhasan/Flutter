@@ -53,7 +53,9 @@ class _VirtualChattingState extends State<VirtualChatting> {
                 child: StreamBuilder(
                   stream: myRefSender.child('ali-shahid').onValue,
                   builder: (context,snapshot){
-                    if(snapshot.hasData){
+                    if(!snapshot.hasData || snapshot.hasError){
+                      return Container(child: Center(child:  CircularProgressIndicator(color: Colors.blue,strokeWidth: 3))); 
+                    }else if(snapshot.hasData && snapshot.data.snapshot.value != null){
                       scrollToBottom();
                       var notes = snapshot.data.snapshot.value;
                       return ListView.builder(
@@ -86,10 +88,8 @@ class _VirtualChattingState extends State<VirtualChatting> {
                           );
                         }
                       );                    
-                    }else if(snapshot.hasError)
-                      return Container(child: Center(child:Text('No Message')));
-                    else
-                      return Container(child: Center(child:  CircularProgressIndicator(color: Colors.blue,strokeWidth: 3))); 
+                    }else
+                      return Container(child: Center(child:Text('No Message',style: TextStyle(color:  Colors.black))));
                   }
                 ),
               ),
