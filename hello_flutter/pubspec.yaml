@@ -37,7 +37,7 @@ dependencies:
   camera: ^0.8.1
   fluttertoast: ^8.0.3
   email_validator: ^2.0.1
-  image_picker: ^0.7.4
+  image_picker: ^0.7.5+3
   photo_manager: ^1.0.6
   pie_chart: ^5.0.0
   countdown: ^0.1.0

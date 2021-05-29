@@ -6,7 +6,9 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/utils/CustomChatBubble.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
+import 'dart:io';
 
 
 class VirtualChatting extends StatefulWidget {
@@ -18,6 +20,7 @@ class _VirtualChattingState extends State<VirtualChatting> {
 
   var myRefSender;
   var myRefReceiver;
+  var firebaseStore;
   var database;
   var _contMessage = TextEditingController();
   var snapShot;
@@ -25,19 +28,28 @@ class _VirtualChattingState extends State<VirtualChatting> {
   var _scrollController = ScrollController();
   var lottieHeight = 0.0;
   var lottieWidth = 0.0;
+  var imageHeight = 0.0;
+  var imageWidth = 0.0;
+  File file;
+  var imageSource = ImageSource.gallery;
+  var imageLink = '';
+  var imageName = 'first';
 
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    lottieHeight = MediaQuery.of(context).size.height * 0.40;
-    lottieWidth = MediaQuery.of(context).size.width * 0.40;
+    lottieHeight = MediaQuery.of(context).size.height * 0.45;
+    lottieWidth = MediaQuery.of(context).size.width * 0.45;
+    imageHeight = MediaQuery.of(context).size.height * 0.16;
+    imageWidth = MediaQuery.of(context).size.width * 0.50;
   }
 
   @override
   void initState() {
     Firebase.initializeApp();
     database = FirebaseDatabase.instance;
+    firebaseStore = FirebaseStorage.instance;
     myRefSender = database.reference().child('messages');
     myRefReceiver = database.reference().child('messages');
     super.initState();
@@ -80,25 +92,28 @@ class _VirtualChattingState extends State<VirtualChatting> {
                         itemCount: notes.length,
                         itemBuilder: (context,index){
                           var key = notes.keys.elementAt(index);
+                          imageName = key;
                           return Align(
                             alignment: notes[key]['sender'] == sender ? Alignment.centerRight : Alignment.centerLeft,
                             child: Container(
-                              margin: EdgeInsets.fromLTRB(10, 2, 10, 0),
-                              child: CustomPaint(
-                                  painter: CustomChatBubble(color: notes[key]['sender'] == sender ? Colors.blue : Colors.white,isSender: notes[key]['sender'] == sender ? true : false),
-                                  child: Container(
-                                    padding: EdgeInsets.fromLTRB(8, 5, 8, 5),
-                                    decoration: BoxDecoration(
-                                      color: notes[key]['sender'] == sender ? Colors.blue : Colors.white,
-                                      borderRadius: BorderRadius.all(Radius.circular(5))
-                                    ),
-                                  child: Text(
-                                    notes[key]['message'],
-                                    style: TextStyle(color: notes[key]['sender'] == sender ? Colors.white : Colors.black)
+                                margin: EdgeInsets.fromLTRB(10, 1, 10, 0),
+                                child: CustomPaint(
+                                    painter: CustomChatBubble(color: notes[key]['sender'] == sender ? Colors.blue : Colors.white,isSender: notes[key]['sender'] == sender ? true : false),
+                                    child: Container(
+                                      padding: EdgeInsets.fromLTRB(8, 5, 8, 5),
+                                      decoration: BoxDecoration(
+                                        color: notes[key]['sender'] == sender ? Colors.blue : Colors.white,
+                                        borderRadius: BorderRadius.all(Radius.circular(5))
+                                      ),
+                                    child: notes[key]['type'] == 'text'
+                                      ? Text(
+                                          notes[key]['message'],
+                                          style: TextStyle(color: notes[key]['sender'] == sender ? Colors.white : Colors.black)
+                                        )
+                                      : Image.network(notes[key]['message'],width: imageWidth)
                                   )
                                 )
                               )
-                            )
                           );
                         }
                       );                    
@@ -138,8 +153,9 @@ class _VirtualChattingState extends State<VirtualChatting> {
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.01),
                   InkWell(
-                    onTap: () => {
-                      sendImage()
+                    onTap: () async {
+                      imageSource = await sendImage();
+                      uploadImageFile(imageSource);
                     },
                     child: Container(
                       padding: EdgeInsets.all(12),
@@ -153,7 +169,7 @@ class _VirtualChattingState extends State<VirtualChatting> {
                   SizedBox(width: MediaQuery.of(context).size.width * 0.01),
                   InkWell(
                     onTap: () => {
-                      sendMessage(),
+                      sendMessage('text'),
                       scrollToBottom()
                     },
                     child: Container(
@@ -175,33 +191,57 @@ class _VirtualChattingState extends State<VirtualChatting> {
   }
 
   sendImage() async{
-    showDialog(
-      barrierDismissible: true,
+    imageSource = await showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (context){
         return CupertinoAlertDialog(
           title: Text('Choose image from'),
           actions: [
             CupertinoDialogAction(
+              onPressed: () => Navigator.pop(context,ImageSource.camera),
               child: Text("Camera",style: TextStyle(color: Colors.red))
             ),
             CupertinoDialogAction(
+              onPressed: () => Navigator.pop(context,ImageSource.gallery),
               child: Text("Gallery")
             )
           ]
         );
       }
     );
+    return imageSource;
   }
 
-  sendMessage(){
+  Future<void> uploadImageFile(ImageSource imgSource) async{
+    var photo = await ImagePicker().getImage(source: imgSource);
+    if(photo!=null){
+      file = File(photo.path);
+      firebaseStore = FirebaseStorage.instance.ref().child("messages/images/$imageName"); 
+      UploadTask uploadTask = firebaseStore.putFile(file);
+      if(uploadTask!=null){
+        var snapshot = await uploadTask.whenComplete(() => {
+          print('Successfully uploaded')
+        });
+        var urlDownload = await snapshot.ref.getDownloadURL();
+        print(urlDownload);
+        _contMessage.text = urlDownload;
+        sendMessage('image');
+      }else
+        print('Upload Task is null : ');
+    }
+  }
+
+  sendMessage(String type){
     if(_contMessage.text.isNotEmpty){
       myRefSender.child('ali-shahid').push().set({
         'message' : _contMessage.text.toString(),
+        'type' : type,
         'sender': sender,
       });
       myRefReceiver.child('shahid-ali').push().set({
         'message' : _contMessage.text.toString(),
+        'type': type,
         'sender': sender,
       });
     }

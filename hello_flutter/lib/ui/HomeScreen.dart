@@ -11,7 +11,7 @@ import 'package:hello_flutter/ui/CardSwipeScreen.dart';
 import 'package:hello_flutter/ui/CounterScreen.dart';
 import 'package:hello_flutter/ui/DraggableScrollSheet.dart';
 import 'package:hello_flutter/ui/ExpandableCardList.dart';
-import 'package:hello_flutter/ui/FirebaseStorage.dart';
+import 'package:hello_flutter/ui/FirebaseStorageExample.dart';
 import 'package:hello_flutter/ui/FutureBuilderScreen.dart';
 import 'package:hello_flutter/ui/GoogleMapRoute.dart';
 import 'package:hello_flutter/ui/LandingPage.dart';
@@ -323,7 +323,7 @@ class _HomeScreen extends State<HomeScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => FirebaseStorage()));
+                                builder: (context) => FirebaseStorageExample()));
                         break;
                       default:
                     }
