@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:hello_flutter/ui/VirtualChart.dart';
+import 'package:hello_flutter/ui/VirtualChatSetting.dart';
 import 'package:hello_flutter/ui/VirtualChatting.dart';
 import 'package:hello_flutter/utils/Preferences.dart';
 import 'package:lottie/lottie.dart';
@@ -23,7 +25,7 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> {
   void initState() {
     Firebase.initializeApp();
     firebaseReference = FirebaseDatabase.instance.reference().child('users');
-    Preferences.getSenderName().then((value) => sender = value);
+    Preferences.getSenderName().then((value) => setState((){sender = value;}));
     super.initState();
   }
 
@@ -41,8 +43,12 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text('Virtual Dashboard'),
-        backgroundColor: Colors.blue
+        backgroundColor: Colors.blue,
+        actions: [
+          popUpMenu(sender)
+        ]
       ),
       body: Container(
         child: StreamBuilder(
@@ -92,6 +98,45 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> {
           }
         )
       )
+    );
+  }
+
+  Widget popUpMenu(String sender){
+    return PopupMenuButton(
+      itemBuilder: (context) => [
+        PopupMenuItem(
+          value: 0,
+          child: Text(
+            sender[0].toUpperCase()+sender.substring(1),
+            style: TextStyle(color: Colors.black),
+          ),
+        ),
+        PopupMenuItem(
+          value: 1,
+          child: Text(
+            "Settings",
+            style: TextStyle(
+                color: Colors.black),
+          ),
+        ),
+        PopupMenuItem(
+          value: 2,
+          child: Text(
+            "Logout",
+            style: TextStyle(
+                color: Colors.black),
+          ),
+        ),
+      ],
+      onSelected: (pos){
+        if(pos == 2){
+          Preferences.setVirtualLogin(false);
+          Preferences.setSenderName("");
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => VirtualChart()));
+        }
+        if(pos == 1)
+          Navigator.push(context, MaterialPageRoute(builder: (context) => VirtualChatSetting()));
+      },
     );
   }
 }

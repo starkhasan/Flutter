@@ -63,7 +63,7 @@ class _HomeScreen extends State<HomeScreen> with WidgetsBindingObserver{
   void initState() {
     _getCurrentLocation();
     WidgetsBinding.instance.addObserver(this);
-    Preferences.getVirtualLogin().then((value) => isVirtualLogin = value);
+    Preferences.getVirtualLogin().then((value) => setState((){isVirtualLogin = value;}));
     super.initState();
   }
 
@@ -76,10 +76,9 @@ class _HomeScreen extends State<HomeScreen> with WidgetsBindingObserver{
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
-    if(state == AppLifecycleState.resumed)
-      setState(() {
-        Preferences.getVirtualLogin().then((value) => isVirtualLogin = value);
-      });
+    if(state == AppLifecycleState.resumed){
+      Preferences.getVirtualLogin().then((value) => setState((){isVirtualLogin = value;}));
+    }
   }
 
   @override
