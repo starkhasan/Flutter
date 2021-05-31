@@ -41,7 +41,8 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Virtual Dashboard')
+        title: Text('Virtual Dashboard'),
+        backgroundColor: Colors.blue
       ),
       body: Container(
         child: StreamBuilder(
@@ -62,23 +63,25 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> {
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => VirtualChatting(senderUser: sender,senderReceiver: sender+'-'+key,receiver: key[0].toUpperCase()+key.substring(1))));
                     },
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          CircleAvatar(
-                            backgroundColor: Colors.blue,
-                            radius: 24,
-                          ),
-                          SizedBox(width: imageWidth),
-                          Text(
-                            key[0].toUpperCase()+key.substring(1),
-                            style: TextStyle(color: Colors.black,fontSize: 24)
+                    child: key != sender
+                      ? Container(
+                          padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              CircleAvatar(
+                                backgroundColor: Colors.blue,
+                                radius: 24,
+                              ),
+                              SizedBox(width: imageWidth),
+                              Text(
+                                key[0].toUpperCase()+key.substring(1),
+                                style: TextStyle(color: Colors.black,fontSize: 22)
+                              )
+                            ]
                           )
-                        ]
-                      )
-                    )
+                        )
+                      : SizedBox()
                   );
                 }, separatorBuilder: (context,index) {
                   return Divider(color: Colors.grey,thickness: 0.5,height: 1);
