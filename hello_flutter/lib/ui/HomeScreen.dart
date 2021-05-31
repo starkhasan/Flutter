@@ -29,12 +29,14 @@ import 'package:hello_flutter/ui/CameraExample.dart';
 import 'package:hello_flutter/ui/TextRecog.dart';
 import 'package:hello_flutter/ui/TransformUI.dart';
 import 'package:hello_flutter/ui/VirtualChart.dart';
+import 'package:hello_flutter/ui/VirtualDashBoard.dart';
 import 'package:hello_flutter/ui/WidgetDemo.dart';
 import 'package:hello_flutter/ui/DownloadFile.dart';
 import 'package:hello_flutter/ui/YouTubeFlutter.dart';
 import 'package:hello_flutter/utils/HomeDrawer.dart';
 import 'package:hello_flutter/ui/CupertinoScreen.dart';
 import 'package:hello_flutter/utils/LanguageSettings/Languages.dart';
+import 'package:hello_flutter/utils/Preferences.dart';
 
 import '../main.dart';
 
@@ -43,9 +45,10 @@ class HomeScreen extends StatefulWidget {
   State<StatefulWidget> createState() => _HomeScreen();
 }
 
-class _HomeScreen extends State<HomeScreen> {
+class _HomeScreen extends State<HomeScreen> with WidgetsBindingObserver{
   List<String> itemsList;
   var imagePath;
+  var isVirtualLogin = false;
   Position _initialPositon;
 
   static const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/app_icon');
@@ -59,7 +62,24 @@ class _HomeScreen extends State<HomeScreen> {
   @override
   void initState() {
     _getCurrentLocation();
+    WidgetsBinding.instance.addObserver(this);
+    Preferences.getVirtualLogin().then((value) => isVirtualLogin = value);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if(state == AppLifecycleState.resumed)
+      setState(() {
+        Preferences.getVirtualLogin().then((value) => isVirtualLogin = value);
+      });
   }
 
   @override
@@ -314,10 +334,7 @@ class _HomeScreen extends State<HomeScreen> {
                                 builder: (context) => DraggableScrollSheet()));
                         break;
                       case 25:
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => VirtualChart()));
+                        Navigator.push(context,MaterialPageRoute(builder: (context) => isVirtualLogin ? VirtualDashBoard() : VirtualChart()));
                         break;
                       case 26:
                         Navigator.push(

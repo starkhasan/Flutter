@@ -12,6 +12,10 @@ import 'dart:io';
 
 
 class VirtualChatting extends StatefulWidget {
+  final String senderUser;
+  final String senderReceiver;
+  final String receiver;
+  VirtualChatting({@required this.senderUser,@required this.senderReceiver,@required this.receiver});
   @override
   _VirtualChattingState createState() => _VirtualChattingState();
 }
@@ -24,7 +28,10 @@ class _VirtualChattingState extends State<VirtualChatting> {
   var database;
   var _contMessage = TextEditingController();
   var snapShot;
-  var sender = 'Ali';
+  var sender = '';
+  var receiver = '';
+  var senderReceiver = '';
+  var receiverSender = '';
   var _scrollController = ScrollController();
   var lottieHeight = 0.0;
   var lottieWidth = 0.0;
@@ -52,6 +59,12 @@ class _VirtualChattingState extends State<VirtualChatting> {
     firebaseStore = FirebaseStorage.instance;
     myRefSender = database.reference().child('messages');
     myRefReceiver = database.reference().child('messages');
+    setState(() {
+      sender = widget.senderUser;
+      receiver = widget.receiver;
+      senderReceiver = widget.senderReceiver;
+      receiverSender = widget.senderReceiver.split('-').reversed.join('-');
+    });
     super.initState();
   }
 
@@ -64,8 +77,8 @@ class _VirtualChattingState extends State<VirtualChatting> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        centerTitle: true,
-        title: Text('Chat'),
+        centerTitle: false,
+        title: Text(receiver),
         brightness: Brightness.dark
       ),
       body: Container(
@@ -77,7 +90,7 @@ class _VirtualChattingState extends State<VirtualChatting> {
               child: Container(
                 padding: EdgeInsets.fromLTRB(10, 10, 10, 2),
                 child: StreamBuilder(
-                  stream: myRefSender.child('ali-shahid').onValue,
+                  stream: myRefSender.child(widget.senderReceiver).onValue,
                   builder: (context,snapshot){
                     if(!snapshot.hasData || snapshot.hasError){
                       return Container(child: Center(child:  CircularProgressIndicator(color: Colors.blue,strokeWidth: 3))); 
@@ -96,24 +109,24 @@ class _VirtualChattingState extends State<VirtualChatting> {
                           return Align(
                             alignment: notes[key]['sender'] == sender ? Alignment.centerRight : Alignment.centerLeft,
                             child: Container(
-                                margin: EdgeInsets.fromLTRB(10, 1, 10, 0),
-                                child: CustomPaint(
-                                    painter: CustomChatBubble(color: notes[key]['sender'] == sender ? Colors.blue : Colors.white,isSender: notes[key]['sender'] == sender ? true : false),
-                                    child: Container(
-                                      padding: EdgeInsets.fromLTRB(8, 5, 8, 5),
-                                      decoration: BoxDecoration(
-                                        color: notes[key]['sender'] == sender ? Colors.blue : Colors.white,
-                                        borderRadius: BorderRadius.all(Radius.circular(5))
-                                      ),
-                                    child: notes[key]['type'] == 'text'
-                                      ? Text(
-                                          notes[key]['message'],
-                                          style: TextStyle(color: notes[key]['sender'] == sender ? Colors.white : Colors.black)
-                                        )
-                                      : Image.network(notes[key]['message'],width: imageWidth)
-                                  )
+                              margin: EdgeInsets.fromLTRB(10, 1, 10, 0),
+                              child: CustomPaint(
+                                  painter: CustomChatBubble(isSender: notes[key]['sender'] == sender ? true : false),
+                                  child: Container(
+                                    padding: EdgeInsets.fromLTRB(8, 5, 8, 5),
+                                    decoration: BoxDecoration(
+                                      color: notes[key]['sender'] == sender ? Colors.blue : Colors.white,
+                                      borderRadius: BorderRadius.all(Radius.circular(5))
+                                    ),
+                                  child: notes[key]['type'] == 'text'
+                                    ? Text(
+                                        notes[key]['message'],
+                                        style: TextStyle(color: notes[key]['sender'] == sender ? Colors.white : Colors.black)
+                                      )
+                                    : Image.network(notes[key]['message'],width: imageWidth)
                                 )
                               )
+                            )
                           );
                         }
                       );                    
@@ -234,12 +247,12 @@ class _VirtualChattingState extends State<VirtualChatting> {
 
   sendMessage(String type){
     if(_contMessage.text.isNotEmpty){
-      myRefSender.child('ali-shahid').push().set({
+      myRefSender.child(senderReceiver).push().set({
         'message' : _contMessage.text.toString(),
         'type' : type,
         'sender': sender,
       });
-      myRefReceiver.child('shahid-ali').push().set({
+      myRefReceiver.child(receiverSender).push().set({
         'message' : _contMessage.text.toString(),
         'type': type,
         'sender': sender,

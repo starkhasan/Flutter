@@ -2,13 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomChatBubble extends CustomPainter {
-  final Color color;
   final bool isSender;
-  CustomChatBubble({this.color, @required this.isSender});
+  CustomChatBubble({this.isSender});
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()..color = color ?? Colors.blue;
+    final paint = Paint()..color = isSender ? Colors.blue : Colors.white;
 
     Path paintBubbleTail() {
       Path path;

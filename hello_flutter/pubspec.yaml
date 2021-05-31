@@ -96,6 +96,7 @@ flutter:
     - assets/images/sensor_light.png
     - assets/images/googlebutton.png
     - assets/animationLottie/emptyScreen.json
+    - assets/animationLottie/virtualChat.json
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
@@ -108,6 +109,9 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
+    - family: Pattaya
+      fonts: 
+        - asset: assets/fonts/Pattaya-Regular.ttf
     - family: PoppinsBlack
       fonts:
         - asset: assets/fonts/Poppins-Black.ttf

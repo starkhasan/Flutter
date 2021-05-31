@@ -49,4 +49,26 @@ class Preferences {
     String imagePath = pref.getString(Cv.GOOGLEPROFILE) ?? '';
     return imagePath;
   }
+
+  static void setSenderName(String sender) async {
+    pref = await SharedPreferences.getInstance();
+    pref.setString(Cv.SENDER_USER, sender);
+  }
+
+  static Future<String> getSenderName() async {
+    pref = await SharedPreferences.getInstance();
+    String senderName = pref.getString(Cv.SENDER_USER) ?? '';
+    return senderName;
+  }
+
+  static void setVirtualLogin(bool login) async {
+    pref = await SharedPreferences.getInstance();
+    pref.setBool(Cv.VIRTUAL_LOGIN, login);
+  }
+
+  static Future<bool> getVirtualLogin() async {
+    pref = await SharedPreferences.getInstance();
+    bool login = pref.getBool(Cv.VIRTUAL_LOGIN) ?? false;
+    return login;
+  }
 }
