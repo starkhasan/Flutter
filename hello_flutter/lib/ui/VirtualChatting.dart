@@ -5,6 +5,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hello_flutter/ui/VirtualMedia.dart';
 import 'package:hello_flutter/utils/CustomChatBubble.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
@@ -124,7 +125,7 @@ class _VirtualChattingState extends State<VirtualChatting> {
                                         style: TextStyle(color: notes[key]['sender'] == sender ? Colors.white : Colors.black)
                                       )
                                     : GestureDetector(
-                                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => MediaScreen(mediaPath: notes[key]['message'], senderName: notes[key]['sender']))),
+                                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => VirtualMedia(path: notes[key]['message'], name: notes[key]['sender']))),
                                       child: Hero(
                                         tag: 'Image Hero',
                                         child: Image.network(notes[key]['message'],width: imageWidth)
@@ -265,32 +266,5 @@ class _VirtualChattingState extends State<VirtualChatting> {
       });
     }
     _contMessage.clear();
-  }
-}
-
-
-class MediaScreen extends StatelessWidget{
-  final String mediaPath;
-  final String senderName;
-  MediaScreen({@required this.mediaPath,@required this.senderName});
-  @override
-  Widget build(BuildContext context){
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        title: Text(senderName[0].toUpperCase()+senderName.substring(1)),
-        backgroundColor: Colors.black,
-        brightness: Brightness.dark
-      ),
-      body: Container(
-        color: Colors.black,
-        child: Center(
-          child: Hero(
-            tag: 'Image Hero',
-            child: Image.network(mediaPath),
-          )
-        )
-      )
-    );
   }
 }
