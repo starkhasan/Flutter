@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hello_flutter/ui/VirtualChart.dart';
 import 'package:hello_flutter/ui/VirtualChatSetting.dart';
 import 'package:hello_flutter/ui/VirtualChatting.dart';
+import 'package:hello_flutter/ui/VirtualMedia.dart';
 import 'package:hello_flutter/utils/Preferences.dart';
 import 'package:lottie/lottie.dart';
 
@@ -75,9 +76,16 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              CircleAvatar(
-                                backgroundColor: Colors.blue,
-                                radius: 24,
+                              GestureDetector(
+                                onTap: (){
+                                  if(notes[key]['profile'] != ' ') Navigator.push(context, MaterialPageRoute(builder: (context) => VirtualMedia(path: notes[key]['profile'], name: key)));
+                                },
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.blue,
+                                  radius: 24,
+                                  backgroundImage: notes[key]['profile'] == ' ' ? null : NetworkImage(notes[key]['profile']),
+                                  child: notes[key]['profile'] == ' ' ? Icon(Icons.person,size: 30,color: Colors.white) : null
+                                )
                               ),
                               SizedBox(width: imageWidth),
                               Text(
