@@ -14,6 +14,7 @@ import 'package:hello_flutter/ui/ExpandableCardList.dart';
 import 'package:hello_flutter/ui/FirebaseStorageExample.dart';
 import 'package:hello_flutter/ui/FutureBuilderScreen.dart';
 import 'package:hello_flutter/ui/GoogleMapRoute.dart';
+import 'package:hello_flutter/ui/HeroAnimated.dart';
 import 'package:hello_flutter/ui/LandingPage.dart';
 import 'package:hello_flutter/ui/LocationStream.dart';
 import 'package:hello_flutter/ui/PageViewScreen.dart';
@@ -155,7 +156,8 @@ class _HomeScreen extends State<HomeScreen> with WidgetsBindingObserver{
       'Text Recognition',
       'Covid19 Dashboard',
       'Virtual Chat',
-      'Firebase Storage'
+      'Firebase Storage',
+      'Heor Widget'
     ];
     return WillPopScope(
         onWillPop: () => _onWillPop(),
@@ -340,6 +342,12 @@ class _HomeScreen extends State<HomeScreen> with WidgetsBindingObserver{
                             context,
                             MaterialPageRoute(
                                 builder: (context) => FirebaseStorageExample()));
+                        break;
+                      case 27:
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HeroAnimated()));
                         break;
                       default:
                     }
