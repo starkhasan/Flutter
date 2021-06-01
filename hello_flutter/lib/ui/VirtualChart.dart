@@ -20,11 +20,20 @@ class _VirtualChartState extends State<VirtualChart> with WidgetsBindingObserver
   var _contID = TextEditingController();
   var _contPassword = TextEditingController();
   var passwordHide = true;
+  var _listUser = [];
+  var isLogin = true;
+  var isUserFound = false;
 
   @override
   void initState() {
     Firebase.initializeApp();
     databaseReference = FirebaseDatabase.instance.reference().child('users');
+    databaseReference.once().then((DataSnapshot snapshot) {
+      print('Data : ${snapshot.value}');
+      for(var v in snapshot.value.keys) {
+        _listUser.add(v);
+      }
+    });
     super.initState();
   }
 
@@ -118,6 +127,17 @@ class _VirtualChartState extends State<VirtualChart> with WidgetsBindingObserver
                         disabledColor: Colors.grey,
                         child: Text('Login'),
                         onPressed: () => userLogin()
+                      ),
+                      SizedBox(height: layoutMargin),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Login',style: TextStyle(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold)),
+                          Checkbox(
+                            value: isLogin,
+                            onChanged: (value) => setState((){isLogin = value;})
+                          )
+                        ]
                       )
                     ]
                   )
@@ -130,20 +150,38 @@ class _VirtualChartState extends State<VirtualChart> with WidgetsBindingObserver
     );
   }
 
-  void userLogin() {
+  void userLogin() async{
     if(validation()){
-      databaseReference.child(_contID.text).set({
-        'about': ' ',
-        'password': _contPassword.text,
-        'profile':' '
-      }).then((value){
-        showSnackBar('User Registered Successfully');
-        Preferences.setSenderName(_contID.text);
-        Preferences.setVirtualLogin(true);
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => VirtualDashBoard()));
-      }).catchError((value){
-        showSnackBar('Something went wrong');
-      });
+      if(isLogin){
+        await databaseReference.once().then((DataSnapshot snapshot) {
+          for(var v in snapshot.value.keys) {
+            if(_contID.text == v && snapshot.value[v]['password'] == _contPassword.text){
+              isUserFound = true;
+            }
+          }
+        });
+        if(isUserFound){
+          showSnackBar('User Login Successfully');
+          Preferences.setSenderName(_contID.text);
+          Preferences.setVirtualLogin(true);
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => VirtualDashBoard()));
+        }else{
+          showSnackBar('Invalid UserID password');
+        }
+      }else{
+        databaseReference.child(_contID.text).set({
+          'about': 'Hey there! I am VirtualChat',
+          'password': _contPassword.text,
+          'profile':' '
+        }).then((value){
+          showSnackBar('User Registered Successfully');
+          Preferences.setSenderName(_contID.text);
+          Preferences.setVirtualLogin(true);
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => VirtualDashBoard()));
+        }).catchError((value){
+          showSnackBar('Something went wrong');
+        });
+      }
     }
   }
 
@@ -158,8 +196,21 @@ class _VirtualChartState extends State<VirtualChart> with WidgetsBindingObserver
     }else if(_contPassword.text.length < 6){
       showSnackBar('Weak Password! Should be Atleast 6 Characters');
       return false;
+    }else{
+      if(isLogin){
+        if(!_listUser.contains(_contID.text)){
+          showSnackBar('User not Found! Please Registered First After untick the checkbox');
+          return false;
+        }else
+          return true;
+      }else{
+        if(_listUser.contains(_contID.text)){
+          showSnackBar('User Already exist! Please Login After tick the checkbox');
+          return false;
+        }else
+          return true;
+      }
     }
-    return true;
   }
 
 
