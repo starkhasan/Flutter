@@ -115,8 +115,7 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> {
           value: 1,
           child: Text(
             "Settings",
-            style: TextStyle(
-                color: Colors.black),
+            style: TextStyle(color: Colors.black),
           ),
         ),
         PopupMenuItem(
@@ -135,7 +134,7 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> {
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => VirtualChart()));
         }
         if(pos == 1)
-          Navigator.push(context, MaterialPageRoute(builder: (context) => VirtualChatSetting()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => VirtualChatSetting(sender: sender)));
       },
     );
   }

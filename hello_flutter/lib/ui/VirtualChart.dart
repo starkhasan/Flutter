@@ -133,7 +133,9 @@ class _VirtualChartState extends State<VirtualChart> with WidgetsBindingObserver
   void userLogin() {
     if(validation()){
       databaseReference.child(_contID.text).set({
-        'password': _contPassword.text
+        'about': ' ',
+        'password': _contPassword.text,
+        'profile':' '
       }).then((value){
         showSnackBar('User Registered Successfully');
         Preferences.setSenderName(_contID.text);
