@@ -199,13 +199,13 @@ class _VirtualChartState extends State<VirtualChart> with WidgetsBindingObserver
     }else{
       if(isLogin){
         if(!_listUser.contains(_contID.text)){
-          showSnackBar('User not Found! Please Registered First After untick the checkbox');
+          showSnackBar('User not Found! Please Registered After uncheck the checkbox');
           return false;
         }else
           return true;
       }else{
         if(_listUser.contains(_contID.text)){
-          showSnackBar('User Already exist! Please Login After tick the checkbox');
+          showSnackBar('User Already exist! Please Login After check the checkbox');
           return false;
         }else
           return true;
