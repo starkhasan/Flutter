@@ -5,6 +5,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hello_flutter/ui/VirtualChatSetting.dart';
 import 'package:hello_flutter/ui/VirtualMedia.dart';
 import 'package:hello_flutter/utils/CustomChatBubble.dart';
 import 'package:image_picker/image_picker.dart';
@@ -79,17 +80,18 @@ class _VirtualChattingState extends State<VirtualChatting> {
       appBar: AppBar(
         backgroundColor: Colors.blue,
         centerTitle: false,
-        title: Text(receiver),
+        title: InkWell(
+          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => VirtualChatSetting(sender: receiver.toLowerCase(), update: false))),
+          child: Container(padding: EdgeInsets.fromLTRB(0,5,5,5),child: Text(receiver))),
         brightness: Brightness.dark
       ),
       body: Container(
-        color: Colors.grey[200],
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
               child: Container(
-                padding: EdgeInsets.fromLTRB(10, 10, 10, 2),
+                padding: EdgeInsets.fromLTRB(10, 5, 10, 2),
                 child: StreamBuilder(
                   stream: myRefSender.child(widget.senderReceiver).onValue,
                   builder: (context,snapshot){
@@ -144,14 +146,14 @@ class _VirtualChattingState extends State<VirtualChatting> {
               ),
             ),
             Container(
-              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
               color: Colors.transparent,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Flexible(
                     child: Container(
-                      padding: EdgeInsets.all(12),
+                      padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(25))
@@ -178,10 +180,10 @@ class _VirtualChattingState extends State<VirtualChatting> {
                       uploadImageFile(imageSource);
                     },
                     child: Container(
-                      padding: EdgeInsets.all(12),
+                      padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.grey[400]
+                        color: Colors.blue
                       ),
                       child: Icon(Icons.image,color: Colors.white)
                     )
@@ -193,7 +195,7 @@ class _VirtualChattingState extends State<VirtualChatting> {
                       scrollToBottom()
                     },
                     child: Container(
-                      padding: EdgeInsets.all(12),
+                      padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: Colors.blue

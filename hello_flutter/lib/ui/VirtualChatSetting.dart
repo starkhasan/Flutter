@@ -11,7 +11,8 @@ import 'package:lottie/lottie.dart';
 
 class VirtualChatSetting extends StatefulWidget {
   final String sender;
-  VirtualChatSetting({@required this.sender});
+  final bool update;
+  VirtualChatSetting({@required this.sender,@required this.update});
   @override
   _VirtualChatSettingState createState() => _VirtualChatSettingState();
 }
@@ -46,7 +47,7 @@ class _VirtualChatSettingState extends State<VirtualChatSetting> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Settings'),
+        title: Text(widget.update ? 'Settings' : widget.sender[0].toUpperCase()+widget.sender.substring(1)),
         backgroundColor: Colors.blue
       ),
       body: Container(
@@ -66,11 +67,11 @@ class _VirtualChatSettingState extends State<VirtualChatSetting> {
                     alignment: Alignment.center,
                     child: GestureDetector(
                       onTap: () async{
-                        if(notes['profile'] == ' '){
+                        if(notes['profile'] == ' ' && widget.update){
                           var source = await chooseImageSource();
                           uploadImageFile(source);
-                        }else
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => VirtualMedia(path: notes['profile'], name: 'Profile')));
+                        }else if(notes['profile'] != ' ')
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => VirtualMedia(path: notes['profile'], name: widget.update ? 'Profile' : widget.sender[0].toUpperCase()+widget.sender.substring(1))));
                       },
                       child: CircleAvatar(
                         backgroundColor: Colors.grey[400],
@@ -86,7 +87,7 @@ class _VirtualChatSettingState extends State<VirtualChatSetting> {
                     children: [
                       Row(
                         children: [
-                          Icon(Icons.info_rounded,color: Colors.grey[700]),
+                          Icon(Icons.info_rounded),
                           SizedBox(width: 20),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,9 +98,12 @@ class _VirtualChatSettingState extends State<VirtualChatSetting> {
                           )
                         ]
                       ),
-                      IconButton(
-                        onPressed: () => aboutInfoDialog(aboutMessage),
-                        icon: Icon(Icons.edit,color: Colors.grey[700])
+                      Visibility(
+                        visible: widget.update,
+                        child: IconButton(
+                          onPressed: () => aboutInfoDialog(aboutMessage),
+                          icon: Icon(Icons.edit)
+                        )
                       )
                     ]
                   )

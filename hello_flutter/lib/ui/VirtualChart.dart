@@ -157,6 +157,7 @@ class _VirtualChartState extends State<VirtualChart> with WidgetsBindingObserver
           for(var v in snapshot.value.keys) {
             if(_contID.text == v && snapshot.value[v]['password'] == _contPassword.text){
               isUserFound = true;
+              break;
             }
           }
         });
@@ -166,7 +167,7 @@ class _VirtualChartState extends State<VirtualChart> with WidgetsBindingObserver
           Preferences.setVirtualLogin(true);
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => VirtualDashBoard()));
         }else{
-          showSnackBar('Invalid UserID password');
+          showSnackBar('Invalid UserID or password');
         }
       }else{
         databaseReference.child(_contID.text).set({
