@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:virtual_chat/ui/RegisterScreen.dart';
 import 'package:virtual_chat/ui/VirtualDashBoard.dart';
+import 'package:virtual_chat/util/PreferenceUtil.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -105,6 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
       });
       if(isUserFound){
         showSnackBar('User Login Successfully');
+        PreferenceUtil.setSenderName(_idCont.text);
         //Preferences.setSenderName(_contID.text);
         //Preferences.setVirtualLogin(true);
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => VirtualDashBoard()));
