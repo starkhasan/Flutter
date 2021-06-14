@@ -98,7 +98,22 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                   radius: appBarImageSize
                 ),
                 SizedBox(width: 5),
-                Text(receiver[0].toUpperCase()+receiver.substring(1))
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(receiver[0].toUpperCase()+receiver.substring(1)),
+                    StreamBuilder(
+                      stream: statusDatabase.child(receiver).onValue,
+                      builder: (context,AsyncSnapshot snapshot){
+                        var allUser = snapshot.data.snapshot.value;
+                        return allUser['status'] == 'offline'
+                          ? SizedBox()
+                          : Text(allUser['status'],style: TextStyle(fontSize: 12,fontWeight: FontWeight.normal));
+                      }
+                    )
+                  ]
+                )
               ]
             )
           )
@@ -130,26 +145,28 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                         itemBuilder: (context,index){
                           var key = notes.keys.elementAt(index);
                           imageName = key;
-                          return Align(
-                            alignment: notes[key]['sender'] == sender ? Alignment.centerRight : Alignment.centerLeft,
-                            child: Container(
-                              margin: EdgeInsets.fromLTRB(10, 2, 10, 0),
+                          return Container(
+                            child: Align(
+                              alignment: notes[key]['sender'] == sender ? Alignment.centerRight : Alignment.centerLeft,
                               child: Container(
-                                padding: EdgeInsets.fromLTRB(8, 5, 8, 5),
-                                decoration: BoxDecoration(
-                                  color: notes[key]['sender'] == sender ? Colors.blue : Colors.grey[300],
-                                  borderRadius: BorderRadius.all(Radius.circular(5))
-                                ),
-                                child: notes[key]['type'] == 'text'
-                                ? Text(
-                                    notes[key]['message'],
-                                    style: TextStyle(color: notes[key]['sender'] == sender ? Colors.white : Colors.black,fontSize: 16)
-                                  )
-                                : GestureDetector(
-                                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: notes[key]['message'], name: notes[key]['sender']))),
-                                  child: Hero(
-                                    tag: 'Image Hero',
-                                    child: Image.network(notes[key]['message'],width: imageWidth)
+                                margin: EdgeInsets.fromLTRB(10, 2, 10, 0),
+                                child: Container(
+                                  padding: EdgeInsets.fromLTRB(8, 5, 8, 5),
+                                  decoration: BoxDecoration(
+                                    color: notes[key]['sender'] == sender ? Colors.blue : Colors.grey[300],
+                                    borderRadius: BorderRadius.all(Radius.circular(5))
+                                  ),
+                                  child: notes[key]['type'] == 'text'
+                                  ? Text(
+                                      notes[key]['message'],
+                                      style: TextStyle(color: notes[key]['sender'] == sender ? Colors.white : Colors.black,fontSize: 16)
+                                    )
+                                  : GestureDetector(
+                                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: notes[key]['message'], name: notes[key]['sender']))),
+                                    child: Hero(
+                                      tag: 'Image Hero',
+                                      child: Image.network(notes[key]['message'],width: imageWidth)
+                                    )
                                   )
                                 )
                               )
