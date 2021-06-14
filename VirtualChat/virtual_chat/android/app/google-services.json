@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1037940544137",
+    "project_id": "virtualchat-flutter",
+    "storage_bucket": "virtualchat-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1037940544137:android:cde2f701ad5f976b4dec58",
+        "android_client_info": {
+          "package_name": "com.virtual.virtual_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1037940544137-4rl41q1beh8ickd9hg2l4he6ciq1fn0u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.virtual.virtual_chat",
+            "certificate_hash": "303014e032aa2672ce6360679ddc8cda907c3dda"
+          }
+        },
+        {
+          "client_id": "1037940544137-7r3579h1dq5ptpnkgovd4sdtq5kok7hs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClDu5WvydAG8EumsXC-loAmjVIt8qAkSE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1037940544137-7r3579h1dq5ptpnkgovd4sdtq5kok7hs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
