@@ -18,7 +18,7 @@ class ChatSetting extends StatefulWidget {
   _ChatSettingState createState() => _ChatSettingState();
 }
 
-class _ChatSettingState extends State<ChatSetting> {
+class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
   var firebaseStorage;
   var firebaseDatabase;
   var file;
@@ -32,7 +32,6 @@ class _ChatSettingState extends State<ChatSetting> {
   @override
   void initState() {
     super.initState();
-    Firebase.initializeApp();
     firebaseDatabase = FirebaseDatabase.instance.reference().child('users').child(widget.sender);
   }
 
@@ -251,4 +250,5 @@ class _ChatSettingState extends State<ChatSetting> {
     var snackBar = SnackBar(content: Text(message));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
+
 }

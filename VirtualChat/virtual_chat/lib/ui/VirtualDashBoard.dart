@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:lottie/lottie.dart';
 import 'package:virtual_chat/ui/ChatMedia.dart';
 import 'package:virtual_chat/ui/ChatSetting.dart';
 import 'package:virtual_chat/ui/ChattingScreen.dart';
@@ -14,18 +14,20 @@ class VirtualDashBoard extends StatefulWidget {
   _VirtualDashBoardState createState() => _VirtualDashBoardState();
 }
 
-class _VirtualDashBoardState extends State<VirtualDashBoard> {
+class _VirtualDashBoardState extends State<VirtualDashBoard> with WidgetsBindingObserver{
 
   var databaseReference;
   var storageReference;
   var sender = '';
   var widthPad = 0.0;
   var heightPad = 0.0;
+  var lottieHeight = 0.0;
+  var lottieWidth = 0.0;
 
   @override
   void initState() {
     super.initState();
-    Firebase.initializeApp();
+    WidgetsBinding.instance!.addObserver(this);
     databaseReference = FirebaseDatabase.instance.reference().child('users');
     storageReference = FirebaseStorage.instance.ref().child('messages');
     sender = PreferenceUtil.getSenderName();
@@ -34,8 +36,11 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    statusOnline();
     widthPad = MediaQuery.of(context).size.width * 0.02;
     heightPad = MediaQuery.of(context).size.height * 0.01;
+    lottieHeight = MediaQuery.of(context).size.height * 0.45;
+    lottieWidth = MediaQuery.of(context).size.width * 0.45;
   }
 
 
@@ -56,8 +61,8 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> {
             stream: databaseReference.onValue,
             builder: (BuildContext context,AsyncSnapshot snapshot){
               if(!snapshot.hasData || snapshot.hasError){
-                return Container();
-              }else if(snapshot.hasData && snapshot.data.snapshot.value != null){
+                return Container(child: Center(child: Lottie.asset('assets/animationLottie/emptyScreen.json',height: lottieHeight,width: lottieWidth)));
+              }else if(snapshot.hasData && snapshot.data.snapshot.value != null && snapshot.data.snapshot.value.length > 1){
                 var allUser = snapshot.data.snapshot.value;
                 return ListView.separated(
                   itemCount: allUser.length,
@@ -90,13 +95,11 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Text(key[0].toUpperCase()+key.substring(1),style: TextStyle(color: Colors.black,fontSize: 20)),
-                                    Visibility(visible: !allUser[key]['message'].isEmpty,child: Text(allUser[key]['message'],style: TextStyle(color: Colors.grey)))
+                                    Text(key[0].toUpperCase()+key.substring(1),style: TextStyle(color: Colors.black,fontSize: 20))
                                   ]
                                 )
                               ]
-                            ),
-                            Text(allUser[key]['lastActive'])
+                            )
                           ]
                         )
                       )
@@ -108,7 +111,7 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> {
                   }
                 );
               }else{
-                return Container();
+                return Container(child: Center(child: Lottie.asset('assets/animationLottie/emptyScreen.json',height: lottieHeight,width: lottieWidth)));
               }
             },
           )
@@ -141,12 +144,14 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> {
       ],
       onSelected: (pos){
         if(pos == 2){
+          statusOffline();
           PreferenceUtil.setSenderName("");
           PreferenceUtil.setLogin(false);
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
         }
-        if(pos == 1)
+        if(pos == 1){
           Navigator.push(context, MaterialPageRoute(builder: (context) => ChatSetting(sender: sender,update: true)));
+        }
       }
     );
   }
@@ -172,5 +177,33 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> {
         );
       }
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance!.removeObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if(state == AppLifecycleState.resumed){
+      statusOnline();
+    }else{
+      statusOffline();
+    }
+  }
+
+  statusOnline(){
+    databaseReference.child(sender).update({
+        'status': 'online'
+    });
+  }
+
+  statusOffline(){
+    databaseReference.child(sender).update({
+        'status': 'offline'
+    });
   }
 }

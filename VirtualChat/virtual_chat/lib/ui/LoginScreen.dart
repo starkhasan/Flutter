@@ -25,11 +25,12 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    Firebase.initializeApp();
     databaseReference = FirebaseDatabase.instance.reference().child('users');
     databaseReference.once().then((DataSnapshot snapshot){
-      for(var user in snapshot.value.keys){
-        _listUser.add(user);
+    if(snapshot.value != null){
+        for(var user in snapshot.value.keys){
+          _listUser.add(user);
+        }
       }
     });
   }
@@ -124,6 +125,9 @@ class _LoginScreenState extends State<LoginScreen> {
       return false;
     }else if(_passCont.text.length < 6){
       showSnackBar('Minimum length should be 6');
+      return false;
+    }else if(_listUser.isEmpty){
+      showSnackBar('Please Register User First');
       return false;
     }
     return true;

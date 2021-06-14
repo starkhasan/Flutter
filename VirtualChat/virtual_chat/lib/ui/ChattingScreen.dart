@@ -21,9 +21,9 @@ class ChattingScreen extends StatefulWidget {
   _ChattingScreenState createState() => _ChattingScreenState();
 }
 
-class _ChattingScreenState extends State<ChattingScreen> {
+class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObserver{
 
-  var receiverPingDatabase;
+  var statusDatabase;
   var myRefSender;
   var myRefReceiver;
   var firebaseStore;
@@ -58,12 +58,12 @@ class _ChattingScreenState extends State<ChattingScreen> {
 
   @override
   void initState() {
-    Firebase.initializeApp();
+    WidgetsBinding.instance!.addObserver(this);
     database = FirebaseDatabase.instance;
     firebaseStore = FirebaseStorage.instance;
     myRefSender = database.reference().child('messages');
     myRefReceiver = database.reference().child('messages');
-    receiverPingDatabase = database.reference().child('users').child(widget.receiver);
+    statusDatabase = database.reference().child('users');
     setState(() {
       sender = widget.sender;
       receiver = widget.receiver;
@@ -285,11 +285,27 @@ class _ChattingScreenState extends State<ChattingScreen> {
         'type': type,
         'sender': sender,
       });
-      receiverPingDatabase.update({
-        'message': type == 'text' ? _contMessage.text.toString() : 'image',
-        'lastActive':time.toString()
-      });
     }
     _contMessage.clear();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance!.removeObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if(state == AppLifecycleState.resumed){
+      statusDatabase.child(sender).update({
+          'status': 'online'
+      });
+    }else{
+      statusDatabase.child(sender).update({
+          'status': 'offline'
+      });
+    }
   }
 }

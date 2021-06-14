@@ -21,11 +21,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   void initState() {
     super.initState();
-    Firebase.initializeApp();
     databaseReference = FirebaseDatabase.instance.reference().child('users');
     databaseReference.once().then((DataSnapshot snapshot){
-      for(var user in snapshot.value.keys){
-        _listUser.add(user);
+      if(snapshot.value != null){
+        for(var user in snapshot.value.keys){
+          _listUser.add(user);
+        }
       }
     });
   }
