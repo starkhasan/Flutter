@@ -64,26 +64,39 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> {
                   itemBuilder: (context,index){
                     var key = allUser.keys.elementAt(index);
                     return InkWell(
-                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ChattingScreen(sender: sender,receiver: key))),
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ChattingScreen(sender: sender,receiver: key,senderImagePath: allUser[key]['profile']))),
                       child: key!=sender
                       ? Container(
                         padding: EdgeInsets.fromLTRB(widthPad, heightPad, widthPad, heightPad),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            InkWell(
-                              onTap: () {
-                                if(allUser[key]['profile'] != ' ') Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: allUser[key]['profile'], name: key)));
-                              },
-                              child: CircleAvatar(
-                                radius: 26,
-                                backgroundColor: Colors.blue,
-                                child: allUser[key]['profile'] == ' ' ? Icon(Icons.person,size: 26,color: Colors.white) : null,
-                                backgroundImage: allUser[key]['profile'] == ' ' ? null : NetworkImage(allUser[key]['profile']),
-                              )
+                            Row(
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    if(allUser[key]['profile'] != ' ') Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: allUser[key]['profile'], name: key)));
+                                  },
+                                  child: CircleAvatar(
+                                    radius: 26,
+                                    backgroundColor: Colors.blue,
+                                    child: allUser[key]['profile'] == ' ' ? Icon(Icons.person,size: 26,color: Colors.white) : null,
+                                    backgroundImage: allUser[key]['profile'] == ' ' ? null : NetworkImage(allUser[key]['profile']),
+                                  )
+                                ),
+                                SizedBox(width: 15),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(key[0].toUpperCase()+key.substring(1),style: TextStyle(color: Colors.black,fontSize: 20)),
+                                    Visibility(visible: !allUser[key]['message'].isEmpty,child: Text(allUser[key]['message'],style: TextStyle(color: Colors.grey)))
+                                  ]
+                                )
+                              ]
                             ),
-                            SizedBox(width: 15),
-                            Text(key[0].toUpperCase()+key.substring(1),style: TextStyle(color: Colors.black,fontSize: 20))
+                            Text(allUser[key]['lastActive'])
                           ]
                         )
                       )
@@ -111,20 +124,20 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> {
           value: 0,
           child: Text(
             sender[0].toUpperCase()+sender.substring(1)
-          ),
+          )
         ),
         PopupMenuItem(
           value: 1,
           child: Text(
             "Settings"
-          ),
+          )
         ),
         PopupMenuItem(
           value: 2,
           child: Text(
-            "Logout",
-          ),
-        ),
+            "Logout"
+          )
+        )
       ],
       onSelected: (pos){
         if(pos == 2){
@@ -134,7 +147,7 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> {
         }
         if(pos == 1)
           Navigator.push(context, MaterialPageRoute(builder: (context) => ChatSetting(sender: sender,update: true)));
-      },
+      }
     );
   }
 
@@ -155,7 +168,7 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> {
               onPressed: () => Navigator.pop(context,true),
               child: Text('Yes')
             )
-          ],
+          ]
         );
       }
     );

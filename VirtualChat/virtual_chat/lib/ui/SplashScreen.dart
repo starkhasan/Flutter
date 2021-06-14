@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:virtual_chat/ui/LoginScreen.dart';
 import 'package:virtual_chat/ui/VirtualDashBoard.dart';
 import 'package:virtual_chat/util/PreferenceUtil.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class SplashScreen extends StatefulWidget {
   @override

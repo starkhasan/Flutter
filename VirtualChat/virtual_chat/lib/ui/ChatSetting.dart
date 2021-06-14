@@ -25,6 +25,7 @@ class _ChatSettingState extends State<ChatSetting> {
   var lottieHeight = 0.0;
   var lottieWidth = 0.0;
   var _topMargin = 0.0;
+  var _imageSize = 0.0;
   var _contAbout = TextEditingController();
   var aboutMessage = '';
 
@@ -41,14 +42,15 @@ class _ChatSettingState extends State<ChatSetting> {
     lottieHeight = MediaQuery.of(context).size.height * 0.45;
     lottieWidth = MediaQuery.of(context).size.width * 0.45;
     _topMargin = MediaQuery.of(context).size.height * 0.05;
+    _imageSize = MediaQuery.of(context).size.height * 0.07;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: Text(widget.update ? 'Settings' : widget.sender[0].toUpperCase()+widget.sender.substring(1)),
+        centerTitle: false,
+        title: Text(widget.update ? 'Profile Update' : widget.sender[0].toUpperCase()+widget.sender.substring(1)),
         backgroundColor: Colors.blue
       ),
       body: Container(
@@ -67,18 +69,36 @@ class _ChatSettingState extends State<ChatSetting> {
                   Align(
                     alignment: Alignment.center,
                     child: GestureDetector(
-                      onTap: () async{
-                        if(notes['profile'] == ' ' && widget.update){
-                          var source = await chooseImageSource();
-                          uploadImageFile(source);
-                        }else if(notes['profile'] != ' ')
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: notes['profile'], name: widget.update ? 'Profile' : widget.sender[0].toUpperCase()+widget.sender.substring(1))));
+                      onTap: () {
+                        notes['profile'] != ' '
+                          ? Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: notes['profile'], name: widget.update ? 'Profile' : widget.sender[0].toUpperCase()+widget.sender.substring(1))))
+                          : showSnackBar('Image Not Found');
                       },
                       child: CircleAvatar(
-                        backgroundColor: Colors.grey[400],
-                        backgroundImage: notes['profile'] == ' ' ? null : NetworkImage(notes['profile']),
-                        radius: 40,
-                        child: notes['profile'] != ' ' ? null : Icon(Icons.add_a_photo,size: 30,color: Colors.white),
+                        backgroundColor: Colors.grey[200],
+                        backgroundImage: notes['profile'] == ' ' ? NetworkImage('https://i.ibb.co/Tm8jmFY/add-1.png') : NetworkImage(notes['profile']),
+                        radius: _imageSize,
+                        child: Visibility(
+                          visible: widget.update,
+                          child: Container(
+                            width: _topMargin,
+                            height: _topMargin,
+                            transform: Matrix4.translationValues(40, 40, 0),
+                            decoration: BoxDecoration(
+                              color: Colors.blue,
+                              shape: BoxShape.circle
+                            ),
+                            child: Center(
+                              child: IconButton(
+                                onPressed: () async{
+                                  var source = await chooseImageSource();
+                                  uploadImageFile(source);
+                                },
+                                icon: Icon(Icons.camera_alt_rounded,color: Colors.white)
+                              )
+                            ),
+                          )
+                        )
                       )
                     )
                   ),
@@ -183,11 +203,11 @@ class _ChatSettingState extends State<ChatSetting> {
                     ]
                   )
                 ),
-                Divider(height: 1,color: Colors.grey[400]),
+                Divider(height: 0.8,color: Colors.grey[400]),
                 GestureDetector(
                   onTap: () => {
                     firebaseDatabase.update({
-                      'about': _contAbout.text.isEmpty ? 'Hey there! I am VirtualChat' : _contAbout.text
+                      'about': _contAbout.text.isEmpty ? 'Hey there! I am using VirtualChat' : _contAbout.text
                     }),
                     Navigator.pop(context)
                   },

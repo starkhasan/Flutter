@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:virtual_chat/ui/VirtualDashBoard.dart';
+import 'package:virtual_chat/util/PreferenceUtil.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -81,14 +82,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
   userLogin() async{
     if(validation()){
       databaseReference.child(_idCont.text).set({
-        'about': 'Hey there! I am VirtualChat',
+        'about': 'Hey there! I am using VirtualChat',
         'password': _passCont.text,
-        'profile':' '
+        'profile':' ',
+        'message':'',
+        'lastActive':''
       }).then((value){
         showSnackBar('User Registered Successfully');
-        //Preferences.setSenderName(_contID.text);
-        //Preferences.setVirtualLogin(true);
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => VirtualDashBoard()));
+        PreferenceUtil.setSenderName(_idCont.text);
+        PreferenceUtil.setLogin(true);
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => VirtualDashBoard()), (route) => false);
       }).catchError((value){
         showSnackBar('Something went wrong');
       });

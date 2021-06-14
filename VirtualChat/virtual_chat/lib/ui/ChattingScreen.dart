@@ -15,13 +15,15 @@ import 'package:virtual_chat/util/CustomChatBubble.dart';
 class ChattingScreen extends StatefulWidget {
   final String sender;
   final String receiver;
-  const ChattingScreen({ Key? key ,required this.sender,required this.receiver}) : super(key: key);
+  final String senderImagePath;
+  const ChattingScreen({ Key? key ,required this.sender,required this.receiver,required this.senderImagePath}) : super(key: key);
   @override
   _ChattingScreenState createState() => _ChattingScreenState();
 }
 
 class _ChattingScreenState extends State<ChattingScreen> {
 
+  var receiverPingDatabase;
   var myRefSender;
   var myRefReceiver;
   var firebaseStore;
@@ -37,6 +39,7 @@ class _ChattingScreenState extends State<ChattingScreen> {
   var lottieWidth = 0.0;
   var imageHeight = 0.0;
   var imageWidth = 0.0;
+  var appBarImageSize = 0.0;
   late File file;
   var imageSource = ImageSource.gallery;
   var imageLink = '';
@@ -50,6 +53,7 @@ class _ChattingScreenState extends State<ChattingScreen> {
     lottieWidth = MediaQuery.of(context).size.width * 0.45;
     imageHeight = MediaQuery.of(context).size.height * 0.16;
     imageWidth = MediaQuery.of(context).size.width * 0.50;
+    appBarImageSize = MediaQuery.of(context).size.width * 0.04;
   }
 
   @override
@@ -59,6 +63,7 @@ class _ChattingScreenState extends State<ChattingScreen> {
     firebaseStore = FirebaseStorage.instance;
     myRefSender = database.reference().child('messages');
     myRefReceiver = database.reference().child('messages');
+    receiverPingDatabase = database.reference().child('users').child(widget.receiver);
     setState(() {
       sender = widget.sender;
       receiver = widget.receiver;
@@ -78,9 +83,26 @@ class _ChattingScreenState extends State<ChattingScreen> {
       appBar: AppBar(
         backgroundColor: Colors.blue,
         centerTitle: false,
+        titleSpacing: 0.0,
         title: InkWell(
           onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ChatSetting(sender: receiver.toLowerCase(), update: false))),
-          child: Container(padding: EdgeInsets.fromLTRB(0,5,5,5),child: Text(receiver[0].toUpperCase()+receiver.substring(1)))),
+          child: Container(
+            padding: EdgeInsets.fromLTRB(0,5,5,5),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                CircleAvatar(
+                  backgroundColor: Colors.white,
+                  backgroundImage: widget.senderImagePath == ' ' ? NetworkImage('https://i.ibb.co/Tm8jmFY/add-1.png') : NetworkImage(widget.senderImagePath),
+                  radius: appBarImageSize
+                ),
+                SizedBox(width: 5),
+                Text(receiver[0].toUpperCase()+receiver.substring(1))
+              ]
+            )
+          )
+        ),
         brightness: Brightness.dark
       ),
       body: Container(
@@ -89,7 +111,8 @@ class _ChattingScreenState extends State<ChattingScreen> {
           children: [
             Expanded(
               child: Container(
-                padding: EdgeInsets.fromLTRB(10, 5, 10, 2),
+                padding: EdgeInsets.fromLTRB(8, 5, 8, 0),
+                color: Colors.white,
                 child: StreamBuilder(
                   stream: myRefSender.child(senderReceiver).onValue,
                   builder: (context,AsyncSnapshot snapshot){
@@ -110,27 +133,24 @@ class _ChattingScreenState extends State<ChattingScreen> {
                           return Align(
                             alignment: notes[key]['sender'] == sender ? Alignment.centerRight : Alignment.centerLeft,
                             child: Container(
-                              margin: EdgeInsets.fromLTRB(10, 1, 10, 0),
-                              child: CustomPaint(
-                                  painter: CustomChatBubble(isSender: notes[key]['sender'] == sender ? true : false),
-                                  child: Container(
-                                    padding: EdgeInsets.fromLTRB(8, 5, 8, 5),
-                                    decoration: BoxDecoration(
-                                      color: notes[key]['sender'] == sender ? Colors.blue : Colors.white,
-                                      borderRadius: BorderRadius.all(Radius.circular(5))
-                                    ),
-                                  child: notes[key]['type'] == 'text'
-                                    ? Text(
-                                        notes[key]['message'],
-                                        style: TextStyle(color: notes[key]['sender'] == sender ? Colors.white : Colors.black)
-                                      )
-                                    : GestureDetector(
-                                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: notes[key]['message'], name: notes[key]['sender']))),
-                                      child: Hero(
-                                        tag: 'Image Hero',
-                                        child: Image.network(notes[key]['message'],width: imageWidth)
-                                      )
-                                    )
+                              margin: EdgeInsets.fromLTRB(10, 2, 10, 0),
+                              child: Container(
+                                padding: EdgeInsets.fromLTRB(8, 5, 8, 5),
+                                decoration: BoxDecoration(
+                                  color: notes[key]['sender'] == sender ? Colors.blue : Colors.grey[300],
+                                  borderRadius: BorderRadius.all(Radius.circular(5))
+                                ),
+                                child: notes[key]['type'] == 'text'
+                                ? Text(
+                                    notes[key]['message'],
+                                    style: TextStyle(color: notes[key]['sender'] == sender ? Colors.white : Colors.black,fontSize: 16)
+                                  )
+                                : GestureDetector(
+                                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: notes[key]['message'], name: notes[key]['sender']))),
+                                  child: Hero(
+                                    tag: 'Image Hero',
+                                    child: Image.network(notes[key]['message'],width: imageWidth)
+                                  )
                                 )
                               )
                             )
@@ -144,16 +164,16 @@ class _ChattingScreenState extends State<ChattingScreen> {
               ),
             ),
             Container(
-              padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
-              color: Colors.transparent,
+              padding: EdgeInsets.fromLTRB(5, 4, 5, 5),
+              color: Colors.white,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Flexible(
                     child: Container(
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.all(15),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Colors.grey[300],
                         borderRadius: BorderRadius.all(Radius.circular(25))
                       ),
                       child: TextField(
@@ -163,10 +183,10 @@ class _ChattingScreenState extends State<ChattingScreen> {
                         maxLines: null,
                         cursorColor: Colors.black,
                         cursorWidth: 1.5,
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(color: Colors.black,fontSize: 16),
                         decoration: InputDecoration.collapsed(
                           hintText: 'Type a message',
-                          hintStyle: TextStyle(color: Colors.grey[400])
+                          hintStyle: TextStyle(color: Colors.grey,fontSize: 16)
                         )
                       )
                     )
@@ -253,6 +273,7 @@ class _ChattingScreenState extends State<ChattingScreen> {
   }
 
   sendMessage(String type){
+    var time = DateTime.now();
     if(_contMessage.text.isNotEmpty){
       myRefSender.child(senderReceiver).push().set({
         'message' : _contMessage.text.toString(),
@@ -263,6 +284,10 @@ class _ChattingScreenState extends State<ChattingScreen> {
         'message' : _contMessage.text.toString(),
         'type': type,
         'sender': sender,
+      });
+      receiverPingDatabase.update({
+        'message': type == 'text' ? _contMessage.text.toString() : 'image',
+        'lastActive':time.toString()
       });
     }
     _contMessage.clear();
