@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -40,61 +41,64 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        title: Text('Virtual Dashboard'),
-        actions: [
-          popUpMenu(sender)
-        ],
-      ),
-      body: Container(
-        child: StreamBuilder(
-          stream: databaseReference.onValue,
-          builder: (BuildContext context,AsyncSnapshot snapshot){
-            if(!snapshot.hasData || snapshot.hasError){
-              return Container();
-            }else if(snapshot.hasData && snapshot.data.snapshot.value != null){
-              var allUser = snapshot.data.snapshot.value;
-              return ListView.separated(
-                itemCount: allUser.length,
-                itemBuilder: (context,index){
-                  var key = allUser.keys.elementAt(index);
-                  return InkWell(
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ChattingScreen(sender: sender,receiver: key))),
-                    child: key!=sender
-                    ? Container(
-                      padding: EdgeInsets.fromLTRB(widthPad, heightPad, widthPad, heightPad),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              if(allUser[key]['profile'] != ' ') Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: allUser[key]['profile'], name: key)));
-                            },
-                            child: CircleAvatar(
-                              radius: 26,
-                              backgroundColor: Colors.blue,
-                              child: allUser[key]['profile'] == ' ' ? Icon(Icons.person,size: 26,color: Colors.white) : null,
-                              backgroundImage: allUser[key]['profile'] == ' ' ? null : NetworkImage(allUser[key]['profile']),
-                            )
-                          ),
-                          SizedBox(width: 15),
-                          Text(key[0].toUpperCase()+key.substring(1),style: TextStyle(color: Colors.black,fontSize: 20))
-                        ]
+    return WillPopScope(
+      onWillPop: () => onBackPress(),
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: false,
+          title: Text('Virtual Dashboard'),
+          actions: [
+            popUpMenu(sender)
+          ],
+        ),
+        body: Container(
+          child: StreamBuilder(
+            stream: databaseReference.onValue,
+            builder: (BuildContext context,AsyncSnapshot snapshot){
+              if(!snapshot.hasData || snapshot.hasError){
+                return Container();
+              }else if(snapshot.hasData && snapshot.data.snapshot.value != null){
+                var allUser = snapshot.data.snapshot.value;
+                return ListView.separated(
+                  itemCount: allUser.length,
+                  itemBuilder: (context,index){
+                    var key = allUser.keys.elementAt(index);
+                    return InkWell(
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ChattingScreen(sender: sender,receiver: key))),
+                      child: key!=sender
+                      ? Container(
+                        padding: EdgeInsets.fromLTRB(widthPad, heightPad, widthPad, heightPad),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                if(allUser[key]['profile'] != ' ') Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: allUser[key]['profile'], name: key)));
+                              },
+                              child: CircleAvatar(
+                                radius: 26,
+                                backgroundColor: Colors.blue,
+                                child: allUser[key]['profile'] == ' ' ? Icon(Icons.person,size: 26,color: Colors.white) : null,
+                                backgroundImage: allUser[key]['profile'] == ' ' ? null : NetworkImage(allUser[key]['profile']),
+                              )
+                            ),
+                            SizedBox(width: 15),
+                            Text(key[0].toUpperCase()+key.substring(1),style: TextStyle(color: Colors.black,fontSize: 20))
+                          ]
+                        )
                       )
-                    )
-                    : SizedBox()
-                  );
-                },
-                separatorBuilder: (context,index){
-                  return Divider(color: Colors.grey,height: 0.8);
-                }
-              );
-            }else{
-              return Container();
-            }
-          },
+                      : SizedBox()
+                    );
+                  },
+                  separatorBuilder: (context,index){
+                    return Divider(color: Colors.grey,height: 0.8);
+                  }
+                );
+              }else{
+                return Container();
+              }
+            },
+          )
         )
       )
     );
@@ -124,13 +128,36 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> {
       ],
       onSelected: (pos){
         if(pos == 2){
-          //Preferences.setVirtualLogin(false);
-          //Preferences.setSenderName("");
+          PreferenceUtil.setSenderName("");
+          PreferenceUtil.setLogin(false);
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
         }
         if(pos == 1)
           Navigator.push(context, MaterialPageRoute(builder: (context) => ChatSetting(sender: sender,update: true)));
       },
+    );
+  }
+
+  Future<bool> onBackPress() async{
+    return await showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context){
+        return CupertinoAlertDialog(
+          title: Text('Exit'),
+          content: Text('Are you sure you want to exit?'),
+          actions: [
+            CupertinoDialogAction(
+              onPressed: () => Navigator.pop(context,false),
+              child: Text('No',style: TextStyle(color: Colors.red)), 
+            ),
+            CupertinoDialogAction(
+              onPressed: () => Navigator.pop(context,true),
+              child: Text('Yes')
+            )
+          ],
+        );
+      }
     );
   }
 }

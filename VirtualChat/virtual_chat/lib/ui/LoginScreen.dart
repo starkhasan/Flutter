@@ -107,8 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if(isUserFound){
         showSnackBar('User Login Successfully');
         PreferenceUtil.setSenderName(_idCont.text);
-        //Preferences.setSenderName(_contID.text);
-        //Preferences.setVirtualLogin(true);
+        PreferenceUtil.setLogin(true);
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => VirtualDashBoard()));
       }else{
         showSnackBar('Invalid UserID or password');
