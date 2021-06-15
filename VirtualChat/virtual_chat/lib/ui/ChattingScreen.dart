@@ -106,10 +106,14 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                     StreamBuilder(
                       stream: statusDatabase.child(receiver).onValue,
                       builder: (context,AsyncSnapshot snapshot){
-                        var allUser = snapshot.data.snapshot.value;
-                        return allUser['status'] == 'offline'
-                          ? SizedBox()
-                          : Text(allUser['status'],style: TextStyle(fontSize: 12,fontWeight: FontWeight.normal));
+                        if(snapshot.hasData && snapshot.data.snapshot.value != null){
+                          var allUser = snapshot.data.snapshot.value;
+                          return allUser['status'] == 'offline'
+                            ? SizedBox()
+                            : Text(allUser['status'],style: TextStyle(fontSize: 12,fontWeight: FontWeight.normal));
+                        }else{
+                          return SizedBox();
+                        }
                       }
                     )
                   ]
