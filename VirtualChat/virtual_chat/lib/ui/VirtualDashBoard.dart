@@ -61,7 +61,7 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> with WidgetsBinding
             stream: databaseReference.onValue,
             builder: (BuildContext context,AsyncSnapshot snapshot){
               if(!snapshot.hasData || snapshot.hasError){
-                return CircularProgressIndicator();
+                return Container(child: Center(child:  CircularProgressIndicator(color: Colors.blue,strokeWidth: 3)));
               }else if(snapshot.hasData && snapshot.data.snapshot.value != null && snapshot.data.snapshot.value.length > 1){
                 var allUser = snapshot.data.snapshot.value;
                 return ListView.separated(

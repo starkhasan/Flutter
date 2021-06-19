@@ -23,28 +23,24 @@ class _ChatMedia extends State<ChatMedia>{
         brightness: Brightness.dark
       )
       : null,
-      body: Stack(
-        children: [
-          InteractiveViewer(
-            child: GestureDetector(
-              onDoubleTap: () => {
-                setState((){
-                  fullScreen ? SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values) : SystemChrome.setEnabledSystemUIOverlays([]);
-                  fullScreen = fullScreen ? false : true;
-                })
-              },
-              child: Container(
-                color: Colors.black,
-                child: Center(
-                  child: Hero(
-                    tag: 'Image Hero',
-                    child: Image.network(widget.path)
-                  )
-                )
+      body: InteractiveViewer(
+        child: GestureDetector(
+          onDoubleTap: () => {
+            setState((){
+              fullScreen ? SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values) : SystemChrome.setEnabledSystemUIOverlays([]);
+              fullScreen = fullScreen ? false : true;
+            })
+          },
+          child: Container(
+            color: Colors.black,
+            child: Center(
+              child: Hero(
+                tag: 'Image Hero',
+                child: Image.network(widget.path)
               )
             )
           )
-        ]
+        )
       )
     );
   }
