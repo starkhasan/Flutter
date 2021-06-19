@@ -61,7 +61,7 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> with WidgetsBinding
             stream: databaseReference.onValue,
             builder: (BuildContext context,AsyncSnapshot snapshot){
               if(!snapshot.hasData || snapshot.hasError){
-                return Container(child: Center(child: Lottie.asset('assets/animationLottie/emptyScreen.json',height: lottieHeight,width: lottieWidth)));
+                return CircularProgressIndicator();
               }else if(snapshot.hasData && snapshot.data.snapshot.value != null && snapshot.data.snapshot.value.length > 1){
                 var allUser = snapshot.data.snapshot.value;
                 return ListView.separated(

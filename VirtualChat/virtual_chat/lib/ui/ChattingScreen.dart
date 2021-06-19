@@ -85,7 +85,7 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
         centerTitle: false,
         titleSpacing: 0.0,
         title: InkWell(
-          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ChatSetting(sender: receiver.toLowerCase(), update: false))),
+          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ChatSetting(sender: receiver, update: false))),
           child: Container(
             padding: EdgeInsets.fromLTRB(0,5,5,5),
             child: Row(
