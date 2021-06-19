@@ -27,7 +27,10 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
   var _topMargin = 0.0;
   var _imageSize = 0.0;
   var _contAbout = TextEditingController();
+  var _contOldPassword = TextEditingController();
+  var _contNewPassword = TextEditingController();
   var aboutMessage = '';
+  var userPassword = '';
 
   @override
   void initState() {
@@ -62,6 +65,7 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
             }else if(snapshot.hasData && snapshot.data.snapshot.value != null){
               var notes = snapshot.data.snapshot.value;
               aboutMessage = notes['about'];
+              userPassword = notes['password'];
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -126,6 +130,25 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                         )
                       )
                     ]
+                  ),
+                  Visibility(
+                    visible: widget.update,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(Icons.password_rounded),
+                            SizedBox(width: 20),
+                            Text('Change Password')
+                          ]
+                        ),
+                        IconButton(
+                          onPressed: () => changePasswordDialog(),
+                          icon: Icon(Icons.edit)
+                        )
+                      ]
+                    )
                   )
                 ]
               );                 
@@ -158,6 +181,111 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
       }
     );
     return source;
+  }
+
+  changePasswordDialog(){
+    _contOldPassword.text = '';
+    _contNewPassword.text = '';
+    showDialog(
+      context: context, 
+      builder: (context){
+        return Dialog(
+          child: Container(
+            width: double.maxFinite,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[100],
+                          borderRadius: BorderRadius.all(Radius.circular(5))
+                        ),
+                        child: TextField(
+                          controller: _contOldPassword,
+                          keyboardType: TextInputType.visiblePassword,
+                          textInputAction: TextInputAction.newline,
+                          maxLength: 6,
+                          cursorColor: Colors.black,
+                          cursorWidth: 1.5,
+                          style: TextStyle(color: Colors.black),
+                          decoration: InputDecoration.collapsed(
+                            hintText: 'Old Password',
+                            hintStyle: TextStyle(color: Colors.grey[400]),
+                          )
+                        )
+                      ),
+                      SizedBox(height: 5),
+                      Container(
+                        padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[100],
+                          borderRadius: BorderRadius.all(Radius.circular(5))
+                        ),
+                        child: TextField(
+                          controller: _contNewPassword,
+                          keyboardType: TextInputType.visiblePassword,
+                          textInputAction: TextInputAction.newline,
+                          maxLength: 6,
+                          cursorColor: Colors.black,
+                          cursorWidth: 1.5,
+                          style: TextStyle(color: Colors.black),
+                          decoration: InputDecoration.collapsed(
+                            hintText: 'New Password',
+                            hintStyle: TextStyle(color: Colors.grey[400])
+                          )
+                        )
+                      )
+                    ]
+                  )
+                ),
+                Divider(color: Colors.grey,height: 1),
+                Container(
+                  color: Colors.black,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: InkWell(
+                          onTap: () => Navigator.pop(context),
+                          child: Container(
+                            color: Colors.white,
+                              padding: EdgeInsets.fromLTRB(0, 12, 0, 12),
+                              child: Center(child: Text('Cancel',style: TextStyle(fontSize: 16,color: Colors.red,fontWeight: FontWeight.bold)))
+                            )
+                        )
+                      ),
+                      VerticalDivider(color: Colors.grey,width: 0.5),
+                      Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            if(passwordValidation()){
+                              showSnackBar('Password Successfully Updated');
+                              firebaseDatabase.update({'password': _contNewPassword.text});
+                              Navigator.pop(context);
+                            }
+                          },
+                          child: Container(
+                            color: Colors.white,
+                            padding: EdgeInsets.fromLTRB(0, 12, 0, 12),
+                            child: Center(child: Text('Submit',style: TextStyle(fontSize: 16,color: Colors.blue,fontWeight: FontWeight.bold)))
+                          )
+                        )
+                      )
+                    ]
+                  )
+                )
+              ]
+            )
+          )
+        );
+      }
+    );
   }
 
   aboutInfoDialog(String info){
@@ -221,6 +349,26 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
         );
       }
     );
+  }
+
+  bool passwordValidation(){
+    if(_contOldPassword.text.isEmpty){
+      showSnackBar('Please provide Old Password');
+      return false;
+    }else if(_contOldPassword.text.length < 6){
+      showSnackBar('Minimum length should be 6');
+      return false;
+    }else if(_contNewPassword.text.isEmpty){
+      showSnackBar('Please provide New Password');
+      return false;
+    }else if(_contNewPassword.text.length < 6){
+      showSnackBar('Minimum length should be 6');
+      return false;
+    }else if(userPassword != _contOldPassword.text){
+      showSnackBar('Wrong Old Password');
+      return false;
+    }
+    return true;
   }
 
   Future<void> uploadImageFile(ImageSource imgSource) async{
