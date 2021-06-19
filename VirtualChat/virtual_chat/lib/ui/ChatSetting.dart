@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -377,7 +375,7 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
       file = File(photo.path);
       firebaseStorage = FirebaseStorage.instance.ref().child("messages/users/${widget.sender}"); 
       UploadTask uploadTask = firebaseStorage.putFile(file);
-      if(uploadTask!=null){
+      if(uploadTask != null){
         var snapshot = await uploadTask.whenComplete(() => {
           print('Successfully uploaded')
         });
