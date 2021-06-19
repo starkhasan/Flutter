@@ -86,8 +86,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
         'about': 'Hey there! I am using VirtualChat',
         'password': _passCont.text,
         'profile':' ',
-        'message':'',
-        'lastActive':''
       }).then((value){
         showSnackBar('User Registered Successfully');
         PreferenceUtil.setSenderName(_idCont.text);
