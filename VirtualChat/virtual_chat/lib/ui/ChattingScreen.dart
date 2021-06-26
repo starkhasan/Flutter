@@ -204,7 +204,7 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                                               padding: EdgeInsets.fromLTRB(10,10,5,5),
                                               child: Text(
                                                 notes[key]['time'].substring(11,16),
-                                                style: TextStyle(color: Colors.white,fontStyle: FontStyle.italic)
+                                                style: TextStyle(color: Colors.white,fontStyle: FontStyle.italic,decoration: TextDecoration.none)
                                               )
                                             )
                                           )
