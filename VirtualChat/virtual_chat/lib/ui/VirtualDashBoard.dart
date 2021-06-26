@@ -81,7 +81,7 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> with WidgetsBinding
                               children: [
                                 InkWell(
                                   onTap: () {
-                                    if(allUser[key]['profile'] != ' ') Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: allUser[key]['profile'], name: key)));
+                                    if(allUser[key]['profile'] != ' ') Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: allUser[key]['profile'], name: key,dateTime:'')));
                                   },
                                   child: CircleAvatar(
                                     radius: 26,

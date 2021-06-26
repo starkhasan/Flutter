@@ -72,7 +72,7 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                     child: GestureDetector(
                       onTap: () {
                         notes['profile'] != ' '
-                          ? Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: notes['profile'], name: widget.update ? 'Profile' : widget.sender[0].toUpperCase()+widget.sender.substring(1))))
+                          ? Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: notes['profile'], name: widget.update ? 'Profile' : widget.sender[0].toUpperCase()+widget.sender.substring(1),dateTime:'')))
                           : showSnackBar('Image Not Found');
                       },
                       child: CircleAvatar(
@@ -195,48 +195,36 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  margin: EdgeInsets.all(10),
+                  margin: EdgeInsets.all(15),
                   child: Column(
                     children: [
-                      Container(
-                        padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[100],
-                          borderRadius: BorderRadius.all(Radius.circular(5))
-                        ),
-                        child: TextField(
-                          controller: _contOldPassword,
-                          keyboardType: TextInputType.visiblePassword,
-                          textInputAction: TextInputAction.newline,
-                          maxLength: 6,
-                          cursorColor: Colors.black,
-                          cursorWidth: 1.5,
-                          style: TextStyle(color: Colors.black),
-                          decoration: InputDecoration.collapsed(
-                            hintText: 'Old Password',
-                            hintStyle: TextStyle(color: Colors.grey[400]),
-                          )
+                      TextField(
+                        controller: _contOldPassword,
+                        keyboardType: TextInputType.visiblePassword,
+                        textInputAction: TextInputAction.newline,
+                        maxLength: 6,
+                        cursorColor: Colors.black,
+                        cursorWidth: 1.5,
+                        style: TextStyle(color: Colors.black,fontSize: 16),
+                        decoration: InputDecoration(
+                          hintText: 'Old Password',
+                          hintStyle: TextStyle(color: Colors.grey[400]),
+                          counter: Offstage()
                         )
                       ),
                       SizedBox(height: 5),
-                      Container(
-                        padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[100],
-                          borderRadius: BorderRadius.all(Radius.circular(5))
-                        ),
-                        child: TextField(
-                          controller: _contNewPassword,
-                          keyboardType: TextInputType.visiblePassword,
-                          textInputAction: TextInputAction.newline,
-                          maxLength: 6,
-                          cursorColor: Colors.black,
-                          cursorWidth: 1.5,
-                          style: TextStyle(color: Colors.black),
-                          decoration: InputDecoration.collapsed(
-                            hintText: 'New Password',
-                            hintStyle: TextStyle(color: Colors.grey[400])
-                          )
+                      TextField(
+                        controller: _contNewPassword,
+                        keyboardType: TextInputType.visiblePassword,
+                        textInputAction: TextInputAction.newline,
+                        maxLength: 6,
+                        cursorColor: Colors.black,
+                        cursorWidth: 1.5,
+                        style: TextStyle(color: Colors.black,fontSize: 16),
+                        decoration: InputDecoration(
+                          hintText: 'New Password',
+                          hintStyle: TextStyle(color: Colors.grey[400]),
+                          counter: Offstage()
                         )
                       )
                     ]
@@ -244,7 +232,7 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                 ),
                 Divider(color: Colors.grey,height: 1),
                 Container(
-                  color: Colors.black,
+                  color: Colors.grey,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -253,12 +241,12 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                           onTap: () => Navigator.pop(context),
                           child: Container(
                             color: Colors.white,
-                              padding: EdgeInsets.fromLTRB(0, 12, 0, 12),
+                              padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
                               child: Center(child: Text('Cancel',style: TextStyle(fontSize: 16,color: Colors.red,fontWeight: FontWeight.bold)))
                             )
                         )
                       ),
-                      VerticalDivider(color: Colors.grey,width: 0.5),
+                      VerticalDivider(color: Colors.grey[350],width: 1),
                       Expanded(
                         child: InkWell(
                           onTap: () {
@@ -270,7 +258,7 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                           },
                           child: Container(
                             color: Colors.white,
-                            padding: EdgeInsets.fromLTRB(0, 12, 0, 12),
+                            padding: EdgeInsets.fromLTRB(0, 15, 0, 15 ),
                             child: Center(child: Text('Submit',style: TextStyle(fontSize: 16,color: Colors.blue,fontWeight: FontWeight.bold)))
                           )
                         )

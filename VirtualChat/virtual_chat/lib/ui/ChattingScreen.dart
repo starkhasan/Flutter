@@ -44,6 +44,8 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
   var imageSource = ImageSource.gallery;
   var imageLink = '';
   var imageName = 'first';
+  var chatTime = DateTime.now();
+  var imageUploading = false;
 
 
   @override
@@ -51,7 +53,7 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
     super.didChangeDependencies();
     lottieHeight = MediaQuery.of(context).size.height * 0.45;
     lottieWidth = MediaQuery.of(context).size.width * 0.45;
-    imageHeight = MediaQuery.of(context).size.height * 0.16;
+    imageHeight = MediaQuery.of(context).size.height * 0.045;
     imageWidth = MediaQuery.of(context).size.width * 0.50;
     appBarImageSize = MediaQuery.of(context).size.width * 0.04;
   }
@@ -161,15 +163,53 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                                     borderRadius: BorderRadius.all(Radius.circular(5))
                                   ),
                                   child: notes[key]['type'] == 'text'
-                                  ? Text(
-                                      notes[key]['message'],
-                                      style: TextStyle(color: notes[key]['sender'] == sender ? Colors.white : Colors.black,fontSize: 16)
-                                    )
+                                  ? Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        notes[key]['message'],
+                                        style: TextStyle(color: notes[key]['sender'] == sender ? Colors.white : Colors.black,fontSize: 16)
+                                      ),
+                                      SizedBox(width: 10),
+                                      Text(
+                                        notes[key]['time'].substring(11,16),
+                                        style: TextStyle(
+                                          color: notes[key]['sender'] == sender ? Colors.white70 : Colors.black54,
+                                          fontSize: 12,
+                                          fontStyle: FontStyle.italic,
+                                          fontWeight: FontWeight.normal
+                                        )
+                                      )
+                                    ]
+                                  )
                                   : GestureDetector(
-                                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: notes[key]['message'], name: notes[key]['sender']))),
+                                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: notes[key]['message'], name: notes[key]['sender'],dateTime: notes[key]['time']))),
                                     child: Hero(
                                       tag: 'Image Hero',
-                                      child: Image.network(notes[key]['message'],width: imageWidth)
+                                      child: Stack(
+                                        fit: StackFit.passthrough,
+                                        children: [
+                                          Image.network(notes[key]['message'],width: imageWidth),
+                                          Positioned(
+                                            right: 0,
+                                            bottom: 0,
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.only(topLeft: Radius.circular(20)),
+                                                boxShadow: [
+                                                  BoxShadow(color: Colors.black26,spreadRadius: 5.0,blurRadius: 5.0)
+                                                ]
+                                              ),
+                                              padding: EdgeInsets.fromLTRB(10,10,5,5),
+                                              child: Text(
+                                                notes[key]['time'].substring(11,16),
+                                                style: TextStyle(color: Colors.white,fontStyle: FontStyle.italic)
+                                              )
+                                            )
+                                          )
+                                        ]
+                                      )
                                     )
                                   )
                                 )
@@ -224,7 +264,9 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                         shape: BoxShape.circle,
                         color: Colors.blue
                       ),
-                      child: Icon(Icons.image,color: Colors.white)
+                      child: imageUploading
+                        ? SizedBox(height: 25,width: 25,child:CircularProgressIndicator(backgroundColor: Colors.grey[100],strokeWidth: 2.0))
+                        : Icon(Icons.image,color: Colors.white)
                     )
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.01),
@@ -275,6 +317,7 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
   }
 
   Future<void> uploadImageFile(ImageSource imgSource) async{
+    setState(() { imageUploading = true;});
     var photo = await ImagePicker().getImage(source: imgSource);
     if(photo!=null){
       file = File(photo.path);
@@ -286,6 +329,7 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
         });
         var urlDownload = await snapshot.ref.getDownloadURL();
         print(urlDownload);
+        setState(() { imageUploading = false;});
         _contMessage.text = urlDownload;
         sendMessage('image');
       }else
@@ -300,11 +344,13 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
         'message' : _contMessage.text.toString(),
         'type' : type,
         'sender': sender,
+        'time': time.toString()
       });
       myRefReceiver.child(receiverSender).push().set({
         'message' : _contMessage.text.toString(),
         'type': type,
         'sender': sender,
+        'time': time.toString()
       });
     }
     _contMessage.clear();

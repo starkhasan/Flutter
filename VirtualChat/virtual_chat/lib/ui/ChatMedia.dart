@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:virtual_chat/extensions/extensionFile.dart';
 
 class ChatMedia extends StatefulWidget {
   final String path;
   final String name;
-  const ChatMedia({ Key? key ,required this.path,required this.name}) : super(key: key);
+  final String dateTime;
+  const ChatMedia({ Key? key ,required this.path,required this.name,required this.dateTime}) : super(key: key);
   @override
   _ChatMedia createState() => _ChatMedia();
 }
@@ -18,7 +20,20 @@ class _ChatMedia extends State<ChatMedia>{
       appBar: !fullScreen 
       ? AppBar(
         centerTitle: false,
-        title: Text(widget.name[0].toUpperCase()+widget.name.substring(1)),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(widget.name[0].toUpperCase()+widget.name.substring(1)),
+            Visibility(
+              visible: widget.dateTime.isEmpty ? false : true,
+              child: Text(
+                widget.dateTime.isEmpty ? '' : widget.dateTime.formateDate,
+                style: TextStyle(color: Colors.white,fontSize: 12,fontStyle: FontStyle.italic,fontWeight: FontWeight.normal)
+              )
+            )
+          ],
+        ),
         backgroundColor: Colors.black,
         brightness: Brightness.dark
       )
