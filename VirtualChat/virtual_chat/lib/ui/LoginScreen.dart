@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -47,16 +48,23 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
     body: Container(
       padding: EdgeInsets.fromLTRB(widthPadding, heightPadding, widthPadding, heightPadding),
+      color: Colors.white,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
           children: [
-            Text('Login'),
+            Text('Virtual Chat',style: TextStyle(fontFamily: 'Pattaya',fontSize: 40)),
+            Text(
+              'Welcome to VirtualChat',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.black,fontSize: 24),
+            ),
             SizedBox(height: 10),
             TextField(
               controller: _idCont,
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.text,
+              style: TextStyle(fontSize: 18),
               decoration: InputDecoration(
                 hintText: 'User ID'
               )
@@ -67,26 +75,41 @@ class _LoginScreenState extends State<LoginScreen> {
                 textInputAction: TextInputAction.done,
                 keyboardType: TextInputType.text,
                 obscureText: showPassword,
+                style: TextStyle(fontSize: 18),
                 decoration: InputDecoration(
                   hintText: 'Password',
                   suffixIcon: IconButton(icon: showPassword ? Icon(Icons.lock_open_rounded) : Icon(Icons.lock),onPressed: () => setState((){showPassword = showPassword ? false : true;}))
                 ),
               onSubmitted: (value) => userLogin(),
             ),
-            SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () => userLogin(),
-              child: Text('Login')
+            SizedBox(height: 15),
+            GestureDetector(
+              onTap: () => userLogin(),
+              child: Container(
+                padding: EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.indigo
+                ),
+                child: Text(
+                  'Continue',
+                  style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w600)
+                )
+              ),
             ),
             SizedBox(height: 20),
-            InkWell(
-              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterScreen())),
-              child: Text(
-                'Register User',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20
-                )
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(text: "Don't have account? ",style: TextStyle(color: Colors.black)),
+                  TextSpan(
+                    text: 'Register',
+                    style: TextStyle(color: Colors.blue,fontSize: 16),
+                    recognizer:  TapGestureRecognizer()..onTap = (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterScreen()));
+                    }
+                  )
+                ]
               )
             )
           ]

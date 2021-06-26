@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:virtual_chat/ui/VirtualDashBoard.dart';
@@ -17,6 +16,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   var databaseReference;
   var _listUser = [];
   var isUserFound = false;
+  var showPassword = true;
 
   @override
   void initState() {
@@ -43,16 +43,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Scaffold(
     body: Container(
       padding: EdgeInsets.fromLTRB(widthPadding, heightPadding, widthPadding, heightPadding),
+      color: Colors.white,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
           children: [
-            Text('Register User'),
+            Text('Virtual Chat',style: TextStyle(fontFamily: 'Pattaya',fontSize: 40)),
+            Text(
+              'Create Account',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.black,fontSize: 24),
+            ),
             SizedBox(height: 10),
             TextField(
               controller: _idCont,
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.text,
+              style: TextStyle(fontSize: 18),
               decoration: InputDecoration(
                 hintText: 'User ID'
               )
@@ -62,17 +69,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
               controller: _passCont,
                 textInputAction: TextInputAction.done,
                 keyboardType: TextInputType.text,
-                obscureText: false,
+                obscureText: showPassword,
+                style: TextStyle(fontSize: 18),
                 decoration: InputDecoration(
                   hintText: 'Password',
-                  suffixIcon: IconButton(icon: Icon(Icons.lock),onPressed: () => print('Click Here to Show Password'))
+                  suffixIcon: IconButton(icon: showPassword ? Icon(Icons.lock_open_rounded) : Icon(Icons.lock),onPressed: () => setState((){showPassword = showPassword ? false : true;}))
                 ),
               onSubmitted: (value) => userLogin(),
             ),
+            SizedBox(height: 15),
+            GestureDetector(
+              onTap: () => userLogin(),
+              child: Container(
+                padding: EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.indigo
+                ),
+                child: Text(
+                  'Register',
+                  style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w600)
+                )
+              ),
+            ),
             SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () => userLogin(),
-              child: Text('Register')
+            Text(
+              'By creating account, you are to out Terms & Service',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16,color: Colors.grey)
             )
           ]
         )
