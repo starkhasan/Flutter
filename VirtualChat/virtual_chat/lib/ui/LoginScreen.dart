@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:virtual_chat/ui/RegisterScreen.dart';
 import 'package:virtual_chat/ui/VirtualDashBoard.dart';
@@ -21,6 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   var databaseReference;
   var _listUser = [];
   var isUserFound = false;
+  var showPassword = true;
 
   @override
   void initState() {
@@ -66,10 +66,10 @@ class _LoginScreenState extends State<LoginScreen> {
               controller: _passCont,
                 textInputAction: TextInputAction.done,
                 keyboardType: TextInputType.text,
-                obscureText: false,
+                obscureText: showPassword,
                 decoration: InputDecoration(
                   hintText: 'Password',
-                  suffixIcon: IconButton(icon: Icon(Icons.lock),onPressed: () => print('Click Here to Show Password'))
+                  suffixIcon: IconButton(icon: showPassword ? Icon(Icons.lock_open_rounded) : Icon(Icons.lock),onPressed: () => setState((){showPassword = showPassword ? false : true;}))
                 ),
               onSubmitted: (value) => userLogin(),
             ),

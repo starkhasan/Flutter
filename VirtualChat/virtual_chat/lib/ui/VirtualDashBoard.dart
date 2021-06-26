@@ -23,6 +23,7 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> with WidgetsBinding
   var heightPad = 0.0;
   var lottieHeight = 0.0;
   var lottieWidth = 0.0;
+  var todayDate = DateTime.now();
 
   @override
   void initState() {
@@ -99,6 +100,17 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> with WidgetsBinding
                                   ]
                                 )
                               ]
+                            ),
+                            Tooltip(
+                              message:'Today is birthday of ${key[0].toUpperCase()+key.substring(1)}',
+                              child: Icon(
+                                allUser[key]['dob'].isEmpty
+                                  ? null
+                                  : allUser[key]['dob'].substring(5,10) == todayDate.toString().substring(5,10)
+                                    ? Icons.cake_rounded
+                                    : null,
+                                color: Colors.red
+                              )
                             )
                           ]
                         )

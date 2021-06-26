@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:virtual_chat/ui/ChatMedia.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class ChatSetting extends StatefulWidget {
   final String sender;
@@ -143,6 +144,39 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                         ),
                         IconButton(
                           onPressed: () => changePasswordDialog(),
+                          icon: Icon(Icons.edit)
+                        )
+                      ]
+                    )
+                  ),
+                  Visibility(
+                    visible: widget.update,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(Icons.cake_rounded),
+                            SizedBox(width: 20),
+                            Text(
+                              notes['dob'].isEmpty ? 'Birthday' : notes['dob']
+                            )
+                          ]
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            DatePicker.showDatePicker(
+                              context,
+                              showTitleActions: true,
+                              maxTime: DateTime.now(),
+                              onConfirm: (date) {
+                                firebaseDatabase.update({
+                                  'dob': date.toString().substring(0,10)
+                                });
+                              },
+                              currentTime: DateTime.now(), locale: LocaleType.en
+                            );
+                          },
                           icon: Icon(Icons.edit)
                         )
                       ]
