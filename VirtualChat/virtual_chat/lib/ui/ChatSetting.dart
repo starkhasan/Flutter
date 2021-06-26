@@ -52,7 +52,7 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
       appBar: AppBar(
         centerTitle: false,
         title: Text(widget.update ? 'Profile Update' : widget.sender[0].toUpperCase()+widget.sender.substring(1)),
-        backgroundColor: Colors.blue
+        backgroundColor: Colors.indigo
       ),
       body: Container(
         margin: EdgeInsets.fromLTRB(10,_topMargin,10,10),
@@ -60,7 +60,7 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
           stream: firebaseDatabase.onValue,
           builder: (context,AsyncSnapshot snapshot){
             if(!snapshot.hasData || snapshot.hasError){
-              return Container(child: Center(child:  CircularProgressIndicator(color: Colors.blue,strokeWidth: 3))); 
+              return Container(child: Center(child:  CircularProgressIndicator(color: Colors.indigo,strokeWidth: 3))); 
             }else if(snapshot.hasData && snapshot.data.snapshot.value != null){
               var notes = snapshot.data.snapshot.value;
               aboutMessage = notes['about'];
@@ -87,7 +87,7 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                             height: _topMargin,
                             transform: Matrix4.translationValues(40, 40, 0),
                             decoration: BoxDecoration(
-                              color: Colors.blue,
+                              color: Colors.indigo,
                               shape: BoxShape.circle
                             ),
                             child: Center(
@@ -293,7 +293,7 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                           child: Container(
                             color: Colors.white,
                             padding: EdgeInsets.fromLTRB(0, 15, 0, 15 ),
-                            child: Center(child: Text('Submit',style: TextStyle(fontSize: 16,color: Colors.blue,fontWeight: FontWeight.bold)))
+                            child: Center(child: Text('Submit',style: TextStyle(fontSize: 16,color: Colors.indigo,fontWeight: FontWeight.bold)))
                           )
                         )
                       )
@@ -360,7 +360,7 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                   },
                   child: Container(
                     padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
-                    child: Center(child: Text('Submit',style: TextStyle(fontSize: 18,color: Colors.blue,fontWeight: FontWeight.bold)))
+                    child: Center(child: Text('Submit',style: TextStyle(fontSize: 18,color: Colors.indigo,fontWeight: FontWeight.bold)))
                   )
                 )
               ]

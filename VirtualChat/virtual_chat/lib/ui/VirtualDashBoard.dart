@@ -52,6 +52,7 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> with WidgetsBinding
       child: Scaffold(
         appBar: AppBar(
           centerTitle: false,
+          backgroundColor: Colors.indigo,
           title: Text('Virtual Dashboard'),
           actions: [
             popUpMenu(sender)
@@ -86,7 +87,7 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> with WidgetsBinding
                                   },
                                   child: CircleAvatar(
                                     radius: 26,
-                                    backgroundColor: Colors.blue,
+                                    backgroundColor: Colors.indigo,
                                     child: allUser[key]['profile'] == ' ' ? Icon(Icons.person,size: 26,color: Colors.white) : null,
                                     backgroundImage: allUser[key]['profile'] == ' ' ? null : NetworkImage(allUser[key]['profile']),
                                   )

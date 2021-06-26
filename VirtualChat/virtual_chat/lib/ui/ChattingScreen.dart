@@ -83,7 +83,7 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.indigo,
         centerTitle: false,
         titleSpacing: 0.0,
         title: InkWell(
@@ -138,7 +138,7 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                   stream: myRefSender.child(senderReceiver).onValue,
                   builder: (context,AsyncSnapshot snapshot){
                     if(!snapshot.hasData || snapshot.hasError){
-                      return Container(child: Center(child:  CircularProgressIndicator(color: Colors.blue,strokeWidth: 3))); 
+                      return Container(child: Center(child:  CircularProgressIndicator(color: Colors.indigo,strokeWidth: 3))); 
                     }else if(snapshot.hasData && snapshot.data.snapshot.value != null){
                       scrollToBottom();
                       var notes = snapshot.data.snapshot.value;
@@ -159,7 +159,7 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                                 child: Container(
                                   padding: EdgeInsets.fromLTRB(8, 5, 8, 5),
                                   decoration: BoxDecoration(
-                                    color: notes[key]['sender'] == sender ? Colors.blue : Colors.grey[300],
+                                    color: notes[key]['sender'] == sender ? Colors.indigo : Colors.grey[300],
                                     borderRadius: BorderRadius.all(Radius.circular(5))
                                   ),
                                   child: notes[key]['type'] == 'text'
@@ -262,7 +262,7 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                       padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.blue
+                        color: Colors.indigo
                       ),
                       child: imageUploading
                         ? SizedBox(height: 25,width: 25,child:CircularProgressIndicator(backgroundColor: Colors.grey[100],strokeWidth: 2.0))
@@ -279,7 +279,7 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                       padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.blue
+                        color: Colors.indigo
                       ),
                       child: Icon(Icons.send,color: Colors.white)
                     )
