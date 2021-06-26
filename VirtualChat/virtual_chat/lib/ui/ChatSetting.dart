@@ -52,7 +52,8 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
       appBar: AppBar(
         centerTitle: false,
         title: Text(widget.update ? 'Profile Update' : widget.sender[0].toUpperCase()+widget.sender.substring(1)),
-        backgroundColor: Colors.indigo
+        backgroundColor: Colors.indigo,
+        brightness: Brightness.dark
       ),
       body: Container(
         margin: EdgeInsets.fromLTRB(10,_topMargin,10,10),

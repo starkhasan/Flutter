@@ -52,6 +52,7 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> with WidgetsBinding
       child: Scaffold(
         appBar: AppBar(
           centerTitle: false,
+          brightness: Brightness.dark,
           backgroundColor: Colors.indigo,
           title: Text('Virtual Dashboard'),
           actions: [
@@ -139,19 +140,22 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> with WidgetsBinding
         PopupMenuItem(
           value: 0,
           child: Text(
-            sender[0].toUpperCase()+sender.substring(1)
+            sender[0].toUpperCase()+sender.substring(1),
+            style: TextStyle(fontWeight: FontWeight.bold,color: Colors.indigo)
           )
         ),
         PopupMenuItem(
           value: 1,
           child: Text(
-            "Settings"
+            "Settings",
+            style: TextStyle(fontWeight: FontWeight.bold,color: Colors.indigo)
           )
         ),
         PopupMenuItem(
           value: 2,
           child: Text(
-            "Logout"
+            "Logout",
+            style: TextStyle(fontWeight: FontWeight.bold,color: Colors.red)
           )
         )
       ],

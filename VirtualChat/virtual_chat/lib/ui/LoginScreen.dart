@@ -104,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   TextSpan(text: "Don't have account? ",style: TextStyle(color: Colors.black)),
                   TextSpan(
                     text: 'Register',
-                    style: TextStyle(color: Colors.blue,fontSize: 16),
+                    style: TextStyle(color: Colors.indigo,fontSize: 16),
                     recognizer:  TapGestureRecognizer()..onTap = (){
                       Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterScreen()));
                     }
