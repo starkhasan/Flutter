@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:virtual_chat/ui/LoginScreen.dart';
 import 'package:virtual_chat/ui/VirtualDashBoard.dart';
 import 'package:virtual_chat/util/PreferenceUtil.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -16,7 +15,7 @@ class _SplashScreen extends State<SplashScreen> with TickerProviderStateMixin{
   void initState() {
     super.initState();
     PreferenceUtil.init();
-    animation = AnimationController(vsync: this, duration: Duration(seconds: 5),);
+    animation = AnimationController(vsync: this, duration: Duration(seconds: 3));
     _fadeInFadeOut = Tween<double>(begin: 0.0, end: 1.0).animate(animation);
     animation.addListener((){
       if(animation.isCompleted){
