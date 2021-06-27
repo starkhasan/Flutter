@@ -76,18 +76,6 @@ class _HomeDrawer extends State<HomeDrawer> {
                     alignment: Alignment.bottomCenter,
                     child: Row(
                       children: [
-                        InkWell(
-                            onTap: () => null,
-                            child: CircleAvatar(
-                              radius: 30,
-                              child: googleImage == ''
-                                  ? Icon(Icons.camera_alt)
-                                  : null,
-                              backgroundImage: imagePath == ''
-                                  ? NetworkImage(googleImage)
-                                  : FileImage(File(imagePath)),
-                            )),
-                        SizedBox(width: 10),
                         Flexible(
                             child: Text(
                           userName,

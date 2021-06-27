@@ -11,7 +11,6 @@ import 'package:hello_flutter/ui/CardSwipeScreen.dart';
 import 'package:hello_flutter/ui/CounterScreen.dart';
 import 'package:hello_flutter/ui/DraggableScrollSheet.dart';
 import 'package:hello_flutter/ui/ExpandableCardList.dart';
-import 'package:hello_flutter/ui/FirebaseStorageExample.dart';
 import 'package:hello_flutter/ui/FutureBuilderScreen.dart';
 import 'package:hello_flutter/ui/GoogleMapRoute.dart';
 import 'package:hello_flutter/ui/HeroAnimated.dart';
@@ -29,13 +28,9 @@ import 'package:hello_flutter/ui/SilverScreen.dart';
 import 'package:hello_flutter/ui/CameraExample.dart';
 import 'package:hello_flutter/ui/TextRecog.dart';
 import 'package:hello_flutter/ui/TransformUI.dart';
-import 'package:hello_flutter/ui/VirtualChart.dart';
-import 'package:hello_flutter/ui/VirtualDashBoard.dart';
-import 'package:hello_flutter/ui/WidgetDemo.dart';
 import 'package:hello_flutter/ui/DownloadFile.dart';
 import 'package:hello_flutter/ui/YouTubeFlutter.dart';
 import 'package:hello_flutter/utils/HomeDrawer.dart';
-import 'package:hello_flutter/ui/CupertinoScreen.dart';
 import 'package:hello_flutter/utils/LanguageSettings/Languages.dart';
 import 'package:hello_flutter/utils/Preferences.dart';
 
@@ -144,20 +139,16 @@ class _HomeScreen extends State<HomeScreen> with WidgetsBindingObserver{
       Languages.of(context).pieChart,
       Languages.of(context).pageView,
       Languages.of(context).googleMap,
-      Languages.of(context).cupertinoStyle,
       'Future Builder',
       'Transform UI',
       'Download File',
-      'Widget Demo',
       'CheckboxListTile',
       'Scroll Animation',
       'YouTube Flutter',
       'Location',
       'Text Recognition',
       'Covid19 Dashboard',
-      'Virtual Chat',
-      'Firebase Storage',
-      'Heor Widget'
+      'Hero Widget'
     ];
     return WillPopScope(
         onWillPop: () => _onWillPop(),
@@ -272,78 +263,57 @@ class _HomeScreen extends State<HomeScreen> with WidgetsBindingObserver{
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => CupertinoScreen()));
+                                builder: (context) => FutureBuilderScreen()));
                         break;
                       case 15:
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => FutureBuilderScreen()));
+                                builder: (context) => TransformUI()));
                         break;
                       case 16:
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => TransformUI()));
+                                builder: (context) => DownloadFile()));
                         break;
                       case 17:
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => DownloadFile()));
+                                builder: (context) => CounterScreen()));
                         break;
                       case 18:
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => WidgetDemo()));
+                                builder: (context) => ScrollAnimation()));
                         break;
                       case 19:
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => CounterScreen()));
+                                builder: (context) => YouTubeFlutter()));
                         break;
                       case 20:
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ScrollAnimation()));
+                                builder: (context) => LocationStream()));
                         break;
                       case 21:
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => YouTubeFlutter()));
+                                builder: (context) => TextRecog()));
                         break;
                       case 22:
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => LocationStream()));
-                        break;
-                      case 23:
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => TextRecog()));
-                        break;
-                      case 24:
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
                                 builder: (context) => DraggableScrollSheet()));
                         break;
-                      case 25:
-                        Navigator.push(context,MaterialPageRoute(builder: (context) => isVirtualLogin ? VirtualDashBoard() : VirtualChart()));
-                        break;
-                      case 26:
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => FirebaseStorageExample()));
-                        break;
-                      case 27:
+                      case 23:
                         Navigator.push(
                             context,
                             MaterialPageRoute(
