@@ -64,7 +64,7 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> with WidgetsBinding
             stream: databaseReference.onValue,
             builder: (BuildContext context,AsyncSnapshot snapshot){
               if(!snapshot.hasData || snapshot.hasError){
-                return Container(child: Center(child:  CircularProgressIndicator(color: Colors.blue,strokeWidth: 3)));
+                return Container(child: Center(child:  CircularProgressIndicator(color: Colors.indigo,strokeWidth: 3)));
               }else if(snapshot.hasData && snapshot.data.snapshot.value != null && snapshot.data.snapshot.value.length > 1){
                 var allUser = snapshot.data.snapshot.value;
                 return ListView.separated(
@@ -141,14 +141,14 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> with WidgetsBinding
           value: 0,
           child: Text(
             sender[0].toUpperCase()+sender.substring(1),
-            style: TextStyle(fontWeight: FontWeight.bold,color: Colors.indigo)
+            style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black)
           )
         ),
         PopupMenuItem(
           value: 1,
           child: Text(
             "Settings",
-            style: TextStyle(fontWeight: FontWeight.bold,color: Colors.indigo)
+            style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black)
           )
         ),
         PopupMenuItem(
