@@ -94,7 +94,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
             SizedBox(height: 10),
             Text(
-              'By creating account, you are to out Terms & Service',
+              'By creating account, you are agree to our Terms & Services',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16,color: Colors.grey)
             )
