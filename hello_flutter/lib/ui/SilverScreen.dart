@@ -15,7 +15,7 @@ class _SilverScreen extends State<SilverScreen> {
       body: CustomScrollView(
         slivers:[
           SliverAppBar(
-            centerTitle: true,
+            centerTitle: false,
             floating: false,
             pinned: true,
             expandedHeight: 200.0,
