@@ -12,9 +12,7 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
 
   var _currentIndex = 0;
-  var _title = 'Covid Status';
-   
-
+  
   var _listScreens = [
     CovidStatus(),
     AboutCovid(),
@@ -32,6 +30,7 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
       drawer: HomeDrawer(),
       bottomNavigationBar: BottomNavigationBar(
+        elevation: 10.0,
         onTap: onTapped,
         currentIndex: _currentIndex,
         items: [

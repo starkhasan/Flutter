@@ -21,7 +21,7 @@ class _VaccinationState extends State<Vaccination> {
   Widget vaccinationWidget(){
     return Container(
       child: Center(
-        child: Text('Vaccination')
+        child: Text('Coming soon')
       ),
     );
   }

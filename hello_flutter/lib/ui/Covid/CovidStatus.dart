@@ -37,12 +37,13 @@ class _MainScreen extends State<MainScreen> {
   var formatter = NumberFormat('#,##,000');
   var countryName = 'India';
   var countryCode = 'IN'; 
+  var date = DateTime.now().toString();
 
   @override
   void initState() {
     super.initState();
      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-       widget.provider.covidStatus('India', DateTime.now().toString());
+       widget.provider.covidStatus('India', date);
     });
   }
 
@@ -58,13 +59,14 @@ class _MainScreen extends State<MainScreen> {
         child: Icon(Icons.calendar_today_rounded),
         onPressed: (){
           DatePicker.showDatePicker(context,
-              showTitleActions: true,
-              minTime: DateTime(2018, 3, 5),
-              maxTime: DateTime(2019, 6, 7), onChanged: (date) {
-            print('change $date');
-          }, onConfirm: (date) {
-            print('confirm $date');
-          }, currentTime: DateTime.now(), locale: LocaleType.en);
+            showTitleActions: true,
+            minTime: DateTime(2020, 1, 1),
+            maxTime: DateTime.now(),
+            onConfirm: (date) {
+              widget.provider.covidStatus('India', date.toString());
+            }, 
+            currentTime: DateTime.now(), locale: LocaleType.en
+          );
         }
       )
     );
