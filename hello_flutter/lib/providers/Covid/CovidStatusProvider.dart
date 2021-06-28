@@ -1,19 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hello_flutter/network/Api.dart';
+import 'package:hello_flutter/network/response/CountryResponse.dart';
 import 'package:hello_flutter/network/response/CovidCountryCasesResponse.dart';
 import 'dart:convert';
 
 class CovidStatusProvider extends ChangeNotifier {
-  bool _callApi = true;
+  bool _callApi = false;
   bool _countryApi = false;
-  int totalCases = 0;
-  int totalRecovered = 0;
-  int newCases = 0;
-  int totalDeaths = 0;
   bool get apiCalling => _callApi;
   bool get apiCountry => _countryApi;
   List<CovidCountryCasesResponse> covidResponse = [];
   List<int> covidStatusResponse = [0,0,0,0];
+  List<CountryResponse> countryResponse = [];
+  List<CountryResponse> originalCountryResponse = [];
 
   Future<void> covidStatus( String countryName,String date) async {
     _callApi = true;
@@ -35,5 +34,40 @@ class CovidStatusProvider extends ChangeNotifier {
     }
     _callApi = false;
     notifyListeners(); 
+  }
+
+
+  Future<void> countryCases() async{
+    _countryApi = true;
+    notifyListeners();
+    try{
+      var response = await Api.countryCovidList();
+      if(response.statusCode == 200){
+        var temp = List<CountryResponse>.from(json.decode(response.body).map((x) => CountryResponse.fromJson(x)));
+        countryResponse.addAll(temp);
+        originalCountryResponse.addAll(temp);
+        print(countryResponse.length);
+      }else{
+        countryResponse = [];
+      }
+    }catch(e){
+      countryResponse = [];
+    }
+    _countryApi = false;
+    notifyListeners();
+  }
+
+  searchCountry(String input){
+    countryResponse.clear();
+    if(input.isEmpty){
+      countryResponse.addAll(originalCountryResponse);
+    }else{
+      for(var i=0;i<originalCountryResponse.length;i++){
+        if(originalCountryResponse[i].country.toLowerCase().contains(input.toLowerCase())){
+          countryResponse.add(originalCountryResponse[i]);
+        }
+      }
+    }
+    notifyListeners();
   }
 }

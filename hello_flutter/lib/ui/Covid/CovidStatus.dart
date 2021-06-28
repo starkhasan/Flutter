@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/constants/covid/HelperAbout.dart';
 import 'package:hello_flutter/providers/Covid/CovidStatusProvider.dart';
+import 'package:hello_flutter/ui/Covid/CountrySearchResult.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -54,7 +55,10 @@ class _MainScreen extends State<MainScreen> {
           Align(
             alignment: Alignment.topRight,
             child: GestureDetector(
-              onTap: () => print('Change Your Country'),
+              onTap: ()  async {
+                var result = await Navigator.push(context, MaterialPageRoute(builder: (context) => CountrySearchResult()));
+                print(result);
+              },
               child: Container(
                 padding: EdgeInsets.all(5),
                 child: Row(
