@@ -43,6 +43,21 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: HomeDrawer(),
+      floatingActionButton: _currentIndex == 0
+      ? FloatingActionButton(
+          child: Icon(Icons.calendar_today_rounded),
+          onPressed: (){
+            // DatePicker.showDatePicker(context,
+            //     showTitleActions: true,
+            //     minTime: DateTime(2018, 3, 5),
+            //     maxTime: DateTime(2019, 6, 7), onChanged: (date) {
+            //   print('change $date');
+            // }, onConfirm: (date) {
+            //   print('confirm $date');
+            // }, currentTime: DateTime.now(), locale: LocaleType.en);
+          },
+        )
+      : null,
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTapped,
         currentIndex: _currentIndex,

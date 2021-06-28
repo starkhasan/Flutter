@@ -66,6 +66,4 @@ class Api {
       return e;
     }
   }
-
-
 }

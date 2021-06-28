@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/constants/covid/HelperAbout.dart';
+import 'package:hello_flutter/providers/Covid/CovidStatusProvider.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class CovidStatus extends StatefulWidget {
   @override
@@ -9,9 +11,38 @@ class CovidStatus extends StatefulWidget {
 
 class _CovidStatusState extends State<CovidStatus> {
 
-  var countryName = 'India';
-  var countryCode = 'IN';
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider<CovidStatusProvider>(
+      create: (context) => CovidStatusProvider(),
+      child: Consumer<CovidStatusProvider>(
+          builder: (context, covidProvider, child) {
+        return MainScreen(provider: covidProvider);
+      }),
+    );
+  }
+}
+
+class MainScreen extends StatefulWidget {
+  final CovidStatusProvider provider;
+  MainScreen({this.provider});
+  @override
+  _MainScreen createState() => _MainScreen();
+}
+
+class _MainScreen extends State<MainScreen> {
+  
   var formatter = NumberFormat('#,##,000');
+  var countryName = 'India';
+  var countryCode = 'IN'; 
+
+  @override
+  void initState() {
+    super.initState();
+     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+       widget.provider.covidStatus('India', DateTime.now().toString());
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +76,7 @@ class _CovidStatusState extends State<CovidStatus> {
             )
           ),
           ListView.builder(
-            itemCount: HelperAbout.listTags.length,
+            itemCount: HelperAbout.listIcons.length,
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
             itemBuilder: (context, index){
@@ -73,14 +104,16 @@ class _CovidStatusState extends State<CovidStatus> {
                           style: TextStyle(color: Colors.black,fontSize: 16,fontFamily: ''),
                         ),
                         SizedBox(height: 5),
-                        Text(
-                          formatter.format(181757741),
+                        widget.provider.apiCalling
+                        ? SizedBox(height: 25,width: 25, child: CircularProgressIndicator(strokeWidth: 2.0,backgroundColor: Colors.blue))
+                        : Text(
+                          formatter.format(widget.provider.covidStatusResponse[index]),
                           style: TextStyle(
                             color: Colors.black,
-                            fontSize: 30,
+                            fontSize: 28,
                             fontFamily: '',
                             fontWeight: FontWeight.bold
-                          ),
+                          )
                         )
                       ]
                     ),

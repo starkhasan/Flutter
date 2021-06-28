@@ -38,7 +38,6 @@ class CovidProvider extends ChangeNotifier {
     }else{
       _isFetching = false;
       notifyListeners();
-    }
-    
+    } 
   }
 }
