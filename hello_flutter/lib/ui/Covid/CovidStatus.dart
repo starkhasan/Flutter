@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:hello_flutter/constants/covid/HelperAbout.dart';
 import 'package:hello_flutter/providers/Covid/CovidStatusProvider.dart';
 import 'package:hello_flutter/ui/Covid/CountrySearchResult.dart';
@@ -47,6 +48,29 @@ class _MainScreen extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('Covid Status'),
+      ),
+      body: covidStatusWidget(),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.calendar_today_rounded),
+        onPressed: (){
+          DatePicker.showDatePicker(context,
+              showTitleActions: true,
+              minTime: DateTime(2018, 3, 5),
+              maxTime: DateTime(2019, 6, 7), onChanged: (date) {
+            print('change $date');
+          }, onConfirm: (date) {
+            print('confirm $date');
+          }, currentTime: DateTime.now(), locale: LocaleType.en);
+        }
+      )
+    );
+  }
+
+  Widget covidStatusWidget(){
     return Container(
       padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
       child: Column(
@@ -111,7 +135,9 @@ class _MainScreen extends State<MainScreen> {
                         widget.provider.apiCalling
                         ? SizedBox(height: 25,width: 25, child: CircularProgressIndicator(strokeWidth: 2.0,backgroundColor: Colors.blue))
                         : Text(
-                          formatter.format(widget.provider.covidStatusResponse[index]),
+                          widget.provider.covidStatusResponse[index] == 0
+                           ? '0'
+                           : formatter.format(widget.provider.covidStatusResponse[index]),
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 28,

@@ -10,6 +10,26 @@ class AboutCovid extends StatefulWidget {
 class _AboutCovidState extends State<AboutCovid> {
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      body: CustomScrollView(
+        slivers:[
+          SliverAppBar(
+            centerTitle: true,
+            floating: true,
+            title: Text('About Covid'),
+            expandedHeight: kToolbarHeight
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate([
+              infoWidget()
+            ])
+          )
+        ]
+      )
+    );
+  }
+
+  Widget infoWidget(){
     return Container(
       padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
       child: Column(
@@ -143,3 +163,25 @@ class _AboutCovidState extends State<AboutCovid> {
     );
   }
 }
+
+
+/*
+_listScreens[_currentIndex]
+
+
+CustomScrollView(
+        slivers:[
+          SliverAppBar(
+            centerTitle: true,
+            floating: true,
+            title: Text(_title),
+            expandedHeight: kToolbarHeight
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate([
+              _listScreens[_currentIndex]
+            ])
+          )
+        ]
+      )
+*/

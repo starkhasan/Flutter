@@ -9,6 +9,16 @@ class Vaccination extends StatefulWidget {
 class _VaccinationState extends State<Vaccination> {
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('Vaccination'),
+      ),
+      body: vaccinationWidget(),
+    );
+  }
+
+  Widget vaccinationWidget(){
     return Container(
       child: Center(
         child: Text('Vaccination')
