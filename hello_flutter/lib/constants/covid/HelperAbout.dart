@@ -35,4 +35,16 @@ class HelperAbout {
     'Critical Cases',
     'New Cases'
   ];
+
+  static var listIconsVaccine = [
+    Icon(Icons.groups,color: Colors.teal,size: 40),
+    Icon(Icons.content_paste_rounded,color: Colors.blue,size: 40),
+    Icon(Icons.verified_user_rounded,color: Colors.green,size: 40)
+  ];
+
+  static var listVaccineTag = [
+    'Total Vaccination',
+    'People Vaccinated',
+    'People Fully Vaccinated',
+  ];
 }

@@ -3,20 +3,24 @@ import 'package:hello_flutter/network/Api.dart';
 import 'package:hello_flutter/network/response/CountryResponse.dart';
 import 'package:hello_flutter/network/response/CovidCountryCasesResponse.dart';
 import 'dart:convert';
-
+import 'package:http/http.dart' as http;
 import 'package:hello_flutter/network/response/PopulationResponse.dart';
 
 class CovidStatusProvider extends ChangeNotifier {
   bool _callApi = false;
   bool _countryApi = false;
+  bool _vaccineApi = false;
   bool get apiCalling => _callApi;
   bool get apiCountry => _countryApi;
+  bool get apiVaccine => _vaccineApi;
 
+  String vcnResponse = '';
   CovidCountryCasesResponse covidResponse;
   PopulationResponse populationResponse;
   List<int> covidStatusResponse = [0,0,0,0,0,0,0];
   List<CountryResponse> countryResponse = [];
   List<CountryResponse> originalCountryResponse = [];
+  List<int> vaccineResponse = [0,0,0];
 
   Future<void> covidStatus() async {
     _callApi = true;
@@ -78,6 +82,7 @@ class CovidStatusProvider extends ChangeNotifier {
     }
   }
 
+
   searchCountry(String input){
     countryResponse.clear();
     if(input.isEmpty){
@@ -89,6 +94,23 @@ class CovidStatusProvider extends ChangeNotifier {
         }
       }
     }
+    notifyListeners();
+  }
+
+  Future<void> vaccination() async{
+    _vaccineApi = true;
+    try{
+      if(vcnResponse.isEmpty)
+        vcnResponse =  await http.read(Uri.parse('https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/country_data/India.csv'));
+      vcnResponse = vcnResponse.split(',').reversed.join(',');
+      var strAr = vcnResponse.split(',');
+      vaccineResponse[0] = int.parse(strAr[2]);
+      vaccineResponse[1] = int.parse(strAr[1]);
+      vaccineResponse[2] = int.parse(strAr[0]);
+    }catch(e){
+      vaccineResponse = [0,0,0];
+    }
+    _vaccineApi = false;
     notifyListeners();
   }
 }

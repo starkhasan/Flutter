@@ -137,7 +137,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                     children: [
                       Text('Total Cases'),
                       Text(
-                        response[index].cases.toString(),
+                        response[index].cases != null ? response[index].cases.toString() : 'Not Found',
                         style: TextStyle(color: Colors.blue,fontSize: 20,fontWeight: FontWeight.bold,fontFamily: '')
                       )
                     ]
@@ -147,7 +147,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                     children: [
                       Text('Total Recovered'),
                       Text(
-                        response[index].recovered.toString(),
+                        response[index].recovered !=null ? response[index].recovered.toString() : 'Not Found',
                         style: TextStyle(color: Colors.green,fontSize: 20,fontWeight: FontWeight.bold,fontFamily: '')
                       )
                     ]
@@ -157,7 +157,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                     children: [
                       Text('Total Deaths'),
                       Text(
-                        response[index].deaths.toString(),
+                        response[index].deaths !=null ? response[index].deaths.toString() : 'Not Found',
                         style: TextStyle(color: Colors.red,fontSize: 20,fontWeight: FontWeight.bold,fontFamily: '')
                       )
                     ]
@@ -165,15 +165,39 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                 ]
               ),
               SizedBox(height: 10),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Total Active'),
-                  SizedBox(width: 10),
-                  Text(
-                    response[index].active.toString(),
-                    style: TextStyle(color: Colors.teal,fontSize: 20,fontWeight: FontWeight.bold,fontFamily: '')
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Total Active'),
+                      Text(
+                        response[index].active != null ? response[index].active.toString() : 'Not Found',
+                        style: TextStyle(color: Colors.teal,fontSize: 20,fontWeight: FontWeight.bold,fontFamily: '')
+                      )
+                    ]
+                  ),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('Critical Cases'),
+                      Text(
+                        response[index].critical !=null ? response[index].critical.toString() : 'Not Found',
+                        style: TextStyle(color: Colors.red,fontSize: 20,fontWeight: FontWeight.bold,fontFamily: '')
+                      )
+                    ]
+                  ),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('New Cases'),
+                      Text(
+                        response[index].todayCases !=null ? response[index].todayCases.toString() : 'Not Found',
+                        style: TextStyle(color: Colors.blue,fontSize: 20,fontWeight: FontWeight.bold,fontFamily: '')
+                      )
+                    ]
                   )
                 ]
               )

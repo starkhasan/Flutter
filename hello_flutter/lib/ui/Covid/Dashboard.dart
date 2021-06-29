@@ -15,8 +15,8 @@ class _DashboardState extends State<Dashboard> {
   
   var _listScreens = [
     CovidStatus(),
-    AboutCovid(),
-    Vaccination()
+    Vaccination(),
+    AboutCovid()
   ];
 
   onTapped(int index){
@@ -36,15 +36,15 @@ class _DashboardState extends State<Dashboard> {
         items: [
           BottomNavigationBarItem(
             label: 'Status',
-            icon: Icon(Icons.stacked_bar_chart)
-          ),
-          BottomNavigationBarItem(
-            label: 'About',
-            icon: Icon(Icons.info)
+            icon: Icon(Icons.equalizer_outlined)
           ),
           BottomNavigationBarItem(
             label: 'Vaccination',
             icon: Icon(Icons.health_and_safety_rounded)
+          ),
+          BottomNavigationBarItem(
+            label: 'About Corona',
+            icon: Icon(Icons.info)
           )
         ]
       ),
