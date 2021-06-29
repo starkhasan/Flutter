@@ -43,7 +43,7 @@ class _MainScreen extends State<MainScreen> {
   void initState() {
     super.initState();
      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-       widget.provider.covidStatus('India', date);
+       widget.provider.covidStatus();
     });
   }
 
@@ -55,20 +55,20 @@ class _MainScreen extends State<MainScreen> {
         title: Text('Covid Status'),
       ),
       body: covidStatusWidget(),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.calendar_today_rounded),
-        onPressed: (){
-          DatePicker.showDatePicker(context,
-            showTitleActions: true,
-            minTime: DateTime(2020, 1, 1),
-            maxTime: DateTime.now(),
-            onConfirm: (date) {
-              widget.provider.covidStatus('India', date.toString());
-            }, 
-            currentTime: DateTime.now(), locale: LocaleType.en
-          );
-        }
-      )
+      // floatingActionButton: FloatingActionButton(
+      //   child: Icon(Icons.calendar_today_rounded),
+      //   onPressed: (){
+      //     DatePicker.showDatePicker(context,
+      //       showTitleActions: true,
+      //       minTime: DateTime(2020, 1, 1),
+      //       maxTime: DateTime.now(),
+      //       onConfirm: (date) {
+      //         widget.provider.covidStatus();
+      //       }, 
+      //       currentTime: DateTime.now(), locale: LocaleType.en
+      //     );
+      //   }
+      // )
     );
   }
 
@@ -88,18 +88,29 @@ class _MainScreen extends State<MainScreen> {
               child: Container(
                 padding: EdgeInsets.all(5),
                 child: Row(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Image.network(
-                      'https://www.countryflags.io/$countryCode/shiny/64.png',
-                      height: 25,
-                      width: 25,
-                      errorBuilder: (context,exception,stackTrace){return Icon(Icons.flag);},
+                    Text(
+                      widget.provider.apiCalling
+                      ? 'Loading...'
+                      : 'Last updated: 2 days ago',
+                      style: TextStyle(color: Colors.black,fontSize: 18,fontFamily: ''),
                     ),
-                    SizedBox(width: 10),
-                    Text(countryName,style: TextStyle(fontSize: 18,fontFamily: '')),
-                    SizedBox(width: 10),
-                    Icon(Icons.arrow_drop_down_sharp,color: Colors.black,size: 30)
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.network(
+                          'https://www.countryflags.io/$countryCode/shiny/64.png',
+                          height: 25,
+                          width: 25,
+                          errorBuilder: (context,exception,stackTrace){return Icon(Icons.flag);},
+                        ),
+                        SizedBox(width: 10),
+                        Text(countryName,style: TextStyle(fontSize: 18,fontFamily: '')),
+                        SizedBox(width: 10),
+                        Icon(Icons.arrow_drop_down_sharp,color: Colors.black,size: 30)
+                      ]
+                    )
                   ]
                 )
               )
@@ -135,7 +146,7 @@ class _MainScreen extends State<MainScreen> {
                         ),
                         SizedBox(height: 5),
                         widget.provider.apiCalling
-                        ? SizedBox(height: 25,width: 25, child: CircularProgressIndicator(strokeWidth: 2.0,backgroundColor: Colors.blue))
+                        ? SizedBox(height: 25,width: 25, child: CircularProgressIndicator(strokeWidth: 2.0,backgroundColor: Colors.white))
                         : Text(
                           widget.provider.covidStatusResponse[index] == 0
                            ? '0'

@@ -28,7 +28,7 @@ class CovidProvider extends ChangeNotifier {
       _isCovidCaseFetching = true;
       notifyListeners();
     }
-    var response = await Api.getCountriesCases(countryName,date);
+    var response = await Api.getCountriesCases();
     if(response.statusCode == 200){
       covidCountryCaseResponse = List<CovidCountryCasesResponse>.from(json.decode(response.body).map((x) => CovidCountryCasesResponse.fromJson(x)));
     }

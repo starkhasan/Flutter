@@ -88,7 +88,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                 ? Center(child: Text('Loading...'))
                 : widget.provider.countryResponse.length > 0
                   ? getCountryList()
-                  : Center(child: Text('Result not found'))
+                  : Center(child: Text('Loading...'))
               )
             ]
           )

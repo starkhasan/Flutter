@@ -4,34 +4,40 @@ import 'package:hello_flutter/network/response/CountryResponse.dart';
 import 'package:hello_flutter/network/response/CovidCountryCasesResponse.dart';
 import 'dart:convert';
 
+import 'package:hello_flutter/network/response/PopulationResponse.dart';
+
 class CovidStatusProvider extends ChangeNotifier {
   bool _callApi = false;
   bool _countryApi = false;
   bool get apiCalling => _callApi;
   bool get apiCountry => _countryApi;
-  List<CovidCountryCasesResponse> covidResponse = [];
-  List<int> covidStatusResponse = [0,0,0,0];
+
+  CovidCountryCasesResponse covidResponse;
+  PopulationResponse populationResponse;
+  List<int> covidStatusResponse = [0,0,0,0,0,0,0];
   List<CountryResponse> countryResponse = [];
   List<CountryResponse> originalCountryResponse = [];
 
-  Future<void> covidStatus( String countryName,String date) async {
+  Future<void> covidStatus() async {
     _callApi = true;
     notifyListeners();
     try{
-      var response = await Api.getCountriesCases(countryName,date);
+      var response = await Api.getCountriesCases();
       if(response.statusCode == 200){
-        covidResponse = List<CovidCountryCasesResponse>.from(json.decode(response.body).map((x) => CovidCountryCasesResponse.fromJson(x)));
-        var size = covidResponse.length;
-        covidStatusResponse[0] = covidResponse[size-1].confirmed;
-        covidStatusResponse[1] = covidResponse[size-1].recovered;
-        covidStatusResponse[2] = covidResponse[size-1].active;
-        covidStatusResponse[3] = covidResponse[size-1].deaths;
+        covidResponse = CovidCountryCasesResponse.fromJson(json.decode(response.body));
+        covidStatusResponse[1] = covidResponse.cases;
+        covidStatusResponse[2] = covidResponse.recovered;
+        covidStatusResponse[3] = covidResponse.active;
+        covidStatusResponse[4] = covidResponse.deaths;
+        covidStatusResponse[5] = covidResponse.critical;
+        covidStatusResponse[6] = covidResponse.todayCases;
       }else{
-        covidStatusResponse = [0,0,0,0];
+        covidStatusResponse = [0,0,0,0,0,0,0];
       }
     }catch(e){
-      covidStatusResponse = [0,0,0,0];
+      covidStatusResponse = [0,0,0,0,0,0,0];
     }
+    await population();
     _callApi = false;
     notifyListeners(); 
   }
@@ -55,6 +61,21 @@ class CovidStatusProvider extends ChangeNotifier {
     }
     _countryApi = false;
     notifyListeners();
+  }
+
+
+  Future<void> population() async{
+    try{
+      var response = await Api.worldPopulation('India');
+      if(response.statusCode == 200){
+        populationResponse = PopulationResponse.fromJson(json.decode(response.body));
+        covidStatusResponse[0] = populationResponse.body.population;
+      }else{
+        covidStatusResponse[0] = 0;
+      }
+    }catch(e){
+      covidStatusResponse[0] = 0;
+    }
   }
 
   searchCountry(String input){
