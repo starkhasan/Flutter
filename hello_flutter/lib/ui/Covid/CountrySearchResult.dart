@@ -105,7 +105,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
       itemCount: response.length,
       itemBuilder: (context,index){
         return Container(
-          margin: EdgeInsets.fromLTRB(5, 5, 5, 0),
+          margin: EdgeInsets.fromLTRB(5, 8, 5, 0),
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: Colors.white,
