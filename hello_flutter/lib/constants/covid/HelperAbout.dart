@@ -22,7 +22,7 @@ class HelperAbout {
     Icon(Icons.health_and_safety,color: Colors.amber,size: 40),
     Icon(Icons.hotel,color: Colors.red,size: 40),
     Icon(Icons.gpp_maybe_rounded,color: Colors.red,size: 40),
-    Icon(Icons.person_add_alt_sharp,color: Colors.blue,size: 40),
+    Icon(Icons.person_add_alt_sharp,color: Colors.blue,size: 40)
   ];
   //priority_high_rounded
 
@@ -32,7 +32,7 @@ class HelperAbout {
     'Total Recovered',
     'Total Active',
     'Total Deaths',
-    'Critical Cases'
+    'Critical Cases',
     'New Cases'
   ];
 }
