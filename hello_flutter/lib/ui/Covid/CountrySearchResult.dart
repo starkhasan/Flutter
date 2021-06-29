@@ -86,11 +86,11 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                 )
               ),
               Expanded(
-                child: widget.provider.apiCalling
+                child: widget.provider.apiCountry
                 ? Center(child: Text('Loading...'))
                 : widget.provider.countryResponse.length > 0
                   ? getCountryList()
-                  : Center(child: Text('Loading...'))
+                  : Center(child: Text('No result found'))
               )
             ]
           )
