@@ -8,7 +8,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hello_flutter/ui/AppLifeCycle.dart';
 import 'package:hello_flutter/ui/CardSwipeScreen.dart';
-import 'package:hello_flutter/ui/CounterScreen.dart';
 import 'package:hello_flutter/ui/Covid/Dashboard.dart';
 import 'package:hello_flutter/ui/DraggableScrollSheet.dart';
 import 'package:hello_flutter/ui/ExpandableCardList.dart';
@@ -148,7 +147,6 @@ class _HomeScreen extends State<HomeScreen> with WidgetsBindingObserver{
       'YouTube Flutter',
       'Location',
       'Text Recognition',
-      'Covid19 Dashboard',
       'Hero Widget',
       'Dashboard'
     ];
@@ -283,45 +281,39 @@ class _HomeScreen extends State<HomeScreen> with WidgetsBindingObserver{
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => CounterScreen()));
+                                builder: (context) => ScrollAnimation()));
                         break;
                       case 18:
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ScrollAnimation()));
+                                builder: (context) => YouTubeFlutter()));
                         break;
                       case 19:
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => YouTubeFlutter()));
+                                builder: (context) => LocationStream()));
                         break;
                       case 20:
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => LocationStream()));
+                                builder: (context) => TextRecog()));
                         break;
                       case 21:
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => TextRecog()));
+                                builder: (context) => DraggableScrollSheet()));
                         break;
                       case 22:
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => DraggableScrollSheet()));
-                        break;
-                      case 23:
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
                                 builder: (context) => HeroAnimated()));
                         break;
-                      case 24:
+                      case 23:
                         Navigator.push(
                             context,
                             MaterialPageRoute(

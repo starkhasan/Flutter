@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/providers/Covid/CovidStatusProvider.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class CountrySearchResult extends StatefulWidget {
@@ -30,7 +31,8 @@ class CountryMainScreen extends StatefulWidget {
 
 class _CountryMainScreen extends State<CountryMainScreen> {
 
-
+  var formatter = NumberFormat('#,##,000');
+  
   @override
   void initState() {
     super.initState();
@@ -108,12 +110,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(10)),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey,
-                blurRadius: 2.0
-              )
-            ]
+            boxShadow: [BoxShadow(color: Colors.grey,blurRadius: 2.0)]
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,9 +118,13 @@ class _CountryMainScreen extends State<CountryMainScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(
-                    response[index].country,
-                    style: TextStyle(color: Colors.black,fontSize: 25,fontFamily: ''),
+                  Flexible(
+                    child: Text(
+                      response[index].country,
+                      softWrap: true,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(color: Colors.black,fontSize: 24,fontFamily: '',fontWeight: FontWeight.bold),
+                    )
                   )
                 ]
               ),
@@ -131,36 +132,79 @@ class _CountryMainScreen extends State<CountryMainScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Total Cases'),
-                      Text(
-                        response[index].cases != null ? response[index].cases.toString() : 'Not Found',
-                        style: TextStyle(color: Colors.blue,fontSize: 20,fontWeight: FontWeight.bold,fontFamily: '')
-                      )
-                    ]
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Cases',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
+                        Text(
+                          response[index].cases != null 
+                          ? response[index].cases == 0
+                            ? '0'
+                            : formatter.format(response[index].cases) 
+                          : 'Not Found',
+                          style: TextStyle(color: Colors.blue,fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
+                        )
+                      ]
+                    )
                   ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text('Total Recovered'),
-                      Text(
-                        response[index].recovered !=null ? response[index].recovered.toString() : 'Not Found',
-                        style: TextStyle(color: Colors.green,fontSize: 20,fontWeight: FontWeight.bold,fontFamily: '')
-                      )
-                    ]
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text('Recovered',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
+                        Text(
+                          response[index].recovered != null 
+                          ? response[index].recovered == 0
+                            ? '0'
+                            : formatter.format(response[index].recovered) 
+                          : 'Not Found',
+                          style: TextStyle(color: Colors.green,fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
+                        )
+                      ]
+                    )
+                  ) 
+                ]
+              ),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Deaths',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
+                        Text(
+                          response[index].deaths != null 
+                          ? response[index].deaths == 0
+                            ? '0'
+                            : formatter.format(response[index].deaths) 
+                          : 'Not Found',
+                          style: TextStyle(color: Colors.red,fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
+                        )
+                      ]
+                    )
                   ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text('Total Deaths'),
-                      Text(
-                        response[index].deaths !=null ? response[index].deaths.toString() : 'Not Found',
-                        style: TextStyle(color: Colors.red,fontSize: 20,fontWeight: FontWeight.bold,fontFamily: '')
-                      )
-                    ]
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text('Active',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
+                        Text(
+                          response[index].active != null 
+                          ? response[index].active == 0
+                            ? '0'
+                            : formatter.format(response[index].active) 
+                          : 'Not Found',
+                          style: TextStyle(color: Colors.teal,fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
+                        )
+                      ]
+                    )
                   )
                 ]
               ),
@@ -168,36 +212,39 @@ class _CountryMainScreen extends State<CountryMainScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Total Active'),
-                      Text(
-                        response[index].active != null ? response[index].active.toString() : 'Not Found',
-                        style: TextStyle(color: Colors.teal,fontSize: 20,fontWeight: FontWeight.bold,fontFamily: '')
-                      )
-                    ]
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Critical Cases',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
+                        Text(
+                          response[index].critical != null 
+                          ? response[index].critical == 0
+                            ? '0'
+                            : formatter.format(response[index].critical) 
+                          : 'Not Found',
+                          style: TextStyle(color: Colors.red,fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
+                        )
+                      ]
+                    )
                   ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text('Critical Cases'),
-                      Text(
-                        response[index].critical !=null ? response[index].critical.toString() : 'Not Found',
-                        style: TextStyle(color: Colors.red,fontSize: 20,fontWeight: FontWeight.bold,fontFamily: '')
-                      )
-                    ]
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text('New Cases'),
-                      Text(
-                        response[index].todayCases !=null ? response[index].todayCases.toString() : 'Not Found',
-                        style: TextStyle(color: Colors.blue,fontSize: 20,fontWeight: FontWeight.bold,fontFamily: '')
-                      )
-                    ]
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text('New Cases',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
+                        Text(
+                          response[index].todayCases != null 
+                          ? response[index].todayCases == 0
+                            ? '0'
+                            : formatter.format(response[index].todayCases) 
+                          : 'Not Found',
+                          style: TextStyle(color: Colors.blue,fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
+                        )
+                      ]
+                    )
                   )
                 ]
               )

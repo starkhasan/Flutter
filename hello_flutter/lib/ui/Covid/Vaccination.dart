@@ -48,14 +48,25 @@ class _VaccineScreenState extends State<VaccineScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('Vaccination'),
-      ),
-      body: vaccinationStatusWidget()
+      body: CustomScrollView(
+        slivers:[
+          SliverAppBar(
+            centerTitle: true,
+            floating: true,
+            title: Text('Vaccination'),
+            expandedHeight: kToolbarHeight
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate([
+              vaccinationStatusWidget()
+            ])
+          )
+        ]
+      )
     );
   }
 
+  
 
   Widget vaccinationStatusWidget(){
     return Container(
@@ -69,25 +80,30 @@ class _VaccineScreenState extends State<VaccineScreen> {
               padding: EdgeInsets.all(5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    widget.provider.apiVaccine
-                    ? 'Loading...'
-                    : 'Last updated: 2 days ago',
-                    style: TextStyle(color: Colors.black,fontSize: 18,fontFamily: ''),
+                  Expanded(
+                    child: Text(
+                      widget.provider.apiVaccine
+                      ? 'Loading...'
+                      : 'Last updated: 2 days ago',
+                      style: TextStyle(color: Colors.black,fontSize: 17,fontFamily: ''),
+                    )
                   ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Image.network(
-                        'https://www.countryflags.io/IN/shiny/64.png',
-                        height: 25,
-                        width: 25,
-                        errorBuilder: (context,exception,stackTrace){return Icon(Icons.flag);},
-                      ),
-                      SizedBox(width: 10),
-                      Text('India',style: TextStyle(fontSize: 18,fontFamily: ''))
-                    ]
+                  Flexible(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.network(
+                          'https://www.countryflags.io/IN/shiny/64.png',
+                          height: 25,
+                          width: 25,
+                          errorBuilder: (context,exception,stackTrace){return Icon(Icons.flag);},
+                        ),
+                        SizedBox(width: 10),
+                        Text('India',style: TextStyle(fontSize: 17,fontFamily: ''))
+                      ]
+                    )
                   )
                 ]
               )
@@ -114,28 +130,30 @@ class _VaccineScreenState extends State<VaccineScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          HelperAbout.listVaccineTag[index],
-                          style: TextStyle(color: Colors.black,fontSize: 16,fontFamily: ''),
-                        ),
-                        SizedBox(height: 5),
-                        widget.provider.apiVaccine
-                        ? SizedBox(height: 25,width: 25, child: CircularProgressIndicator(strokeWidth: 2.0,backgroundColor: Colors.white))
-                        : Text(
-                          widget.provider.vaccineResponse[index] == 0
-                           ? '0'
-                           : formatter.format(widget.provider.vaccineResponse[index]),
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 28,
-                            fontFamily: '',
-                            fontWeight: FontWeight.bold
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            HelperAbout.listVaccineTag[index],
+                            style: TextStyle(color: Colors.black,fontSize: 15,fontFamily: ''),
+                          ),
+                          SizedBox(height: 5),
+                          widget.provider.apiVaccine
+                          ? SizedBox(height: 25,width: 25, child: CircularProgressIndicator(strokeWidth: 2.0,backgroundColor: Colors.white))
+                          : Text(
+                            widget.provider.vaccineResponse[index] == 0
+                            ? '0'
+                            : formatter.format(widget.provider.vaccineResponse[index]),
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 26,
+                              fontFamily: '',
+                              fontWeight: FontWeight.bold
+                            )
                           )
-                        )
-                      ]
+                        ]
+                      )
                     ),
                     HelperAbout.listIconsVaccine[index]
                   ],

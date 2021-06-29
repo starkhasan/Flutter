@@ -37,25 +37,24 @@ class _AboutCovidState extends State<AboutCovid> {
         children: [
           Text(
             'What is COVID-19',
-            style: TextStyle(color: Colors.black,fontSize: 25,fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.black,fontSize: 25,fontWeight: FontWeight.bold,fontFamily: ''),
           ),
           RichText(
             text: TextSpan(
+              style: TextStyle(color: Colors.black,fontFamily: 'PoppinsRegular'),
               children: [
                 TextSpan(
-                  text: '\nCoronavirus disease 2019 (COVID-19) is a contagious disease caused by severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2). The first known case was identified in Wuhan, China in December 2019.[7] The disease has since spread worldwide, leading to an ongoing pandemic\n',
-                  style: TextStyle(color: Colors.black)
+                  text: '\nCoronavirus disease 2019 (COVID-19) is a contagious disease caused by severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2). The first known case was identified in Wuhan, China in December 2019.[7] The disease has since spread worldwide, leading to an ongoing pandemic\n'
                 ),
                 TextSpan(
-                  text: '\nSARS‑CoV‑2 belongs to the broad family of viruses known as coronaviruses. It is a positive-sense single-stranded RNA (+ssRNA) virus, with a single linear RNA segment. Coronaviruses infect humans, other mammals, and avian species, including livestock and companion animals. Human coronaviruses are capable of causing illnesses ranging from the common cold to more severe diseases such as Middle East respiratory syndrome (MERS, fatality rate ~34%).',
-                  style: TextStyle(color: Colors.black)
+                  text: '\nSARS‑CoV‑2 belongs to the broad family of viruses known as coronaviruses. It is a positive-sense single-stranded RNA (+ssRNA) virus, with a single linear RNA segment. Coronaviruses infect humans, other mammals, and avian species, including livestock and companion animals. Human coronaviruses are capable of causing illnesses ranging from the common cold to more severe diseases such as Middle East respiratory syndrome (MERS, fatality rate ~34%).'
                 )
               ]
             ),
           ),
           Text(
             '\nSymptoms of COVID-19',
-            style: TextStyle(color: Colors.black,fontSize: 25,fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.black,fontSize: 25,fontWeight: FontWeight.bold,fontFamily: ''),
           ),
           Text(
             '\nCOVID-19 affects different people in different ways. Most infected people will develop mild to moderate illness and recover without hospitalization',
@@ -98,10 +97,11 @@ class _AboutCovidState extends State<AboutCovid> {
                 padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Icon(Icons.circle,color: Colors.green,size: 15),
                     SizedBox(width: 5),
-                    Text(HelperAbout.listLessSymptoms[index],style: TextStyle(color: Colors.black))
+                    Flexible(child: Text(HelperAbout.listLessSymptoms[index],style: TextStyle(color: Colors.black)))
                   ]
                 )
               );
@@ -121,10 +121,11 @@ class _AboutCovidState extends State<AboutCovid> {
                 padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Icon(Icons.circle,color: Colors.red,size: 15),
                     SizedBox(width: 5),
-                    Text(HelperAbout.listSeriousSymptoms[index],style: TextStyle(color: Colors.black))
+                    Flexible(child: Text(HelperAbout.listSeriousSymptoms[index],style: TextStyle(color: Colors.black)))
                   ]
                 )
               );
@@ -136,7 +137,7 @@ class _AboutCovidState extends State<AboutCovid> {
           ),
           Text(
             '\nPrevention of COVID-19',
-            style: TextStyle(color: Colors.black,fontSize: 25,fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.black,fontSize: 25,fontWeight: FontWeight.bold,fontFamily: ''),
           ),
           ListView.builder(
             shrinkWrap: true,

@@ -50,11 +50,21 @@ class _MainScreen extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('Covid Status'),
-      ),
-      body: covidStatusWidget(),
+      body: CustomScrollView(
+        slivers:[
+          SliverAppBar(
+            centerTitle: true,
+            floating: true,
+            title: Text('Covid Status'),
+            expandedHeight: kToolbarHeight
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate([
+              covidStatusWidget()
+            ])
+          )
+        ]
+      )
       // floatingActionButton: FloatingActionButton(
       //   child: Icon(Icons.calendar_today_rounded),
       //   onPressed: (){
@@ -72,6 +82,8 @@ class _MainScreen extends State<MainScreen> {
     );
   }
 
+  
+
   Widget covidStatusWidget(){
     return Container(
       padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
@@ -80,39 +92,46 @@ class _MainScreen extends State<MainScreen> {
         children: [
           Align(
             alignment: Alignment.topRight,
-            child: GestureDetector(
-              onTap: ()  async {
-                var result = await Navigator.push(context, MaterialPageRoute(builder: (context) => CountrySearchResult()));
-                print(result);
-              },
-              child: Container(
-                padding: EdgeInsets.all(5),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
+            child: Container(
+              padding: EdgeInsets.all(5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Text(
                       widget.provider.apiCalling
                       ? 'Loading...'
                       : 'Last updated: 2 days ago',
-                      style: TextStyle(color: Colors.black,fontSize: 18,fontFamily: ''),
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Image.network(
-                          'https://www.countryflags.io/$countryCode/shiny/64.png',
-                          height: 25,
-                          width: 25,
-                          errorBuilder: (context,exception,stackTrace){return Icon(Icons.flag);},
-                        ),
-                        SizedBox(width: 10),
-                        Text(countryName,style: TextStyle(fontSize: 18,fontFamily: '')),
-                        SizedBox(width: 10),
-                        Icon(Icons.arrow_drop_down_sharp,color: Colors.black,size: 30)
-                      ]
+                      style: TextStyle(color: Colors.black,fontSize: 17,fontFamily: ''),
                     )
-                  ]
-                )
+                  ),
+                  Flexible(
+                    child: GestureDetector(
+                      onTap: ()  async {
+                        var result = await Navigator.push(context, MaterialPageRoute(builder: (context) => CountrySearchResult()));
+                        print(result);
+                      },
+                      child: Container(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Image.network(
+                              'https://www.countryflags.io/$countryCode/shiny/64.png',
+                              height: 25,
+                              width: 25,
+                              errorBuilder: (context,exception,stackTrace){return Icon(Icons.flag);},
+                            ),
+                            SizedBox(width: 10),
+                            Text(countryName,style: TextStyle(fontSize: 17,fontFamily: '')),
+                            SizedBox(width: 5),
+                            Icon(Icons.arrow_drop_down_sharp,color: Colors.black,size: 30)
+                          ]
+                        )
+                      )
+                    )
+                  )
+                ]
               )
             )
           ),
@@ -137,28 +156,30 @@ class _MainScreen extends State<MainScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          HelperAbout.listTags[index],
-                          style: TextStyle(color: Colors.black,fontSize: 16,fontFamily: ''),
-                        ),
-                        SizedBox(height: 5),
-                        widget.provider.apiCalling
-                        ? SizedBox(height: 25,width: 25, child: CircularProgressIndicator(strokeWidth: 2.0,backgroundColor: Colors.white))
-                        : Text(
-                          widget.provider.covidStatusResponse[index] == 0
-                           ? '0'
-                           : formatter.format(widget.provider.covidStatusResponse[index]),
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 28,
-                            fontFamily: '',
-                            fontWeight: FontWeight.bold
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            HelperAbout.listTags[index],
+                            style: TextStyle(color: Colors.black,fontSize: 15,fontFamily: ''),
+                          ),
+                          SizedBox(height: 5),
+                          widget.provider.apiCalling
+                          ? SizedBox(height: 25,width: 25, child: CircularProgressIndicator(strokeWidth: 2.0,backgroundColor: Colors.white))
+                          : Text(
+                            widget.provider.covidStatusResponse[index] == 0
+                            ? '0'
+                            : formatter.format(widget.provider.covidStatusResponse[index]),
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 28,
+                              fontFamily: '',
+                              fontWeight: FontWeight.bold
+                            )
                           )
-                        )
-                      ]
+                        ]
+                      )
                     ),
                     HelperAbout.listIcons[index]
                   ],

@@ -1,9 +1,7 @@
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:hello_flutter/ui/CovidScreen.dart';
 import 'package:hello_flutter/ui/LoginUser.dart';
 import 'package:hello_flutter/ui/MultiLanguages.dart';
 import 'package:hello_flutter/utils/LanguageSettings/Languages.dart';
@@ -57,7 +55,6 @@ class _HomeDrawer extends State<HomeDrawer> {
     listLanguage = [
       Languages.of(context).language,
       Languages.of(context).logout,
-      'COVID-19 Alert',
       'Dark Mode'
     ];
     return Drawer(
@@ -117,10 +114,6 @@ class _HomeDrawer extends State<HomeDrawer> {
                   break;
                 case 1:
                   _logoutUser();
-                  break;
-                case 2:
-                  Navigator.pop(context);
-                  if(widget.title != 'CovidSreen') Navigator.push(context,MaterialPageRoute(builder: (context) => CovidScreen()));
                   break;
                 default:
               }
