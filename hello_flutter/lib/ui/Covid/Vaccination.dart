@@ -136,7 +136,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                         children: [
                           Text(
                             HelperAbout.listVaccineTag[index],
-                            style: TextStyle(color: Colors.black,fontSize: 15,fontFamily: ''),
+                            style: TextStyle(color: Colors.black,fontSize: 16,fontFamily: ''),
                           ),
                           SizedBox(height: 5),
                           widget.provider.apiVaccine
@@ -147,7 +147,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                             : formatter.format(widget.provider.vaccineResponse[index]),
                             style: TextStyle(
                               color: Colors.black,
-                              fontSize: 26,
+                              fontSize: 28,
                               fontFamily: '',
                               fontWeight: FontWeight.bold
                             )

@@ -40,7 +40,7 @@ class _DashboardState extends State<Dashboard> {
           ),
           BottomNavigationBarItem(
             label: 'Vaccination',
-            icon: Icon(Icons.health_and_safety_rounded)
+            icon: Icon(Icons.local_hospital)
           ),
           BottomNavigationBarItem(
             label: 'About Corona',

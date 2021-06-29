@@ -162,7 +162,7 @@ class _MainScreen extends State<MainScreen> {
                         children: [
                           Text(
                             HelperAbout.listTags[index],
-                            style: TextStyle(color: Colors.black,fontSize: 15,fontFamily: ''),
+                            style: TextStyle(color: Colors.black,fontSize: 16,fontFamily: ''),
                           ),
                           SizedBox(height: 5),
                           widget.provider.apiCalling
