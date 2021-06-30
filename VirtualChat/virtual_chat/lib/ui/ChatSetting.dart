@@ -30,6 +30,7 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
   var _contNewPassword = TextEditingController();
   var aboutMessage = '';
   var userPassword = '';
+  var currentDateTime = DateTime.now();
 
   @override
   void initState() {
@@ -66,6 +67,10 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
               var notes = snapshot.data.snapshot.value;
               aboutMessage = notes['about'];
               userPassword = notes['password'];
+              if(notes['dob'].isNotEmpty){
+                var dateAr = notes['dob'].split('-');
+                currentDateTime = DateTime(int.parse(dateAr[0]),int.parse(dateAr[1]),int.parse(dateAr[2]));
+              }
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -160,7 +165,7 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                             Icon(Icons.cake_rounded),
                             SizedBox(width: 20),
                             Text(
-                              notes['dob'].isEmpty ? 'Birthday' : notes['dob']
+                              notes['dob'].isEmpty ? 'Birthday' : notes['dob'].split('-').reversed.join('-')
                             )
                           ]
                         ),
@@ -175,7 +180,7 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                                   'dob': date.toString().substring(0,10)
                                 });
                               },
-                              currentTime: DateTime.now(), locale: LocaleType.en
+                              currentTime: currentDateTime, locale: LocaleType.en
                             );
                           },
                           icon: Icon(Icons.edit)
