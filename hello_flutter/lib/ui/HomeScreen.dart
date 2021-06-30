@@ -8,7 +8,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hello_flutter/ui/AppLifeCycle.dart';
 import 'package:hello_flutter/ui/CardSwipeScreen.dart';
-import 'package:hello_flutter/ui/DraggableScrollSheet.dart';
 import 'package:hello_flutter/ui/ExpandableCardList.dart';
 import 'package:hello_flutter/ui/FutureBuilderScreen.dart';
 import 'package:hello_flutter/ui/GoogleMapRoute.dart';
@@ -321,38 +320,36 @@ class _HomeScreen extends State<HomeScreen> with WidgetsBindingObserver{
   }
 
   Future<bool> _onWillPop() async {
-    return (await showDialog(
-          barrierDismissible: false,
-          context: context,
-          builder: (context) =>  AlertDialog(
-            title:  Text('Exit'),
-            content:  Text('Do you want to exit an App'),
-            actions: <Widget>[
-               ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.red
-                ),
-                onPressed: () => Navigator.of(context).pop(false),
-                child:  Text('No', style: TextStyle(color: Colors.white)),
-              ),
-               ElevatedButton(
-                 style: ElevatedButton.styleFrom(
-                  primary: Colors.blue
-                ),
-                onPressed: () => Navigator.of(context).pop(true),
-                child:  Text('Yes',style: TextStyle(color: Colors.white)),
-              ),
-            ],
+    return await showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) =>  AlertDialog(
+        title:  Text('Exit'),
+        content:  Text('Are you sure you want to exit?'),
+        actions: [
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Colors.red
+            ),
+            onPressed: () => Navigator.of(context).pop(false),
+            child:  Text('No', style: TextStyle(color: Colors.white)),
           ),
-        )) ??
-        false;
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Colors.blue
+            ),
+            onPressed: () => Navigator.of(context).pop(true),
+            child:  Text('Yes',style: TextStyle(color: Colors.white)),
+          )
+        ]
+      )
+    );
   }
 
   _getImagePath() async {
     final cameras = await availableCameras();
     final camera = cameras.first;
-    var temp = await Navigator.push(context,
-        MaterialPageRoute(builder: (context) => CameraExample(camera: camera)));
+    var temp = await Navigator.push(context,MaterialPageRoute(builder: (context) => CameraExample(camera: camera)));
     if (temp != null) {
       setState(() {
         imagePath = temp;
