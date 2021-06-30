@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:covid_info/ui/Dashboard.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SplachScreen extends StatefulWidget {
   @override
@@ -9,6 +10,7 @@ class SplachScreen extends StatefulWidget {
 }
 
 class _SplachScreenState extends State<SplachScreen> {
+
   @override
   void initState() {
     super.initState();
@@ -17,15 +19,36 @@ class _SplachScreenState extends State<SplachScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.indigo[600],
+      statusBarIconBrightness: Brightness.light
+    ));
     return Scaffold(
-      body: Container(
-        color: Colors.white,
-        child: Center(
-          child: Text(
-            'Covid Info',
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold,fontFamily: '')
+      body: Stack(
+        children: [
+          Align(
+            alignment: Alignment.center,
+              child: Text(
+              'Covid Info',
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold,fontFamily: '')
+            )
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+              child: Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 0, MediaQuery.of(context).size.height * 0.10),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Design & Developed by : Ali Hasan',
+                      style: TextStyle(color: Colors.grey[300],fontWeight: FontWeight.bold,fontSize: 14)
+                    )
+                  ]
+                )
+              )
           )
-        ),
+        ]
       )
     );
   }

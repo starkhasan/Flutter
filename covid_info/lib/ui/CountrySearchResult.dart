@@ -50,6 +50,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
         appBar: AppBar(
           title: Text('Country'),
           centerTitle: true,
+          brightness: Brightness.dark
         ),
         body: Container(
           child: Column(

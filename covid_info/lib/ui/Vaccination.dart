@@ -54,7 +54,8 @@ class _VaccineScreenState extends State<VaccineScreen> {
             centerTitle: true,
             floating: true,
             title: Text('Vaccination'),
-            expandedHeight: kToolbarHeight
+            expandedHeight: kToolbarHeight,
+            brightness: Brightness.dark,
           ),
           SliverList(
             delegate: SliverChildListDelegate([

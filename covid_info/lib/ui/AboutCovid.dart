@@ -16,7 +16,8 @@ class _AboutCovidState extends State<AboutCovid> {
             centerTitle: true,
             floating: true,
             title: Text('About Covid'),
-            expandedHeight: kToolbarHeight
+            expandedHeight: kToolbarHeight,
+            brightness: Brightness.dark,
           ),
           SliverList(
             delegate: SliverChildListDelegate([
