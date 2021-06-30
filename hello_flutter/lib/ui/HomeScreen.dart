@@ -8,7 +8,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hello_flutter/ui/AppLifeCycle.dart';
 import 'package:hello_flutter/ui/CardSwipeScreen.dart';
-import 'package:hello_flutter/ui/Covid/Dashboard.dart';
 import 'package:hello_flutter/ui/DraggableScrollSheet.dart';
 import 'package:hello_flutter/ui/ExpandableCardList.dart';
 import 'package:hello_flutter/ui/FutureBuilderScreen.dart';
@@ -142,13 +141,11 @@ class _HomeScreen extends State<HomeScreen> with WidgetsBindingObserver{
       'Future Builder',
       'Transform UI',
       'Download File',
-      'CheckboxListTile',
       'Scroll Animation',
       'YouTube Flutter',
       'Location',
       'Text Recognition',
-      'Hero Widget',
-      'Dashboard'
+      'Hero Widget'
     ];
     return WillPopScope(
         onWillPop: () => _onWillPop(),
@@ -305,19 +302,7 @@ class _HomeScreen extends State<HomeScreen> with WidgetsBindingObserver{
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => DraggableScrollSheet()));
-                        break;
-                      case 22:
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
                                 builder: (context) => HeroAnimated()));
-                        break;
-                      case 23:
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Dashboard()));
                         break;
                       default:
                     }
