@@ -55,6 +55,8 @@ flutter:
     - assets/images/syringe.png
     - assets/images/cowinlogo.jpg
     - assets/images/logo.jpg
+    - assets/images/prevention.jpg
+    - assets/images/symptoms.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -16,7 +16,7 @@ class _AboutCovidState extends State<AboutCovid> {
           SliverAppBar(
             centerTitle: true,
             floating: true,
-            title: Text('About Covid'),
+            title: Text('About Corona'),
             expandedHeight: kToolbarHeight,
             brightness: Brightness.dark,
           ),
@@ -33,32 +33,33 @@ class _AboutCovidState extends State<AboutCovid> {
   Widget infoWidget(){
     return Container(
       padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+      color: Colors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             'What is COVID-19',
-            style: TextStyle(color: Colors.black,fontSize: 25,fontWeight: FontWeight.bold,fontFamily: ''),
+            style: TextStyle(color: Colors.black,fontSize: 25,fontWeight: FontWeight.bold),
           ),
           RichText(
             text: TextSpan(
-              style: TextStyle(color: Colors.black,fontFamily: 'PoppinsRegular'),
+              style: TextStyle(color: Colors.black),
               children: [
                 TextSpan(
-                  text: '\nCoronavirus disease 2019 (COVID-19) is a contagious disease caused by severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2). The first known case was identified in Wuhan, China in December 2019.[7] The disease has since spread worldwide, leading to an ongoing pandemic\n'
+                  text: HelperAbout.aboutCrona1
                 ),
                 TextSpan(
-                  text: '\nSARS‑CoV‑2 belongs to the broad family of viruses known as coronaviruses. It is a positive-sense single-stranded RNA (+ssRNA) virus, with a single linear RNA segment. Coronaviruses infect humans, other mammals, and avian species, including livestock and companion animals. Human coronaviruses are capable of causing illnesses ranging from the common cold to more severe diseases such as Middle East respiratory syndrome (MERS, fatality rate ~34%).'
+                  text: HelperAbout.aboutCrona2
                 )
               ]
             ),
           ),
           Text(
             '\nSymptoms of COVID-19',
-            style: TextStyle(color: Colors.black,fontSize: 25,fontWeight: FontWeight.bold,fontFamily: ''),
+            style: TextStyle(color: Colors.black,fontSize: 25,fontWeight: FontWeight.bold),
           ),
           Text(
-            '\nCOVID-19 affects different people in different ways. Most infected people will develop mild to moderate illness and recover without hospitalization',
+            HelperAbout.aboutSymptoms1,
             style: TextStyle(color: Colors.black),
           ),
           Text(
@@ -77,7 +78,7 @@ class _AboutCovidState extends State<AboutCovid> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(Icons.circle,color: Colors.yellow,size: 10),
+                    Icon(Icons.circle,color: Colors.amber,size: 10),
                     SizedBox(width: 5),
                     Text(HelperAbout.listCommonSymptoms[index],style: TextStyle(color: Colors.black))
                   ]
@@ -134,12 +135,15 @@ class _AboutCovidState extends State<AboutCovid> {
             }
           ),
           Text(
-            '\nSeek immediate medical attention if you have serious symptoms. Always call before visiting your doctor or health facility.\n\nPeople with mild symptoms who are otherwise healthy should manage their symptoms at home.\n\nOn average it takes 5–6 days from when someone is infected with the virus for symptoms to show, however it can take up to 14 days.',
+            HelperAbout.aboutSymptoms2,
             style: TextStyle(color: Colors.black)
           ),
+          SizedBox(height: 10),
+          Center(child: Image.asset('assets/images/symptoms.jpg',height: MediaQuery.of(context).size.height * 0.15)),
+          SizedBox(height: 10),
           Text(
-            '\nPrevention of COVID-19',
-            style: TextStyle(color: Colors.black,fontSize: 25,fontWeight: FontWeight.bold,fontFamily: ''),
+            'Prevention of COVID-19',
+            style: TextStyle(color: Colors.black,fontSize: 25,fontWeight: FontWeight.bold,fontFamily: '')
           ),
           ListView.builder(
             shrinkWrap: true,
@@ -160,9 +164,10 @@ class _AboutCovidState extends State<AboutCovid> {
                 )
               );
             }
-          )
+          ),
+          Center(child: Image.asset('assets/images/prevention.jpg',height: MediaQuery.of(context).size.height * 0.40,width: MediaQuery.of(context).size.width * 0.70))
         ]
-      ),
+      )
     );
   }
 }
