@@ -1,8 +1,11 @@
+import 'package:covid_info/constant/HelperVaccination.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:covid_info/constant/HelperAbout.dart';
 import 'package:covid_info/model/provider/CovidStatusProvider.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Vaccination extends StatefulWidget {
 
@@ -49,6 +52,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
+        physics: BouncingScrollPhysics(),
         slivers:[
           SliverAppBar(
             centerTitle: true,
@@ -161,6 +165,73 @@ class _VaccineScreenState extends State<VaccineScreen> {
                 )
               );
             }
+          ),
+          Container(
+            padding: EdgeInsets.all(10),
+            margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey,
+                  blurRadius: 2.0
+                )
+              ]
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Available vaccine in India',
+                        style: TextStyle(color: Colors.black,fontSize: 16,fontFamily: ''),
+                      ),
+                      ListView.builder(
+                        itemCount: HelperVaccination.listVaccine.length,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index){
+                          return Container(
+                            padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(Icons.circle,color: Colors.indigo,size: 10),
+                                SizedBox(width: 5),
+                                Flexible(child: Text(HelperVaccination.listVaccine[index],style: TextStyle(color: Colors.black)))
+                              ]
+                            )
+                          );
+                        }
+                      )
+                    ]
+                  )
+                ),
+                Image.asset('assets/images/syringe.png',height: 40,width: 40),
+              ],
+            )
+          ),
+          Container(
+            padding: EdgeInsets.fromLTRB(0, 5, 5, 5),
+            alignment: Alignment.centerRight,
+            child: RichText(
+              text: TextSpan(
+                style: TextStyle(fontStyle: FontStyle.italic,fontSize: 12),
+                children: [
+                  TextSpan(text: 'Source Data : ',style: TextStyle(color: Colors.grey[400])),
+                  TextSpan(
+                    text: 'Our World in Data',
+                    style: TextStyle(decoration: TextDecoration.underline,color: Colors.blue[300]),
+                    recognizer: TapGestureRecognizer()..onTap = () => launch('https://ourworldindata.org/covid-vaccinations?country=IND')
+                  )
+                ]
+              )
+            )
           )
         ]
       )

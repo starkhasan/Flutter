@@ -11,6 +11,7 @@ class _AboutCovidState extends State<AboutCovid> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
+        physics: BouncingScrollPhysics(),
         slivers:[
           SliverAppBar(
             centerTitle: true,
@@ -74,8 +75,9 @@ class _AboutCovidState extends State<AboutCovid> {
                 padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(Icons.circle,color: Colors.yellow,size: 15),
+                    Icon(Icons.circle,color: Colors.yellow,size: 10),
                     SizedBox(width: 5),
                     Text(HelperAbout.listCommonSymptoms[index],style: TextStyle(color: Colors.black))
                   ]
@@ -97,9 +99,9 @@ class _AboutCovidState extends State<AboutCovid> {
                 padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(Icons.circle,color: Colors.green,size: 15),
+                    Icon(Icons.circle,color: Colors.green,size: 10),
                     SizedBox(width: 5),
                     Flexible(child: Text(HelperAbout.listLessSymptoms[index],style: TextStyle(color: Colors.black)))
                   ]
@@ -121,9 +123,9 @@ class _AboutCovidState extends State<AboutCovid> {
                 padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(Icons.circle,color: Colors.red,size: 15),
+                    Icon(Icons.circle,color: Colors.red,size: 10),
                     SizedBox(width: 5),
                     Flexible(child: Text(HelperAbout.listSeriousSymptoms[index],style: TextStyle(color: Colors.black)))
                   ]
@@ -151,7 +153,7 @@ class _AboutCovidState extends State<AboutCovid> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(Icons.circle,color: Colors.blue,size: 15),
+                    Icon(Icons.circle,color: Colors.blue,size: 10),
                     SizedBox(width: 5),
                     Flexible(child: Text(HelperAbout.listPreventation[index],style: TextStyle(color: Colors.black)))
                   ]
