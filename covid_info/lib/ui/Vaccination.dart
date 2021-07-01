@@ -114,9 +114,28 @@ class _VaccineScreenState extends State<VaccineScreen> {
               )
             )
           ),
+          SizedBox(height: 20),
+          Container(
+            padding: EdgeInsets.fromLTRB(0, 5, 5, 5),
+            alignment: Alignment.centerRight,
+            child: RichText(
+              text: TextSpan(
+                style: TextStyle(fontStyle: FontStyle.italic,fontSize: 12),
+                children: [
+                  TextSpan(text: 'Source Data : ',style: TextStyle(color: Colors.grey[400])),
+                  TextSpan(
+                    text: 'Our World in Data',
+                    style: TextStyle(decoration: TextDecoration.underline,color: Colors.blue[300]),
+                    recognizer: TapGestureRecognizer()..onTap = () => launch(HelperVaccination.vaccineIndiaUrl)
+                  )
+                ]
+              )
+            )
+          ),
           ListView.builder(
             itemCount: HelperAbout.listVaccineTag.length,
             shrinkWrap: true,
+            padding: EdgeInsets.zero,
             physics: NeverScrollableScrollPhysics(),
             itemBuilder: (context, index){
               return Container(
@@ -190,9 +209,11 @@ class _VaccineScreenState extends State<VaccineScreen> {
                         'Available vaccine in India',
                         style: TextStyle(color: Colors.black,fontSize: 16,fontFamily: ''),
                       ),
+                      SizedBox(height: 5),
                       ListView.builder(
                         itemCount: HelperVaccination.listVaccine.length,
                         shrinkWrap: true,
+                        padding: EdgeInsets.zero,
                         physics: NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index){
                           return Container(
@@ -216,20 +237,32 @@ class _VaccineScreenState extends State<VaccineScreen> {
               ],
             )
           ),
-          Container(
-            padding: EdgeInsets.fromLTRB(0, 5, 5, 5),
-            alignment: Alignment.centerRight,
-            child: RichText(
-              text: TextSpan(
-                style: TextStyle(fontStyle: FontStyle.italic,fontSize: 12),
-                children: [
-                  TextSpan(text: 'Source Data : ',style: TextStyle(color: Colors.grey[400])),
-                  TextSpan(
-                    text: 'Our World in Data',
-                    style: TextStyle(decoration: TextDecoration.underline,color: Colors.blue[300]),
-                    recognizer: TapGestureRecognizer()..onTap = () => launch('https://ourworldindata.org/covid-vaccinations?country=IND')
+          GestureDetector(
+            onTap: () => launch(HelperVaccination.vaccinationRegistration),
+            child: Container(
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+              margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.blue,
+                    blurRadius: 2.0
                   )
                 ]
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Register or SignIn for Vaccination with official Government of India CoWIN Portal',
+                      style: TextStyle(color: Colors.blue,fontSize: 16,fontFamily: ''),
+                    )
+                  ),
+                  Image.asset('assets/images/cowinlogo.jpg',height: 100,width: 100,fit: BoxFit.contain),
+                ],
               )
             )
           )
