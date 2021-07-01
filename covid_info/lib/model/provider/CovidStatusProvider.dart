@@ -83,14 +83,9 @@ class CovidStatusProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  vaccineList() {
-    firebaseDatabase.onValue.listen((event) { 
-      var data = event.snapshot.value;
-      if(data != null){
-        vaccineName = data['vaccine'].split('-');
-      }else{
-        vaccineName = [];
-      }
+  vaccineList() async {
+    await firebaseDatabase.once().then((DataSnapshot snapshot) { 
+      if(snapshot.value != null) vaccineName = snapshot.value['vaccine'].split('-');
     });
   }
 
@@ -101,7 +96,6 @@ class CovidStatusProvider extends ChangeNotifier {
   }
 
   Future<void> vaccination() async {
-    vaccineList();
     _vaccineApi = true;
     notifyListeners();
     try {
@@ -115,6 +109,7 @@ class CovidStatusProvider extends ChangeNotifier {
     } catch (e) {
       vaccineResponse = [0, 0, 0];
     }
+    await vaccineList();
     _vaccineApi = false;
     notifyListeners();
   }
