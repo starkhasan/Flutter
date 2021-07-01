@@ -211,7 +211,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                       ),
                       SizedBox(height: 5),
                       ListView.builder(
-                        itemCount: HelperVaccination.listVaccine.length,
+                        itemCount: widget.provider.vaccineName.length,
                         shrinkWrap: true,
                         padding: EdgeInsets.zero,
                         physics: NeverScrollableScrollPhysics(),
@@ -224,7 +224,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                               children: [
                                 Icon(Icons.circle,color: Colors.indigo,size: 10),
                                 SizedBox(width: 5),
-                                Flexible(child: Text(HelperVaccination.listVaccine[index],style: TextStyle(color: Colors.black)))
+                                Flexible(child: Text(widget.provider.vaccineName[index],style: TextStyle(color: Colors.black)))
                               ]
                             )
                           );

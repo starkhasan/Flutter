@@ -5,6 +5,7 @@ import 'package:covid_info/model/response/CovidCountryCasesResponse.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:covid_info/model/response/PopulationResponse.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class CovidStatusProvider extends ChangeNotifier {
   bool _callApi = false;
@@ -21,9 +22,12 @@ class CovidStatusProvider extends ChangeNotifier {
   List<CountryResponse> countryResponse = [];
   List<CountryResponse> originalCountryResponse = [];
   List<int> vaccineResponse = [0, 0, 0];
+  List<String> vaccineName = [];
+  var firebaseDatabase = FirebaseDatabase.instance.reference().child('covid_info');
 
   Future<void> covidStatus() async {
     _callApi = true;
+    countryPopulation();
     notifyListeners();
     try {
       var response = await Api.getCountriesCases();
@@ -41,7 +45,6 @@ class CovidStatusProvider extends ChangeNotifier {
     } catch (e) {
       covidStatusResponse = [0, 0, 0, 0, 0, 0, 0];
     }
-    await population();
     _callApi = false;
     notifyListeners();
   }
@@ -66,20 +69,6 @@ class CovidStatusProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> population() async {
-    try {
-      var response = await Api.worldPopulation('India');
-      if (response.statusCode == 200) {
-        populationResponse = PopulationResponse.fromJson(json.decode(response.body));
-        covidStatusResponse[0] = populationResponse.body.population;
-      } else {
-        covidStatusResponse[0] = 0;
-      }
-    } catch (e) {
-      covidStatusResponse[0] = 0;
-    }
-  }
-
   searchCountry(String input) {
     countryResponse.clear();
     if (input.isEmpty) {
@@ -94,7 +83,31 @@ class CovidStatusProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  vaccineList() {
+    firebaseDatabase.onValue.listen((event) { 
+      var data = event.snapshot.value;
+      if(data != null){
+        vaccineName = data['vaccine'].split('-');
+      }else{
+        vaccineName = [];
+      }
+    });
+  }
+
+
+  countryPopulation() {
+    firebaseDatabase.onValue.listen((event) { 
+      var data = event.snapshot.value;
+      if(data != null){
+        covidStatusResponse[0] = data['population'];
+      }else{
+        covidStatusResponse[0] = 0;
+      }
+    });
+  }
+
   Future<void> vaccination() async {
+    vaccineList();
     _vaccineApi = true;
     notifyListeners();
     try {
