@@ -14,6 +14,10 @@ class _SplachScreenState extends State<SplachScreen> {
   @override
   void initState() {
     super.initState();
+    SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+    ]);
     startTimer();
   }
 
@@ -36,7 +40,7 @@ class _SplachScreenState extends State<SplachScreen> {
                   Image.asset('assets/images/logo.jpg',height: MediaQuery.of(context).size.height * 0.14, width: MediaQuery.of(context).size.height * 0.14),
                   Text(
                     'Covid Info',
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold,fontFamily: '')
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold,fontFamily: '')
                   )
                 ]
               )
@@ -50,7 +54,7 @@ class _SplachScreenState extends State<SplachScreen> {
                   children: [
                     Text(
                       'Design & Developed by : Ali Hasan',
-                      style: TextStyle(color: Colors.grey[300],fontWeight: FontWeight.bold,fontSize: 14)
+                      style: TextStyle(color: Colors.grey[200],fontSize: 13)
                     )
                   ]
                 )
@@ -63,6 +67,6 @@ class _SplachScreenState extends State<SplachScreen> {
   }
 
   startTimer() {
-    Timer(Duration(seconds: 3),() => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Dashboard())));
+    Timer(Duration(seconds: 2),() => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Dashboard())));
   }
 }

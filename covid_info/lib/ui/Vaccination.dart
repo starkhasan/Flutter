@@ -92,7 +92,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                       widget.provider.apiVaccine
                       ? 'Loading...'
                       : 'Last updated: 2 days ago',
-                      style: TextStyle(color: Colors.black,fontSize: 17,fontFamily: ''),
+                      style: TextStyle(color: Colors.black,fontSize: 16,fontFamily: ''),
                     )
                   ),
                   Flexible(
@@ -106,7 +106,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                           errorBuilder: (context,exception,stackTrace){return Icon(Icons.flag);},
                         ),
                         SizedBox(width: 10),
-                        Text('India',style: TextStyle(fontSize: 17,fontFamily: ''))
+                        Text('India',style: TextStyle(fontSize: 16,fontFamily: ''))
                       ]
                     )
                   )
@@ -114,9 +114,9 @@ class _VaccineScreenState extends State<VaccineScreen> {
               )
             )
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 10),
           Container(
-            padding: EdgeInsets.fromLTRB(0, 5, 5, 5),
+            padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
             alignment: Alignment.centerRight,
             child: RichText(
               text: TextSpan(
@@ -240,7 +240,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
           GestureDetector(
             onTap: () => launch(HelperVaccination.vaccinationRegistration),
             child: Container(
-              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+              padding: EdgeInsets.all(10),
               margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -261,7 +261,11 @@ class _VaccineScreenState extends State<VaccineScreen> {
                       style: TextStyle(color: Colors.blue,fontSize: 16,fontFamily: ''),
                     )
                   ),
-                  Image.asset('assets/images/cowinlogo.jpg',height: 100,width: 100,fit: BoxFit.contain),
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.06,
+                    width: MediaQuery.of(context).size.height * 0.18,
+                    child: Image.asset('assets/images/cowinlogo.jpg',fit: BoxFit.contain),
+                  )
                 ],
               )
             )
