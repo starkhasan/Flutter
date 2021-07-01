@@ -26,7 +26,6 @@ class CovidStatusProvider extends ChangeNotifier {
   var firebaseDatabase = FirebaseDatabase.instance.reference().child('covid_info');
 
   Future<void> covidStatus() async {
-    countryPopulation();
     _callApi = true;
     notifyListeners();
     try {
@@ -45,6 +44,7 @@ class CovidStatusProvider extends ChangeNotifier {
     } catch (e) {
       covidStatusResponse = [0, 0, 0, 0, 0, 0, 0];
     }
+    await population();
     _callApi = false;
     notifyListeners();
   }
@@ -94,15 +94,9 @@ class CovidStatusProvider extends ChangeNotifier {
     });
   }
 
-
-  countryPopulation() {
-    firebaseDatabase.onValue.listen((event) { 
-      var data = event.snapshot.value;
-      if(data != null){
-        covidStatusResponse[0] = data['population'];
-      }else{
-        covidStatusResponse[0] = 0;
-      }
+  population() async{
+    await firebaseDatabase.once().then((DataSnapshot snapshot){
+      if(snapshot.value != null) covidStatusResponse[0] = snapshot.value['population'];
     });
   }
 

@@ -1,11 +1,9 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:covid_info/constant/HelperAbout.dart';
 import 'package:covid_info/model/provider/CovidStatusProvider.dart';
 import 'package:covid_info/ui/CountrySearchResult.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class CovidStatus extends StatefulWidget {
   @override
@@ -68,20 +66,6 @@ class _MainScreen extends State<MainScreen> {
           )
         ]
       )
-      // floatingActionButton: FloatingActionButton(
-      //   child: Icon(Icons.calendar_today_rounded),
-      //   onPressed: (){
-      //     DatePicker.showDatePicker(context,
-      //       showTitleActions: true,
-      //       minTime: DateTime(2020, 1, 1),
-      //       maxTime: DateTime.now(),
-      //       onConfirm: (date) {
-      //         widget.provider.covidStatus();
-      //       }, 
-      //       currentTime: DateTime.now(), locale: LocaleType.en
-      //     );
-      //   }
-      // )
     );
   }
 

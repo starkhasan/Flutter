@@ -222,9 +222,9 @@ class _VaccineScreenState extends State<VaccineScreen> {
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(Icons.circle,color: Colors.black,size: 10),
+                                Icon(Icons.circle,color: Colors.green,size: 10),
                                 SizedBox(width: 5),
-                                Flexible(child: Text(widget.provider.vaccineName[index],style: TextStyle(color: Colors.red)))
+                                Flexible(child: Text(widget.provider.vaccineName[index],style: TextStyle(color: Colors.black)))
                               ]
                             )
                           );
