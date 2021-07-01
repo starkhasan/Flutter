@@ -26,8 +26,8 @@ class CovidStatusProvider extends ChangeNotifier {
   var firebaseDatabase = FirebaseDatabase.instance.reference().child('covid_info');
 
   Future<void> covidStatus() async {
-    _callApi = true;
     countryPopulation();
+    _callApi = true;
     notifyListeners();
     try {
       var response = await Api.getCountriesCases();
