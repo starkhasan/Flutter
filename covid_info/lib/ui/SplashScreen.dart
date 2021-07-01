@@ -24,17 +24,25 @@ class _SplachScreenState extends State<SplachScreen> {
       statusBarIconBrightness: Brightness.light
     ));
     return Scaffold(
-      body: Stack(
-        children: [
-          Align(
-            alignment: Alignment.center,
-              child: Text(
-              'Covid Info',
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold,fontFamily: '')
-            )
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
+      body: Container(
+        color: Colors.white,
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset('assets/images/logo.jpg',height: MediaQuery.of(context).size.height * 0.14, width: MediaQuery.of(context).size.height * 0.14),
+                  Text(
+                    'Covid Info',
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold,fontFamily: '')
+                  )
+                ]
+              )
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
               child: Container(
                 margin: EdgeInsets.fromLTRB(0, 0, 0, MediaQuery.of(context).size.height * 0.10),
                 child: Column(
@@ -47,8 +55,9 @@ class _SplachScreenState extends State<SplachScreen> {
                   ]
                 )
               )
-          )
-        ]
+            )
+          ]
+        )
       )
     );
   }
