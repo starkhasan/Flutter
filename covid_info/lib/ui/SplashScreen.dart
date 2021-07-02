@@ -54,7 +54,7 @@ class _SplachScreenState extends State<SplachScreen> {
                   children: [
                     Text(
                       'Design & Developed by : Ali Hasan',
-                      style: TextStyle(color: Colors.grey[200],fontSize: 13)
+                      style: TextStyle(color: Colors.grey[300],fontSize: 14)
                     )
                   ]
                 )
