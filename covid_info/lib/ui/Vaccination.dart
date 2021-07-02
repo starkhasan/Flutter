@@ -132,39 +132,6 @@ class _VaccineScreenState extends State<VaccineScreen> {
               )
             )
           ),
-          GestureDetector(
-            onTap: () => launch(HelperVaccination.vaccinationRegistration),
-            child: Container(
-              padding: EdgeInsets.all(10),
-              margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.blue,
-                    blurRadius: 2.0
-                  )
-                ]
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Text(
-                      'Register or SignIn for Vaccination with official Government of India CoWIN Portal',
-                      style: TextStyle(color: Colors.blue,fontSize: 16,fontFamily: ''),
-                    )
-                  ),
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.06,
-                    width: MediaQuery.of(context).size.height * 0.18,
-                    child: Image.asset('assets/images/cowinlogo.jpg',fit: BoxFit.contain),
-                  )
-                ],
-              )
-            )
-          ),
           ListView.builder(
             itemCount: HelperAbout.listVaccineTag.length,
             shrinkWrap: true,
@@ -314,7 +281,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                     ]
                   )
                 ),
-                Icon(Icons.location_city,color: Colors.blue,size: 40),
+                Icon(Icons.location_city,color: Colors.black,size: 40),
               ]
             )
           ),
@@ -370,6 +337,62 @@ class _VaccineScreenState extends State<VaccineScreen> {
                 ),
                 Image.asset('assets/images/syringe.png',height: 40,width: 40),
               ]
+            )
+          ),
+          GestureDetector(
+            onTap: () => launch(HelperVaccination.vaccinationRegistration),
+            child: Container(
+              padding: EdgeInsets.all(10),
+              margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.blue,
+                    blurRadius: 2.0
+                  )
+                ]
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Register or SignIn for Vaccination with official Government of India CoWIN Portal',
+                      style: TextStyle(color: Colors.blue,fontSize: 16,fontFamily: ''),
+                    )
+                  ),
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.06,
+                    width: MediaQuery.of(context).size.height * 0.18,
+                    child: Image.asset('assets/images/cowinlogo.jpg',fit: BoxFit.contain),
+                  )
+                ],
+              )
+            )
+          ),
+          GestureDetector(
+            onTap: () => print('coming soon'),
+            child: Container(
+              padding: EdgeInsets.all(10),
+              margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                boxShadow: [ BoxShadow(color: Colors.blue,blurRadius: 2.0)]
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Vaccination State Data (Coming Soon)',
+                      style: TextStyle(color: Colors.black,fontSize: 16,fontFamily: ''),
+                    )
+                  ),
+                  Icon(Icons.download_sharp,color: Colors.black,size: 30),
+                ]
+              )
             )
           )
         ]

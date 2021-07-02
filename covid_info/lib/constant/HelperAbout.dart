@@ -40,9 +40,9 @@ class HelperAbout {
   ];
 
   static var listIconsVaccine = [
-    Icon(Icons.verified_user_rounded,color: Colors.green,size: 40),
+    Icon(Icons.computer_rounded,color: Colors.blue,size: 40),
     Icon(Icons.groups,color: Colors.teal,size: 40),
-    Icon(Icons.content_paste_rounded,color: Colors.blue,size: 40),
+    Icon(Icons.verified_user_rounded,color: Colors.amber,size: 40),
     Icon(Icons.verified_user_rounded,color: Colors.green,size: 40)
   ];
 

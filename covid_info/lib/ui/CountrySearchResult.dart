@@ -140,11 +140,9 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                       children: [
                         Text('Cases',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
                         Text(
-                          response[index].cases != null 
-                          ? response[index].cases == 0
-                            ? '0'
-                            : formatter.format(response[index].cases) 
-                          : 'Not Found',
+                          response[index].cases == 0
+                          ? '0'
+                          : formatter.format(response[index].cases),
                           style: TextStyle(color: Colors.blue,fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
                         )
                       ]
@@ -157,11 +155,9 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                       children: [
                         Text('Recovered',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
                         Text(
-                          response[index].recovered != null 
-                          ? response[index].recovered == 0
-                            ? '0'
-                            : formatter.format(response[index].recovered) 
-                          : 'Not Found',
+                          response[index].recovered == 0
+                          ? '0'
+                          : formatter.format(response[index].recovered),
                           style: TextStyle(color: Colors.green,fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
                         )
                       ]
@@ -180,11 +176,9 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                       children: [
                         Text('Deaths',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
                         Text(
-                          response[index].deaths != null 
-                          ? response[index].deaths == 0
-                            ? '0'
-                            : formatter.format(response[index].deaths) 
-                          : 'Not Found',
+                          response[index].deaths == 0
+                          ? '0'
+                          : formatter.format(response[index].deaths),
                           style: TextStyle(color: Colors.red,fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
                         )
                       ]
@@ -197,11 +191,9 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                       children: [
                         Text('Active',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
                         Text(
-                          response[index].active != null 
-                          ? response[index].active == 0
-                            ? '0'
-                            : formatter.format(response[index].active) 
-                          : 'Not Found',
+                          response[index].active == 0
+                          ? '0'
+                          : formatter.format(response[index].active),
                           style: TextStyle(color: Colors.teal,fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
                         )
                       ]
@@ -220,11 +212,9 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                       children: [
                         Text('Critical Cases',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
                         Text(
-                          response[index].critical != null 
-                          ? response[index].critical == 0
-                            ? '0'
-                            : formatter.format(response[index].critical) 
-                          : 'Not Found',
+                          response[index].critical == 0
+                          ? '0'
+                          : formatter.format(response[index].critical),
                           style: TextStyle(color: Colors.red,fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
                         )
                       ]
@@ -237,11 +227,9 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                       children: [
                         Text('New Cases',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
                         Text(
-                          response[index].todayCases != null 
-                          ? response[index].todayCases == 0
-                            ? '0'
-                            : formatter.format(response[index].todayCases) 
-                          : 'Not Found',
+                          response[index].todayCases == 0
+                          ? '0'
+                          : formatter.format(response[index].todayCases),
                           style: TextStyle(color: Colors.blue,fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
                         )
                       ]

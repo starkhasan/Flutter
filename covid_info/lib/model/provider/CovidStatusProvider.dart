@@ -3,7 +3,6 @@ import 'package:covid_info/model/Api.dart';
 import 'package:covid_info/model/response/CountryResponse.dart';
 import 'package:covid_info/model/response/CovidCountryCasesResponse.dart';
 import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:covid_info/model/response/PopulationResponse.dart';
 import 'package:firebase_database/firebase_database.dart';
 
