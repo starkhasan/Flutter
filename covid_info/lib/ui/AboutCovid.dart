@@ -16,7 +16,7 @@ class _AboutCovidState extends State<AboutCovid> {
           SliverAppBar(
             centerTitle: true,
             floating: true,
-            title: Text('About Corona'),
+            title: Text('About Corona',style: TextStyle(fontSize: 16)),
             expandedHeight: kToolbarHeight,
             brightness: Brightness.dark,
           ),

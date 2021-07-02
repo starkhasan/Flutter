@@ -1,4 +1,5 @@
 import 'package:covid_info/constant/HelperVaccination.dart';
+import 'package:covid_info/ui/ShowDocument.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:covid_info/constant/HelperAbout.dart';
@@ -57,7 +58,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
           SliverAppBar(
             centerTitle: true,
             floating: true,
-            title: Text('Vaccination'),
+            title: Text('Vaccination',style: TextStyle(fontSize: 16)),
             expandedHeight: kToolbarHeight,
             brightness: Brightness.dark,
           ),
@@ -373,7 +374,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
             )
           ),
           GestureDetector(
-            onTap: () => print('coming soon'),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ShowDocument(url: widget.provider.stateVaccineUrl))),
             child: Container(
               padding: EdgeInsets.all(10),
               margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
@@ -386,11 +387,11 @@ class _VaccineScreenState extends State<VaccineScreen> {
                 children: [
                   Expanded(
                     child: Text(
-                      'Vaccination State Data (Coming Soon)',
-                      style: TextStyle(color: Colors.black,fontSize: 16,fontFamily: ''),
+                      'States Vaccination Report',
+                      style: TextStyle(color: Colors.blue,fontSize: 16,fontFamily: ''),
                     )
                   ),
-                  Icon(Icons.download_sharp,color: Colors.black,size: 30),
+                  Icon(Icons.cabin_rounded,color: Colors.blue,size: 30),
                 ]
               )
             )

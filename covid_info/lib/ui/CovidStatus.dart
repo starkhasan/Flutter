@@ -55,7 +55,7 @@ class _MainScreen extends State<MainScreen> {
           SliverAppBar(
             centerTitle: true,
             floating: true,
-            title: Text('Corona Status'),
+            title: Text('Corona Status',style: TextStyle(fontSize: 16)),
             expandedHeight: kToolbarHeight,
             brightness: Brightness.dark,
           ),

@@ -48,7 +48,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
       onWillPop: backPressed,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Country'),
+          title: Text('Worldwide Status',style: TextStyle(fontSize: 16)),
           centerTitle: true,
           brightness: Brightness.dark
         ),
@@ -75,7 +75,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                         keyboardType: TextInputType.text,
                         style: TextStyle(color: Colors.black,fontFamily: '',fontSize: 18),
                         decoration: InputDecoration.collapsed(
-                          hintText: 'Seach Country Here',
+                          hintText: 'Search Country Here',
                           hintStyle: TextStyle(color: Colors.grey,fontSize: 18,fontFamily: '')
                         ),
                         onChanged: (input){

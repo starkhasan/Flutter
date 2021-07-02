@@ -18,6 +18,7 @@ class CovidStatusProvider extends ChangeNotifier {
   int sites = 0;
   int sitesGovernment = 0;
   int sitesPrivate = 0;
+  String stateVaccineUrl = '';
   late CovidCountryCasesResponse covidResponse;
   late PopulationResponse populationResponse;
   List<int> covidStatusResponse = [0, 0, 0, 0, 0, 0, 0];
@@ -99,6 +100,7 @@ class CovidStatusProvider extends ChangeNotifier {
         sitesGovernment = snapshot.value['government'];
         sitesPrivate = snapshot.value['private'];
         vaccineName = snapshot.value['vaccine'].split('-');
+        stateVaccineUrl = snapshot.value['stateVaccineUrl'];
         var strAr = snapshot.value['vaccination'].split(' ');
         vaccineResponse[1] = int.parse(strAr[0]);
         vaccineResponse[2] = int.parse(strAr[1]);
