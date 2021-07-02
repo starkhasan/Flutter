@@ -16,14 +16,18 @@ class CovidStatusProvider extends ChangeNotifier {
   bool get apiVaccine => _vaccineApi;
 
   String vcnResponse = '';
+  int sites = 0;
+  int sitesGovernment = 0;
+  int sitesPrivate = 0;
   late CovidCountryCasesResponse covidResponse;
   late PopulationResponse populationResponse;
   List<int> covidStatusResponse = [0, 0, 0, 0, 0, 0, 0];
   List<CountryResponse> countryResponse = [];
   List<CountryResponse> originalCountryResponse = [];
-  List<int> vaccineResponse = [0, 0, 0];
+  List<int> vaccineResponse = [0, 0, 0, 0];
   List<String> vaccineName = [];
-  var firebaseDatabase = FirebaseDatabase.instance.reference().child('covid_info');
+  var firebaseDatabase =
+      FirebaseDatabase.instance.reference().child('covid_info');
 
   Future<void> covidStatus() async {
     _callApi = true;
@@ -31,7 +35,8 @@ class CovidStatusProvider extends ChangeNotifier {
     try {
       var response = await Api.getCountriesCases();
       if (response.statusCode == 200) {
-        covidResponse = CovidCountryCasesResponse.fromJson(json.decode(response.body));
+        covidResponse =
+            CovidCountryCasesResponse.fromJson(json.decode(response.body));
         covidStatusResponse[1] = covidResponse.cases;
         covidStatusResponse[2] = covidResponse.recovered;
         covidStatusResponse[3] = covidResponse.active;
@@ -55,7 +60,8 @@ class CovidStatusProvider extends ChangeNotifier {
     try {
       var response = await Api.countryCovidList();
       if (response.statusCode == 200) {
-        var temp = List<CountryResponse>.from(json.decode(response.body).map((x) => CountryResponse.fromJson(x)));
+        var temp = List<CountryResponse>.from(
+            json.decode(response.body).map((x) => CountryResponse.fromJson(x)));
         countryResponse.addAll(temp);
         originalCountryResponse.addAll(temp);
         print(countryResponse.length);
@@ -75,7 +81,10 @@ class CovidStatusProvider extends ChangeNotifier {
       countryResponse.addAll(originalCountryResponse);
     } else {
       for (var i = 0; i < originalCountryResponse.length; i++) {
-        if (originalCountryResponse[i].country.toLowerCase().contains(input.toLowerCase())) {
+        if (originalCountryResponse[i]
+            .country
+            .toLowerCase()
+            .contains(input.toLowerCase())) {
           countryResponse.add(originalCountryResponse[i]);
         }
       }
@@ -84,31 +93,43 @@ class CovidStatusProvider extends ChangeNotifier {
   }
 
   vaccineList() async {
-    await firebaseDatabase.once().then((DataSnapshot snapshot) { 
-      if(snapshot.value != null) vaccineName = snapshot.value['vaccine'].split('-');
+    await firebaseDatabase.once().then((DataSnapshot snapshot) {
+      if (snapshot.value != null) {
+        vaccineResponse[0] = snapshot.value['registration'];
+        sites = snapshot.value['sites'];
+        sitesGovernment = snapshot.value['government'];
+        sitesPrivate = snapshot.value['private'];
+        vaccineName = snapshot.value['vaccine'].split('-');
+        var strAr = snapshot.value['vaccination'].split(' ');
+        vaccineResponse[1] = int.parse(strAr[0]);
+        vaccineResponse[2] = int.parse(strAr[1]);
+        vaccineResponse[3] = int.parse(strAr[2]);
+      }
     });
   }
 
-  population() async{
-    await firebaseDatabase.once().then((DataSnapshot snapshot){
-      if(snapshot.value != null) covidStatusResponse[0] = snapshot.value['population'];
+  population() async {
+    await firebaseDatabase.once().then((DataSnapshot snapshot) {
+      if (snapshot.value != null)
+        covidStatusResponse[0] = snapshot.value['population'];
     });
   }
 
   Future<void> vaccination() async {
     _vaccineApi = true;
     notifyListeners();
-    try {
-      if (vcnResponse.isEmpty)
-        vcnResponse = await http.read(Uri.parse('https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/country_data/India.csv'));
-      vcnResponse = vcnResponse.split(',').reversed.join(',');
-      var strAr = vcnResponse.split(',');
-      vaccineResponse[0] = int.parse(strAr[2]);
-      vaccineResponse[1] = int.parse(strAr[1]);
-      vaccineResponse[2] = int.parse(strAr[0]);
-    } catch (e) {
-      vaccineResponse = [0, 0, 0];
-    }
+    // try {
+    //   if (vcnResponse.isEmpty)
+    //     vcnResponse = await http.read(Uri.parse(
+    //         'https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/country_data/India.csv'));
+    //   vcnResponse = vcnResponse.split(',').reversed.join(',');
+    //   var strAr = vcnResponse.split(',');
+    //   vaccineResponse[1] = int.parse(strAr[2]);
+    //   vaccineResponse[2] = int.parse(strAr[1]);
+    //   vaccineResponse[3] = int.parse(strAr[0]);
+    // } catch (e) {
+    //   vaccineResponse = [0, 0, 0, 0];
+    // }
     await vaccineList();
     _vaccineApi = false;
     notifyListeners();

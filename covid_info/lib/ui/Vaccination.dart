@@ -91,7 +91,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                     child: Text(
                       widget.provider.apiVaccine
                       ? 'Loading...'
-                      : 'Last updated: 2 days ago',
+                      : 'Last updated: 1 days ago',
                       style: TextStyle(color: Colors.black,fontSize: 16,fontFamily: ''),
                     )
                   ),
@@ -124,11 +124,44 @@ class _VaccineScreenState extends State<VaccineScreen> {
                 children: [
                   TextSpan(text: 'Source Data : ',style: TextStyle(color: Colors.grey[400])),
                   TextSpan(
-                    text: 'Our World in Data',
+                    text: 'CoWIN Official',
                     style: TextStyle(decoration: TextDecoration.underline,color: Colors.blue[300]),
                     recognizer: TapGestureRecognizer()..onTap = () => launch(HelperVaccination.vaccineIndiaUrl)
                   )
                 ]
+              )
+            )
+          ),
+          GestureDetector(
+            onTap: () => launch(HelperVaccination.vaccinationRegistration),
+            child: Container(
+              padding: EdgeInsets.all(10),
+              margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.blue,
+                    blurRadius: 2.0
+                  )
+                ]
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Register or SignIn for Vaccination with official Government of India CoWIN Portal',
+                      style: TextStyle(color: Colors.blue,fontSize: 16,fontFamily: ''),
+                    )
+                  ),
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.06,
+                    width: MediaQuery.of(context).size.height * 0.18,
+                    child: Image.asset('assets/images/cowinlogo.jpg',fit: BoxFit.contain),
+                  )
+                ],
               )
             )
           ),
@@ -206,11 +239,113 @@ class _VaccineScreenState extends State<VaccineScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
+                        'Sites Conducting Vaccination',
+                        style: TextStyle(color: Colors.black,fontSize: 16,fontFamily: ''),
+                      ),
+                      SizedBox(height: 5),
+                      widget.provider.apiVaccine
+                      ? SizedBox(height: 25,width: 25, child: CircularProgressIndicator(strokeWidth: 2.0,backgroundColor: Colors.white))
+                      : Text(
+                        widget.provider.sites == 0
+                        ? '0'
+                        : formatter.format(widget.provider.sites),
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 28,
+                          fontFamily: '',
+                          fontWeight: FontWeight.bold
+                        )
+                      ),
+                      SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Government',
+                                  style: TextStyle(color: Colors.black,fontSize: 14,fontFamily: ''),
+                                ),
+                                SizedBox(height: 2),
+                                widget.provider.apiVaccine
+                                ? SizedBox(height: 20,width: 20, child: CircularProgressIndicator(strokeWidth: 2.0,backgroundColor: Colors.white))
+                                : Text(
+                                  widget.provider.sitesGovernment == 0
+                                  ? '0'
+                                  : formatter.format(widget.provider.sitesGovernment),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 24,
+                                    fontFamily: '',
+                                    fontWeight: FontWeight.bold
+                                  )
+                                )
+                              ]
+                            )
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Private',
+                                  style: TextStyle(color: Colors.black,fontSize: 14,fontFamily: ''),
+                                ),
+                                SizedBox(height: 2),
+                                widget.provider.apiVaccine
+                                ? SizedBox(height: 20,width: 20, child: CircularProgressIndicator(strokeWidth: 2.0,backgroundColor: Colors.white))
+                                : Text(
+                                  widget.provider.sitesPrivate == 0
+                                  ? '0'
+                                  : formatter.format(widget.provider.sitesPrivate),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 24,
+                                    fontFamily: '',
+                                    fontWeight: FontWeight.bold
+                                  )
+                                )
+                              ]
+                            )
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ),
+                Icon(Icons.location_city,color: Colors.blue,size: 40),
+              ]
+            )
+          ),
+          Container(
+            padding: EdgeInsets.all(10),
+            margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey,
+                  blurRadius: 2.0
+                )
+              ]
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
                         'Available vaccine in India',
                         style: TextStyle(color: Colors.black,fontSize: 16,fontFamily: ''),
                       ),
                       SizedBox(height: 5),
-                      ListView.builder(
+                      widget.provider.apiVaccine
+                      ? SizedBox(height: 20,width: 20, child: CircularProgressIndicator(strokeWidth: 2.0,backgroundColor: Colors.white))
+                      : ListView.builder(
                         itemCount: widget.provider.vaccineName.length,
                         shrinkWrap: true,
                         padding: EdgeInsets.zero,
@@ -234,45 +369,11 @@ class _VaccineScreenState extends State<VaccineScreen> {
                   )
                 ),
                 Image.asset('assets/images/syringe.png',height: 40,width: 40),
-              ],
-            )
-          ),
-          GestureDetector(
-            onTap: () => launch(HelperVaccination.vaccinationRegistration),
-            child: Container(
-              padding: EdgeInsets.all(10),
-              margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.blue,
-                    blurRadius: 2.0
-                  )
-                ]
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Text(
-                      'Register or SignIn for Vaccination with official Government of India CoWIN Portal',
-                      style: TextStyle(color: Colors.blue,fontSize: 16,fontFamily: ''),
-                    )
-                  ),
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.06,
-                    width: MediaQuery.of(context).size.height * 0.18,
-                    child: Image.asset('assets/images/cowinlogo.jpg',fit: BoxFit.contain),
-                  )
-                ],
-              )
+              ]
             )
           )
         ]
       )
     );
   }
-  
 }
