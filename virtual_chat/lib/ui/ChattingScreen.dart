@@ -124,172 +124,177 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
         ),
         brightness: Brightness.dark
       ),
-      body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.fromLTRB(8, 5, 8, 0),
-                color: Colors.white,
-                child: StreamBuilder(
-                  stream: myRefSender.child(senderReceiver).onValue,
-                  builder: (context,AsyncSnapshot snapshot){
-                    if(!snapshot.hasData || snapshot.hasError){
-                      return Container(child: Center(child:  CircularProgressIndicator(color: Colors.indigo,strokeWidth: 3))); 
-                    }else if(snapshot.hasData && snapshot.data.snapshot.value != null){
-                      scrollToBottom();
-                      var notes = snapshot.data.snapshot.value;
-                      return ListView.builder(
-                        reverse: false,
-                        controller: _scrollController,
-                        shrinkWrap: true,
-                        physics: BouncingScrollPhysics(),
-                        itemCount: notes.length,
-                        itemBuilder: (context,index){
-                          var key = notes.keys.elementAt(index);
-                          imageName = key;
-                          return Container(
-                            child: Align(
-                              alignment: notes[key]['sender'] == sender ? Alignment.centerRight : Alignment.centerLeft,
+      body: mainBody()
+    );
+  }
+
+
+  Widget mainBody(){
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.fromLTRB(8, 5, 8, 0),
+              color: Colors.white,
+              child: StreamBuilder(
+                stream: myRefSender.child(senderReceiver).onValue,
+                builder: (context,AsyncSnapshot snapshot){
+                  if(!snapshot.hasData || snapshot.hasError){
+                    return Container(child: Center(child:  CircularProgressIndicator(color: Colors.indigo,strokeWidth: 3))); 
+                  }else if(snapshot.hasData && snapshot.data.snapshot.value != null){
+                    scrollToBottom();
+                    var notes = snapshot.data.snapshot.value;
+                    return ListView.builder(
+                      reverse: false,
+                      controller: _scrollController,
+                      shrinkWrap: true,
+                      physics: BouncingScrollPhysics(),
+                      itemCount: notes.length,
+                      itemBuilder: (context,index){
+                        var key = notes.keys.elementAt(index);
+                        imageName = key;
+                        return Container(
+                          child: Align(
+                            alignment: notes[key]['sender'] == sender ? Alignment.centerRight : Alignment.centerLeft,
+                            child: Container(
+                              margin: EdgeInsets.fromLTRB(10, 2, 10, 0),
                               child: Container(
-                                margin: EdgeInsets.fromLTRB(10, 2, 10, 0),
-                                child: Container(
-                                  padding: EdgeInsets.fromLTRB(8, 5, 8, 5),
-                                  decoration: BoxDecoration(
-                                    color: notes[key]['sender'] == sender ? Colors.indigo : Colors.grey[300],
-                                    borderRadius: BorderRadius.all(Radius.circular(5))
-                                  ),
-                                  child: notes[key]['type'] == 'text'
-                                  ? Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        notes[key]['message'],
-                                        style: TextStyle(color: notes[key]['sender'] == sender ? Colors.white : Colors.black,fontSize: 16)
-                                      ),
-                                      SizedBox(width: 10),
-                                      Text(
-                                        notes[key]['time'].substring(11,16),
-                                        style: TextStyle(
-                                          color: notes[key]['sender'] == sender ? Colors.white70 : Colors.black54,
-                                          fontSize: 12,
-                                          fontStyle: FontStyle.italic,
-                                          fontWeight: FontWeight.normal
-                                        )
+                                padding: EdgeInsets.fromLTRB(8, 5, 8, 5),
+                                decoration: BoxDecoration(
+                                  color: notes[key]['sender'] == sender ? Colors.indigo : Colors.grey[300],
+                                  borderRadius: BorderRadius.all(Radius.circular(5))
+                                ),
+                                child: notes[key]['type'] == 'text'
+                                ? Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      notes[key]['message'],
+                                      style: TextStyle(color: notes[key]['sender'] == sender ? Colors.white : Colors.black,fontSize: 16)
+                                    ),
+                                    SizedBox(width: 10),
+                                    Text(
+                                      notes[key]['time'].substring(11,16),
+                                      style: TextStyle(
+                                        color: notes[key]['sender'] == sender ? Colors.white70 : Colors.black54,
+                                        fontSize: 12,
+                                        fontStyle: FontStyle.italic,
+                                        fontWeight: FontWeight.normal
                                       )
-                                    ]
-                                  )
-                                  : GestureDetector(
-                                    onTap: ()  {
-                                      var user = notes[key]['sender'] == widget.sender ? 'You' : notes[key]['sender'];
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: notes[key]['message'], name: user,dateTime: notes[key]['time'])));
-                                    },
-                                    child: Hero(
-                                      tag: 'Image Hero$index',
-                                      child: Stack(
-                                        fit: StackFit.passthrough,
-                                        children: [
-                                          Image.network(notes[key]['message'],width: imageWidth),
-                                          Positioned(
-                                            right: 0,
-                                            bottom: 0,
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.only(topLeft: Radius.circular(20)),
-                                                boxShadow: [
-                                                  BoxShadow(color: Colors.black26,spreadRadius: 5.0,blurRadius: 5.0)
-                                                ]
-                                              ),
-                                              padding: EdgeInsets.fromLTRB(10,10,5,5),
-                                              child: Text(
-                                                notes[key]['time'].substring(11,16),
-                                                style: TextStyle(color: Colors.white,fontStyle: FontStyle.italic,decoration: TextDecoration.none)
-                                              )
+                                    )
+                                  ]
+                                )
+                                : GestureDetector(
+                                  onTap: ()  {
+                                    var user = notes[key]['sender'] == widget.sender ? 'You' : notes[key]['sender'];
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: notes[key]['message'], name: user,dateTime: notes[key]['time'])));
+                                  },
+                                  child: Hero(
+                                    tag: 'Image Hero$index',
+                                    child: Stack(
+                                      fit: StackFit.passthrough,
+                                      children: [
+                                        Image.network(notes[key]['message'],width: imageWidth),
+                                        Positioned(
+                                          right: 0,
+                                          bottom: 0,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.only(topLeft: Radius.circular(20)),
+                                              boxShadow: [
+                                                BoxShadow(color: Colors.black26,spreadRadius: 5.0,blurRadius: 5.0)
+                                              ]
+                                            ),
+                                            padding: EdgeInsets.fromLTRB(10,10,5,5),
+                                            child: Text(
+                                              notes[key]['time'].substring(11,16),
+                                              style: TextStyle(color: Colors.white,fontStyle: FontStyle.italic,decoration: TextDecoration.none)
                                             )
                                           )
-                                        ]
-                                      )
+                                        )
+                                      ]
                                     )
                                   )
                                 )
                               )
                             )
-                          );
-                        }
-                      );                    
-                    }else
-                      return Container(child: Center(child: Lottie.asset('assets/animationLottie/emptyScreen.json',height: lottieHeight,width: lottieWidth)));
-                  }
-                ),
+                          )
+                        );
+                      }
+                    );                    
+                  }else
+                    return Container(child: Center(child: Lottie.asset('assets/animationLottie/emptyScreen.json',height: lottieHeight,width: lottieWidth)));
+                }
               ),
             ),
-            Container(
-              padding: EdgeInsets.fromLTRB(5, 4, 5, 5),
-              color: Colors.white,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Flexible(
-                    child: Container(
-                      padding: EdgeInsets.all(15),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius: BorderRadius.all(Radius.circular(25))
-                      ),
-                      child: TextField(
-                        controller: _contMessage,
-                        keyboardType: TextInputType.multiline,
-                        textInputAction: TextInputAction.newline,
-                        maxLines: null,
-                        cursorColor: Colors.black,
-                        cursorWidth: 1.5,
-                        style: TextStyle(color: Colors.black,fontSize: 16),
-                        decoration: InputDecoration.collapsed(
-                          hintText: 'Type a message',
-                          hintStyle: TextStyle(color: Colors.grey,fontSize: 16)
-                        )
+          ),
+          Container(
+            padding: EdgeInsets.fromLTRB(5, 4, 5, 5),
+            color: Colors.white,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Flexible(
+                  child: Container(
+                    padding: EdgeInsets.all(15),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.all(Radius.circular(25))
+                    ),
+                    child: TextField(
+                      controller: _contMessage,
+                      keyboardType: TextInputType.multiline,
+                      textInputAction: TextInputAction.newline,
+                      maxLines: null,
+                      cursorColor: Colors.black,
+                      cursorWidth: 1.5,
+                      style: TextStyle(color: Colors.black,fontSize: 16),
+                      decoration: InputDecoration.collapsed(
+                        hintText: 'Type a message',
+                        hintStyle: TextStyle(color: Colors.grey,fontSize: 16)
                       )
                     )
-                  ),
-                  SizedBox(width: MediaQuery.of(context).size.width * 0.01),
-                  InkWell(
-                    onTap: () async {
-                      imageSource = await sendImage();
-                      uploadImageFile(imageSource);
-                    },
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.indigo
-                      ),
-                      child: imageUploading
-                        ? SizedBox(height: 25,width: 25,child:CircularProgressIndicator(backgroundColor: Colors.grey[100],strokeWidth: 2.0))
-                        : Icon(Icons.image,color: Colors.white)
-                    )
-                  ),
-                  SizedBox(width: MediaQuery.of(context).size.width * 0.01),
-                  InkWell(
-                    onTap: () => {
-                      sendMessage('text'),
-                      scrollToBottom()
-                    },
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.indigo
-                      ),
-                      child: Icon(Icons.send,color: Colors.white)
-                    )
                   )
-                ]
-              )
+                ),
+                SizedBox(width: MediaQuery.of(context).size.width * 0.01),
+                InkWell(
+                  onTap: () async {
+                    imageSource = await sendImage();
+                    uploadImageFile(imageSource);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.indigo
+                    ),
+                    child: imageUploading
+                      ? SizedBox(height: 25,width: 25,child:CircularProgressIndicator(backgroundColor: Colors.grey[100],strokeWidth: 2.0))
+                      : Icon(Icons.image,color: Colors.white)
+                  )
+                ),
+                SizedBox(width: MediaQuery.of(context).size.width * 0.01),
+                InkWell(
+                  onTap: () => {
+                    sendMessage('text'),
+                    scrollToBottom()
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.indigo
+                    ),
+                    child: Icon(Icons.send,color: Colors.white)
+                  )
+                )
+              ]
             )
-          ]
-        )
+          )
+        ]
       )
     );
   }
