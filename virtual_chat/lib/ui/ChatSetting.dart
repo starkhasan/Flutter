@@ -50,6 +50,7 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         centerTitle: false,
         title: Text(widget.update ? 'Profile Update' : widget.sender[0].toUpperCase()+widget.sender.substring(1)),
@@ -290,7 +291,7 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                           child: Container(
                             color: Colors.white,
                               padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
-                              child: Center(child: Text('Cancel',style: TextStyle(fontSize: 16,color: Colors.red,fontWeight: FontWeight.bold)))
+                              child: Center(child: Text('Cancel',style: TextStyle(fontSize: 16,color: Colors.red)))
                             )
                         )
                       ),
@@ -307,7 +308,7 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                           child: Container(
                             color: Colors.white,
                             padding: EdgeInsets.fromLTRB(0, 15, 0, 15 ),
-                            child: Center(child: Text('Submit',style: TextStyle(fontSize: 16,color: Colors.indigo,fontWeight: FontWeight.bold)))
+                            child: Center(child: Text('Submit',style: TextStyle(fontSize: 16,color: Colors.indigo)))
                           )
                         )
                       )
@@ -364,7 +365,7 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                     ]
                   )
                 ),
-                Divider(height: 0.8,color: Colors.grey[400]),
+                Divider(height: 0.0,color: Colors.grey[400],thickness: 0.8,),
                 GestureDetector(
                   onTap: () => {
                     firebaseDatabase.update({
@@ -373,8 +374,9 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                     Navigator.pop(context)
                   },
                   child: Container(
+                    color: Colors.white,
                     padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
-                    child: Center(child: Text('Submit',style: TextStyle(fontSize: 18,color: Colors.indigo,fontWeight: FontWeight.bold)))
+                    child: Center(child: Text('Submit',style: TextStyle(fontSize: 18,color: Colors.indigo)))
                   )
                 )
               ]
