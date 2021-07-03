@@ -15,47 +15,70 @@ class _ChatMedia extends State<ChatMedia>{
   var fullScreen = false;
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: !fullScreen 
-      ? AppBar(
-        centerTitle: false,
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(widget.name[0].toUpperCase()+widget.name.substring(1)),
-            Visibility(
-              visible: widget.dateTime.isEmpty ? false : true,
-              child: Text(
-                widget.dateTime.isEmpty ? '' : widget.dateTime.formateDate,
-                style: TextStyle(color: Colors.white,fontSize: 12,fontStyle: FontStyle.italic,fontWeight: FontWeight.normal)
+      body: Stack(
+        children: [
+          InteractiveViewer(
+            child: GestureDetector(
+              onDoubleTap: () => {
+                setState((){
+                  fullScreen ? SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values) : SystemChrome.setEnabledSystemUIOverlays([]);
+                  fullScreen = fullScreen ? false : true;
+                })
+              },
+              child: Container(
+                color: Colors.black,
+                child: Center(
+                  child: Hero(
+                    tag: 'Image Hero',
+                    child: Image.network(widget.path)
+                  )
+                )
               )
             )
-          ],
-        ),
-        backgroundColor: Colors.black,
-        brightness: Brightness.dark
-      )
-      : null,
-      body: InteractiveViewer(
-        child: GestureDetector(
-          onDoubleTap: () => {
-            setState((){
-              fullScreen ? SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values) : SystemChrome.setEnabledSystemUIOverlays([]);
-              fullScreen = fullScreen ? false : true;
-            })
-          },
-          child: Container(
-            color: Colors.black,
-            child: Center(
-              child: Hero(
-                tag: 'Image Hero',
-                child: Image.network(widget.path)
+          ),
+          Visibility(
+            visible: !fullScreen,
+            child: Container(
+              margin: EdgeInsets.fromLTRB(0, MediaQuery.of(context).padding.top, 0, 0),
+              padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.01, 0, 0, 0),
+              height: kToolbarHeight,
+              color: Colors.black,
+              child: Row(
+                children: [
+                  IconButton(
+                    onPressed: () => Navigator.pop(context),
+                    icon: Icon(Icons.arrow_back,color: Colors.white,)
+                  ),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.04),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        widget.name[0].toUpperCase()+widget.name.substring(1),
+                        style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),
+                      ),
+                      Visibility(
+                        visible: widget.dateTime.isEmpty ? false : true,
+                        child: Text(
+                          widget.dateTime.isEmpty ? '' : widget.dateTime.formateDate,
+                          style: TextStyle(color: Colors.white,fontSize: 12,fontStyle: FontStyle.italic,fontWeight: FontWeight.normal)
+                        )
+                      )
+                    ],
+                  )
+                ]
               )
             )
           )
-        )
+        ]
       )
     );
   }

@@ -34,10 +34,6 @@ class _SplashScreen extends State<SplashScreen> with TickerProviderStateMixin{
   }
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.indigo[600],
-      statusBarIconBrightness: Brightness.light
-    ));
     return Scaffold(
       body: Container(
         child: Center(
