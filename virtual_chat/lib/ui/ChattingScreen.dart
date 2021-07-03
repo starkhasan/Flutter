@@ -3,14 +3,12 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:virtual_chat/ui/ChatMedia.dart';
 import 'package:virtual_chat/ui/ChatSetting.dart';
-import 'package:virtual_chat/util/CustomChatBubble.dart';
 
 class ChattingScreen extends StatefulWidget {
   final String sender;
@@ -184,9 +182,12 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                                     ]
                                   )
                                   : GestureDetector(
-                                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: notes[key]['message'], name: notes[key]['sender'],dateTime: notes[key]['time']))),
+                                    onTap: ()  {
+                                      var user = notes[key]['sender'] == widget.sender ? 'You' : notes[key]['sender'];
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: notes[key]['message'], name: user,dateTime: notes[key]['time'])));
+                                    },
                                     child: Hero(
-                                      tag: 'Image Hero',
+                                      tag: 'Image Hero$index',
                                       child: Stack(
                                         fit: StackFit.passthrough,
                                         children: [
