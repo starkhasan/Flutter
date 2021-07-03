@@ -103,6 +103,7 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                                 decoration: BoxDecoration(color: Colors.indigo,shape: BoxShape.circle),
                                 child: Center(
                                   child: IconButton(
+                                    padding: EdgeInsets.zero,
                                     onPressed: () async{
                                       var source = await chooseImageSource();
                                       uploadImageFile(source);
