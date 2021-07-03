@@ -32,23 +32,23 @@ class CovidStatusProvider extends ChangeNotifier {
   Future<void> covidStatus() async {
     _callApi = true;
     notifyListeners();
-    try {
-      var response = await Api.getCountriesCases();
-      if (response.statusCode == 200) {
-        covidResponse =
-            CovidCountryCasesResponse.fromJson(json.decode(response.body));
-        covidStatusResponse[1] = covidResponse.cases;
-        covidStatusResponse[2] = covidResponse.recovered;
-        covidStatusResponse[3] = covidResponse.active;
-        covidStatusResponse[4] = covidResponse.deaths;
-        covidStatusResponse[5] = covidResponse.critical;
-        covidStatusResponse[6] = covidResponse.todayCases;
-      } else {
-        covidStatusResponse = [0, 0, 0, 0, 0, 0, 0];
-      }
-    } catch (e) {
-      covidStatusResponse = [0, 0, 0, 0, 0, 0, 0];
-    }
+    // try {
+    //   var response = await Api.getCountriesCases();
+    //   if (response.statusCode == 200) {
+    //     covidResponse =
+    //         CovidCountryCasesResponse.fromJson(json.decode(response.body));
+    //     covidStatusResponse[1] = covidResponse.cases;
+    //     covidStatusResponse[2] = covidResponse.recovered;
+    //     covidStatusResponse[3] = covidResponse.active;
+    //     covidStatusResponse[4] = covidResponse.deaths;
+    //     covidStatusResponse[5] = covidResponse.critical;
+    //     covidStatusResponse[6] = covidResponse.todayCases;
+    //   } else {
+    //     covidStatusResponse = [0, 0, 0, 0, 0, 0, 0];
+    //   }
+    // } catch (e) {
+    //   covidStatusResponse = [0, 0, 0, 0, 0, 0, 0];
+    // }
     await population();
     _callApi = false;
     notifyListeners();
@@ -111,8 +111,18 @@ class CovidStatusProvider extends ChangeNotifier {
 
   population() async {
     await firebaseDatabase.once().then((DataSnapshot snapshot) {
-      if (snapshot.value != null)
+      if (snapshot.value != null) {
         covidStatusResponse[0] = snapshot.value['population'];
+        var coronaCase = snapshot.value['corona'].split(' ');
+        covidStatusResponse[1] = int.parse(coronaCase[0]);
+        covidStatusResponse[2] = int.parse(coronaCase[1]);
+        covidStatusResponse[3] = int.parse(coronaCase[2]);
+        covidStatusResponse[4] = int.parse(coronaCase[3]);
+        covidStatusResponse[5] = int.parse(coronaCase[4]);
+        covidStatusResponse[6] = int.parse(coronaCase[5]);
+      }else{
+        covidStatusResponse = [0, 0, 0, 0, 0, 0, 0];
+      }
     });
   }
 

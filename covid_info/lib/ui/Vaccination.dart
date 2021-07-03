@@ -116,23 +116,6 @@ class _VaccineScreenState extends State<VaccineScreen> {
             )
           ),
           SizedBox(height: 10),
-          Container(
-            padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-            alignment: Alignment.centerRight,
-            child: RichText(
-              text: TextSpan(
-                style: TextStyle(fontStyle: FontStyle.italic,fontSize: 12),
-                children: [
-                  TextSpan(text: 'Source Data : ',style: TextStyle(color: Colors.grey[400])),
-                  TextSpan(
-                    text: 'CoWIN Official',
-                    style: TextStyle(decoration: TextDecoration.underline,color: Colors.blue[300]),
-                    recognizer: TapGestureRecognizer()..onTap = () => launch(HelperVaccination.vaccineIndiaUrl)
-                  )
-                ]
-              )
-            )
-          ),
           ListView.builder(
             itemCount: HelperAbout.listVaccineTag.length,
             shrinkWrap: true,
@@ -392,6 +375,23 @@ class _VaccineScreenState extends State<VaccineScreen> {
                     )
                   ),
                   Icon(Icons.cabin_rounded,color: Colors.blue,size: 30),
+                ]
+              )
+            )
+          ),
+          Container(
+            padding: EdgeInsets.fromLTRB(0, 15, 0, 5),
+            alignment: Alignment.centerRight,
+            child: RichText(
+              text: TextSpan(
+                style: TextStyle(fontStyle: FontStyle.italic,fontSize: 12),
+                children: [
+                  TextSpan(text: 'Source Data : ',style: TextStyle(color: Colors.grey[400])),
+                  TextSpan(
+                    text: 'CoWIN Official',
+                    style: TextStyle(decoration: TextDecoration.underline,color: Colors.blue[300]),
+                    recognizer: TapGestureRecognizer()..onTap = () => launch(HelperVaccination.vaccineIndiaUrl)
+                  )
                 ]
               )
             )

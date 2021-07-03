@@ -89,7 +89,7 @@ class _MainScreen extends State<MainScreen> {
                     child: Text(
                       widget.provider.apiCalling
                       ? 'Loading...'
-                      : 'Last updated: 2 days ago',
+                      : 'Last updated: 1 days ago',
                       style: TextStyle(color: Colors.black,fontSize: 16,fontFamily: ''),
                     )
                   ),
