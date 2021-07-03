@@ -49,7 +49,7 @@ class _ChatMedia extends State<ChatMedia>{
               margin: EdgeInsets.fromLTRB(0, MediaQuery.of(context).padding.top, 0, 0),
               padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.01, 0, 0, 0),
               height: kToolbarHeight,
-              color: Colors.black,
+              color: Colors.black.withOpacity(0.2),
               child: Row(
                 children: [
                   IconButton(
