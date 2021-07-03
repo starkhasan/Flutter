@@ -76,37 +76,44 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                 children: [
                   Align(
                     alignment: Alignment.center,
-                    child: GestureDetector(
-                      onTap: () {
-                        notes['profile'] != ' '
-                          ? Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: notes['profile'], name: widget.update ? 'Profile' : widget.sender[0].toUpperCase()+widget.sender.substring(1),dateTime:'')))
-                          : showSnackBar('Image Not Found');
-                      },
-                      child: CircleAvatar(
-                        backgroundColor: Colors.grey[200],
-                        backgroundImage: notes['profile'] == ' ' ? NetworkImage('https://i.ibb.co/Tm8jmFY/add-1.png') : NetworkImage(notes['profile']),
-                        radius: _imageSize,
-                        child: Visibility(
-                          visible: widget.update,
-                          child: Container(
-                            width: _topMargin,
-                            height: _topMargin,
-                            transform: Matrix4.translationValues(40, 40, 0),
-                            decoration: BoxDecoration(
-                              color: Colors.indigo,
-                              shape: BoxShape.circle
-                            ),
-                            child: Center(
-                              child: IconButton(
-                                onPressed: () async{
-                                  var source = await chooseImageSource();
-                                  uploadImageFile(source);
-                                },
-                                icon: Icon(Icons.camera_alt_rounded,color: Colors.white)
+                    child: Container(
+                      height: _imageSize * 2,
+                      width: _imageSize * 2,
+                      child: Stack(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              notes['profile'] != ' '
+                                ? Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: notes['profile'], name: widget.update ? 'Profile' : widget.sender[0].toUpperCase()+widget.sender.substring(1),dateTime:'')))
+                                : showSnackBar('Image Not Found');
+                            },
+                            child: CircleAvatar(
+                              backgroundColor: Colors.grey[200],
+                              backgroundImage: notes['profile'] == ' ' ? NetworkImage('https://i.ibb.co/Tm8jmFY/add-1.png') : NetworkImage(notes['profile']),
+                              radius: _imageSize
+                            )
+                          ),
+                          Positioned(
+                            right: 0,bottom: 0,
+                            child: Visibility(
+                              visible: widget.update,
+                              child: Container(
+                                width: _topMargin,
+                                height: _topMargin,
+                                decoration: BoxDecoration(color: Colors.indigo,shape: BoxShape.circle),
+                                child: Center(
+                                  child: IconButton(
+                                    onPressed: () async{
+                                      var source = await chooseImageSource();
+                                      uploadImageFile(source);
+                                    },
+                                    icon: Icon(Icons.camera_alt_rounded,color: Colors.white)
+                                  )
+                                )
                               )
-                            ),
+                            )
                           )
-                        )
+                        ]
                       )
                     )
                   ),
