@@ -53,7 +53,7 @@ class _SplachScreenState extends State<SplachScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Design & Developed by : Ali Hasan',
+                      'Design & Developed by : Indian',
                       style: TextStyle(color: Colors.grey[300],fontSize: 14)
                     )
                   ]
