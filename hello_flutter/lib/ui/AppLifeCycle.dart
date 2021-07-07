@@ -7,8 +7,9 @@ class AppLifeCycle extends StatefulWidget {
   State<StatefulWidget> createState() => _AppLifeCycle();
 }
 
-class _AppLifeCycle extends State<AppLifeCycle> with WidgetsBindingObserver{
-
+class _AppLifeCycle extends State<AppLifeCycle> with WidgetsBindingObserver {
+  var temp = 10;
+  
   @override
   void initState() {
     super.initState();
@@ -25,56 +26,65 @@ class _AppLifeCycle extends State<AppLifeCycle> with WidgetsBindingObserver{
         centerTitle: true,
       ),
       body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              color: Colors.pink,
-              child: Center(
-                child: Text('Ali hasan'),
-              ),
-            ),
-            Visibility(
-              visible: true,
-              child: Container(
-                color: Colors.red,
-                height: 25,
-              ),
-            ),
-            SizedBox(
-              width: double.infinity,
-              child: Container(
-                alignment: Alignment.center,
-                color: Colors.black,
-                child: Text(
-                  'Here is the text',
-                  style: TextStyle(color: Colors.white),
+          height: double.infinity,
+          width: double.infinity,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                color: Colors.pink,
+                child: Center(
+                  child: Text('Ali hasan'),
                 ),
               ),
-            ),
-            Container(
-              color: Colors.orange
-            ),
-            Container(
-              color: Colors.blue,
-              height: 50.0,
-              width: 50.0,
-            ),
-            Icon(Icons.adjust, size: 50.0, color: Colors.pink),
-            Icon(Icons.adjust, size: 50.0, color: Colors.purple,),
-            Icon(Icons.adjust, size: 50.0, color: Colors.greenAccent,),
-            Container(
-              color: Colors.orange,
-              height: 50.0,
-              width: 50.0,
-            ),
-            Icon(Icons.adjust, size: 50.0, color: Colors.cyan,),
-          ],
-        )
-      ),
+              Visibility(
+                visible: true,
+                child: Container(
+                  color: Colors.red,
+                  height: 25,
+                ),
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: Container(
+                  alignment: Alignment.center,
+                  color: Colors.black,
+                  child: Text(
+                    'Here is the text',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+              Container(color: Colors.orange),
+              Container(
+                color: Colors.blue,
+                height: 50.0,
+                width: 50.0,
+              ),
+              Icon(Icons.adjust, size: 50.0, color: Colors.pink),
+              Icon(
+                Icons.adjust,
+                size: 50.0,
+                color: Colors.purple,
+              ),
+              Icon(
+                Icons.adjust,
+                size: 50.0,
+                color: Colors.greenAccent,
+              ),
+              Container(
+                color: Colors.orange,
+                height: 50.0,
+                width: 50.0,
+              ),
+              Icon(
+                Icons.adjust,
+                size: 50.0,
+                color: Colors.cyan,
+              ),
+            ],
+          )),
     );
   }
 

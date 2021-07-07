@@ -153,17 +153,7 @@ class _HomeScreen extends State<HomeScreen> with WidgetsBindingObserver{
           appBar: AppBar(
             backgroundColor: Colors.pink,
             title: Text(Languages.of(context).homeTitle),
-            centerTitle: true,
-            actions: [
-              IconButton(
-                onPressed: () => print('Tap on Add Check'),
-                icon: Icon(Icons.library_add_check, color: Colors.white),
-              ),
-              IconButton(
-                onPressed: () => print('Tap on Cart'),
-                icon: Icon(Icons.shopping_cart, color: Colors.white),
-              )
-            ],
+            centerTitle: true
           ),
           body: Container(
             child: ListView.builder(
@@ -216,7 +206,6 @@ class _HomeScreen extends State<HomeScreen> with WidgetsBindingObserver{
                                 builder: (context) => PaymentScreen()));
                         break;
                       case 7:
-                        _getImagePath();
                         break;
                       case 8:
                         Navigator.push(
@@ -307,10 +296,7 @@ class _HomeScreen extends State<HomeScreen> with WidgetsBindingObserver{
                     }
                   },
                   child: ListTile(
-                    title: Text(itemsList[index]),
-                    trailing: imagePath != null
-                        ? Image.file(File(imagePath))
-                        : Icon(Icons.cloud_upload),
+                    title: Text(itemsList[index])
                   ),
                 ));
               },
@@ -346,16 +332,16 @@ class _HomeScreen extends State<HomeScreen> with WidgetsBindingObserver{
     );
   }
 
-  _getImagePath() async {
-    final cameras = await availableCameras();
-    final camera = cameras.first;
-    var temp = await Navigator.push(context,MaterialPageRoute(builder: (context) => CameraExample(camera: camera)));
-    if (temp != null) {
-      setState(() {
-        imagePath = temp;
-      });
-    }
-  }
+  // _getImagePath() async {
+  //   final cameras = await availableCameras();
+  //   final camera = cameras.first;
+  //   var temp = await Navigator.push(context,MaterialPageRoute(builder: (context) => CameraExample(camera: camera)));
+  //   if (temp != null) {
+  //     setState(() {
+  //       imagePath = temp;
+  //     });
+  //   }
+  // }
 
   _getCurrentLocation() async {
     await Geolocator.getCurrentPosition().then((value) {
