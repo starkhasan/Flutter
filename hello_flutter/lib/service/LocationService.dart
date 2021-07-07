@@ -21,16 +21,17 @@ class LocationService {
     return _currentLocation;
   }
 
-  LocationService(){
+  LocationService(){  
     location.requestPermission().then((granted){
       if(granted != null){
         location.onLocationChanged.listen((locationData) { 
           if(locationData!=null){
-            _locationController.add(UserLocation(latitude: locationData.latitude,lonitude: locationData.longitude)
-            );
+            _locationController.add(UserLocation(latitude: locationData.latitude,lonitude: locationData.longitude));
           }
         });
       }
     });
   }
+
+  
 }
