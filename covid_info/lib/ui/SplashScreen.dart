@@ -78,10 +78,10 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   startTimer() {
-    Timer(Duration(seconds: 2),(){
+    Timer(Duration(seconds: 3),(){
       if(provider != null){
         if(provider == ConnectivityResult.wifi || provider == ConnectivityResult.mobile){
-          Timer(Duration(seconds: 2),() => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Dashboard())));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Dashboard()));
         }else{
           var snackBar = SnackBar(
             elevation: 0.0,
