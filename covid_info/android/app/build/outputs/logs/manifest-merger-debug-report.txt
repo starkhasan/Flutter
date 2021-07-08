@@ -8,8 +8,9 @@ MERGED from E:\Repositories\Flutter Repository\Flutter\covid_info\android\app\sr
 MERGED from [:url_launcher] E:\Repositories\Flutter Repository\Flutter\covid_info\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-14:12
 MERGED from [:sqflite] E:\Repositories\Flutter Repository\Flutter\covid_info\build\sqflite\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:advance_pdf_viewer] E:\Repositories\Flutter Repository\Flutter\covid_info\build\advance_pdf_viewer\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
-MERGED from [:firebase_database] E:\Repositories\Flutter Repository\Flutter\covid_info\build\firebase_database\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
+MERGED from [:connectivity_plus] E:\Repositories\Flutter Repository\Flutter\covid_info\build\connectivity_plus\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:path_provider] E:\Repositories\Flutter Repository\Flutter\covid_info\build\path_provider\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:firebase_database] E:\Repositories\Flutter Repository\Flutter\covid_info\build\firebase_database\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
 MERGED from [:firebase_core] E:\Repositories\Flutter Repository\Flutter\covid_info\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
 MERGED from [com.google.firebase:firebase-storage:20.0.0] C:\Users\Ali Hasan\.gradle\caches\transforms-2\files-2.1\1b1da317e75d1e5f9a3fdb04d44a433f\jetified-firebase-storage-20.0.0\AndroidManifest.xml:15:1-39:12
 MERGED from [com.google.firebase:firebase-database:20.0.0] C:\Users\Ali Hasan\.gradle\caches\transforms-2\files-2.1\b6338c9c629a1c1839351bdb8d698914\jetified-firebase-database-20.0.0\AndroidManifest.xml:15:1-38:12
@@ -149,10 +150,12 @@ MERGED from [:sqflite] E:\Repositories\Flutter Repository\Flutter\covid_info\bui
 MERGED from [:sqflite] E:\Repositories\Flutter Repository\Flutter\covid_info\build\sqflite\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:advance_pdf_viewer] E:\Repositories\Flutter Repository\Flutter\covid_info\build\advance_pdf_viewer\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:advance_pdf_viewer] E:\Repositories\Flutter Repository\Flutter\covid_info\build\advance_pdf_viewer\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:firebase_database] E:\Repositories\Flutter Repository\Flutter\covid_info\build\firebase_database\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:firebase_database] E:\Repositories\Flutter Repository\Flutter\covid_info\build\firebase_database\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:connectivity_plus] E:\Repositories\Flutter Repository\Flutter\covid_info\build\connectivity_plus\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:connectivity_plus] E:\Repositories\Flutter Repository\Flutter\covid_info\build\connectivity_plus\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:path_provider] E:\Repositories\Flutter Repository\Flutter\covid_info\build\path_provider\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:path_provider] E:\Repositories\Flutter Repository\Flutter\covid_info\build\path_provider\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:firebase_database] E:\Repositories\Flutter Repository\Flutter\covid_info\build\firebase_database\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:firebase_database] E:\Repositories\Flutter Repository\Flutter\covid_info\build\firebase_database\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:firebase_core] E:\Repositories\Flutter Repository\Flutter\covid_info\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:firebase_core] E:\Repositories\Flutter Repository\Flutter\covid_info\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [com.google.firebase:firebase-storage:20.0.0] C:\Users\Ali Hasan\.gradle\caches\transforms-2\files-2.1\1b1da317e75d1e5f9a3fdb04d44a433f\jetified-firebase-storage-20.0.0\AndroidManifest.xml:20:5-22:41
@@ -217,6 +220,14 @@ ADDED from [:url_launcher] E:\Repositories\Flutter Repository\Flutter\covid_info
 		ADDED from [:url_launcher] E:\Repositories\Flutter Repository\Flutter\covid_info\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-71
 	android:name
 		ADDED from [:url_launcher] E:\Repositories\Flutter Repository\Flutter\covid_info\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-74
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [:connectivity_plus] E:\Repositories\Flutter Repository\Flutter\covid_info\build\connectivity_plus\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-79
+MERGED from [com.google.firebase:firebase-storage:20.0.0] C:\Users\Ali Hasan\.gradle\caches\transforms-2\files-2.1\1b1da317e75d1e5f9a3fdb04d44a433f\jetified-firebase-storage-20.0.0\AndroidManifest.xml:26:5-79
+MERGED from [com.google.firebase:firebase-storage:20.0.0] C:\Users\Ali Hasan\.gradle\caches\transforms-2\files-2.1\1b1da317e75d1e5f9a3fdb04d44a433f\jetified-firebase-storage-20.0.0\AndroidManifest.xml:26:5-79
+MERGED from [com.google.firebase:firebase-database:20.0.0] C:\Users\Ali Hasan\.gradle\caches\transforms-2\files-2.1\b6338c9c629a1c1839351bdb8d698914\jetified-firebase-database-20.0.0\AndroidManifest.xml:25:5-79
+MERGED from [com.google.firebase:firebase-database:20.0.0] C:\Users\Ali Hasan\.gradle\caches\transforms-2\files-2.1\b6338c9c629a1c1839351bdb8d698914\jetified-firebase-database-20.0.0\AndroidManifest.xml:25:5-79
+	android:name
+		ADDED from [:connectivity_plus] E:\Repositories\Flutter Repository\Flutter\covid_info\build\connectivity_plus\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-76
 service#com.google.firebase.components.ComponentDiscoveryService
 ADDED from [:firebase_database] E:\Repositories\Flutter Repository\Flutter\covid_info\build\firebase_database\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-12:19
 MERGED from [:firebase_core] E:\Repositories\Flutter Repository\Flutter\covid_info\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-12:19
@@ -247,12 +258,6 @@ ADDED from [:firebase_core] E:\Repositories\Flutter Repository\Flutter\covid_inf
 		ADDED from [:firebase_core] E:\Repositories\Flutter Repository\Flutter\covid_info\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:11:17-82
 	android:name
 		ADDED from [:firebase_core] E:\Repositories\Flutter Repository\Flutter\covid_info\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-124
-uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from [com.google.firebase:firebase-storage:20.0.0] C:\Users\Ali Hasan\.gradle\caches\transforms-2\files-2.1\1b1da317e75d1e5f9a3fdb04d44a433f\jetified-firebase-storage-20.0.0\AndroidManifest.xml:26:5-79
-MERGED from [com.google.firebase:firebase-database:20.0.0] C:\Users\Ali Hasan\.gradle\caches\transforms-2\files-2.1\b6338c9c629a1c1839351bdb8d698914\jetified-firebase-database-20.0.0\AndroidManifest.xml:25:5-79
-MERGED from [com.google.firebase:firebase-database:20.0.0] C:\Users\Ali Hasan\.gradle\caches\transforms-2\files-2.1\b6338c9c629a1c1839351bdb8d698914\jetified-firebase-database-20.0.0\AndroidManifest.xml:25:5-79
-	android:name
-		ADDED from [com.google.firebase:firebase-storage:20.0.0] C:\Users\Ali Hasan\.gradle\caches\transforms-2\files-2.1\1b1da317e75d1e5f9a3fdb04d44a433f\jetified-firebase-storage-20.0.0\AndroidManifest.xml:26:22-76
 meta-data#com.google.firebase.components:com.google.firebase.storage.StorageRegistrar
 ADDED from [com.google.firebase:firebase-storage:20.0.0] C:\Users\Ali Hasan\.gradle\caches\transforms-2\files-2.1\1b1da317e75d1e5f9a3fdb04d44a433f\jetified-firebase-storage-20.0.0\AndroidManifest.xml:33:13-35:85
 	android:value

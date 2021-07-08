@@ -1,32 +1,43 @@
 import 'dart:async';
-
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:covid_info/service/ConnectivityService.dart';
 import 'package:covid_info/ui/Dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
-class SplachScreen extends StatefulWidget {
+class SplashScreen extends StatelessWidget {
   @override
-  _SplachScreenState createState() => _SplachScreenState();
+  Widget build(BuildContext context) {
+    return StreamProvider<ConnectivityResult>(
+      initialData: ConnectivityResult.none,
+      create: (_) => ConnectivityService().connectionStream,
+      builder: (context, child) {
+        return MainScreen();
+      },
+    );
+  }
 }
 
-class _SplachScreenState extends State<SplachScreen> {
+class MainScreen extends StatefulWidget {
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
 
+class _MainScreenState extends State<MainScreen> {
+
+  var provider;
   @override
   void initState() {
     super.initState();
-    SystemChrome.setPreferredOrientations([
-        DeviceOrientation.portraitUp,
-        DeviceOrientation.portraitDown,
-    ]);
-    startTimer();
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,DeviceOrientation.portraitDown]);
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.indigo[600],statusBarIconBrightness: Brightness.light));
   }
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.indigo[600],
-      statusBarIconBrightness: Brightness.light
-    ));
+    provider = Provider.of<ConnectivityResult>(context);
+    startTimer();
     return Scaffold(
       body: Container(
         color: Colors.white,
@@ -67,6 +78,13 @@ class _SplachScreenState extends State<SplachScreen> {
   }
 
   startTimer() {
-    Timer(Duration(seconds: 2),() => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Dashboard())));
+    if(provider != null){
+      if(provider == ConnectivityResult.wifi || provider == ConnectivityResult.mobile){
+        print('Internet Connected');
+        //Timer(Duration(seconds: 2),() => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Dashboard())));
+      }else{
+        print('No Internet');
+      }
+    }
   }
 }
