@@ -1,6 +1,4 @@
-import 'dart:io';
 
-import 'package:camera/camera.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +6,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hello_flutter/ui/AppLifeCycle.dart';
 import 'package:hello_flutter/ui/CardSwipeScreen.dart';
+import 'package:hello_flutter/ui/CounterApp.dart';
 import 'package:hello_flutter/ui/ExpandableCardList.dart';
 import 'package:hello_flutter/ui/FutureBuilderScreen.dart';
 import 'package:hello_flutter/ui/GoogleMapRoute.dart';
@@ -23,8 +22,6 @@ import 'package:hello_flutter/ui/Scroller.dart';
 import 'package:hello_flutter/ui/SwipeDeleteScreen.dart';
 import 'package:hello_flutter/ui/NotificationScreen.dart';
 import 'package:hello_flutter/ui/SilverScreen.dart';
-import 'package:hello_flutter/ui/CameraExample.dart';
-import 'package:hello_flutter/ui/TextRecog.dart';
 import 'package:hello_flutter/ui/TransformUI.dart';
 import 'package:hello_flutter/ui/DownloadFile.dart';
 import 'package:hello_flutter/ui/YouTubeFlutter.dart';
@@ -143,8 +140,8 @@ class _HomeScreen extends State<HomeScreen> with WidgetsBindingObserver{
       'Scroll Animation',
       'YouTube Flutter',
       'Location',
-      'Text Recognition',
-      'Hero Widget'
+      'Hero Widget',
+      'Counter Application'
     ];
     return WillPopScope(
         onWillPop: () => _onWillPop(),
@@ -284,13 +281,13 @@ class _HomeScreen extends State<HomeScreen> with WidgetsBindingObserver{
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => TextRecog()));
+                                builder: (context) => HeroAnimated()));
                         break;
                       case 21:
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HeroAnimated()));
+                                builder: (context) => CounterApp()));
                         break;
                       default:
                     }
