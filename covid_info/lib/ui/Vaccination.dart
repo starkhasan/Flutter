@@ -40,6 +40,7 @@ class VaccineScreen extends StatefulWidget {
 class _VaccineScreenState extends State<VaccineScreen> {
 
   var formatter = NumberFormat('#,##,000');
+  var refreshIndicatorMargin = 0.0;
   
   @override
   void initState() {
@@ -49,26 +50,37 @@ class _VaccineScreenState extends State<VaccineScreen> {
     });
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    refreshIndicatorMargin = kToolbarHeight+MediaQuery.of(context).padding.top;
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        physics: BouncingScrollPhysics(),
-        slivers:[
-          SliverAppBar(
-            centerTitle: true,
-            floating: true,
-            title: Text('Vaccination',style: TextStyle(fontSize: 16)),
-            expandedHeight: kToolbarHeight,
-            systemOverlayStyle: SystemUiOverlayStyle.light,
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate([
-              vaccinationStatusWidget()
-            ])
-          )
-        ]
+      body: RefreshIndicator(
+        displacement: refreshIndicatorMargin,
+        color: Colors.indigo,
+        onRefresh: widget.provider.vaccination,
+        child: CustomScrollView(
+          physics: BouncingScrollPhysics(),
+          slivers:[
+            SliverAppBar(
+              centerTitle: true,
+              floating: true,
+              title: Text('Vaccination',style: TextStyle(fontSize: 16)),
+              expandedHeight: kToolbarHeight,
+              systemOverlayStyle: SystemUiOverlayStyle.light,
+            ),
+            SliverList(
+              delegate: SliverChildListDelegate([
+                vaccinationStatusWidget()
+              ])
+            )
+          ]
+        )
       )
     );
   }

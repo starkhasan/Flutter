@@ -38,6 +38,7 @@ class _MainScreen extends State<MainScreen> {
   var countryName = 'India';
   var countryCode = 'IN'; 
   var date = DateTime.now().toString();
+  var refreshIndicatorMargin = 0.0;
 
   @override
   void initState() {
@@ -48,24 +49,35 @@ class _MainScreen extends State<MainScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    refreshIndicatorMargin = kToolbarHeight+MediaQuery.of(context).padding.top;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        physics: BouncingScrollPhysics(),
-        slivers:[
-          SliverAppBar(
-            centerTitle: true,
-            floating: true,
-            title: Text('Corona Status',style: TextStyle(fontSize: 16)),
-            expandedHeight: kToolbarHeight,
-            systemOverlayStyle: SystemUiOverlayStyle.light,
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate([
-              covidStatusWidget()
-            ])
-          )
-        ]
+      body: RefreshIndicator(
+        displacement: refreshIndicatorMargin,
+        color: Colors.indigo,
+        onRefresh: widget.provider.covidStatus,
+        child: CustomScrollView(
+          physics: BouncingScrollPhysics(),
+          slivers:[
+            SliverAppBar(
+              centerTitle: true,
+              floating: true,
+              title: Text('Corona Status',style: TextStyle(fontSize: 16)),
+              expandedHeight: kToolbarHeight,
+              systemOverlayStyle: SystemUiOverlayStyle.light,
+            ),
+            SliverList(
+              delegate: SliverChildListDelegate([
+                covidStatusWidget()
+              ])
+            )
+          ]
+        )
       )
     );
   }
