@@ -93,39 +93,36 @@ class _VaccineScreenState extends State<VaccineScreen> {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          Align(
-            alignment: Alignment.topRight,
-            child: Container(
-              padding: EdgeInsets.all(5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Text(
-                      widget.provider.apiVaccine
-                      ? 'Loading...'
-                      : 'Last updated: 1 days ago',
-                      style: TextStyle(color: Colors.black,fontSize: 16,fontFamily: ''),
-                    )
-                  ),
-                  Flexible(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Image.network(
-                          'https://www.countryflags.io/IN/shiny/64.png',
-                          height: 25,
-                          width: 25,
-                          errorBuilder: (context,exception,stackTrace){return Icon(Icons.flag);},
-                        ),
-                        SizedBox(width: 10),
-                        Text('India',style: TextStyle(fontSize: 16,fontFamily: ''))
-                      ]
-                    )
+          Container(
+            padding: EdgeInsets.all(5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Text(
+                    widget.provider.apiVaccine
+                    ? 'Loading...'
+                    : 'Last updated: 1 days ago',
+                    style: TextStyle(color: Colors.grey,fontSize: 16,fontFamily: ''),
                   )
-                ]
-              )
+                ),
+                Flexible(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Image.network(
+                        'https://www.countryflags.io/IN/shiny/64.png',
+                        height: 25,
+                        width: 25,
+                        errorBuilder: (context,exception,stackTrace){return Icon(Icons.flag);},
+                      ),
+                      SizedBox(width: 10),
+                      Text('India',style: TextStyle(fontSize: 16,fontFamily: ''))
+                    ]
+                  )
+                )
+              ]
             )
           ),
           SizedBox(height: 10),

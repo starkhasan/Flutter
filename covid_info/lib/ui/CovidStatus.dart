@@ -90,49 +90,46 @@ class _MainScreen extends State<MainScreen> {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          Align(
-            alignment: Alignment.topRight,
-            child: Container(
-              padding: EdgeInsets.all(5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Text(
-                      widget.provider.apiCalling
-                      ? 'Loading...'
-                      : 'Last updated: 1 days ago',
-                      style: TextStyle(color: Colors.black,fontSize: 16,fontFamily: ''),
-                    )
-                  ),
-                  Flexible(
-                    child: GestureDetector(
-                      onTap: ()  async {
-                        var result = await Navigator.push(context, MaterialPageRoute(builder: (context) => CountrySearchResult()));
-                        print(result);
-                      },
-                      child: Container(
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Image.network(
-                              'https://www.countryflags.io/$countryCode/shiny/64.png',
-                              height: 25,
-                              width: 25,
-                              errorBuilder: (context,exception,stackTrace){return Icon(Icons.flag);},
-                            ),
-                            SizedBox(width: 10),
-                            Text(countryName,style: TextStyle(fontSize: 15,fontFamily: '')),
-                            SizedBox(width: 5),
-                            Icon(Icons.arrow_drop_down_sharp,color: Colors.black,size: 30)
-                          ]
-                        )
+          Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Text(
+                    widget.provider.apiCalling
+                    ? 'Loading...'
+                    : 'Last updated: 1 days ago',
+                    style: TextStyle(color: Colors.grey,fontSize: 16,fontFamily: ''),
+                  )
+                ),
+                Flexible(
+                  child: GestureDetector(
+                    onTap: ()  async {
+                      var result = await Navigator.push(context, MaterialPageRoute(builder: (context) => CountrySearchResult()));
+                      print(result);
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(5),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Image.network(
+                            'https://www.countryflags.io/$countryCode/shiny/64.png',
+                            height: 25,
+                            width: 25,
+                            errorBuilder: (context,exception,stackTrace){return Icon(Icons.flag);},
+                          ),
+                          SizedBox(width: 10),
+                          Text(countryName,style: TextStyle(fontSize: 16,fontFamily: '')),
+                          SizedBox(width: 5),
+                          Icon(Icons.arrow_drop_down_sharp,color: Colors.black,size: 30)
+                        ]
                       )
                     )
                   )
-                ]
-              )
+                )
+              ]
             )
           ),
           ListView.builder(
