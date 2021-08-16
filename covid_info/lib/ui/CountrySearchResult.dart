@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:covid_info/model/provider/CovidStatusProvider.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -50,7 +51,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
         appBar: AppBar(
           title: Text('Worldwide Status',style: TextStyle(fontSize: 16)),
           centerTitle: true,
-          brightness: Brightness.dark
+          systemOverlayStyle: SystemUiOverlayStyle.light,
         ),
         body: Container(
           child: Column(

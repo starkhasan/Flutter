@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:covid_info/constant/HelperAbout.dart';
+import 'package:flutter/services.dart';
 class AboutCovid extends StatefulWidget {
 
   @override
@@ -18,7 +19,7 @@ class _AboutCovidState extends State<AboutCovid> {
             floating: true,
             title: Text('About Corona',style: TextStyle(fontSize: 16)),
             expandedHeight: kToolbarHeight,
-            brightness: Brightness.dark,
+            systemOverlayStyle: SystemUiOverlayStyle.light,
           ),
           SliverList(
             delegate: SliverChildListDelegate([

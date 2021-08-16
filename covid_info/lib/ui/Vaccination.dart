@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:covid_info/constant/HelperAbout.dart';
 import 'package:covid_info/model/provider/CovidStatusProvider.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -60,7 +61,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
             floating: true,
             title: Text('Vaccination',style: TextStyle(fontSize: 16)),
             expandedHeight: kToolbarHeight,
-            brightness: Brightness.dark,
+            systemOverlayStyle: SystemUiOverlayStyle.light,
           ),
           SliverList(
             delegate: SliverChildListDelegate([
