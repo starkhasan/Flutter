@@ -46,7 +46,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
   void initState() {
     super.initState();
      WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-       widget.provider.vaccination();
+       widget.provider.vaccination(true);
     });
   }
 
@@ -63,7 +63,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
       body: RefreshIndicator(
         displacement: refreshIndicatorMargin,
         color: Colors.indigo,
-        onRefresh: widget.provider.vaccination,
+        onRefresh: refresh,
         child: CustomScrollView(
           physics: BouncingScrollPhysics(),
           slivers:[
@@ -85,7 +85,9 @@ class _VaccineScreenState extends State<VaccineScreen> {
     );
   }
 
-  
+  Future<void> refresh() async{
+    await widget.provider.vaccination(false);
+  }
 
   Widget vaccinationStatusWidget(){
     return Container(

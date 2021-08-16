@@ -36,8 +36,8 @@ class CovidStatusProvider extends ChangeNotifier {
   var firebaseDatabase =
       FirebaseDatabase.instance.reference().child('covid_info');
 
-  Future<void> covidStatus() async {
-    _callApi = true;
+  Future<void> covidStatus(bool isIndicator) async {
+    _callApi = isIndicator;
     notifyListeners();
     // try {
     //   var response = await Api.getCountriesCases();
@@ -136,8 +136,8 @@ class CovidStatusProvider extends ChangeNotifier {
     });
   }
 
-  Future<void> vaccination() async {
-    _vaccineApi = true;
+  Future<void> vaccination(bool isIndicator) async {
+    _vaccineApi = isIndicator;
     notifyListeners();
     // try {
     //   if (vcnResponse.isEmpty)

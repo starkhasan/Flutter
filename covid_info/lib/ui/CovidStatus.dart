@@ -44,7 +44,7 @@ class _MainScreen extends State<MainScreen> {
   void initState() {
     super.initState();
      WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-       widget.provider.covidStatus();
+       widget.provider.covidStatus(true);
     });
   }
 
@@ -60,7 +60,7 @@ class _MainScreen extends State<MainScreen> {
       body: RefreshIndicator(
         displacement: refreshIndicatorMargin,
         color: Colors.indigo,
-        onRefresh: widget.provider.covidStatus,
+        onRefresh: refresh,
         child: CustomScrollView(
           physics: BouncingScrollPhysics(),
           slivers:[
@@ -82,8 +82,10 @@ class _MainScreen extends State<MainScreen> {
     );
   }
 
+  Future<void> refresh() async {
+    await widget.provider.covidStatus(false);
+  }
   
-
   Widget covidStatusWidget(){
     return Container(
       padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
@@ -135,7 +137,7 @@ class _MainScreen extends State<MainScreen> {
           ListView.builder(
             itemCount: HelperAbout.listIcons.length,
             shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
+            physics: BouncingScrollPhysics(),
             itemBuilder: (context, index){
               return Container(
                 padding: EdgeInsets.all(10),

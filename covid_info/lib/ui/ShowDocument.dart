@@ -41,15 +41,15 @@ class _ShowDocumentState extends State<ShowDocument> {
         )
       ),
       body: Container(
-        color: Colors.white,
         child: Center(
           child: _isLoading
           ? CircularProgressIndicator()
           : _dataNotFound
             ? Text('States vaccination data not available.')
             : PDFViewer(
+            indicatorText: Colors.white,
             document: document,
-            zoomSteps: 1
+            zoomSteps: 5
           )
         )
       ),
