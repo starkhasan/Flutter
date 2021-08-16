@@ -61,8 +61,8 @@ class CovidStatusProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> countryCases() async {
-    _countryApi = true;
+  Future<void> countryCases(bool isIndicator) async {
+    _countryApi = isIndicator;
     notifyListeners();
     try {
       var response = await Api.countryCovidList();

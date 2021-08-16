@@ -43,7 +43,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
     _scrollController = ScrollController();
     _scrollController.addListener(_scrollListener);
      WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-       widget.provider.countryCases();
+       widget.provider.countryCases(true);
     });
   }
 
@@ -128,6 +128,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
     return RefreshIndicator(
       child: ListView.builder(
         controller: _scrollController,
+        physics: BouncingScrollPhysics(),
         itemCount: response.length,
         itemBuilder: (context,index){
           return Container(
@@ -267,8 +268,13 @@ class _CountryMainScreen extends State<CountryMainScreen> {
           );
         }
       ),
-      onRefresh: widget.provider.countryCases,
+      displacement: 20.0,
+      onRefresh: refresh,
     );
+  }
+
+  Future<void> refresh() async {
+    await widget.provider.countryCases(false);
   }
 
   Future<bool> backPressed() async{
