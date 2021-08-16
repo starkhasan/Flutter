@@ -14,6 +14,13 @@ class CovidStatusProvider extends ChangeNotifier {
   bool get apiCountry => _countryApi;
   bool get apiVaccine => _vaccineApi;
 
+  bool countrySearchTopVisible = false;
+
+  topVisiblility() {
+    countrySearchTopVisible = countrySearchTopVisible ? false : true;
+    notifyListeners();
+  }
+
   String vcnResponse = '';
   int sites = 0;
   int sitesGovernment = 0;
@@ -63,7 +70,8 @@ class CovidStatusProvider extends ChangeNotifier {
       if (response.statusCode == 200) {
         countryResponse.clear();
         originalCountryResponse.clear();
-        var temp = List<CountryResponse>.from(json.decode(response.body).map((x) => CountryResponse.fromJson(x)));
+        var temp = List<CountryResponse>.from(
+            json.decode(response.body).map((x) => CountryResponse.fromJson(x)));
         countryResponse.addAll(temp);
         originalCountryResponse.addAll(temp);
         print(countryResponse.length);
@@ -122,7 +130,7 @@ class CovidStatusProvider extends ChangeNotifier {
         covidStatusResponse[4] = int.parse(coronaCase[3]);
         covidStatusResponse[5] = int.parse(coronaCase[4]);
         covidStatusResponse[6] = int.parse(coronaCase[5]);
-      }else{
+      } else {
         covidStatusResponse = [0, 0, 0, 0, 0, 0, 0];
       }
     });

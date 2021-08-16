@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:covid_info/model/provider/CovidStatusProvider.dart';
 import 'package:flutter/services.dart';
@@ -33,15 +34,28 @@ class CountryMainScreen extends StatefulWidget {
 class _CountryMainScreen extends State<CountryMainScreen> {
 
   var formatter = NumberFormat('#,##,000');
+  late ScrollController _scrollController;
+  bool isTopVisible = false;
   
   @override
   void initState() {
     super.initState();
+    _scrollController = ScrollController();
+    _scrollController.addListener(_scrollListener);
      WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
        widget.provider.countryCases();
     });
   }
 
+  _scrollListener(){
+    if (_scrollController.offset > _scrollController.position.viewportDimension) {
+      if(!widget.provider.countrySearchTopVisible){
+        widget.provider.topVisiblility();
+      }
+    } else if(widget.provider.countrySearchTopVisible){
+      widget.provider.topVisiblility();
+    }
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -53,6 +67,14 @@ class _CountryMainScreen extends State<CountryMainScreen> {
           centerTitle: true,
           systemOverlayStyle: SystemUiOverlayStyle.light,
         ),
+        floatingActionButton: widget.provider.countrySearchTopVisible
+          ? FloatingActionButton.extended(
+            isExtended: true,
+            onPressed: () => _scrollController.animateTo(0.0, duration: Duration(seconds: 1), curve: Curves.bounceInOut), 
+            label: Text('TOP'),
+            icon: Icon(Icons.arrow_upward_sharp),
+          )
+          : null,
         body: Container(
           child: Column(
             children: [
@@ -105,6 +127,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
     var response = widget.provider.countryResponse;
     return RefreshIndicator(
       child: ListView.builder(
+        controller: _scrollController,
         itemCount: response.length,
         itemBuilder: (context,index){
           return Container(
