@@ -103,145 +103,148 @@ class _CountryMainScreen extends State<CountryMainScreen> {
 
   Widget getCountryList(){
     var response = widget.provider.countryResponse;
-    return ListView.builder(
-      itemCount: response.length,
-      itemBuilder: (context,index){
-        return Container(
-          margin: EdgeInsets.fromLTRB(5, 8, 5, 0),
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-            boxShadow: [BoxShadow(color: Colors.grey,blurRadius: 2.0)]
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Flexible(
-                    child: Text(
-                      response[index].country,
-                      softWrap: true,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(color: Colors.black,fontSize: 24,fontFamily: '',fontWeight: FontWeight.bold),
+    return RefreshIndicator(
+      child: ListView.builder(
+        itemCount: response.length,
+        itemBuilder: (context,index){
+          return Container(
+            margin: EdgeInsets.fromLTRB(5, 8, 5, 0),
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              boxShadow: [BoxShadow(color: Colors.grey,blurRadius: 2.0)]
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        response[index].country,
+                        softWrap: true,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(color: Colors.black,fontSize: 24,fontFamily: '',fontWeight: FontWeight.bold),
+                      )
                     )
-                  )
-                ]
-              ),
-              SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Cases',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
-                        Text(
-                          response[index].cases == 0
-                          ? '0'
-                          : formatter.format(response[index].cases),
-                          style: TextStyle(color: Colors.blue,fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
-                        )
-                      ]
+                  ]
+                ),
+                SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Cases',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
+                          Text(
+                            response[index].cases == 0
+                            ? '0'
+                            : formatter.format(response[index].cases),
+                            style: TextStyle(color: Colors.blue,fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
+                          )
+                        ]
+                      )
+                    ),
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text('Recovered',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
+                          Text(
+                            response[index].recovered == 0
+                            ? '0'
+                            : formatter.format(response[index].recovered),
+                            style: TextStyle(color: Colors.green,fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
+                          )
+                        ]
+                      )
+                    ) 
+                  ]
+                ),
+                SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Deaths',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
+                          Text(
+                            response[index].deaths == 0
+                            ? '0'
+                            : formatter.format(response[index].deaths),
+                            style: TextStyle(color: Colors.red,fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
+                          )
+                        ]
+                      )
+                    ),
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text('Active',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
+                          Text(
+                            response[index].active == 0
+                            ? '0'
+                            : formatter.format(response[index].active),
+                            style: TextStyle(color: Colors.teal,fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
+                          )
+                        ]
+                      )
                     )
-                  ),
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text('Recovered',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
-                        Text(
-                          response[index].recovered == 0
-                          ? '0'
-                          : formatter.format(response[index].recovered),
-                          style: TextStyle(color: Colors.green,fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
-                        )
-                      ]
+                  ]
+                ),
+                SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Critical Cases',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
+                          Text(
+                            response[index].critical == 0
+                            ? '0'
+                            : formatter.format(response[index].critical),
+                            style: TextStyle(color: Colors.red,fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
+                          )
+                        ]
+                      )
+                    ),
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text('New Cases',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
+                          Text(
+                            response[index].todayCases == 0
+                            ? '0'
+                            : formatter.format(response[index].todayCases),
+                            style: TextStyle(color: Colors.blue,fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
+                          )
+                        ]
+                      )
                     )
-                  ) 
-                ]
-              ),
-              SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Deaths',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
-                        Text(
-                          response[index].deaths == 0
-                          ? '0'
-                          : formatter.format(response[index].deaths),
-                          style: TextStyle(color: Colors.red,fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
-                        )
-                      ]
-                    )
-                  ),
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text('Active',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
-                        Text(
-                          response[index].active == 0
-                          ? '0'
-                          : formatter.format(response[index].active),
-                          style: TextStyle(color: Colors.teal,fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
-                        )
-                      ]
-                    )
-                  )
-                ]
-              ),
-              SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Critical Cases',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
-                        Text(
-                          response[index].critical == 0
-                          ? '0'
-                          : formatter.format(response[index].critical),
-                          style: TextStyle(color: Colors.red,fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
-                        )
-                      ]
-                    )
-                  ),
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text('New Cases',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
-                        Text(
-                          response[index].todayCases == 0
-                          ? '0'
-                          : formatter.format(response[index].todayCases),
-                          style: TextStyle(color: Colors.blue,fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
-                        )
-                      ]
-                    )
-                  )
-                ]
-              )
-            ]
-          )
-        );
-      }
+                  ]
+                )
+              ]
+            )
+          );
+        }
+      ),
+      onRefresh: widget.provider.countryCases,
     );
   }
 

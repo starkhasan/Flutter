@@ -60,8 +60,7 @@ class CovidStatusProvider extends ChangeNotifier {
     try {
       var response = await Api.countryCovidList();
       if (response.statusCode == 200) {
-        var temp = List<CountryResponse>.from(
-            json.decode(response.body).map((x) => CountryResponse.fromJson(x)));
+        var temp = List<CountryResponse>.from(json.decode(response.body).map((x) => CountryResponse.fromJson(x)));
         countryResponse.addAll(temp);
         originalCountryResponse.addAll(temp);
         print(countryResponse.length);
