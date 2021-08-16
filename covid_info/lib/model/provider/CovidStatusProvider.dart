@@ -28,7 +28,7 @@ class CovidStatusProvider extends ChangeNotifier {
   String stateVaccineUrl = '';
   late CovidCountryCasesResponse covidResponse;
   late PopulationResponse populationResponse;
-  List<int> covidStatusResponse = [0, 0, 0, 0, 0, 0, 0];
+  List<int> covidStatusResponse = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   List<CountryResponse> countryResponse = [];
   List<CountryResponse> originalCountryResponse = [];
   List<int> vaccineResponse = [0, 0, 0, 0];
@@ -130,6 +130,8 @@ class CovidStatusProvider extends ChangeNotifier {
         covidStatusResponse[4] = int.parse(coronaCase[3]);
         covidStatusResponse[5] = int.parse(coronaCase[4]);
         covidStatusResponse[6] = int.parse(coronaCase[5]);
+        covidStatusResponse[7] = int.parse(coronaCase[6]);
+        covidStatusResponse[8] = int.parse(coronaCase[7]);
       } else {
         covidStatusResponse = [0, 0, 0, 0, 0, 0, 0];
       }
@@ -156,3 +158,4 @@ class CovidStatusProvider extends ChangeNotifier {
     notifyListeners();
   }
 }
+//#0B3054

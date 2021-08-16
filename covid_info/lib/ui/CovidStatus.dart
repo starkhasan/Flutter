@@ -59,7 +59,7 @@ class _MainScreen extends State<MainScreen> {
     return Scaffold(
       body: RefreshIndicator(
         displacement: refreshIndicatorMargin,
-        color: Colors.indigo,
+        color: Color(0xff0B3054),
         onRefresh: refresh,
         child: CustomScrollView(
           physics: BouncingScrollPhysics(),

@@ -30,7 +30,9 @@ class _DashboardState extends State<Dashboard> {
     return WillPopScope(
       child: Scaffold(
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.white,
+          unselectedItemColor: Colors.grey[600],
+          selectedItemColor: Colors.white,
+          backgroundColor: Color(0xff0B3054),
           elevation: 10.0,
           onTap: onTapped,
           currentIndex: _currentIndex,

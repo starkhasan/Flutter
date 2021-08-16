@@ -268,6 +268,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
           );
         }
       ),
+      color: Color(0xff0B3054),
       displacement: 20.0,
       onRefresh: refresh,
     );
