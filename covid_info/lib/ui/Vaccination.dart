@@ -391,6 +391,32 @@ class _VaccineScreenState extends State<VaccineScreen> {
               )
             )
           ),
+          GestureDetector(
+            onTap: () => launch(HelperVaccination.verifyCertification),
+            child: Container(
+              padding: EdgeInsets.all(10),
+              margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                boxShadow: [ BoxShadow(color: Colors.blue,blurRadius: 2.0)]
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Verify a vaccination certificate',
+                      style: TextStyle(color: Colors.blue,fontSize: 16,fontFamily: ''),
+                    )
+                  ),
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.05,
+                    child: Image.asset('assets/images/verifyCertificate.png',fit: BoxFit.contain),
+                  )
+                ]
+              )
+            )
+          ),
           Container(
             padding: EdgeInsets.fromLTRB(0, 15, 0, 5),
             alignment: Alignment.centerRight,
