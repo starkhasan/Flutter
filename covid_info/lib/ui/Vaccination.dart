@@ -405,7 +405,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                 children: [
                   Expanded(
                     child: Text(
-                      'Verify a vaccination certificate',
+                      'Verify a vaccination certificate ',
                       style: TextStyle(color: Colors.blue,fontSize: 16,fontFamily: ''),
                     )
                   ),
