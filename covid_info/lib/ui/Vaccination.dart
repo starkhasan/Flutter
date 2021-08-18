@@ -277,7 +277,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                     ]
                   )
                 ),
-                Icon(Icons.location_city,color: Colors.black,size: 40),
+                Icon(Icons.location_city,color: Color(0xFF0B3054),size: 40),
               ]
             )
           ),
@@ -405,7 +405,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                 children: [
                   Expanded(
                     child: Text(
-                      'Verify a vaccination certificate ',
+                      'Verify a vaccination certificate',
                       style: TextStyle(color: Colors.blue,fontSize: 16,fontFamily: ''),
                     )
                   ),

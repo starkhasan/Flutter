@@ -63,13 +63,13 @@ class _CountryMainScreen extends State<CountryMainScreen> {
       onWillPop: backPressed,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Worldwide Status',style: TextStyle(fontSize: 16)),
+          title: Text('Worldwide',style: TextStyle(fontSize: 16)),
           centerTitle: true,
           systemOverlayStyle: SystemUiOverlayStyle.light,
         ),
         floatingActionButton: widget.provider.countrySearchTopVisible
           ? FloatingActionButton.extended(
-            isExtended: true,
+            isExtended: false,
             onPressed: () => _scrollController.animateTo(0.0, duration: Duration(seconds: 1), curve: Curves.bounceInOut), 
             label: Text('TOP'),
             icon: Icon(Icons.arrow_upward_sharp),
@@ -90,20 +90,21 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.search),
+                    Icon(Icons.search,size: 22,color: Colors.grey[400]),
                     SizedBox(width: 5),
                     Expanded(
                       child: TextField(
                         textInputAction: TextInputAction.go,
                         keyboardType: TextInputType.text,
+                        inputFormatters: [FilteringTextInputFormatter.allow(RegExp("[a-zA-Z \u0900-\u097F]"))],
                         style: TextStyle(color: Colors.black,fontFamily: '',fontSize: 18),
                         decoration: InputDecoration.collapsed(
-                          hintText: 'Search Country Here',
-                          hintStyle: TextStyle(color: Colors.grey,fontSize: 18,fontFamily: '')
+                          hintText: 'Search country',
+                          hintStyle: TextStyle(color: Colors.grey[400],fontSize: 16,fontFamily: '')
                         ),
                         onChanged: (input){
                           widget.provider.searchCountry(input);
-                        },
+                        }
                       )
                     )
                   ]
@@ -270,7 +271,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
       ),
       color: Color(0xff0B3054),
       displacement: 20.0,
-      onRefresh: refresh,
+      onRefresh: refresh
     );
   }
 

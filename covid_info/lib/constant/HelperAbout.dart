@@ -28,7 +28,6 @@ class HelperAbout {
     Icon(Icons.gpp_maybe_rounded,color: Colors.red,size: 40),
     Icon(Icons.person_add_alt_sharp,color: Colors.blue,size: 40),
     Icon(Icons.person_add_alt_sharp,color: Colors.red,size: 40),
-    Icon(Icons.person_add_alt_sharp,color: Colors.green,size: 40)
   ];
 
   static var listTags = [
@@ -39,8 +38,7 @@ class HelperAbout {
     'Total Deaths',
     'Critical Cases',
     'New Cases',
-    'New Deaths',
-    'New Recovered'
+    'New Deaths'
   ];
 
   static var listIconsVaccine = [
