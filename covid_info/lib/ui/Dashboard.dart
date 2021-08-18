@@ -42,19 +42,19 @@ class _DashboardState extends State<Dashboard> {
           items: [
             BottomNavigationBarItem(
               label: 'Status',
-              icon: Icon(Icons.equalizer_outlined)
+              icon: Icon(Icons.equalizer_outlined,size: 22)
             ),
             BottomNavigationBarItem(
-              label: 'Vaccination',
-              icon: Icon(Icons.local_hospital)
+              label: 'Vaccinations',
+              icon: Icon(Icons.local_hospital,size: 22)
             ),
             BottomNavigationBarItem(
-              label: 'About Corona',
-              icon: Icon(Icons.info)
+              label: 'COVID',
+              icon: Icon(Icons.info,size: 22)
             ),
             BottomNavigationBarItem(
               label: 'FAQs',
-              icon: Icon(Icons.question_answer_rounded)
+              icon: Icon(Icons.question_answer_rounded,size: 22)
             )
           ]
         ),

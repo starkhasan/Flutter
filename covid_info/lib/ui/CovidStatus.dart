@@ -102,7 +102,7 @@ class _MainScreen extends State<MainScreen> {
                     widget.provider.apiCalling
                     ? 'Loading...'
                     : 'Last updated: 1 days ago',
-                    style: TextStyle(color: Colors.grey,fontSize: 16,fontFamily: ''),
+                    style: TextStyle(color: Colors.grey,fontSize: 14,fontFamily: ''),
                   )
                 ),
                 Flexible(
@@ -123,9 +123,9 @@ class _MainScreen extends State<MainScreen> {
                             errorBuilder: (context,exception,stackTrace){return Icon(Icons.flag);},
                           ),
                           SizedBox(width: 10),
-                          Text(countryName,style: TextStyle(fontSize: 16,fontFamily: '')),
+                          Text(countryName,style: TextStyle(fontSize: 14,fontFamily: '')),
                           SizedBox(width: 5),
-                          Icon(Icons.arrow_drop_down_sharp,color: Colors.black,size: 30)
+                          Icon(Icons.arrow_drop_down_sharp,color: Colors.black,size: 28)
                         ]
                       )
                     )
@@ -161,7 +161,7 @@ class _MainScreen extends State<MainScreen> {
                         children: [
                           Text(
                             HelperAbout.listTags[index],
-                            style: TextStyle(color: Colors.black,fontSize: 16,fontFamily: ''),
+                            style: TextStyle(color: Colors.black,fontSize: 14,fontFamily: ''),
                           ),
                           SizedBox(height: 5),
                           widget.provider.apiCalling
@@ -172,7 +172,7 @@ class _MainScreen extends State<MainScreen> {
                             : formatter.format(widget.provider.covidStatusResponse[index]),
                             style: TextStyle(
                               color: Colors.black,
-                              fontSize: 28,
+                              fontSize: 26,
                               fontFamily: '',
                               fontWeight: FontWeight.bold
                             )

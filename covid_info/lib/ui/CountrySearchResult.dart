@@ -82,24 +82,25 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
                   boxShadow: [
-                    BoxShadow(color: Colors.grey,blurRadius: 2.0)
+                    BoxShadow(color: Colors.blue,blurRadius: 1.5)
                   ]
                 ),
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(Icons.search,size: 22,color: Colors.grey[400]),
+                    Icon(Icons.search,size: 20,color: Colors.grey[400]),
                     SizedBox(width: 5),
                     Expanded(
                       child: TextField(
                         textInputAction: TextInputAction.go,
                         keyboardType: TextInputType.text,
                         inputFormatters: [FilteringTextInputFormatter.allow(RegExp("[a-zA-Z \u0900-\u097F]"))],
-                        style: TextStyle(color: Colors.black,fontFamily: '',fontSize: 18),
+                        style: TextStyle(color: Colors.black,fontFamily: '',fontSize: 16),
                         decoration: InputDecoration.collapsed(
                           hintText: 'Search country',
-                          hintStyle: TextStyle(color: Colors.grey[400],fontSize: 16,fontFamily: '')
+                          hintStyle: TextStyle(color: Colors.grey[400],fontSize: 14,fontFamily: '')
                         ),
                         onChanged: (input){
                           widget.provider.searchCountry(input);
@@ -136,8 +137,8 @@ class _CountryMainScreen extends State<CountryMainScreen> {
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              boxShadow: [BoxShadow(color: Colors.grey,blurRadius: 2.0)]
+              borderRadius: BorderRadius.all(Radius.circular(5.0)),
+              boxShadow: [BoxShadow(color: Colors.grey,blurRadius: 1.5)]
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

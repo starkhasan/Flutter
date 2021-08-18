@@ -17,7 +17,7 @@ class _AboutCovidState extends State<AboutCovid> {
           SliverAppBar(
             centerTitle: true,
             floating: true,
-            title: Text('About Corona',style: TextStyle(fontSize: 16)),
+            title: Text('COVID',style: TextStyle(fontSize: 16)),
             expandedHeight: kToolbarHeight,
             systemOverlayStyle: SystemUiOverlayStyle.light,
           ),
@@ -40,7 +40,7 @@ class _AboutCovidState extends State<AboutCovid> {
         children: [
           Text(
             'What is COVID-19',
-            style: TextStyle(color: Colors.black,fontSize: 25,fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.black,fontSize: 24,fontWeight: FontWeight.bold),
           ),
           RichText(
             text: TextSpan(
@@ -57,7 +57,7 @@ class _AboutCovidState extends State<AboutCovid> {
           ),
           Text(
             '\nSymptoms of COVID-19',
-            style: TextStyle(color: Colors.black,fontSize: 25,fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.black,fontSize: 24,fontWeight: FontWeight.bold),
           ),
           Text(
             HelperAbout.aboutSymptoms1,
@@ -139,12 +139,12 @@ class _AboutCovidState extends State<AboutCovid> {
             HelperAbout.aboutSymptoms2,
             style: TextStyle(color: Colors.black)
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 20),
           Center(child: Image.asset('assets/images/symptoms.jpg',height: MediaQuery.of(context).size.height * 0.15)),
-          SizedBox(height: 10),
+          SizedBox(height: 20),
           Text(
             'Prevention of COVID-19',
-            style: TextStyle(color: Colors.black,fontSize: 25,fontWeight: FontWeight.bold,fontFamily: '')
+            style: TextStyle(color: Colors.black,fontSize: 24,fontWeight: FontWeight.bold,fontFamily: '')
           ),
           ListView.builder(
             shrinkWrap: true,

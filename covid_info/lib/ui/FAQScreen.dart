@@ -73,7 +73,7 @@ class _MainScreen extends State<MainScreen> {
           SliverAppBar(
             centerTitle: true,
             floating: true,
-            title: Text('FAQs',style: TextStyle(fontSize: 14)),
+            title: Text('FAQs',style: TextStyle(fontSize: 16)),
             expandedHeight: kToolbarHeight,
             systemOverlayStyle: SystemUiOverlayStyle.light,
           ),
