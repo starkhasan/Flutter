@@ -51,7 +51,7 @@ class _MainScreenState extends State<MainScreen> {
                   Image.asset('assets/images/logo.jpg',height: MediaQuery.of(context).size.height * 0.14, width: MediaQuery.of(context).size.height * 0.14),
                   Text(
                     'Covid Info',
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold,fontFamily: '')
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,fontFamily: '')
                   )
                 ]
               )
@@ -65,7 +65,7 @@ class _MainScreenState extends State<MainScreen> {
                   children: [
                     Text(
                       'Design & Developed by : Indian',
-                      style: TextStyle(color: Colors.grey[300],fontSize: 14)
+                      style: TextStyle(color: Colors.grey[300],fontSize: 12)
                     )
                   ]
                 )
