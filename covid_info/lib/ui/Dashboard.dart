@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:covid_info/ui/AboutCovid.dart';
 import 'package:covid_info/ui/CovidStatus.dart';
 import 'package:covid_info/ui/Vaccination.dart';
+import 'package:covid_info/ui/FAQScreen.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -16,7 +17,8 @@ class _DashboardState extends State<Dashboard> {
   var _listScreens = [
     CovidStatus(),
     Vaccination(),
-    AboutCovid()
+    AboutCovid(),
+    FAQScreen()
   ];
 
   onTapped(int index){
@@ -32,7 +34,8 @@ class _DashboardState extends State<Dashboard> {
         bottomNavigationBar: BottomNavigationBar(
           unselectedItemColor: Colors.grey[600],
           selectedItemColor: Colors.white,
-          backgroundColor: Color(0xff0B3054),
+          backgroundColor: Color(0xFF0B3054),
+          type: BottomNavigationBarType.fixed,
           elevation: 10.0,
           onTap: onTapped,
           currentIndex: _currentIndex,
@@ -48,6 +51,10 @@ class _DashboardState extends State<Dashboard> {
             BottomNavigationBarItem(
               label: 'About Corona',
               icon: Icon(Icons.info)
+            ),
+            BottomNavigationBarItem(
+              label: 'FAQs',
+              icon: Icon(Icons.question_answer_rounded)
             )
           ]
         ),
