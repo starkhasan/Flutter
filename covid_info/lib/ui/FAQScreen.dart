@@ -1,5 +1,6 @@
 import 'package:covid_info/constant/HelperFAQ.dart';
 import 'package:covid_info/model/provider/CovidStatusProvider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -33,6 +34,13 @@ class MainScreen extends StatefulWidget {
 class _MainScreen extends State<MainScreen> {
 
   var subHeaderLeftMargin = 0.0;
+  var _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_scrollListener);
+  }
 
   @override
   void didChangeDependencies() {
@@ -40,16 +48,32 @@ class _MainScreen extends State<MainScreen> {
     subHeaderLeftMargin = MediaQuery.of(context).size.width * 0.035;
   }
 
+  _scrollListener(){
+    if (_scrollController.offset > _scrollController.position.viewportDimension) {
+      if(!widget.provider.faqFABVisible) widget.provider.fabVisibility();
+    } else if(widget.provider.faqFABVisible){
+      widget.provider.fabVisibility();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: widget.provider.faqFABVisible
+        ? FloatingActionButton(
+            onPressed: () => _scrollController.animateTo(0.0, duration: Duration(seconds: 1), curve: Curves.bounceInOut),
+            child: Icon(Icons.arrow_upward_sharp,size: 22),
+            mini: true
+          )
+        : null,
       body: CustomScrollView(
+        controller: _scrollController,
         physics: BouncingScrollPhysics(),
         slivers:[
           SliverAppBar(
             centerTitle: true,
             floating: true,
-            title: Text('FAQs',style: TextStyle(fontSize: 16)),
+            title: Text('FAQs',style: TextStyle(fontSize: 14)),
             expandedHeight: kToolbarHeight,
             systemOverlayStyle: SystemUiOverlayStyle.light,
           ),
@@ -65,20 +89,23 @@ class _MainScreen extends State<MainScreen> {
 
   Widget faqWidget(){
     return ListView.builder(
-      itemCount: HelperFAQ.listHeading.length,
       shrinkWrap: true,
+      itemCount: HelperFAQ.listHeading.length,
       physics: NeverScrollableScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      padding: EdgeInsets.zero,
       itemBuilder: (context,index){
         return Card(
           shadowColor: HelperFAQ.listSubHeading[index] == 'Corona' ? Colors.red[400] : Colors.green[400],
           elevation: 2.0,
           child: ExpansionTile(
-            title: Text(HelperFAQ.listHeading[index],style: TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.normal)),
-            subtitle: Text(HelperFAQ.listSubHeading[index],style: TextStyle(fontStyle: FontStyle.italic,color: HelperFAQ.listSubHeading[index] == 'Corona' ? Colors.red : Colors.green)),
+            title: Text(HelperFAQ.listHeading[index],style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.normal)),
+            subtitle: Text(HelperFAQ.listSubHeading[index],style: TextStyle(fontSize: 12,fontStyle: FontStyle.italic,color: HelperFAQ.listSubHeading[index] == 'Corona' ? Colors.red : Colors.green)),
             children: [
               Container(
+                alignment: Alignment.centerLeft,
                 padding: EdgeInsets.fromLTRB(subHeaderLeftMargin, 0, 10, 10),
-                child: Text(HelperFAQ.answer[index])
+                child: Text(HelperFAQ.answer[index],style: TextStyle(fontSize: 12))
               )
             ]
           )

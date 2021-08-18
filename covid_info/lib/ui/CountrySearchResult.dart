@@ -35,7 +35,6 @@ class _CountryMainScreen extends State<CountryMainScreen> {
 
   var formatter = NumberFormat('#,##,000');
   late ScrollController _scrollController;
-  bool isTopVisible = false;
   
   @override
   void initState() {

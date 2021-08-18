@@ -15,6 +15,12 @@ class CovidStatusProvider extends ChangeNotifier {
   bool get apiVaccine => _vaccineApi;
 
   bool countrySearchTopVisible = false;
+  bool faqFABVisible = false;
+
+  fabVisibility() {
+    faqFABVisible = faqFABVisible ? false : true;
+    notifyListeners();
+  }
 
   topVisiblility() {
     countrySearchTopVisible = countrySearchTopVisible ? false : true;
@@ -42,7 +48,8 @@ class CovidStatusProvider extends ChangeNotifier {
     try {
       var response = await Api.getCountriesCases();
       if (response.statusCode == 200) {
-        covidResponse = CovidCountryCasesResponse.fromJson(json.decode(response.body));
+        covidResponse =
+            CovidCountryCasesResponse.fromJson(json.decode(response.body));
         covidStatusResponse[1] = covidResponse.cases;
         covidStatusResponse[2] = covidResponse.recovered;
         covidStatusResponse[3] = covidResponse.active;
@@ -69,7 +76,8 @@ class CovidStatusProvider extends ChangeNotifier {
       if (response.statusCode == 200) {
         countryResponse.clear();
         originalCountryResponse.clear();
-        var temp = List<CountryResponse>.from(json.decode(response.body).map((x) => CountryResponse.fromJson(x)));
+        var temp = List<CountryResponse>.from(
+            json.decode(response.body).map((x) => CountryResponse.fromJson(x)));
         countryResponse.addAll(temp);
         originalCountryResponse.addAll(temp);
         print(countryResponse.length);
@@ -89,7 +97,10 @@ class CovidStatusProvider extends ChangeNotifier {
       countryResponse.addAll(originalCountryResponse);
     } else {
       for (var i = 0; i < originalCountryResponse.length; i++) {
-        if (originalCountryResponse[i].country.toLowerCase().contains(input.toLowerCase())) {
+        if (originalCountryResponse[i]
+            .country
+            .toLowerCase()
+            .contains(input.toLowerCase())) {
           countryResponse.add(originalCountryResponse[i]);
         }
       }
