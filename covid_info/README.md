@@ -13,6 +13,6 @@ Get Quickly and Update Report of Covid Case and Vaccination in India. Know What,
 
 DATA SOURCE
   
-  
-  Government of India: https://www.mygov.in/covid-19
-  World Health Organization (WHO): https://www.who.int/news-room/q-a-detail/coronavirus-disease-(covid-19)-vaccines
+    Government of India: https://www.mygov.in/covid-19
+    
+    World Health Organization (WHO): https://www.who.int/news-room/q-a-detail/coronavirus-disease-(covid-19)-vaccines
