@@ -3,7 +3,7 @@
 A simple application to provide information related to Corona, Vaccinations and Statistics of covid and vaccination of india as wells as other countries,
 
 Get Quickly and Update Report of Covid Case and Vaccination in India. Know What, Why and How about corona and vaccine. Navigate directly to official Government Site for Registration and Vaccine Certificate of Covid.
-![Screenshot_20210818-234820](https://user-images.githubusercontent.com/40181783/129962724-49cd2861-6f72-4ca5-aaab-14ba9c029ba4.png = 250*250)
+![Screenshot_20210818-234820](https://user-images.githubusercontent.com/40181783/129962724-49cd2861-6f72-4ca5-aaab-14ba9c029ba4.png = 250x250)
 ![Screenshot_20210818-234827](https://user-images.githubusercontent.com/40181783/129962783-fd2d9892-90cf-48e7-882f-f30f7c959849.png)
 ![Screenshot_20210818-234834](https://user-images.githubusercontent.com/40181783/129962796-b6b57375-e9e0-4018-bd2d-509a05d7a345.png)
 ![Screenshot_20210818-234843](https://user-images.githubusercontent.com/40181783/129962805-ffe3d099-faa8-4ec1-81bb-b60ecb75c2f5.png)
