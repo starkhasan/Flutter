@@ -12,19 +12,7 @@ Get Quickly and Update Report of Covid Case and Vaccination in India. Know What,
 ![Screenshot_20210818-234947](https://user-images.githubusercontent.com/40181783/129962836-d4a21ae0-3e09-4cb3-9ed9-d8d73e33f2a6.png)
 
 DATA SOURCE
+  
+  
   Government of India: https://www.mygov.in/covid-19
   World Health Organization (WHO): https://www.who.int/news-room/q-a-detail/coronavirus-disease-(covid-19)-vaccines
-
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
