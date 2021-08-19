@@ -1,16 +1,5 @@
-# internet_connection
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Internet Connectivity Listener
+ 
+ Implementation of Auto InternetConnectivityChange Listener with invoking any function manually using Provider (StreamProvider) in Flutter. 
+ 
+ <img src="https://user-images.githubusercontent.com/40181783/130088184-2da0b4b2-20ad-4c44-95e9-1f68a3e2edbf.png" width="300">   <img src="https://user-images.githubusercontent.com/40181783/130088222-072d5764-e27c-4d88-bb56-c60d6f5df0d9.png" width="300">
