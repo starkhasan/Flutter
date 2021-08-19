@@ -1,4 +1,4 @@
-package com.example.internet_connection
+package com.templates.connectivity
 
 import io.flutter.embedding.android.FlutterActivity
 

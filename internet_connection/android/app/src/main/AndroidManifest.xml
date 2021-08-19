@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.internet_connection">
+    package="com.templates.connectivity">
    <application
         android:label="Connectivity"
         android:icon="@mipmap/ic_launcher">
