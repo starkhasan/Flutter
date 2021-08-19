@@ -64,7 +64,7 @@ class _MainScreenState extends State<MainScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Design & Developed by : Indian',
+                      'Design & Developed in : India',
                       style: TextStyle(color: Colors.grey[300],fontSize: 12)
                     )
                   ]
@@ -78,21 +78,19 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   startTimer() {
-    Timer(Duration(seconds: 3),(){
-      if(provider != null){
-        if(provider == ConnectivityResult.wifi || provider == ConnectivityResult.mobile){
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Dashboard()));
-        }else{
-          var snackBar = SnackBar(
-            elevation: 0.0,
-            backgroundColor: Colors.red,
-            behavior: SnackBarBehavior.floating,
-            content: Text('No Internet Connection',style: TextStyle(color: Colors.white)),
-            margin: EdgeInsets.fromLTRB(10, 0, 10, 20),
-          );
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        }
+    if(provider != null){
+      if(provider == ConnectivityResult.wifi || provider == ConnectivityResult.mobile){
+        Timer(Duration(seconds: 2),() => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Dashboard())));
+      }else{
+        var snackBar = SnackBar(
+          elevation: 0.0,
+          backgroundColor: Colors.red,
+          behavior: SnackBarBehavior.floating,
+          content: Text('No Internet Connection',style: TextStyle(color: Colors.white)),
+          margin: EdgeInsets.fromLTRB(10, 0, 10, 20),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
-    });
+    }
   }
 }
