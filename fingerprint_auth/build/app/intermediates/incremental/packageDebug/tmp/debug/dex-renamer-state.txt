@@ -1,4 +1,0 @@
-#Sat Aug 21 16:33:33 IST 2021
-base.0=E\:\\Repositories\\Flutter\\fingerprint_auth\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
-path.0=classes.dex
-renamed.0=classes.dex

@@ -1,4 +1,0 @@
-io/flutter/plugins/GeneratedPluginRegistrant.java
- io.flutter.plugins.GeneratedPluginRegistrant
-com/example/fingerprint_auth/BuildConfig.java
- com.example.fingerprint_auth.BuildConfig
