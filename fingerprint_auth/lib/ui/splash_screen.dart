@@ -28,7 +28,7 @@ class SplashScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text(
-                    'NetGym',
+                    'FitGym',
                     style: TextStyle(fontSize: 45.0,fontWeight: FontWeight.bold,color: Colors.white)
                   ),
                   const SizedBox(height: 2),
