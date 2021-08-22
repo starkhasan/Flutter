@@ -6,6 +6,7 @@ Implementation of Biometric Authetication in Flutter using locai_auth package
 
 
 Simple invoke this method to perform authentication
+```
 void authenticateUser() async{
   bool canCheckBiometrics = await auth.canCheckBiometrics;
   if(canCheckBiometrics){
@@ -16,7 +17,7 @@ void authenticateUser() async{
         print('Invalid User');
   }
 }
-
+```
 
 Integration
 
@@ -36,19 +37,21 @@ class MainActivity: FlutterFragmentActivity() {
     }
 }
 ```
-
 Update your project's AndroidManifest.xml file to include the USE_FINGERPRINT permissions:
 
+```
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="com.example.app">
   <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
 <manifest>
+```
   
-  
+
 2. iOS
 local_auth works with both Touch ID and Face ID. However, to use the latter, you need to also add:
  
+```
 <key>NSFaceIDUsageDescription</key>
 <string>Why is my app authenticating using face id?</string>
-  
+```
 to your Info.plist file.
