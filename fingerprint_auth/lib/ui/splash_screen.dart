@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:fingerprint_auth/ui/login_screen.dart';
+import 'package:fingerprint_auth/ui/authentication_screen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -36,7 +36,7 @@ class SplashScreen extends StatelessWidget {
                     text: const TextSpan(
                       children: [
                         TextSpan(text: 'Addicted to getting',style: TextStyle(color: Colors.white)),
-                        TextSpan(text: ' STRONG',style: TextStyle(color: Colors.red))
+                        TextSpan(text: ' STRONG',style: TextStyle(color: Colors.yellow))
                       ]
                     )
                   )
@@ -53,7 +53,7 @@ class SplashScreen extends StatelessWidget {
     Timer(
       const Duration(seconds: 3),
       () => Navigator.pushReplacement(context,
-      MaterialPageRoute(builder: (context) => const LoginScreen()))
+      MaterialPageRoute(builder: (context) => const AuthenticationScreen()))
     );
   }
 
