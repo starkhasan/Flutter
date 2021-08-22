@@ -25,7 +25,7 @@ Integration
 In Android local_auth plugin requires the use of a FragmentActivity as opposed to Activity.
 
 Updated MainActivity.kt
-'''
+```
 import io.flutter.embedding.android.FlutterFragmentActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugins.GeneratedPluginRegistrant
@@ -35,7 +35,8 @@ class MainActivity: FlutterFragmentActivity() {
         GeneratedPluginRegistrant.registerWith(flutterEngine)
     }
 }
-'''
+```
+
 Update your project's AndroidManifest.xml file to include the USE_FINGERPRINT permissions:
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
