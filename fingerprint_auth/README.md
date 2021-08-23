@@ -1,6 +1,6 @@
 # Biometric Authentication in Flutter
 
-Implementation of Biometric Authetication in Flutter using locai_auth package
+Implementation of Biometric Authentication in Flutter using local_auth package
 
 <img src="https://user-images.githubusercontent.com/40181783/130359040-f88c204b-7711-49e4-b6f8-57f32bf09a93.png" width="200">
 
