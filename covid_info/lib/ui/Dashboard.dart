@@ -33,7 +33,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver{
 
   var _currentIndex = 0;
-  
+
   var _listScreens = [
     CovidStatus(),
     Vaccination(),

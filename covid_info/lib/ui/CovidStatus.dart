@@ -3,6 +3,7 @@ import 'package:covid_info/constant/HelperAbout.dart';
 import 'package:covid_info/model/provider/CovidStatusProvider.dart';
 import 'package:covid_info/ui/CountrySearchResult.dart';
 import 'package:flutter/services.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -12,6 +13,13 @@ class CovidStatus extends StatefulWidget {
 }
 
 class _CovidStatusState extends State<CovidStatus> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print('called');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +47,8 @@ class _MainScreen extends State<MainScreen> {
   var countryCode = 'IN'; 
   var date = DateTime.now().toString();
   var refreshIndicatorMargin = 0.0;
+  late BannerAd _bannerAd;
+  late AdWidget adWidget;
 
   @override
   void initState() {
@@ -46,6 +56,30 @@ class _MainScreen extends State<MainScreen> {
      WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
        widget.provider.covidStatus(true);
     });
+    _bannerAd = BannerAd(
+      adUnitId: 'ca-app-pub-9422971308124709/7654126838',
+      request: AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          print('$BannerAd loaded.');
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          print('$BannerAd failedToLoad: $error');
+          ad.dispose();
+        },
+        onAdOpened: (Ad ad) => print('$BannerAd onAdOpened.'),
+        onAdClosed: (Ad ad) => print('$BannerAd onAdClosed.'),
+      ),
+    );
+    _bannerAd.load();
+  }
+
+
+  @override
+  void dispose() {
+    super.dispose();
+    _bannerAd.dispose();
   }
 
   @override
@@ -56,6 +90,7 @@ class _MainScreen extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    adWidget = AdWidget(ad: _bannerAd);
     return Scaffold(
       body: RefreshIndicator(
         displacement: refreshIndicatorMargin,
@@ -134,6 +169,7 @@ class _MainScreen extends State<MainScreen> {
               ]
             )
           ),
+          Container(child: adWidget, width: _bannerAd.size.width.toDouble(),height: _bannerAd.size.height.toDouble(),),
           ListView.builder(
             itemCount: HelperAbout.listIcons.length,
             shrinkWrap: true,
@@ -185,7 +221,7 @@ class _MainScreen extends State<MainScreen> {
                 )
               );
             }
-          ),
+          )
         ]
       )
     );

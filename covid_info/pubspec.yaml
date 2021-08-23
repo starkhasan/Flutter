@@ -36,6 +36,7 @@ dependencies:
   firebase_database: ^7.1.1
   advance_pdf_viewer: ^2.0.0
   connectivity_plus: ^1.0.4
+  google_mobile_ads: ^0.13.3
 
 dev_dependencies:
 
