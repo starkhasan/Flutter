@@ -37,7 +37,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     provider = Provider.of<ConnectivityResult>(context);
-    startTimer();
+    startTimer(context);
     return Scaffold(
       body: Container(
         color: Colors.white,
@@ -77,20 +77,22 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  startTimer() {
-    if(provider != null){
-      if(provider == ConnectivityResult.wifi || provider == ConnectivityResult.mobile){
-        Timer(Duration(seconds: 2),() => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Dashboard())));
-      }else{
-        var snackBar = SnackBar(
-          elevation: 0.0,
-          backgroundColor: Colors.red,
-          behavior: SnackBarBehavior.floating,
-          content: Text('No Internet Connection',style: TextStyle(color: Colors.white)),
-          margin: EdgeInsets.fromLTRB(10, 0, 10, 20),
-        );
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  startTimer(BuildContext _context) {
+    Timer(Duration(seconds: 3), (){
+        if(provider != null){
+        if(provider == ConnectivityResult.wifi || provider == ConnectivityResult.mobile){
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Dashboard()));
+        }else{
+          var snackBar = SnackBar(
+            elevation: 0.0,
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+            content: Text('No Internet Connection',style: TextStyle(color: Colors.white)),
+            margin: EdgeInsets.fromLTRB(10, 0, 10, 20),
+          );
+          ScaffoldMessenger.of(_context).showSnackBar(snackBar);
+        }
       }
-    }
+    });
   }
 }

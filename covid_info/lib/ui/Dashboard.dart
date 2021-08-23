@@ -1,16 +1,36 @@
+import 'package:covid_info/model/provider/CovidStatusProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:covid_info/ui/AboutCovid.dart';
 import 'package:covid_info/ui/CovidStatus.dart';
 import 'package:covid_info/ui/Vaccination.dart';
 import 'package:covid_info/ui/FAQScreen.dart';
+import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
-class Dashboard extends StatefulWidget {
+
+class Dashboard extends StatelessWidget {
+
   @override
-  _DashboardState createState() => _DashboardState();
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider<CovidStatusProvider>(
+      create: (context) => CovidStatusProvider(),
+      child: Consumer<CovidStatusProvider>(
+          builder: (context, covidProvider, child) {
+        return MainScreen(provider: covidProvider);
+      }),
+    );
+  }
 }
 
-class _DashboardState extends State<Dashboard> {
+class MainScreen extends StatefulWidget {
+  final CovidStatusProvider provider;
+  MainScreen({required this.provider});
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver{
 
   var _currentIndex = 0;
   
@@ -25,6 +45,29 @@ class _DashboardState extends State<Dashboard> {
     setState(() {
       _currentIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addObserver(this);
+    widget.provider.userCount(true);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance!.removeObserver(this);
+  }
+
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if(state == AppLifecycleState.resumed)
+      widget.provider.userCount(true);
+    if(state == AppLifecycleState.paused)
+      widget.provider.userCount(false);
   }
 
   @override
@@ -78,7 +121,10 @@ class _DashboardState extends State<Dashboard> {
               child: Text('No',style: TextStyle(color: Colors.red))
             ),
             CupertinoDialogAction(
-              onPressed: () => Navigator.pop(context, true),
+              onPressed: () async{
+                await widget.provider.userCount(false);
+                Navigator.pop(context, true);
+              },  
               child: Text('Yes'),
             )
           ]

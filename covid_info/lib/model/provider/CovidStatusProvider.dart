@@ -144,6 +144,20 @@ class CovidStatusProvider extends ChangeNotifier {
     });
   }
 
+  userCount(bool isOnline) async {
+    firebaseDatabase.keepSynced(true);
+    await firebaseDatabase.once().then((DataSnapshot snapshot) {
+      if (snapshot.value != null) {
+        var user = snapshot.value['userOnline'];
+        if (isOnline)
+          user = user + 1;
+        else
+          user = user - 1;
+        firebaseDatabase.update({'userOnline': user});
+      }
+    });
+  }
+
   Future<void> vaccination(bool isIndicator) async {
     _vaccineApi = isIndicator;
     notifyListeners();
@@ -164,3 +178,4 @@ class CovidStatusProvider extends ChangeNotifier {
   }
 }
 //#0B3054
+
