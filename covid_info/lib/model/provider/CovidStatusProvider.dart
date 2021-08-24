@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:covid_info/model/Api.dart';
 import 'package:covid_info/model/response/CountryResponse.dart';
@@ -5,6 +7,7 @@ import 'package:covid_info/model/response/CovidCountryCasesResponse.dart';
 import 'dart:convert';
 import 'package:covid_info/model/response/PopulationResponse.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:device_info/device_info.dart';
 
 class CovidStatusProvider extends ChangeNotifier {
   bool _callApi = false;
@@ -39,6 +42,7 @@ class CovidStatusProvider extends ChangeNotifier {
   List<CountryResponse> originalCountryResponse = [];
   List<int> vaccineResponse = [0, 0, 0, 0];
   List<String> vaccineName = [];
+  var firebase = FirebaseDatabase.instance;
   var firebaseDatabase =
       FirebaseDatabase.instance.reference().child('covid_info');
 
@@ -145,17 +149,23 @@ class CovidStatusProvider extends ChangeNotifier {
   }
 
   userCount(bool isOnline) async {
-    firebaseDatabase.keepSynced(true);
-    await firebaseDatabase.once().then((DataSnapshot snapshot) {
-      if (snapshot.value != null) {
-        var user = snapshot.value['userOnline'];
-        if (isOnline)
-          user = user + 1;
-        else
-          user = user - 1;
-        firebaseDatabase.update({'userOnline': user});
-      }
-    });
+    var deviceId = "";
+    if (Platform.isAndroid) {
+      var deviceInfo = await DeviceInfoPlugin().androidInfo;
+      deviceId = deviceInfo.androidId;
+    } else {
+      var deviceInfo = await DeviceInfoPlugin().iosInfo;
+      deviceId = deviceInfo.identifierForVendor;
+    }
+    if(isOnline){
+      firebaseDatabase.child('Users').set({
+        deviceId: 'Online'
+      });
+    }else{
+      firebaseDatabase.child('Users').set({
+        deviceId: 'Offline'
+      });
+    }
   }
 
   Future<void> vaccination(bool isIndicator) async {
