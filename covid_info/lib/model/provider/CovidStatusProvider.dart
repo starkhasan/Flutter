@@ -158,12 +158,12 @@ class CovidStatusProvider extends ChangeNotifier {
       deviceId = deviceInfo.identifierForVendor;
     }
     if(isOnline){
-      firebaseDatabase.child('Users').set({
-        deviceId: 'Online'
+      firebaseDatabase.child('Users').child(deviceId).set({
+        'status': 'Online'
       });
     }else{
-      firebaseDatabase.child('Users').set({
-        deviceId: 'Offline'
+      firebaseDatabase.child('Users').child(deviceId).set({
+        'status': 'Offline'
       });
     }
   }
