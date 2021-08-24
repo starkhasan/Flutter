@@ -69,6 +69,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
         ),
         floatingActionButton: widget.provider.countrySearchTopVisible
           ? FloatingActionButton.extended(
+            backgroundColor: Color(0xFF0B3054),
             isExtended: false,
             onPressed: () => _scrollController.animateTo(0.0, duration: Duration(seconds: 1), curve: Curves.bounceInOut), 
             label: Text('TOP'),
