@@ -62,6 +62,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
       onWillPop: backPressed,
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Color(0xFF0B3054),
           title: Text('Worldwide',style: TextStyle(fontSize: 16)),
           centerTitle: true,
           systemOverlayStyle: SystemUiOverlayStyle.light,
@@ -96,6 +97,8 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                       child: TextField(
                         textInputAction: TextInputAction.go,
                         keyboardType: TextInputType.text,
+                        cursorColor: Color(0xFF0B3054),
+                        cursorWidth: 1.5,
                         inputFormatters: [FilteringTextInputFormatter.allow(RegExp("[a-zA-Z \u0900-\u097F]"))],
                         style: TextStyle(color: Colors.black,fontFamily: '',fontSize: 16),
                         decoration: InputDecoration.collapsed(

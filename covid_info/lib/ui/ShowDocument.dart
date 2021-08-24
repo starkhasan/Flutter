@@ -34,6 +34,7 @@ class _ShowDocumentState extends State<ShowDocument> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFF0B3054),
         centerTitle: true,
         title: Text(
           'States Vaccination Report',
@@ -43,7 +44,10 @@ class _ShowDocumentState extends State<ShowDocument> {
       body: Container(
         child: Center(
           child: _isLoading
-          ? CircularProgressIndicator()
+          ? CircularProgressIndicator(
+            strokeWidth: 1.5,
+            valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF0B3054)),
+          )
           : _dataNotFound
             ? Text('States vaccination data not available.')
             : PDFViewer(

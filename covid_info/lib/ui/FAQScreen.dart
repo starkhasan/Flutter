@@ -71,6 +71,7 @@ class _MainScreen extends State<MainScreen> {
         physics: BouncingScrollPhysics(),
         slivers:[
           SliverAppBar(
+            backgroundColor: Color(0xFF0B3054),
             centerTitle: true,
             floating: true,
             title: Text('FAQs',style: TextStyle(fontSize: 16)),

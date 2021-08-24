@@ -68,6 +68,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
           physics: BouncingScrollPhysics(),
           slivers:[
             SliverAppBar(
+              backgroundColor: Color(0xFF0B3054),
               centerTitle: true,
               floating: true,
               title: Text('Vaccination',style: TextStyle(fontSize: 16)),
@@ -160,7 +161,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                           ),
                           SizedBox(height: 5),
                           widget.provider.apiVaccine
-                          ? SizedBox(height: 25,width: 25, child: CircularProgressIndicator(strokeWidth: 2.0,backgroundColor: Colors.white))
+                          ? SizedBox(height: 25,width: 25, child: CircularProgressIndicator(strokeWidth: 1.5,valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF0B3054))))
                           : Text(
                             widget.provider.vaccineResponse[index] == 0
                             ? '0'

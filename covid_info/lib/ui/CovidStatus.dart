@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:covid_info/constant/HelperAbout.dart';
 import 'package:covid_info/model/provider/CovidStatusProvider.dart';
 import 'package:covid_info/ui/CountrySearchResult.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
@@ -16,7 +17,6 @@ class _CovidStatusState extends State<CovidStatus> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     print('called');
   }
@@ -57,7 +57,7 @@ class _MainScreen extends State<MainScreen> {
        widget.provider.covidStatus(true);
     });
     _bannerAd = BannerAd(
-      adUnitId: 'ca-app-pub-9422971308124709/7654126838',
+      adUnitId: "ca-app-pub-9422971308124709/7654126838",
       request: AdRequest(),
       size: AdSize.banner,
       listener: BannerAdListener(
@@ -100,6 +100,7 @@ class _MainScreen extends State<MainScreen> {
           physics: BouncingScrollPhysics(),
           slivers:[
             SliverAppBar(
+              backgroundColor: Color(0xFF0B3054),
               centerTitle: true,
               floating: true,
               title: Text('Corona Status',style: TextStyle(fontSize: 16)),
@@ -169,10 +170,19 @@ class _MainScreen extends State<MainScreen> {
               ]
             )
           ),
-          Container(child: adWidget, width: _bannerAd.size.width.toDouble(),height: _bannerAd.size.height.toDouble(),),
+          Visibility(
+            visible: adWidget != null,
+            child: Container(
+              margin: EdgeInsets.only(top: 10),
+              child: adWidget, 
+              width: _bannerAd.size.width.toDouble(),
+              height: _bannerAd.size.height.toDouble()
+            )
+          ),
           ListView.builder(
             itemCount: HelperAbout.listIcons.length,
             shrinkWrap: true,
+            padding: EdgeInsets.only(top: 10),
             physics: BouncingScrollPhysics(),
             itemBuilder: (context, index){
               return Container(
@@ -201,7 +211,7 @@ class _MainScreen extends State<MainScreen> {
                           ),
                           SizedBox(height: 5),
                           widget.provider.apiCalling
-                          ? SizedBox(height: 25,width: 25, child: CircularProgressIndicator(strokeWidth: 2.0,backgroundColor: Colors.white))
+                          ? SizedBox(height: 25,width: 25, child: CircularProgressIndicator(strokeWidth: 1.5,valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF0B3054))))
                           : Text(
                             widget.provider.covidStatusResponse[index] == 0
                             ? '0'
