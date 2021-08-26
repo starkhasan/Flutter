@@ -97,9 +97,18 @@ class _MainScreen extends State<MainScreen> {
       scrollDirection: Axis.vertical,
       padding: EdgeInsets.zero,
       itemBuilder: (context,index){
-        return Card(
-          shadowColor: HelperFAQ.listSubHeading[index] == 'Corona' ? Colors.red[400] : Colors.green[400],
-          elevation: 2.0,
+        return Container(
+          margin: EdgeInsets.fromLTRB(5.0, 8.0, 5.0, 0.0),
+          decoration: BoxDecoration(
+            gradient:  HelperFAQ.listSubHeading[index] == 'Corona' ? HelperFAQ.coronaGradient() : HelperFAQ.vaccineGradient(),
+            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            boxShadow: [
+              BoxShadow(
+                color: Color(0XFFBDBDBD),
+                blurRadius: 1.0
+              )
+            ]
+          ),
           child: ExpansionTile(
             title: Text(HelperFAQ.listHeading[index],style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.normal)),
             subtitle: Text(HelperFAQ.listSubHeading[index],style: TextStyle(fontSize: 12,fontStyle: FontStyle.italic,color: HelperFAQ.listSubHeading[index] == 'Corona' ? Colors.red : Colors.green)),
@@ -115,4 +124,5 @@ class _MainScreen extends State<MainScreen> {
       }
     );
   }
+
 }
