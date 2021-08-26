@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class Vaccination extends StatefulWidget {
 
@@ -41,6 +42,8 @@ class _VaccineScreenState extends State<VaccineScreen> {
 
   var formatter = NumberFormat('#,##,000');
   var refreshIndicatorMargin = 0.0;
+  late BannerAd _bannerAd;
+  late AdWidget adWidget;
   
   @override
   void initState() {
@@ -48,6 +51,30 @@ class _VaccineScreenState extends State<VaccineScreen> {
      WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
        widget.provider.vaccination(true);
     });
+    _bannerAd = BannerAd(
+      adUnitId: "ca-app-pub-9422971308124709/7654126838",
+      request: AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          print('$BannerAd loaded.');
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          print('$BannerAd failedToLoad: $error');
+          ad.dispose();
+        },
+        onAdOpened: (Ad ad) => print('$BannerAd onAdOpened.'),
+        onAdClosed: (Ad ad) => print('$BannerAd onAdClosed.'),
+      ),
+    );
+    _bannerAd.load();
+    adWidget = AdWidget(ad: _bannerAd);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _bannerAd.dispose();
   }
 
   @override
@@ -128,11 +155,19 @@ class _VaccineScreenState extends State<VaccineScreen> {
               ]
             )
           ),
-          SizedBox(height: 10),
+          Visibility(
+            visible: adWidget != null,
+            child: Container(
+              margin: EdgeInsets.only(top: 10),
+              child: adWidget, 
+              width: _bannerAd.size.width.toDouble(),
+              height: _bannerAd.size.height.toDouble()
+            )
+          ),
           ListView.builder(
             itemCount: HelperAbout.listVaccineTag.length,
             shrinkWrap: true,
-            padding: EdgeInsets.zero,
+            padding: EdgeInsets.only(top: 10),
             physics: NeverScrollableScrollPhysics(),
             itemBuilder: (context, index){
               return Container(
