@@ -208,7 +208,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                       ),
                       SizedBox(height: 5),
                       widget.provider.apiVaccine
-                      ? SizedBox(height: 25,width: 25, child: CircularProgressIndicator(strokeWidth: 2.0,backgroundColor: Colors.white))
+                      ? SizedBox(height: 25,width: 25, child: CircularProgressIndicator(strokeWidth: 1.5,valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF0B3054))))
                       : Text(
                         widget.provider.sites == 0
                         ? '0'
@@ -233,7 +233,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                                 ),
                                 SizedBox(height: 2),
                                 widget.provider.apiVaccine
-                                ? SizedBox(height: 20,width: 20, child: CircularProgressIndicator(strokeWidth: 2.0,backgroundColor: Colors.white))
+                                ? SizedBox(height: 20,width: 20, child: CircularProgressIndicator(strokeWidth: 1.5,valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF0B3054))))
                                 : Text(
                                   widget.provider.sitesGovernment == 0
                                   ? '0'
@@ -258,7 +258,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                                 ),
                                 SizedBox(height: 2),
                                 widget.provider.apiVaccine
-                                ? SizedBox(height: 20,width: 20, child: CircularProgressIndicator(strokeWidth: 2.0,backgroundColor: Colors.white))
+                                ? SizedBox(height: 20,width: 20, child: CircularProgressIndicator(strokeWidth: 1.5,valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF0B3054))))
                                 : Text(
                                   widget.provider.sitesPrivate == 0
                                   ? '0'
@@ -308,7 +308,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                       ),
                       SizedBox(height: 5),
                       widget.provider.apiVaccine
-                      ? SizedBox(height: 20,width: 20, child: CircularProgressIndicator(strokeWidth: 2.0,backgroundColor: Colors.white))
+                      ? SizedBox(height: 20,width: 20, child: CircularProgressIndicator(strokeWidth: 1.5,valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF0B3054))))
                       : ListView.builder(
                         itemCount: widget.provider.vaccineName.length,
                         shrinkWrap: true,

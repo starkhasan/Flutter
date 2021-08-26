@@ -51,9 +51,10 @@ class _ShowDocumentState extends State<ShowDocument> {
           : _dataNotFound
             ? Text('States vaccination data not available.')
             : PDFViewer(
-            indicatorText: Colors.white,
-            document: document,
-            zoomSteps: 5
+              progressIndicator: CircularProgressIndicator(strokeWidth: 1.5,valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF0B3054))),
+              indicatorText: Colors.white,
+              document: document,
+              zoomSteps: 5
           )
         )
       ),
