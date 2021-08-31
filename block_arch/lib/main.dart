@@ -1,7 +1,3 @@
-import 'dart:developer';
-
-import 'package:block_arch/cubit/counter_cubit.dart';
-import 'package:block_arch/ui/counter_cubit_screen.dart';
 import 'package:block_arch/ui/first_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const CunterCubitScreen()
+      home: const MainScreen()
     );
   }
 }
