@@ -30,29 +30,16 @@ class MainScreen extends StatelessWidget {
         },
         builder: (context, state){
           return Center(
-            child: Text('$state'),
+            child: Text(
+              '$state',
+              style: const TextStyle(fontSize: 30,fontWeight: FontWeight.bold),
+            ),
           );
         }
       ),
-      floatingActionButton: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(5),
-            child: FloatingActionButton(
-              child: const Icon(Icons.add),
-              onPressed: () => context.read<FirstBloc>().add(CounterEvent.increment),
-            )
-          ),
-          Padding(
-            padding: const EdgeInsets.all(5),
-            child: FloatingActionButton(
-              child: const Icon(Icons.remove),
-              onPressed: () => context.read<FirstBloc>().add(CounterEvent.decrement),
-            )
-          )
-        ]
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.wb_sunny_rounded),
+        onPressed: () => context.read<FirstBloc>().add(CounterEvent.increment),
       )
     );
   }
