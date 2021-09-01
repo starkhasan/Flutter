@@ -24,6 +24,8 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+
+  var response;
   @override
   void initState() {
     super.initState();
@@ -42,16 +44,23 @@ class _MainScreenState extends State<MainScreen> {
         centerTitle: true,
         title: const Text('Weather Report'),
       ),
-      body: BlocBuilder<WeatherBloc, WeatherState>(
+      body: BlocConsumer<WeatherBloc, WeatherState>(
+        listener: (context, state){
+          if (state is WeatherErrorState) {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Something went wrong"),duration: Duration(seconds: 1)));
+          }
+        },
         builder: (BuildContext context, state) {
           if (state is WeatherUninitializedState) {
             return buildWidget('Uninitialized State');
           } else if (state is WeatherFetchingState) {
             return const Center(child: CircularProgressIndicator());
-          } else if (state is WeatherErrorState) {
-            return buildWidget('Not Working');
-          } else {
-            state as WeatherFetchedState;
+          }else if(state is WeatherErrorState) {
+              return response == null
+              ? buildWidget('Server not respoding')
+              : buildContent(response.weatherResponse);
+          }else {
+            response = state as WeatherFetchedState;
             return buildContent(state.weatherResponse);
           }
         },
