@@ -57,9 +57,11 @@ class _VaccineScreenState extends State<VaccineScreen> {
       size: AdSize.banner,
       listener: BannerAdListener(
         onAdLoaded: (Ad ad) {
+          widget.provider.adMobVisibility(true);
           print('$BannerAd loaded.');
         },
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          widget.provider.adMobVisibility(false);
           print('$BannerAd failedToLoad: $error');
           ad.dispose();
         },
@@ -156,7 +158,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
             )
           ),
           Visibility(
-            visible: adWidget != null,
+            visible: widget.provider.showBanner,
             child: Container(
               margin: EdgeInsets.only(top: 10),
               child: adWidget, 

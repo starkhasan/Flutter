@@ -57,14 +57,16 @@ class _MainScreen extends State<MainScreen> {
        widget.provider.covidStatus(true);
     });
     _bannerAd = BannerAd(
-      adUnitId: "ca-app-pub-9422971308124709/7654126838",
+      adUnitId: BannerAd.testAdUnitId,
       request: AdRequest(),
       size: AdSize.banner,
       listener: BannerAdListener(
         onAdLoaded: (Ad ad) {
+          widget.provider.adMobVisibility(true);
           print('$BannerAd loaded.');
         },
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          widget.provider.adMobVisibility(false);
           print('$BannerAd failedToLoad: $error');
           ad.dispose();
         },
@@ -171,7 +173,7 @@ class _MainScreen extends State<MainScreen> {
             )
           ),
           Visibility(
-            visible: adWidget != null,
+            visible: widget.provider.showBanner,
             child: Container(
               margin: EdgeInsets.only(top: 10),
               child: adWidget, 

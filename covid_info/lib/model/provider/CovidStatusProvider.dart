@@ -13,6 +13,8 @@ class CovidStatusProvider extends ChangeNotifier {
   bool _callApi = false;
   bool _countryApi = false;
   bool _vaccineApi = false;
+  bool _bannerVisibility = false;
+  bool get showBanner => _bannerVisibility;
   bool get apiCalling => _callApi;
   bool get apiCountry => _countryApi;
   bool get apiVaccine => _vaccineApi;
@@ -22,6 +24,11 @@ class CovidStatusProvider extends ChangeNotifier {
 
   fabVisibility() {
     faqFABVisible = faqFABVisible ? false : true;
+    notifyListeners();
+  }
+
+  adMobVisibility(bool isVisible) {
+    _bannerVisibility = isVisible;
     notifyListeners();
   }
 
@@ -157,14 +164,13 @@ class CovidStatusProvider extends ChangeNotifier {
       var deviceInfo = await DeviceInfoPlugin().iosInfo;
       deviceId = deviceInfo.identifierForVendor;
     }
-    if(isOnline){
-      firebaseDatabase.child('Users').child(deviceId).set({
-        'status': 'Online'
-      });
-    }else{
-      firebaseDatabase.child('Users').child(deviceId).set({
-        'status': 'Offline'
-      });
+    if (isOnline) {
+      firebaseDatabase.child('Users').child(deviceId).set({'status': 'Online'});
+    } else {
+      firebaseDatabase
+          .child('Users')
+          .child(deviceId)
+          .set({'status': 'Offline'});
     }
   }
 
