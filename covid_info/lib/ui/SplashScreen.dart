@@ -48,7 +48,7 @@ class _MainScreenState extends State<MainScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Image.asset('assets/images/logo.jpg',height: MediaQuery.of(context).size.height * 0.14, width: MediaQuery.of(context).size.height * 0.14),
+                  Image.asset('assets/images/logo.jpg',height: MediaQuery.of(context).size.height * 0.12, width: MediaQuery.of(context).size.height * 0.12),
                   Text(
                     'Covid Info',
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,fontFamily: '')
@@ -64,7 +64,7 @@ class _MainScreenState extends State<MainScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Design & Developed in : India',
+                      'Design & Developed by : Traversal',
                       style: TextStyle(color: Colors.grey[300],fontSize: 12)
                     )
                   ]
@@ -81,7 +81,7 @@ class _MainScreenState extends State<MainScreen> {
     Timer(Duration(seconds: 3), (){
         if(provider != null){
         if(provider == ConnectivityResult.wifi || provider == ConnectivityResult.mobile){
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Dashboard()));
+          //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Dashboard()));
         }else{
           var snackBar = SnackBar(
             elevation: 0.0,
