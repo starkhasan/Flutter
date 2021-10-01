@@ -57,7 +57,7 @@ class _MainScreen extends State<MainScreen> {
        widget.provider.covidStatus(true);
     });
     _bannerAd = BannerAd(
-      adUnitId: BannerAd.testAdUnitId,
+      adUnitId: "ca-app-pub-9422971308124709/7654126838",
       request: AdRequest(),
       size: AdSize.banner,
       listener: BannerAdListener(
