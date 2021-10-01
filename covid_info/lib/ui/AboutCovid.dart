@@ -41,24 +41,14 @@ class _AboutCovidState extends State<AboutCovid> {
         children: [
           Text(
             'What is COVID-19',
-            style: TextStyle(color: Colors.black,fontSize: 24,fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.black,fontSize: 22,fontWeight: FontWeight.bold),
           ),
-          RichText(
-            text: TextSpan(
-              style: TextStyle(color: Colors.black),
-              children: [
-                TextSpan(
-                  text: HelperAbout.aboutCrona1
-                ),
-                TextSpan(
-                  text: HelperAbout.aboutCrona2
-                )
-              ]
-            ),
+          Text(
+            HelperAbout.aboutCrona
           ),
           Text(
             '\nSymptoms of COVID-19',
-            style: TextStyle(color: Colors.black,fontSize: 24,fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.black,fontSize: 22,fontWeight: FontWeight.bold),
           ),
           Text(
             HelperAbout.aboutSymptoms1,
@@ -66,7 +56,7 @@ class _AboutCovidState extends State<AboutCovid> {
           ),
           Text(
             '\nMost common symptoms',
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
           ),
           ListView.builder(
             shrinkWrap: true,
@@ -90,7 +80,7 @@ class _AboutCovidState extends State<AboutCovid> {
           ),
           Text(
             '\nLess  common symptoms',
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
           ),
           ListView.builder(
             shrinkWrap: true,
@@ -104,7 +94,7 @@ class _AboutCovidState extends State<AboutCovid> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(Icons.circle,color: Colors.green,size: 10),
+                    Icon(Icons.circle,color: Colors.green,size: 8),
                     SizedBox(width: 5),
                     Flexible(child: Text(HelperAbout.listLessSymptoms[index],style: TextStyle(color: Colors.black)))
                   ]
@@ -114,7 +104,7 @@ class _AboutCovidState extends State<AboutCovid> {
           ),
           Text(
             '\nSerious common symptoms',
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
           ),
           ListView.builder(
             shrinkWrap: true,
@@ -128,7 +118,7 @@ class _AboutCovidState extends State<AboutCovid> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(Icons.circle,color: Colors.red,size: 10),
+                    Icon(Icons.circle,color: Colors.red,size: 8),
                     SizedBox(width: 5),
                     Flexible(child: Text(HelperAbout.listSeriousSymptoms[index],style: TextStyle(color: Colors.black)))
                   ]
@@ -145,7 +135,7 @@ class _AboutCovidState extends State<AboutCovid> {
           SizedBox(height: 20),
           Text(
             'Prevention of COVID-19',
-            style: TextStyle(color: Colors.black,fontSize: 24,fontWeight: FontWeight.bold,fontFamily: '')
+            style: TextStyle(color: Colors.black,fontSize: 22,fontWeight: FontWeight.bold,fontFamily: '')
           ),
           ListView.builder(
             shrinkWrap: true,
@@ -157,9 +147,9 @@ class _AboutCovidState extends State<AboutCovid> {
                 padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(Icons.circle,color: Colors.blue,size: 10),
+                    Icon(Icons.circle,color: Colors.blue,size: 8),
                     SizedBox(width: 5),
                     Flexible(child: Text(HelperAbout.listPreventation[index],style: TextStyle(color: Colors.black)))
                   ]
