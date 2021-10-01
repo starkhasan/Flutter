@@ -100,7 +100,7 @@ class _MainScreen extends State<MainScreen> {
         return Container(
           margin: EdgeInsets.fromLTRB(5.0, 8.0, 5.0, 0.0),
           decoration: BoxDecoration(
-            gradient:  HelperFAQ.listSubHeading[index] == 'Corona' ? HelperFAQ.coronaGradient() : HelperFAQ.vaccineGradient(),
+            color: Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(5.0)),
             boxShadow: [
               BoxShadow(
