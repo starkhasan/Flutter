@@ -1,4 +1,5 @@
 import 'package:covid_info/constant/HelperVaccination.dart';
+import 'package:covid_info/ui/CountrySearchResult.dart';
 import 'package:covid_info/ui/ShowDocument.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -141,8 +142,8 @@ class _VaccineScreenState extends State<VaccineScreen> {
                 Flexible(
                   child: GestureDetector(
                     onTap: ()  async {
-                      //var result = await Navigator.push(context, MaterialPageRoute(builder: (context) => CountrySearchResult()));
-                      //print(result);
+                      var result = await Navigator.push(context, MaterialPageRoute(builder: (context) => CountrySearchResult(vaccineResult: true)));
+                      print(result);
                     },
                     child: Container(
                       color: Colors.white,

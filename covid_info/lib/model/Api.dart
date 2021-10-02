@@ -24,5 +24,16 @@ class Api {
       return e;
     }
   }
+
+  static Future<dynamic> worldVaccineCases() async{
+    Map<String, String> headers = {'Accept': 'application/json'};
+    var uri = Uri.parse('https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/vaccinations.json');
+    try {
+      var response = await http.get(uri,headers: headers);
+      return response;
+    } catch (e) {
+      return e;
+    }
+  }
   
 }

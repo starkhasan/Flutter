@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:covid_info/model/response/VaccineResponse.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:covid_info/model/Api.dart';
 import 'package:covid_info/model/response/CountryResponse.dart';
@@ -12,12 +13,16 @@ import 'package:device_info/device_info.dart';
 class CovidStatusProvider extends ChangeNotifier {
   bool _callApi = false;
   bool _countryApi = false;
+  bool _worldVaccineApi = false;
   bool _vaccineApi = false;
   bool _bannerVisibility = false;
+  bool _showSearchBar = false;
   bool get showBanner => _bannerVisibility;
   bool get apiCalling => _callApi;
   bool get apiCountry => _countryApi;
   bool get apiVaccine => _vaccineApi;
+  bool get apiWorldVaccine => _worldVaccineApi;
+  bool get showSearchBar => _showSearchBar;
 
   bool countrySearchTopVisible = false;
   bool faqFABVisible = false;
@@ -29,6 +34,11 @@ class CovidStatusProvider extends ChangeNotifier {
 
   adMobVisibility(bool isVisible) {
     _bannerVisibility = isVisible;
+    notifyListeners();
+  }
+
+  searchBarVisibility(bool isVisible) {
+    _showSearchBar = isVisible;
     notifyListeners();
   }
 
@@ -46,6 +56,8 @@ class CovidStatusProvider extends ChangeNotifier {
   late PopulationResponse populationResponse;
   List<int> covidStatusResponse = [0, 0, 0, 0, 0, 0, 0, 0];
   List<CountryResponse> countryResponse = [];
+  List<VaccinationResponse> worldVaccineResponse = [];
+  List<VaccinationResponse> originalWorldVaccineResponse = [];
   List<CountryResponse> originalCountryResponse = [];
   List<int> vaccineResponse = [0, 0, 0, 0];
   List<String> vaccineName = [];
@@ -102,6 +114,30 @@ class CovidStatusProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> worldVaccineCases(bool isIndicator) async {
+    _worldVaccineApi = isIndicator;
+    notifyListeners();
+    try {
+      var response = await Api.worldVaccineCases();
+      if (response.statusCode == 200) {
+        worldVaccineResponse.clear();
+        originalWorldVaccineResponse.clear();
+        var temp = List<VaccinationResponse>.from(json
+            .decode(response.body)
+            .map((x) => VaccinationResponse.fromJson(x)));
+        print(temp.length);
+        worldVaccineResponse.addAll(temp);
+        originalWorldVaccineResponse.addAll(temp);
+      } else {
+        worldVaccineResponse = [];
+      }
+    } catch (e) {
+      worldVaccineResponse = [];
+    }
+    _worldVaccineApi = false;
+    notifyListeners();
+  }
+
   searchCountry(String input) {
     countryResponse.clear();
     if (input.isEmpty) {
@@ -113,6 +149,23 @@ class CovidStatusProvider extends ChangeNotifier {
             .toLowerCase()
             .contains(input.toLowerCase())) {
           countryResponse.add(originalCountryResponse[i]);
+        }
+      }
+    }
+    notifyListeners();
+  }
+
+  searchCountryVaccine(String input) {
+    worldVaccineResponse.clear();
+    if (input.isEmpty) {
+      worldVaccineResponse.addAll(originalWorldVaccineResponse);
+    } else {
+      for (var i = 0; i < originalWorldVaccineResponse.length; i++) {
+        if (originalWorldVaccineResponse[i]
+            .country
+            .toLowerCase()
+            .contains(input.toLowerCase())) {
+          worldVaccineResponse.add(originalWorldVaccineResponse[i]);
         }
       }
     }

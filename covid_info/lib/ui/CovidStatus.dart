@@ -144,7 +144,7 @@ class _MainScreen extends State<MainScreen> {
                 Flexible(
                   child: GestureDetector(
                     onTap: ()  async {
-                      var result = await Navigator.push(context, MaterialPageRoute(builder: (context) => CountrySearchResult()));
+                      var result = await Navigator.push(context, MaterialPageRoute(builder: (context) => CountrySearchResult(vaccineResult: false)));
                       print(result);
                     },
                     child: Container(

@@ -43,6 +43,7 @@ class _AboutCovidState extends State<AboutCovid> {
             'What is COVID-19',
             style: TextStyle(color: Colors.black,fontSize: 22,fontWeight: FontWeight.bold),
           ),
+          SizedBox(height: 2),
           Text(
             HelperAbout.aboutCrona
           ),
@@ -50,33 +51,10 @@ class _AboutCovidState extends State<AboutCovid> {
             '\nSymptoms of COVID-19',
             style: TextStyle(color: Colors.black,fontSize: 22,fontWeight: FontWeight.bold),
           ),
+          SizedBox(height: 2),
           Text(
             HelperAbout.aboutSymptoms1,
             style: TextStyle(color: Colors.black),
-          ),
-          Text(
-            '\nMost common symptoms',
-            style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
-          ),
-          ListView.builder(
-            shrinkWrap: true,
-            padding: EdgeInsets.all(5),
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: HelperAbout.listCommonSymptoms.length,
-            itemBuilder: (context,index){
-              return Container(
-                padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(Icons.circle,color: Colors.amber,size: 10),
-                    SizedBox(width: 5),
-                    Text(HelperAbout.listCommonSymptoms[index],style: TextStyle(color: Colors.black))
-                  ]
-                )
-              );
-            }
           ),
           Text(
             '\nLess  common symptoms',
@@ -84,7 +62,7 @@ class _AboutCovidState extends State<AboutCovid> {
           ),
           ListView.builder(
             shrinkWrap: true,
-            padding: EdgeInsets.all(5),
+            padding: EdgeInsets.only(left: 5,top: 2),
             physics: NeverScrollableScrollPhysics(),
             itemCount: HelperAbout.listLessSymptoms.length,
             itemBuilder: (context,index){
@@ -103,12 +81,36 @@ class _AboutCovidState extends State<AboutCovid> {
             }
           ),
           Text(
+            '\nMost common symptoms',
+            style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+          ),
+          ListView.builder(
+            shrinkWrap: true,
+            padding: EdgeInsets.only(left: 5,top: 2),
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: HelperAbout.listCommonSymptoms.length,
+            itemBuilder: (context,index){
+              return Container(
+                padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(Icons.circle,color: Colors.amber,size: 8),
+                    SizedBox(width: 5),
+                    Text(HelperAbout.listCommonSymptoms[index],style: TextStyle(color: Colors.black))
+                  ]
+                )
+              );
+            }
+          ),
+          Text(
             '\nSerious common symptoms',
             style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
           ),
           ListView.builder(
             shrinkWrap: true,
-            padding: EdgeInsets.all(5),
+            padding: EdgeInsets.only(left: 5,top: 2),
             physics: NeverScrollableScrollPhysics(),
             itemCount: HelperAbout.listSeriousSymptoms.length,
             itemBuilder: (context,index){
@@ -139,7 +141,7 @@ class _AboutCovidState extends State<AboutCovid> {
           ),
           ListView.builder(
             shrinkWrap: true,
-            padding: EdgeInsets.all(5),
+            padding: EdgeInsets.only(left: 5,top: 2),
             physics: NeverScrollableScrollPhysics(),
             itemCount: HelperAbout.listPreventation.length,
             itemBuilder: (context,index){
