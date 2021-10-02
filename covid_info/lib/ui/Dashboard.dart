@@ -93,7 +93,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver{
             ),
             BottomNavigationBarItem(
               label: 'COVID',
-              icon: Icon(Icons.info,size: 22)
+              icon: Icon(Icons.coronavirus_rounded,size: 22)
             ),
             BottomNavigationBarItem(
               label: 'FAQs',

@@ -126,7 +126,6 @@ class _VaccineScreenState extends State<VaccineScreen> {
         mainAxisSize: MainAxisSize.max,
         children: [
           Container(
-            padding: EdgeInsets.all(5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -140,18 +139,30 @@ class _VaccineScreenState extends State<VaccineScreen> {
                   )
                 ),
                 Flexible(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Image.network(
-                        'https://www.countryflags.io/IN/shiny/64.png',
-                        height: 25,
-                        width: 25,
-                        errorBuilder: (context,exception,stackTrace){return Icon(Icons.flag);},
-                      ),
-                      SizedBox(width: 10),
-                      Text('India',style: TextStyle(fontSize: 14,fontFamily: ''))
-                    ]
+                  child: GestureDetector(
+                    onTap: ()  async {
+                      //var result = await Navigator.push(context, MaterialPageRoute(builder: (context) => CountrySearchResult()));
+                      //print(result);
+                    },
+                    child: Container(
+                      color: Colors.white,
+                      padding: EdgeInsets.all(5),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Image.network(
+                            'https://www.countryflags.io/IN/shiny/64.png',
+                            height: 25,
+                            width: 25,
+                            errorBuilder: (context,exception,stackTrace){return Icon(Icons.flag);},
+                          ),
+                          SizedBox(width: 10),
+                          Text('India',style: TextStyle(fontSize: 14,fontFamily: '')),
+                          SizedBox(width: 5),
+                          Icon(Icons.arrow_drop_down_sharp,color: Colors.black,size: 28)
+                        ]
+                      )
+                    )
                   )
                 )
               ]
@@ -198,7 +209,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                           ),
                           SizedBox(height: 5),
                           widget.provider.apiVaccine
-                          ? SizedBox(height: 25,width: 25, child: CircularProgressIndicator(strokeWidth: 1.5,valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF0B3054))))
+                          ? SizedBox(height: 4,width: 40, child: LinearProgressIndicator(minHeight: 2,backgroundColor: Colors.white,color: Color(0xFF0B3054)))
                           : Text(
                             widget.provider.vaccineResponse[index] == 0
                             ? '0'
@@ -245,7 +256,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                       ),
                       SizedBox(height: 5),
                       widget.provider.apiVaccine
-                      ? SizedBox(height: 25,width: 25, child: CircularProgressIndicator(strokeWidth: 1.5,valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF0B3054))))
+                      ? SizedBox(height: 4,width: 40, child: LinearProgressIndicator(minHeight: 2,backgroundColor: Colors.white,color: Color(0xFF0B3054)))
                       : Text(
                         widget.provider.sites == 0
                         ? '0'
@@ -270,7 +281,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                                 ),
                                 SizedBox(height: 2),
                                 widget.provider.apiVaccine
-                                ? SizedBox(height: 20,width: 20, child: CircularProgressIndicator(strokeWidth: 1.5,valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF0B3054))))
+                                ? SizedBox(height: 2,width: 40, child: LinearProgressIndicator(minHeight: 2,backgroundColor: Colors.white,color: Color(0xFF0B3054)))
                                 : Text(
                                   widget.provider.sitesGovernment == 0
                                   ? '0'
@@ -295,7 +306,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                                 ),
                                 SizedBox(height: 2),
                                 widget.provider.apiVaccine
-                                ? SizedBox(height: 20,width: 20, child: CircularProgressIndicator(strokeWidth: 1.5,valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF0B3054))))
+                                ? SizedBox(height: 2,width: 40, child: LinearProgressIndicator(minHeight: 2,backgroundColor: Colors.white,color: Color(0xFF0B3054)))
                                 : Text(
                                   widget.provider.sitesPrivate == 0
                                   ? '0'
@@ -345,7 +356,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                       ),
                       SizedBox(height: 5),
                       widget.provider.apiVaccine
-                      ? SizedBox(height: 20,width: 20, child: CircularProgressIndicator(strokeWidth: 1.5,valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF0B3054))))
+                      ? SizedBox(height: 4,width: 40, child: LinearProgressIndicator(minHeight: 2,backgroundColor: Colors.white,color: Color(0xFF0B3054)))
                       : ListView.builder(
                         itemCount: widget.provider.vaccineName.length,
                         shrinkWrap: true,

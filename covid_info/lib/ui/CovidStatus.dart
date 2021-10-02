@@ -43,8 +43,6 @@ class MainScreen extends StatefulWidget {
 class _MainScreen extends State<MainScreen> {
   
   var formatter = NumberFormat('#,##,000');
-  var countryName = 'India';
-  var countryCode = 'IN'; 
   var date = DateTime.now().toString();
   var refreshIndicatorMargin = 0.0;
   late BannerAd _bannerAd;
@@ -155,13 +153,13 @@ class _MainScreen extends State<MainScreen> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Image.network(
-                            'https://www.countryflags.io/$countryCode/shiny/64.png',
+                            'https://www.countryflags.io/IN/shiny/64.png',
                             height: 25,
                             width: 25,
                             errorBuilder: (context,exception,stackTrace){return Icon(Icons.flag);},
                           ),
                           SizedBox(width: 10),
-                          Text(countryName,style: TextStyle(fontSize: 14,fontFamily: '')),
+                          Text('India',style: TextStyle(fontSize: 14,fontFamily: '')),
                           SizedBox(width: 5),
                           Icon(Icons.arrow_drop_down_sharp,color: Colors.black,size: 28)
                         ]
@@ -213,7 +211,7 @@ class _MainScreen extends State<MainScreen> {
                           ),
                           SizedBox(height: 5),
                           widget.provider.apiCalling
-                          ? SizedBox(height: 25,width: 25, child: CircularProgressIndicator(strokeWidth: 1.5,valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF0B3054))))
+                          ? SizedBox(height: 4,width: 40, child: LinearProgressIndicator(minHeight: 2,backgroundColor: Colors.white,color: Color(0xFF0B3054)))
                           : Text(
                             widget.provider.covidStatusResponse[index] == 0
                             ? '0'
