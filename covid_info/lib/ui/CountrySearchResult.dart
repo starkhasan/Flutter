@@ -170,21 +170,21 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                             child: Text(
                               'Vaccine',
                               style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center
+                              textAlign: TextAlign.right
                             )
                           ),
                           Expanded(
                             child: Text(
-                              'Recent',
+                              '1 Day',
                               style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center
+                              textAlign: TextAlign.right
                             )
                           ),
                           Expanded(
                             child: Text(
                               'Dose2',
                               style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center
+                              textAlign: TextAlign.right
                             )
                           ),
                           Expanded(
@@ -235,6 +235,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
           return GestureDetector(
             onTap: () => showCountryDialog(response[index],length-1),
             child: Container(
+              color: index%2 == 0 ? Colors.white : Colors.grey[100],
               padding: EdgeInsets.only(left: 5,right: 5,top: 10,bottom: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -252,7 +253,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                       response[index].data[length - 1].totalVaccinations != null
                       ? response[index].data[length - 1].totalVaccinations.toString()
                       : 'N/A',
-                      textAlign: TextAlign.center,
+                      textAlign: TextAlign.right,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(fontSize: 12)
                     )
@@ -262,7 +263,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                       response[index].data[length - 1].dailyVaccinations != null
                       ? response[index].data[length - 1].dailyVaccinations.toString()
                       : 'N/A',
-                      textAlign: TextAlign.center,
+                      textAlign: TextAlign.right,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(fontSize: 12)
                     )
@@ -272,7 +273,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                       response[index].data[length - 1].peopleFullyVaccinated != null
                       ? response[index].data[length - 1].peopleFullyVaccinated.toString()
                       : 'N/A',
-                      textAlign: TextAlign.center,
+                      textAlign: TextAlign.right,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(fontSize: 12)
 
@@ -281,7 +282,9 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                   Expanded(
                     child: Text(
                       response[index].data[length - 1].peopleFullyVaccinatedPerHundred != null
-                      ? response[index].data[length - 1].peopleFullyVaccinatedPerHundred.toString()+'%'
+                      ? response[index].data[length - 1].peopleFullyVaccinatedPerHundred! > 100.00
+                        ? '100%'
+                        : response[index].data[length - 1].peopleFullyVaccinatedPerHundred.toString()+'%'
                       : 'N/A',
                       textAlign: TextAlign.right,
                       overflow: TextOverflow.ellipsis,
