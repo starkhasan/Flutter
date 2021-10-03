@@ -1,9 +1,12 @@
 import 'package:covid_info/model/response/VaccineResponse.dart';
+import 'package:covid_info/utils/VaccinationDialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:covid_info/model/provider/CovidStatusProvider.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -233,7 +236,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
         itemBuilder: (context,index){
           var length = response[index].data.length;
           return GestureDetector(
-            onTap: () => showCountryDialog(response[index],length-1),
+            onTap: () => showCountryDialog(response[index]),
             child: Container(
               color: index%2 == 0 ? Colors.white : Colors.grey[100],
               padding: EdgeInsets.only(left: 5,right: 5,top: 10,bottom: 10),
@@ -467,78 +470,19 @@ class _CountryMainScreen extends State<CountryMainScreen> {
     return true;
   }
 
-  showCountryDialog(VaccinationResponse response,int length){
-    showDialog(
-      context: context, 
-      builder: (BuildContext context){
-        return Dialog(
-          child: Container(
-            width: MediaQuery.of(context).size.width * 0.50,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  padding: EdgeInsets.only(top: 8,bottom: 8),
-                  child: Text(
-                    response.country,
-                    style: TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.bold),
-                  )
-                ),
-                Divider(height: 1,thickness: 1),
-                SizedBox(height: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text('Total Vaccination'),
-                    Text(
-                      response.data[length].totalVaccinations != null
-                      ? response.data[length].totalVaccinations.toString()
-                      : 'N/A'
-                    )
-                  ],
-                ),
-                SizedBox(height: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text('Partial Vaccinated'),
-                    Text(
-                      response.data[length].peopleVaccinated != null
-                      ? response.data[length].peopleVaccinated.toString()
-                      : 'N/A'
-                    )
-                  ],
-                ),
-                SizedBox(height: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text('Fully Vaccinated'),
-                    Text(
-                      response.data[length].peopleFullyVaccinated != null
-                      ? response.data[length].peopleFullyVaccinated.toString()
-                      : 'N/A'
-                    )
-                  ],
-                ),
-                SizedBox(height: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text('Today Vaccination'),
-                    Text(
-                      response.data[length].dailyVaccinations != null
-                      ? '+'+response.data[length].dailyVaccinations.toString()
-                      : 'N/A',
-                      style: TextStyle(color: Colors.green),
-                    )
-                  ],
-                ),
-                SizedBox(height: 5)
-              ]
-            )
-          ),
+  showCountryDialog(VaccinationResponse response){
+    showGeneralDialog(
+      context: context,
+      barrierLabel: 'Vaccine', 
+      barrierDismissible: true,
+      transitionBuilder: (context, anim, _, child){
+        return SlideTransition(
+          position: Tween(begin: Offset(0, 1), end: Offset(0, 0)).animate(anim),
+          child: child,
         );
+      },
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return VaccinationDialog(response: response);
       }
     );
   }
