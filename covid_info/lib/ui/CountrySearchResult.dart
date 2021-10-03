@@ -75,7 +75,16 @@ class _CountryMainScreen extends State<CountryMainScreen> {
           systemOverlayStyle: SystemUiOverlayStyle.light,
           actions: [
             IconButton(
-              onPressed: () => widget.provider.showSearchBar ? widget.provider.searchBarVisibility(false) : widget.provider.searchBarVisibility(true),
+              onPressed: () => {
+                if(widget.provider.showSearchBar){
+                  widget.provider.searchBarVisibility(false),
+                  widget.vaccine
+                  ? widget.provider.searchCountryVaccine("")
+                  : widget.provider.searchCountry("")
+                }else{
+                  widget.provider.searchBarVisibility(true)
+                }
+              },
               icon: Icon(
                 widget.provider.showSearchBar
                 ? Icons.cancel
@@ -121,6 +130,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                           keyboardType: TextInputType.text,
                           cursorColor: Color(0xFF0B3054),
                           cursorWidth: 1.5,
+                          autofocus: true,
                           inputFormatters: [FilteringTextInputFormatter.allow(RegExp("[a-zA-Z \u0900-\u097F]"))],
                           style: TextStyle(color: Colors.black,fontFamily: '',fontSize: 16),
                           decoration: InputDecoration.collapsed(
