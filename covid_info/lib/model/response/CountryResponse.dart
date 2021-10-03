@@ -25,31 +25,31 @@ class CountryResponse {
     });
 
     String country;
-    int cases;
-    int todayCases;
-    int deaths;
-    int todayDeaths;
-    int recovered;
-    int active;
-    int critical;
-    int casesPerOneMillion;
-    int deathsPerOneMillion;
-    int totalTests;
-    int testsPerOneMillion;
+    int? cases;
+    int? todayCases;
+    int? deaths;
+    int? todayDeaths;
+    int? recovered;
+    int? active;
+    int? critical;
+    int? casesPerOneMillion;
+    int? deathsPerOneMillion;
+    int? totalTests;
+    int? testsPerOneMillion;
 
     factory CountryResponse.fromJson(Map<String, dynamic> json) => CountryResponse(
         country: json["country"],
-        cases: json["cases"]??0,
-        todayCases: json["todayCases"]??0,
-        deaths: json["deaths"]??0,
-        todayDeaths: json["todayDeaths"]??0,
-        recovered: json["recovered"]??0,
-        active: json["active"]??0,
-        critical: json["critical"]??0,
-        casesPerOneMillion: json["casesPerOneMillion"]??0,
-        deathsPerOneMillion: json["deathsPerOneMillion"]??0,
-        totalTests: json["totalTests"]??0,
-        testsPerOneMillion: json["testsPerOneMillion"]??0,
+        cases: json["cases"],
+        todayCases: json["todayCases"],
+        deaths: json["deaths"],
+        todayDeaths: json["todayDeaths"],
+        recovered: json["recovered"],
+        active: json["active"],
+        critical: json["critical"],
+        casesPerOneMillion: json["casesPerOneMillion"],
+        deathsPerOneMillion: json["deathsPerOneMillion"],
+        totalTests: json["totalTests"],
+        testsPerOneMillion: json["testsPerOneMillion"],
     );
 
     Map<String, dynamic> toJson() => {

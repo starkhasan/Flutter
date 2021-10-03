@@ -42,7 +42,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreen extends State<MainScreen> {
   
-  var formatter = NumberFormat('#,##,000');
+  var formatter = NumberFormat('#,##,###');
   var date = DateTime.now().toString();
   var refreshIndicatorMargin = 0.0;
   late BannerAd _bannerAd;

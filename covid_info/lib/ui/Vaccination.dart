@@ -41,7 +41,7 @@ class VaccineScreen extends StatefulWidget {
 
 class _VaccineScreenState extends State<VaccineScreen> {
 
-  var formatter = NumberFormat('#,##,000');
+  var formatter = NumberFormat('#,##,###');
   var refreshIndicatorMargin = 0.0;
   late BannerAd _bannerAd;
   late AdWidget adWidget;

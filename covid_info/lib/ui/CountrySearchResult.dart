@@ -38,7 +38,7 @@ class CountryMainScreen extends StatefulWidget {
 
 class _CountryMainScreen extends State<CountryMainScreen> {
 
-  var formatter = NumberFormat('#,##,000');
+  var formatter = NumberFormat('#,##,###');
   late ScrollController _scrollController;
   
   @override
@@ -329,7 +329,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                         response[index].country,
                         softWrap: true,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: Colors.black,fontSize: 24,fontFamily: '',fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.black,fontSize: 22,fontFamily: '',fontWeight: FontWeight.bold),
                       )
                     )
                   ]
@@ -345,10 +345,10 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                         children: [
                           Text('Cases',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
                           Text(
-                            response[index].cases == 0
-                            ? '0'
+                            response[index].cases == null
+                            ? 'N/A'
                             : formatter.format(response[index].cases),
-                            style: TextStyle(color: Colors.blue,fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
+                            style: TextStyle(color: Colors.blue,fontSize: 16,fontWeight: FontWeight.bold,fontFamily: '')
                           )
                         ]
                       )
@@ -360,10 +360,10 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                         children: [
                           Text('Recovered',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
                           Text(
-                            response[index].recovered == 0
-                            ? '0'
+                            response[index].recovered == null
+                            ? 'N/A'
                             : formatter.format(response[index].recovered),
-                            style: TextStyle(color: Colors.green,fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
+                            style: TextStyle(color: Colors.green,fontSize: 16,fontWeight: FontWeight.bold,fontFamily: '')
                           )
                         ]
                       )
@@ -381,10 +381,10 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                         children: [
                           Text('Deaths',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
                           Text(
-                            response[index].deaths == 0
-                            ? '0'
+                            response[index].deaths == null
+                            ? 'N/A'
                             : formatter.format(response[index].deaths),
-                            style: TextStyle(color: Colors.red,fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
+                            style: TextStyle(color: Colors.red,fontSize: 16,fontWeight: FontWeight.bold,fontFamily: '')
                           )
                         ]
                       )
@@ -396,10 +396,10 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                         children: [
                           Text('Active',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
                           Text(
-                            response[index].active == 0
-                            ? '0'
+                            response[index].active == null
+                            ? 'N/A'
                             : formatter.format(response[index].active),
-                            style: TextStyle(color: Colors.teal,fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
+                            style: TextStyle(color: Colors.teal,fontSize: 16,fontWeight: FontWeight.bold,fontFamily: '')
                           )
                         ]
                       )
@@ -417,10 +417,10 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                         children: [
                           Text('Critical Cases',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
                           Text(
-                            response[index].critical == 0
-                            ? '0'
+                            response[index].critical == null
+                            ? 'N/A'
                             : formatter.format(response[index].critical),
-                            style: TextStyle(color: Colors.red,fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
+                            style: TextStyle(color: Colors.red,fontSize: 16,fontWeight: FontWeight.bold,fontFamily: '')
                           )
                         ]
                       )
@@ -432,10 +432,10 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                         children: [
                           Text('New Cases',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
                           Text(
-                            response[index].todayCases == 0
-                            ? '0'
+                            response[index].todayCases == null
+                            ? 'N/A'
                             : formatter.format(response[index].todayCases),
-                            style: TextStyle(color: Colors.blue,fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
+                            style: TextStyle(color: Colors.blue,fontSize: 16,fontWeight: FontWeight.bold,fontFamily: '')
                           )
                         ]
                       )

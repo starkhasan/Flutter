@@ -60,11 +60,12 @@ class _MainScreen extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: widget.provider.faqFABVisible
-        ? FloatingActionButton(
+        ? FloatingActionButton.extended(
             backgroundColor: Color(0xFF0B3054),
             onPressed: () => _scrollController.animateTo(0.0, duration: Duration(seconds: 1), curve: Curves.bounceInOut),
-            child: Icon(Icons.arrow_upward_sharp,size: 22),
-            mini: false
+            icon: Icon(Icons.arrow_upward_sharp,size: 22),
+            label: Text('TOP'),
+            isExtended: false,
           )
         : null,
       body: CustomScrollView(
