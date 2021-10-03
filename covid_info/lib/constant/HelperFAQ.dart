@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class HelperFAQ {
   HelperFAQ._();
 
@@ -79,40 +77,4 @@ class HelperFAQ {
     'It is recommended that the 2nd dose of COVAXIN should be administered in the interval of 4 to 6 weeks from the date of 1st dose administration. For COVISHIELD the recommended interval is 4 to 8 weeks while an interval of 6 to 8 weeks gives an enhanced protection.',
     'No. You have to take an appointment for the 2nd dose vaccination.',
   ];
-
-  static Gradient vaccineGradient(){
-    return LinearGradient(
-        colors: [
-          Color(0xFFE3F2FD),
-          Color(0xFFE3F2FD),
-          Color(0xFFffffff),
-          Color(0xFFffffff),
-          Color(0xFFffffff),
-          Color(0xFFffffff),
-          Color(0xFFffffff),
-          Color(0xFFffffff)
-        ],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-        tileMode: TileMode.clamp
-    );
-  }
-
-  static Gradient coronaGradient(){
-    return LinearGradient(
-        colors: [
-          Color(0xFFFFEBEE),
-          Color(0xFFFFEBEE),
-          Color(0xFFffffff),
-          Color(0xFFffffff),
-          Color(0xFFffffff),
-          Color(0xFFffffff),
-          Color(0xFFffffff),
-          Color(0xFFffffff)
-        ],
-        begin: Alignment.bottomLeft,
-        end: Alignment.topRight,
-        tileMode: TileMode.clamp
-    );
-  }
 }

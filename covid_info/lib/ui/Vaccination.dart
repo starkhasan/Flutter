@@ -136,7 +136,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                     widget.provider.apiVaccine
                     ? 'Loading...'
                     : 'Last updated: 1 days ago',
-                    style: TextStyle(color: Colors.grey,fontSize: 14,fontFamily: ''),
+                    style: TextStyle(color: Colors.grey,fontSize: 12,fontFamily: ''),
                   )
                 ),
                 Flexible(
@@ -152,12 +152,12 @@ class _VaccineScreenState extends State<VaccineScreen> {
                         children: [
                           Image.network(
                             'https://www.countryflags.io/IN/shiny/64.png',
-                            height: 25,
-                            width: 25,
+                            height: 24,
+                            width: 24,
                             errorBuilder: (context,exception,stackTrace){return Icon(Icons.flag);},
                           ),
                           SizedBox(width: 10),
-                          Text('India',style: TextStyle(fontSize: 14,fontFamily: '')),
+                          Text('India',style: TextStyle(fontSize: 12,fontFamily: '')),
                           SizedBox(width: 5),
                           Icon(Icons.arrow_drop_down_sharp,color: Colors.black,size: 28)
                         ]
@@ -205,7 +205,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                         children: [
                           Text(
                             HelperAbout.listVaccineTag[index],
-                            style: TextStyle(color: Colors.black,fontSize: 14,fontFamily: ''),
+                            style: TextStyle(color: Colors.grey[800],fontSize: 12,fontFamily: ''),
                           ),
                           SizedBox(height: 5),
                           widget.provider.apiVaccine
@@ -216,7 +216,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                             : formatter.format(widget.provider.vaccineResponse[index]),
                             style: TextStyle(
                               color: Colors.black,
-                              fontSize: 26,
+                              fontSize: 24,
                               fontFamily: '',
                               fontWeight: FontWeight.bold
                             )
@@ -252,7 +252,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                     children: [
                       Text(
                         'Sites Conducting Vaccination',
-                        style: TextStyle(color: Colors.black,fontSize: 14,fontFamily: ''),
+                        style: TextStyle(color: Colors.grey[800],fontSize: 12,fontFamily: ''),
                       ),
                       SizedBox(height: 5),
                       widget.provider.apiVaccine
@@ -263,7 +263,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                         : formatter.format(widget.provider.sites),
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: 26,
+                          fontSize: 24,
                           fontFamily: '',
                           fontWeight: FontWeight.bold
                         )
@@ -277,7 +277,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                               children: [
                                 Text(
                                   'Government',
-                                  style: TextStyle(color: Colors.black,fontSize: 12,fontFamily: ''),
+                                  style: TextStyle(color: Colors.grey[800],fontSize: 11,fontFamily: ''),
                                 ),
                                 SizedBox(height: 2),
                                 widget.provider.apiVaccine
@@ -288,7 +288,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                                   : formatter.format(widget.provider.sitesGovernment),
                                   style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: 24,
+                                    fontSize: 22,
                                     fontFamily: '',
                                     fontWeight: FontWeight.bold
                                   )
@@ -302,7 +302,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                               children: [
                                 Text(
                                   'Private',
-                                  style: TextStyle(color: Colors.black,fontSize: 12,fontFamily: ''),
+                                  style: TextStyle(color: Colors.grey[800],fontSize: 11,fontFamily: ''),
                                 ),
                                 SizedBox(height: 2),
                                 widget.provider.apiVaccine
@@ -313,7 +313,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                                   : formatter.format(widget.provider.sitesPrivate),
                                   style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: 24,
+                                    fontSize: 22,
                                     fontFamily: '',
                                     fontWeight: FontWeight.bold
                                   )
@@ -352,7 +352,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                     children: [
                       Text(
                         'Available vaccine in India',
-                        style: TextStyle(color: Colors.black,fontSize: 14,fontFamily: ''),
+                        style: TextStyle(color: Colors.grey[800],fontSize: 12,fontFamily: ''),
                       ),
                       SizedBox(height: 5),
                       widget.provider.apiVaccine
@@ -371,7 +371,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                               children: [
                                 Icon(Icons.circle,color: Colors.green,size: 8),
                                 SizedBox(width: 5),
-                                Flexible(child: Text(widget.provider.vaccineName[index],style: TextStyle(color: Colors.black,fontSize: 12)))
+                                Flexible(child: Text(widget.provider.vaccineName[index],style: TextStyle(color: Colors.black,fontSize: 11)))
                               ]
                             )
                           );

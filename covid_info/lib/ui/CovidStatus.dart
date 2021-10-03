@@ -138,7 +138,7 @@ class _MainScreen extends State<MainScreen> {
                     widget.provider.apiCalling
                     ? 'Loading...'
                     : 'Last updated: 1 days ago',
-                    style: TextStyle(color: Colors.grey,fontSize: 14,fontFamily: ''),
+                    style: TextStyle(color: Colors.grey,fontSize: 12,fontFamily: ''),
                   )
                 ),
                 Flexible(
@@ -154,12 +154,12 @@ class _MainScreen extends State<MainScreen> {
                         children: [
                           Image.network(
                             'https://www.countryflags.io/IN/shiny/64.png',
-                            height: 25,
-                            width: 25,
+                            height: 24,
+                            width: 24,
                             errorBuilder: (context,exception,stackTrace){return Icon(Icons.flag);},
                           ),
                           SizedBox(width: 10),
-                          Text('India',style: TextStyle(fontSize: 14,fontFamily: '')),
+                          Text('India',style: TextStyle(fontSize: 12,fontFamily: '')),
                           SizedBox(width: 5),
                           Icon(Icons.arrow_drop_down_sharp,color: Colors.black,size: 28)
                         ]
@@ -207,7 +207,7 @@ class _MainScreen extends State<MainScreen> {
                         children: [
                           Text(
                             HelperAbout.listTags[index],
-                            style: TextStyle(color: Colors.black,fontSize: 14,fontFamily: ''),
+                            style: TextStyle(color: Colors.grey[800],fontSize: 12,fontFamily: ''),
                           ),
                           SizedBox(height: 5),
                           widget.provider.apiCalling
@@ -218,7 +218,7 @@ class _MainScreen extends State<MainScreen> {
                             : formatter.format(widget.provider.covidStatusResponse[index]),
                             style: TextStyle(
                               color: Colors.black,
-                              fontSize: 26,
+                              fontSize: 24,
                               fontFamily: '',
                               fontWeight: FontWeight.bold
                             )

@@ -40,8 +40,6 @@ class VaccinationDialog extends StatelessWidget {
               color: Color(0xFFE3F2FD),
               padding: EdgeInsets.only(left: 5,right: 5,top: 8,bottom: 8),
               child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
                     child: Text(
@@ -84,7 +82,6 @@ class VaccinationDialog extends StatelessWidget {
                   color: index%2 == 0 ? Colors.white : Colors.grey[100],
                   padding: EdgeInsets.only(left: 5,right: 5,top: 10,bottom: 10),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Expanded(
                         child: Text(

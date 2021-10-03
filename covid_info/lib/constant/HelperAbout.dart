@@ -30,11 +30,11 @@ class HelperAbout {
   ];
 
   static var listTags = [
-    'Total Population',
-    'Total Confirmed',
-    'Total Recovered',
-    'Total Active',
-    'Total Deaths',
+    'Population',
+    'Confirmed',
+    'Recovered',
+    'Active',
+    'Deaths',
     'Critical Cases',
     'New Cases',
     'New Deaths'
@@ -48,9 +48,9 @@ class HelperAbout {
   ];
 
   static var listVaccineTag = [
-    'Total Registrations',
-    'Total Vaccinations',
-    'Dose 1',
-    'Dose 2',
+    'Registrations',
+    'Vaccinations',
+    'Dose1',
+    'Dose2',
   ];
 }
