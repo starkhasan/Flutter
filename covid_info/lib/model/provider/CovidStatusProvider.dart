@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:covid_info/model/response/FAQResponse.dart';
 import 'package:covid_info/model/response/VaccineResponse.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:covid_info/model/Api.dart';
@@ -9,6 +10,7 @@ import 'dart:convert';
 import 'package:covid_info/model/response/PopulationResponse.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:device_info/device_info.dart';
+import 'package:flutter/services.dart';
 
 class CovidStatusProvider extends ChangeNotifier {
   bool _callApi = false;
@@ -17,12 +19,14 @@ class CovidStatusProvider extends ChangeNotifier {
   bool _vaccineApi = false;
   bool _bannerVisibility = false;
   bool _showSearchBar = false;
+  bool _loadFAQ = true;
   bool get showBanner => _bannerVisibility;
   bool get apiCalling => _callApi;
   bool get apiCountry => _countryApi;
   bool get apiVaccine => _vaccineApi;
   bool get apiWorldVaccine => _worldVaccineApi;
   bool get showSearchBar => _showSearchBar;
+  bool get loadFAQ => _loadFAQ;
 
   bool countrySearchTopVisible = false;
   bool faqFABVisible = false;
@@ -59,6 +63,7 @@ class CovidStatusProvider extends ChangeNotifier {
   List<VaccinationResponse> worldVaccineResponse = [];
   List<VaccinationResponse> originalWorldVaccineResponse = [];
   List<CountryResponse> originalCountryResponse = [];
+  List<FAQResponse> faqResponse = [];
   List<int> vaccineResponse = [0, 0, 0, 0];
   List<String> vaccineName = [];
   var firebase = FirebaseDatabase.instance;
@@ -243,6 +248,19 @@ class CovidStatusProvider extends ChangeNotifier {
     // }
     await vaccineList();
     _vaccineApi = false;
+    notifyListeners();
+  }
+
+  Future<void> loadFAQData() async {
+    _loadFAQ = true;
+    notifyListeners();
+    try {
+      var data = await rootBundle.loadString('assets/jsonAsset/faqs.json');
+      faqResponse = List<FAQResponse>.from(jsonDecode(data).map((x) => FAQResponse.fromJson(x)));
+    } catch (e) {
+      faqResponse = [];
+    }
+    _loadFAQ = false;
     notifyListeners();
   }
 }

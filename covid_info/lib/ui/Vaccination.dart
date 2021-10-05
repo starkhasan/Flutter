@@ -49,7 +49,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
   @override
   void initState() {
     super.initState();
-     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
        widget.provider.vaccination(true);
     });
     _bannerAd = BannerAd(

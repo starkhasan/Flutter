@@ -1,3 +1,4 @@
+import 'package:covid_info/constant/HelperAbout.dart';
 import 'package:covid_info/model/response/VaccineResponse.dart';
 import 'package:covid_info/utils/VaccinationDialog.dart';
 import 'package:flutter/cupertino.dart';
@@ -337,6 +338,13 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(color: Colors.black,fontSize: 22,fontFamily: '',fontWeight: FontWeight.bold),
                       )
+                    ),
+                    SizedBox(width: 5),
+                    Image.network(
+                      'https://www.countryflags.io/${HelperAbout.flagCode[response[index].country]}/shiny/64.png',
+                      height: 22,
+                      width: 22,
+                      errorBuilder: (context,exception,stackTrace){return Icon(Icons.flag);},
                     )
                   ]
                 ),

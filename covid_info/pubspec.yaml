@@ -60,6 +60,7 @@ flutter:
     - assets/images/syringe.png
     - assets/images/vaccine.png
     - assets/images/cowinlogo.jpg
+    - assets/jsonAsset/faqs.json
     - assets/images/logo.jpg
     - assets/images/prevention.jpg
     - assets/images/symptoms.jpg

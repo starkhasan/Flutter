@@ -1,4 +1,3 @@
-import 'package:covid_info/constant/HelperFAQ.dart';
 import 'package:covid_info/model/provider/CovidStatusProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +38,9 @@ class _MainScreen extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      widget.provider.loadFAQData();
+    });
     _scrollController.addListener(_scrollListener);
   }
 
@@ -83,6 +85,7 @@ class _MainScreen extends State<MainScreen> {
           SliverList(
             delegate: SliverChildListDelegate([
               faqWidget()
+              //Container(color: Colors.red,child: Center(child: CircularProgressIndicator(strokeWidth: 1.5,valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF0B3054)))))
             ])
           )
         ]
@@ -91,9 +94,10 @@ class _MainScreen extends State<MainScreen> {
   }
 
   Widget faqWidget(){
+    var response = widget.provider.faqResponse;
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: HelperFAQ.listHeading.length,
+      itemCount: response.length,
       physics: NeverScrollableScrollPhysics(),
       scrollDirection: Axis.vertical,
       padding: EdgeInsets.zero,
@@ -111,13 +115,13 @@ class _MainScreen extends State<MainScreen> {
             ]
           ),
           child: ExpansionTile(
-            title: Text(HelperFAQ.listHeading[index],style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.normal)),
-            subtitle: Text(HelperFAQ.listSubHeading[index],style: TextStyle(fontSize: 12,fontStyle: FontStyle.italic,color: HelperFAQ.listSubHeading[index] == 'Corona' ? Colors.red : Colors.green)),
+            title: Text(response[index].question,style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.normal)),
+            subtitle: Text(response[index].tag,style: TextStyle(fontSize: 12,fontStyle: FontStyle.italic,color: response[index].tag == 'corona' ? Colors.red : Colors.green)),
             children: [
               Container(
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.fromLTRB(subHeaderLeftMargin, 0, 10, 10),
-                child: Text(HelperFAQ.answer[index],style: TextStyle(fontSize: 12))
+                child: Text(response[index].answer,style: TextStyle(fontSize: 12))
               )
             ]
           )
@@ -125,5 +129,4 @@ class _MainScreen extends State<MainScreen> {
       }
     );
   }
-
 }

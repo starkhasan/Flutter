@@ -1,0 +1,122 @@
+[  
+    {
+        "tag": "corona",
+        "question": "What is the difference Between isolation and quarantine?",
+        "answer": "Quarantine is used for anyone who is a contact of someone infected with the Corona virus, whether the infected person has symptoms or not.Quarantine means that you remain separated from others because you have been exposed to the virus and you may be infected and can take place in a designated facility or at home. For COVID-19, this means staying in the facility or at home for 14 days.\n\nIsolation is used for people with COVID-19 symptoms or who have tested positive for the virus. Being in isolation means being separated from other people, ideally in a medically facility where you can receive clinical care."
+    },
+    {
+        "tag": "corona",
+        "question": "What should I do if I have been exposed to someone who has COVID-19?",
+        "answer": "Call your health care provider or COVID-19 hotline for instructions and find out when and where to get a test, stay at home for 14 days away from others and monitor your health."
+    },
+    {
+        "tag": "vaccine",
+        "question": "Will I get Covid after COVID vaccination?",
+        "answer": "It's unclear, but researchers are studying the chances of long-term symptoms developing in anyone who might get infected after vaccination.The COVID-19 vaccines in use around the world are effective at preventing severe illness and death from the coronavirus, but some people do get infected after the shots. With such breakthrough cases, health experts say the vaccines should help lessen the severity of any illness people experience."
+    },
+    {
+        "tag": "corona",
+        "question": "How long does it take to develop symptoms?",
+        "answer": "The time from exposure to COVID-19 to the moment when symptoms begin is, on average, 5-6 days and can range from 1-14 days."
+    },
+    {
+        "tag": "vaccine",
+        "question": "How does a vaccine work?",
+        "answer": "Vaccines reduce risks of getting a disease by working with your body’s natural defenses to build protection. When you get a vaccine, your immune system responds. It:\n\nRecognizes the invading germ, such as the virus or bacteria.\nProduces antibodies. Antibodies are proteins produced naturally by the immune system to fight disease.\nRemembers the disease and how to fight it. If you are then exposed to the germ in the future, your immune system can quickly destroy it before you become unwell.\n\nThe vaccine is therefore a safe and clever way to produce an immune response in the body, without causing illness."
+    },
+    {
+        "tag": "corona",
+        "question": "Are antibiotics effective in preventing or treating COVID-19?",
+        "answer": "Antibiotics do not work against viruses; they only work on bacterial infections. COVID-19 is caused by a virus, so antibiotics do not work. Antibiotics should not be used as a means of prevention or treatment of COVID-19."
+    },
+    {
+        "tag": "vaccine",
+        "question": "Are antibiotics effective in preventing or treating COVID-19?",
+        "answer": "Antibiotics do not work against viruses; they only work on bacterial infections. COVID-19 is caused by a virus, so antibiotics do not work. Antibiotics should not be used as a means of prevention or treatment of COVID-19."
+    },
+    {
+        "tag": "vaccine",
+        "question": "Are there side effects from vaccine?",
+        "answer": "Like any medicine, vaccines can cause mild side effects, such as a low-grade fever, or pain or redness at the injection site. Mild reactions go away within a few days on their own.\nSevere or long-lasting side effects are extremely rare. Vaccines are continually monitored for safety, to detect rare adverse events."
+    },
+    {
+        "tag": "vaccine",
+        "question": "Is vaccination free at all vaccination centres?",
+        "answer": "No. Vaccination is free at Government hospitals and charged up to INR 250 per dose in Private hospitals."
+    },
+    {
+        "tag": "vaccine",
+        "question": "Can I choose the vaccine?",
+        "answer": "System will show the vaccine being administered in each vaccination centre at the time of scheduling an appointment, the choice will not be available at the Government facilities ."
+    },
+    {
+        "tag": "vaccine",
+        "question": "What precautions should I take at the time of 2nd dose vaccination?",
+        "answer": "The Vaccination Centres have been directed to ensure that if a citizen is being vaccinated with 2nd dose, they should confirm that the first dose vaccination was done with the same vaccine as is being offered at the time of second dose and that the first dose was administered more than 28 days ago."
+    },
+    {
+        "tag": "vaccine",
+        "question": "Can I get vaccinated with 2nd dose in a different State/District?",
+        "answer": "Yes, you can get vaccinated in any State/District. The only restriction is that you will be able to get vaccinated only on those centres which are offering the same vaccine as was administered to you on your first dose."
+    },
+    {
+        "tag": "vaccine",
+        "question": "Which documents should I carry with me for vaccination?",
+        "answer": "You should carry your identity proof specified by you at the time of registration on the Co-WIN portal and a printout/screenshot of your appointment slip."
+    },
+    {
+        "tag": "vaccine",
+        "question": "Why do I need a vaccination certificate?",
+        "answer": "A COVID Vaccine Certificate (CVC) issued by the government offers an assurance to the beneficiary on the vaccination, type of vaccine used, and the provisional certificate also provides the next vaccination due. It also is an evidence for the citizen to prove to any entities which may require proof of vaccination specially in case of travel. Vaccination not only protects individuals from disease, but also reduces their risk of spreading the virus. Therefore, there could be a requirement in future to produce certificate for certain kind of social interactions and international travel."
+    },
+    {
+        "tag": "vaccine",
+        "question": "Where can I download vaccination certificate from?",
+        "answer": "You can download vaccination certificate from the Co-WIN portal (cowin.gov.in) or the Aarogya Setu app or through Digi-Locker."
+    },
+    {
+        "tag": "vaccine",
+        "question": "Whom do I contact in case of side effects from vaccination?",
+        "answer": "You can contact on any of the following details:\nHelpline Number: +91-11-23978046 (Toll free- 1075)\nTechnical Helpline Number: 0120-4473222\nHelpline Email Id: support@cowin.gov.in\nYou may also contact the Vaccination Centre where you took vaccination, for advice."
+    },
+    {
+        "tag": "vaccine",
+        "question": "Is there a mobile app that needs to be installed to register for vaccination?",
+        "answer": "There is no authorised mobile app for registering for vaccination in India. You need to log into the Co-WIN portal. You can also register for vaccination through the Aarogya Setu App."
+    },
+    {
+        "tag": "vaccine",
+        "question": "Is online registration mandatory for Covid 19 vaccination?",
+        "answer": "No. Vaccination Centres provide for a limited number of on-spot registration slots every day."
+    },
+    {
+        "tag": "vaccine",
+        "question": "How many people can be registered in the Co-WIN portal through one mobile number?",
+        "answer": "Up to 4 people can be registered for vaccination using the same mobile number."
+    },
+    {
+        "tag": "vaccine",
+        "question": "Can I register for vaccination without Aadhaar card?",
+        "answer": "Yes, you can register on Co-WIN portal using any of the following ID proofs: a. Aadhaar card b. Driving License c. PAN card d. Passport e. Pension Passbook f. NPR Smart Card g. Voter ID (EPIC)"
+    },
+    {
+        "tag": "vaccine",
+        "question": "Is there any registration charge to be paid?",
+        "answer": "No. There is no registration charge."
+    },
+    {
+        "tag": "vaccine",
+        "question": "Is it necessary to take 2nd dose of vaccination?",
+        "answer": "Yes. It is recommended that both doses of vaccine should be taken for realising the full benefit of vaccination. Both doses must be of the same vaccine type."
+    },
+    {
+        "tag": "vaccine",
+        "question": "When should I take the 2nd dose of vaccination?",
+        "answer": "It is recommended that the 2nd dose of COVAXIN should be administered in the interval of 4 to 6 weeks from the date of 1st dose administration. For COVISHIELD the recommended interval is 4 to 8 weeks while an interval of 6 to 8 weeks gives an enhanced protection."
+    },
+    {
+        "tag": "vaccine",
+        "question": "Will my 2nd dose appointment be automatically scheduled by Co-WIN system?",
+        "answer": "No. You have to take an appointment for the 2nd dose vaccination."
+    }
+]
