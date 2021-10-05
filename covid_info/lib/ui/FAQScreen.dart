@@ -84,12 +84,24 @@ class _MainScreen extends State<MainScreen> {
           ),
           SliverList(
             delegate: SliverChildListDelegate([
-              faqWidget()
-              //Container(color: Colors.red,child: Center(child: CircularProgressIndicator(strokeWidth: 1.5,valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF0B3054)))))
+              widget.provider.loadFAQ
+              ? loadingDialod()
+              : faqWidget()
             ])
           )
         ]
       )
+    );
+  }
+
+  Widget loadingDialod(){
+    return Container(
+      color: Colors.white,
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height - (kToolbarHeight + kBottomNavigationBarHeight),
+      child: Center(
+        child: Text('Loading...',style: TextStyle(fontSize: 12))
+      ),
     );
   }
 
