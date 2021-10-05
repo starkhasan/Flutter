@@ -296,15 +296,15 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(fontSize: 12)
                       )
-                    ),
-                  ],
+                    )
+                  ]
                 )
               )
             );
           }, separatorBuilder: (BuildContext context, int index) {
             return Divider(height: 1,thickness: 1);
-          },
-        ),
+          }
+        )
       ),
       color: Color(0xff0B3054),
       displacement: 20.0,
@@ -465,7 +465,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
               )
             );
           }
-        ),
+        )
       ),
       color: Color(0xff0B3054),
       displacement: 20.0,

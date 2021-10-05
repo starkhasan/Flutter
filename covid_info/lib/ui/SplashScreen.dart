@@ -14,7 +14,7 @@ class SplashScreen extends StatelessWidget {
       create: (_) => ConnectivityService().connectionStream,
       builder: (context, child) {
         return MainScreen();
-      },
+      }
     );
   }
 }

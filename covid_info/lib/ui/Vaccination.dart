@@ -226,7 +226,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                       )
                     ),
                     HelperAbout.listIconsVaccine[index]
-                  ],
+                  ]
                 )
               );
             }

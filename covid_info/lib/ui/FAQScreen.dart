@@ -85,7 +85,7 @@ class _MainScreen extends State<MainScreen> {
           SliverList(
             delegate: SliverChildListDelegate([
               widget.provider.loadFAQ
-              ? loadingDialod()
+              ? loadingDialog()
               : faqWidget()
             ])
           )
@@ -94,7 +94,7 @@ class _MainScreen extends State<MainScreen> {
     );
   }
 
-  Widget loadingDialod(){
+  Widget loadingDialog(){
     return Container(
       color: Colors.white,
       width: MediaQuery.of(context).size.width,

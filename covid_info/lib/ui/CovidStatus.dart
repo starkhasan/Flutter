@@ -148,6 +148,7 @@ class _MainScreen extends State<MainScreen> {
                       print(result);
                     },
                     child: Container(
+                      color: Colors.transparent,
                       padding: EdgeInsets.all(5),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -227,7 +228,7 @@ class _MainScreen extends State<MainScreen> {
                       )
                     ),
                     HelperAbout.listIcons[index]
-                  ],
+                  ]
                 )
               );
             }
