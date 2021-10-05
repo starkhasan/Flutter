@@ -12,7 +12,6 @@ class VaccinationDialog extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10),bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10))
         ),
         margin: EdgeInsets.only(
           top: MediaQuery.of(context).size.height * 0.10,
@@ -27,8 +26,7 @@ class VaccinationDialog extends StatelessWidget {
               width: double.infinity,
               padding: EdgeInsets.only(top: 14,bottom: 14),
               decoration: BoxDecoration(
-                color: Colors.blue[400],
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10))
+                color: Colors.blue[300],
               ),
               child: Text(
                 response.country,
