@@ -146,6 +146,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                       print(result);
                     },
                     child: Container(
+                      color: Colors.transparent,
                       padding: EdgeInsets.all(5),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,

@@ -229,79 +229,82 @@ class _CountryMainScreen extends State<CountryMainScreen> {
   Widget vaccineBodyWidget(){
     var response = widget.provider.worldVaccineResponse;
     return RefreshIndicator(
-      child: ListView.separated(
-        controller: _scrollController,
-        physics: BouncingScrollPhysics(),
-        itemCount: response.length,
-        shrinkWrap: true,
-        itemBuilder: (context,index){
-          var length = response[index].data.length;
-          return GestureDetector(
-            onTap: () => showCountryDialog(response[index]),
-            child: Container(
-              color: index%2 == 0 ? Colors.white : Colors.grey[100],
-              padding: EdgeInsets.only(left: 5,right: 5,top: 10,bottom: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(
-                    child: Text(
-                      response[index].country,
-                      textAlign: TextAlign.left,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 12)
-                    )
-                  ),
-                  Expanded(
-                    child: Text(
-                      response[index].data[length - 1].totalVaccinations != null
-                      ? response[index].data[length - 1].totalVaccinations.toString()
-                      : 'N/A',
-                      textAlign: TextAlign.right,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 12)
-                    )
-                  ),
-                  Expanded(
-                    child: Text(
-                      response[index].data[length - 1].dailyVaccinations != null
-                      ? response[index].data[length - 1].dailyVaccinations.toString()
-                      : 'N/A',
-                      textAlign: TextAlign.right,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 12)
-                    )
-                  ),
-                  Expanded(
-                    child: Text(
-                      response[index].data[length - 1].peopleFullyVaccinated != null
-                      ? response[index].data[length - 1].peopleFullyVaccinated.toString()
-                      : 'N/A',
-                      textAlign: TextAlign.right,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 12)
-
-                    )
-                  ),
-                  Expanded(
-                    child: Text(
-                      response[index].data[length - 1].peopleFullyVaccinatedPerHundred != null
-                      ? response[index].data[length - 1].peopleFullyVaccinatedPerHundred! > 100.00
-                        ? '100%'
-                        : response[index].data[length - 1].peopleFullyVaccinatedPerHundred.toString()+'%'
-                      : 'N/A',
-                      textAlign: TextAlign.right,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 12)
-                    )
-                  ),
-                ],
+      child: Scrollbar(
+        radius: Radius.circular(15),
+        child: ListView.separated(
+          controller: _scrollController,
+          physics: BouncingScrollPhysics(),
+          itemCount: response.length,
+          shrinkWrap: true,
+          itemBuilder: (context,index){
+            var length = response[index].data.length;
+            return GestureDetector(
+              onTap: () => showCountryDialog(response[index]),
+              child: Container(
+                color: index%2 == 0 ? Colors.white : Colors.grey[100],
+                padding: EdgeInsets.only(left: 5,right: 5,top: 10,bottom: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        response[index].country,
+                        textAlign: TextAlign.left,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 12)
+                      )
+                    ),
+                    Expanded(
+                      child: Text(
+                        response[index].data[length - 1].totalVaccinations != null
+                        ? response[index].data[length - 1].totalVaccinations.toString()
+                        : 'N/A',
+                        textAlign: TextAlign.right,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 12)
+                      )
+                    ),
+                    Expanded(
+                      child: Text(
+                        response[index].data[length - 1].dailyVaccinations != null
+                        ? response[index].data[length - 1].dailyVaccinations.toString()
+                        : 'N/A',
+                        textAlign: TextAlign.right,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 12)
+                      )
+                    ),
+                    Expanded(
+                      child: Text(
+                        response[index].data[length - 1].peopleFullyVaccinated != null
+                        ? response[index].data[length - 1].peopleFullyVaccinated.toString()
+                        : 'N/A',
+                        textAlign: TextAlign.right,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 12)
+      
+                      )
+                    ),
+                    Expanded(
+                      child: Text(
+                        response[index].data[length - 1].peopleFullyVaccinatedPerHundred != null
+                        ? response[index].data[length - 1].peopleFullyVaccinatedPerHundred! > 100.00
+                          ? '100%'
+                          : response[index].data[length - 1].peopleFullyVaccinatedPerHundred.toString()+'%'
+                        : 'N/A',
+                        textAlign: TextAlign.right,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 12)
+                      )
+                    ),
+                  ],
+                )
               )
-            )
-          );
-        }, separatorBuilder: (BuildContext context, int index) {
-          return Divider(height: 1,thickness: 1);
-        },
+            );
+          }, separatorBuilder: (BuildContext context, int index) {
+            return Divider(height: 1,thickness: 1);
+          },
+        ),
       ),
       color: Color(0xff0B3054),
       displacement: 20.0,
@@ -312,154 +315,157 @@ class _CountryMainScreen extends State<CountryMainScreen> {
   Widget coronaBodyWidget(){
     var response = widget.provider.countryResponse;
     return RefreshIndicator(
-      child: ListView.builder(
-        controller: _scrollController,
-        physics: BouncingScrollPhysics(),
-        itemCount: response.length,
-        itemBuilder: (context,index){
-          return Container(
-            margin: EdgeInsets.fromLTRB(5, 8, 5, 0),
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              boxShadow: [BoxShadow(color: Colors.grey,blurRadius: 1.5)]
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Flexible(
-                      child: Text(
-                        response[index].country,
-                        softWrap: true,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: Colors.black,fontSize: 22,fontFamily: '',fontWeight: FontWeight.bold),
+      child: Scrollbar(
+        radius: Radius.circular(15),
+        child: ListView.builder(
+          controller: _scrollController,
+          physics: BouncingScrollPhysics(),
+          itemCount: response.length,
+          itemBuilder: (context,index){
+            return Container(
+              margin: EdgeInsets.fromLTRB(5, 8, 5, 0),
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                boxShadow: [BoxShadow(color: Colors.grey,blurRadius: 1.5)]
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Flexible(
+                        child: Text(
+                          response[index].country,
+                          softWrap: true,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(color: Colors.black,fontSize: 22,fontFamily: '',fontWeight: FontWeight.bold),
+                        )
+                      ),
+                      SizedBox(width: 5),
+                      Image.network(
+                        'https://www.countryflags.io/${HelperAbout.flagCode[response[index].country]}/shiny/64.png',
+                        height: 22,
+                        width: 22,
+                        errorBuilder: (context,exception,stackTrace){return Icon(Icons.flag);},
                       )
-                    ),
-                    SizedBox(width: 5),
-                    Image.network(
-                      'https://www.countryflags.io/${HelperAbout.flagCode[response[index].country]}/shiny/64.png',
-                      height: 22,
-                      width: 22,
-                      errorBuilder: (context,exception,stackTrace){return Icon(Icons.flag);},
-                    )
-                  ]
-                ),
-                SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Cases',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
-                          Text(
-                            response[index].cases == null
-                            ? 'N/A'
-                            : formatter.format(response[index].cases),
-                            style: TextStyle(color: Colors.blue,fontSize: 16,fontWeight: FontWeight.bold,fontFamily: '')
-                          )
-                        ]
+                    ]
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Cases',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
+                            Text(
+                              response[index].cases == null
+                              ? 'N/A'
+                              : formatter.format(response[index].cases),
+                              style: TextStyle(color: Colors.blue,fontSize: 16,fontWeight: FontWeight.bold,fontFamily: '')
+                            )
+                          ]
+                        )
+                      ),
+                      Expanded(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text('Recovered',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
+                            Text(
+                              response[index].recovered == null
+                              ? 'N/A'
+                              : formatter.format(response[index].recovered),
+                              style: TextStyle(color: Colors.green,fontSize: 16,fontWeight: FontWeight.bold,fontFamily: '')
+                            )
+                          ]
+                        )
+                      ) 
+                    ]
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Deaths',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
+                            Text(
+                              response[index].deaths == null
+                              ? 'N/A'
+                              : formatter.format(response[index].deaths),
+                              style: TextStyle(color: Colors.red,fontSize: 16,fontWeight: FontWeight.bold,fontFamily: '')
+                            )
+                          ]
+                        )
+                      ),
+                      Expanded(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text('Active',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
+                            Text(
+                              response[index].active == null
+                              ? 'N/A'
+                              : formatter.format(response[index].active),
+                              style: TextStyle(color: Colors.teal,fontSize: 16,fontWeight: FontWeight.bold,fontFamily: '')
+                            )
+                          ]
+                        )
                       )
-                    ),
-                    Expanded(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text('Recovered',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
-                          Text(
-                            response[index].recovered == null
-                            ? 'N/A'
-                            : formatter.format(response[index].recovered),
-                            style: TextStyle(color: Colors.green,fontSize: 16,fontWeight: FontWeight.bold,fontFamily: '')
-                          )
-                        ]
+                    ]
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Critical Cases',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
+                            Text(
+                              response[index].critical == null
+                              ? 'N/A'
+                              : formatter.format(response[index].critical),
+                              style: TextStyle(color: Colors.red,fontSize: 16,fontWeight: FontWeight.bold,fontFamily: '')
+                            )
+                          ]
+                        )
+                      ),
+                      Expanded(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text('New Cases',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
+                            Text(
+                              response[index].todayCases == null
+                              ? 'N/A'
+                              : formatter.format(response[index].todayCases),
+                              style: TextStyle(color: Colors.blue,fontSize: 16,fontWeight: FontWeight.bold,fontFamily: '')
+                            )
+                          ]
+                        )
                       )
-                    ) 
-                  ]
-                ),
-                SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Deaths',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
-                          Text(
-                            response[index].deaths == null
-                            ? 'N/A'
-                            : formatter.format(response[index].deaths),
-                            style: TextStyle(color: Colors.red,fontSize: 16,fontWeight: FontWeight.bold,fontFamily: '')
-                          )
-                        ]
-                      )
-                    ),
-                    Expanded(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text('Active',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
-                          Text(
-                            response[index].active == null
-                            ? 'N/A'
-                            : formatter.format(response[index].active),
-                            style: TextStyle(color: Colors.teal,fontSize: 16,fontWeight: FontWeight.bold,fontFamily: '')
-                          )
-                        ]
-                      )
-                    )
-                  ]
-                ),
-                SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Critical Cases',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
-                          Text(
-                            response[index].critical == null
-                            ? 'N/A'
-                            : formatter.format(response[index].critical),
-                            style: TextStyle(color: Colors.red,fontSize: 16,fontWeight: FontWeight.bold,fontFamily: '')
-                          )
-                        ]
-                      )
-                    ),
-                    Expanded(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text('New Cases',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
-                          Text(
-                            response[index].todayCases == null
-                            ? 'N/A'
-                            : formatter.format(response[index].todayCases),
-                            style: TextStyle(color: Colors.blue,fontSize: 16,fontWeight: FontWeight.bold,fontFamily: '')
-                          )
-                        ]
-                      )
-                    )
-                  ]
-                )
-              ]
-            )
-          );
-        }
+                    ]
+                  )
+                ]
+              )
+            );
+          }
+        ),
       ),
       color: Color(0xff0B3054),
       displacement: 20.0,

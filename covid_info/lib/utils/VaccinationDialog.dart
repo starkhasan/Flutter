@@ -70,62 +70,65 @@ class VaccinationDialog extends StatelessWidget {
               )
             ),
             Flexible(
-              child: ListView.separated(
-              physics: ScrollPhysics(),
-              itemCount: response.data.length,
-              shrinkWrap: true,
-              padding: EdgeInsets.zero,
-              itemBuilder: (context,index){
-                return Container(
-                  color: index%2 == 0 ? Colors.white : Colors.grey[100],
-                  padding: EdgeInsets.only(left: 5,right: 5,top: 10,bottom: 10),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          response.data[index].date.split('-').reversed.join('-'),
-                          textAlign: TextAlign.left,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(fontFamily: '',color: Colors.black,fontSize: 12,decoration: TextDecoration.none,fontWeight: FontWeight.normal)
-                        )
-                      ),
-                      Expanded(
-                        child: Text(
-                          response.data[index].totalVaccinations != null
-                          ? response.data[index].totalVaccinations.toString()
-                          : 'N/A',
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(fontFamily: '',color: Colors.black,fontSize: 12,decoration: TextDecoration.none,fontWeight: FontWeight.normal)
-                        )
-                      ),
-                      Expanded(
-                        child: Text(
-                          response.data[index].peopleVaccinated != null
-                          ? response.data[index].peopleVaccinated.toString()
-                          : 'N/A',
-                          textAlign: TextAlign.right,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(fontFamily: '',color: Colors.black,fontSize: 12,decoration: TextDecoration.none,fontWeight: FontWeight.normal)
-                        )
-                      ),
-                      Expanded(
-                        child: Text(
-                          response.data[index].peopleFullyVaccinated != null
-                          ? response.data[index].peopleFullyVaccinated.toString()
-                          : 'N/A',
-                          textAlign: TextAlign.right,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(fontFamily: '',color: Colors.black,fontSize: 12,decoration: TextDecoration.none,fontWeight: FontWeight.normal)
-                        )
+              child: Scrollbar(
+                radius: Radius.circular(15),
+                child: ListView.separated(
+                  physics: ScrollPhysics(),
+                  itemCount: response.data.length,
+                  shrinkWrap: true,
+                  padding: EdgeInsets.zero,
+                  itemBuilder: (context,index){
+                    return Container(
+                      color: index%2 == 0 ? Colors.white : Colors.grey[100],
+                      padding: EdgeInsets.only(left: 5,right: 5,top: 10,bottom: 10),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              response.data[index].date.split('-').reversed.join('-'),
+                              textAlign: TextAlign.left,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(fontFamily: '',color: Colors.black,fontSize: 12,decoration: TextDecoration.none,fontWeight: FontWeight.normal)
+                            )
+                          ),
+                          Expanded(
+                            child: Text(
+                              response.data[index].totalVaccinations != null
+                              ? response.data[index].totalVaccinations.toString()
+                              : 'N/A',
+                              textAlign: TextAlign.center,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(fontFamily: '',color: Colors.black,fontSize: 12,decoration: TextDecoration.none,fontWeight: FontWeight.normal)
+                            )
+                          ),
+                          Expanded(
+                            child: Text(
+                              response.data[index].peopleVaccinated != null
+                              ? response.data[index].peopleVaccinated.toString()
+                              : 'N/A',
+                              textAlign: TextAlign.right,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(fontFamily: '',color: Colors.black,fontSize: 12,decoration: TextDecoration.none,fontWeight: FontWeight.normal)
+                            )
+                          ),
+                          Expanded(
+                            child: Text(
+                              response.data[index].peopleFullyVaccinated != null
+                              ? response.data[index].peopleFullyVaccinated.toString()
+                              : 'N/A',
+                              textAlign: TextAlign.right,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(fontFamily: '',color: Colors.black,fontSize: 12,decoration: TextDecoration.none,fontWeight: FontWeight.normal)
+                            )
+                          )
+                        ],
                       )
-                    ],
-                  )
-                );
-              }, separatorBuilder: (BuildContext context, int index) {
-                return Divider(height: 1,thickness: 1);
-              },
-            )
+                    );
+                  }, separatorBuilder: (BuildContext context, int index) {
+                    return Divider(height: 1,thickness: 1);
+                  },
+                ),
+              )
             )
           ]
         )
