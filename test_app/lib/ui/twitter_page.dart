@@ -15,8 +15,31 @@ class _TwitterPageState extends State<TwitterPage> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(0),
         child: AppBar(
-          backgroundColor: Colors.white,
         )
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.lightBlue,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        type: BottomNavigationBarType.fixed,
+        items: const [
+          BottomNavigationBarItem(
+            label: 'Home',
+            icon: Icon(Icons.home_rounded)
+          ),
+          BottomNavigationBarItem(
+            label: 'Home',
+            icon: Icon(Icons.search_sharp)
+          ),
+          BottomNavigationBarItem(
+            label: 'Home',
+            icon: Icon(Icons.notifications_none_rounded)
+          ),
+          BottomNavigationBarItem(
+            label: 'Home',
+            icon: Icon(Icons.email_outlined)
+          )
+        ],
       ),
       body: Column(
         children: [
@@ -25,9 +48,9 @@ class _TwitterPageState extends State<TwitterPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                IconButton(onPressed: () => print('Click on Drawer Icon'),icon: const Icon(Icons.menu),color: Colors.blue),
+                IconButton(onPressed: () => print('Click on Drawer Icon'),icon: const Icon(Icons.menu),color: Colors.lightBlue),
                 SizedBox(width: 20,height: 20, child: Image.asset('asset/twitter.png')),
-                IconButton(onPressed: () => print('Star is Clicked'),icon: const Icon(Icons.star,color: Colors.blue))
+                IconButton(onPressed: () => print('Star is Clicked'),icon: const Icon(Icons.star,color: Colors.lightBlue))
               ]
             )
           ),
@@ -35,31 +58,42 @@ class _TwitterPageState extends State<TwitterPage> {
             child: CustomScrollView(
               slivers: [
                 SliverAppBar(
+                  titleSpacing: 0,
                   backgroundColor: const Color(0xFF323232),
                   floating: true,
-                  toolbarHeight: MediaQuery.of(context).size.height * 0.10,
+                  toolbarHeight: MediaQuery.of(context).size.height * 0.12,
                   title: Container(
-                    height: MediaQuery.of(context).size.height * 0.09,
+                    height: MediaQuery.of(context).size.height * 0.12,
                     padding: EdgeInsets.zero,
                     child: ListView.builder(
-                      itemCount: 50,
+                      itemCount: 10,
                       shrinkWrap: true,
+                      physics: const BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index){
-                        return Container(
-                          margin: const EdgeInsets.only(right: 10),
-                          child: const CircleAvatar(
-                            backgroundColor: Colors.teal,
-                            radius: 32,
-                            child: CircleAvatar(
-                              radius: 30,
-                              backgroundColor: Color(0xFF323232),
-                              child: CircleAvatar(
-                                radius: 28,
-                                backgroundImage: NetworkImage('https://i.picsum.photos/id/0/5616/3744.jpg?hmac=3GAAioiQziMGEtLbfrdbcoenXoWAW-zlyEAMkfEdBzQ'),
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(left: 8,right: 8),
+                              child: const CircleAvatar(
+                                backgroundColor: Colors.lightBlue,
+                                radius: 32,
+                                child: CircleAvatar(
+                                  radius: 30,
+                                  backgroundColor: Color(0xFF323232),
+                                  child: CircleAvatar(
+                                    radius: 28,
+                                    backgroundImage: NetworkImage('https://i.picsum.photos/id/0/5616/3744.jpg?hmac=3GAAioiQziMGEtLbfrdbcoenXoWAW-zlyEAMkfEdBzQ'),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
+                            const SizedBox(height: 5),
+                            const Text('Ali',style: TextStyle(fontSize: 14,fontWeight: FontWeight.normal),)
+                          ]
                         );
                       }
                     )
@@ -93,46 +127,84 @@ class _TwitterPageState extends State<TwitterPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const CircleAvatar(
-                radius: 32,
+                radius: 28,
                 backgroundImage: NetworkImage('https://i.picsum.photos/id/0/5616/3744.jpg?hmac=3GAAioiQziMGEtLbfrdbcoenXoWAW-zlyEAMkfEdBzQ'),
               ),
               const SizedBox(width: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      RichText(
-                        text: const TextSpan(
-                          children: [
-                            TextSpan(text: 'Peter Perz'),
-                            TextSpan(text: ' @PeterPetraz  1h',style: TextStyle(color: Colors.grey))
-                          ]
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        RichText(
+                          text: const TextSpan(
+                            children: [
+                              TextSpan(text: 'Ali Hasan'),
+                              TextSpan(text: ' @alihasan226  1h',style: TextStyle(color: Colors.grey))
+                            ]
+                          )
+                        ),
+                        IconButton(
+                          onPressed: () => print('Click on Tweet'),
+                          padding: const EdgeInsets.only(left: 8),
+                          icon: const Icon(Icons.more_horiz,color: Colors.grey)
+                        )
+                      ]
+                    ),
+                    const Text('Do martians make science fiction about people on Earth, and if they do, are we always the bad guys?',style: TextStyle(fontSize: 16)),
+                    const SizedBox(height: 10),
+                    Container(
+                      padding: EdgeInsets.zero,
+                      height: MediaQuery.of(context).size.height * 0.25,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        image: const DecorationImage(
+                          fit: BoxFit.fill,
+                          image: NetworkImage('https://i.picsum.photos/id/0/5616/3744.jpg?hmac=3GAAioiQziMGEtLbfrdbcoenXoWAW-zlyEAMkfEdBzQ')
                         )
                       ),
-                      InkWell(
-                        onTap: () => print('Click on Tweet'),
-                        child: const Icon(Icons.more_horiz,color: Colors.grey)
-                      )
-                    ]
-                  ),
-                  Container(padding: EdgeInsets.zero,color: Colors.red,height: 20,width: 20),
-                  Container(
-                    padding: EdgeInsets.zero,
-                    height: MediaQuery.of(context).size.height * 0.20,
-                    width: MediaQuery.of(context).size.width * 0.80,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      image: const DecorationImage(
-                        fit: BoxFit.fill,
-                        image: NetworkImage('https://i.picsum.photos/id/0/5616/3744.jpg?hmac=3GAAioiQziMGEtLbfrdbcoenXoWAW-zlyEAMkfEdBzQ')
-                      )
                     ),
-                  )
-                ]
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: const [
+                            Icon(Icons.chat_bubble_outline,size: 20,color: Colors.grey),
+                            SizedBox(width: 2),
+                            Text('270',style:TextStyle(color: Colors.grey,fontSize: 11))
+                          ],
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: const [
+                            Icon(Icons.repeat_outlined,size: 20,color: Colors.grey),
+                            SizedBox(width: 2),
+                            Text('317',style:TextStyle(color: Colors.grey,fontSize: 11))
+                          ],
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: const [
+                            Icon(Icons.favorite_border,size: 20,color: Colors.grey),
+                            SizedBox(width: 2),
+                            Text('270',style:TextStyle(color: Colors.grey,fontSize: 11))
+                          ],
+                        ),
+                        InkWell(
+                          onTap: () => print('Share'),
+                          child: const Icon(Icons.share,size: 20,color: Colors.grey)
+                        )
+                      ]
+                    ),
+                    const SizedBox(height: 5)
+                  ]
+                ),
               )
             ]
           )
