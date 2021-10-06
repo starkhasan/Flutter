@@ -234,7 +234,6 @@ class _HomePageState extends State<HomePage> {
                             Align(
                               alignment: Alignment.center,
                               child: Container(
-                                padding: const EdgeInsets.all(0.5),
                                 margin: const EdgeInsets.only(top: 30),
                                 decoration: const BoxDecoration(
                                   shape: BoxShape.circle,
@@ -269,7 +268,7 @@ class _HomePageState extends State<HomePage> {
                     )
                   );
                 }
-              ),
+              )
             ),
             const Divider(height: 5,thickness: 5,color: Colors.black),
             ListView.separated(
