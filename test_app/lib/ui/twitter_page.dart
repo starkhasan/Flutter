@@ -61,6 +61,7 @@ class _TwitterPageState extends State<TwitterPage> {
                   titleSpacing: 0,
                   backgroundColor: const Color(0xFF323232),
                   floating: true,
+                  automaticallyImplyLeading: false,
                   toolbarHeight: MediaQuery.of(context).size.height * 0.12,
                   title: Container(
                     height: MediaQuery.of(context).size.height * 0.12,
