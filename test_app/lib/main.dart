@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/ui/home_page.dart';
+import 'package:test_app/ui/twitter_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.teal,
         brightness: Brightness.dark
       ),
-      home: const HomePage(),
+      home: const TwitterPage(),
     );
   }
 }
