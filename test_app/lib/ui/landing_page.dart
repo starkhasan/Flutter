@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:test_app/ui/home_page.dart';
+import 'package:test_app/ui/facebook_page.dart';
 import 'package:test_app/ui/twitter_page.dart';
 
 class LandingPage extends StatelessWidget {
@@ -46,7 +46,7 @@ class LandingPage extends StatelessWidget {
   onClick(BuildContext _context,int index){
     switch (index) {
       case 0:
-        Navigator.push(_context, MaterialPageRoute(builder: (_context) => const HomePage()));
+        Navigator.push(_context, MaterialPageRoute(builder: (_context) => const FacebookPage()));
         break;
       case 1:
         Navigator.push(_context, MaterialPageRoute(builder: (_context) => const TwitterPage()));
