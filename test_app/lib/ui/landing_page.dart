@@ -3,13 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/ui/facebook_page.dart';
 import 'package:test_app/ui/twitter_page.dart';
+import 'package:test_app/ui/webview_page.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var screenNames = ['Facebook','Twitter'];
+    var screenNames = ['Facebook','Twitter','WebView'];
     var screenAssets = ['asset/facebook.png','asset/twitter.png'];
     return Scaffold(
       appBar: AppBar(
@@ -33,7 +34,7 @@ class LandingPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(screenNames[index],style: const TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 16)),
-                  SizedBox(width: 25,height: 25,child: Image.asset(screenAssets[index]))
+                  SizedBox(width: 25,height: 25,child: index >= screenAssets.length ? null : Image.asset(screenAssets[index]))
                 ]
               )
             ),
@@ -50,6 +51,9 @@ class LandingPage extends StatelessWidget {
         break;
       case 1:
         Navigator.push(_context, MaterialPageRoute(builder: (_context) => const TwitterPage()));
+        break;
+      case 2:
+        Navigator.push(_context, MaterialPageRoute(builder: (_context) => const WebViewPage()));
         break;
       default:
     }
