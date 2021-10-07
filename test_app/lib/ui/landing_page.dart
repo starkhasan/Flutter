@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:test_app/ui/facebook_page.dart';
 import 'package:test_app/ui/twitter_page.dart';
 import 'package:test_app/ui/webview_page.dart';
+import 'package:test_app/ui/whatsapp_page.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var screenNames = ['Facebook','Twitter','WebView'];
-    var screenAssets = ['asset/facebook.png','asset/twitter.png'];
+    var screenNames = ['Facebook','Twitter','WhatsApp','WebView'];
+    var screenAssets = ['asset/facebook.png','asset/twitter.png','asset/whatsapp.png'];
     return Scaffold(
       appBar: AppBar(
         title: const Text('Templates Design'),
@@ -53,6 +54,9 @@ class LandingPage extends StatelessWidget {
         Navigator.push(_context, MaterialPageRoute(builder: (_context) => const TwitterPage()));
         break;
       case 2:
+        Navigator.push(_context, MaterialPageRoute(builder: (_context) => const WhatsAppPage()));
+        break;
+      case 3:
         Navigator.push(_context, MaterialPageRoute(builder: (_context) => const WebViewPage()));
         break;
       default:
