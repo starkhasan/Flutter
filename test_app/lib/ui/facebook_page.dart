@@ -48,7 +48,7 @@ class _FacebookPageState extends State<FacebookPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       GestureDetector(
-                        onTap: () => print('Click on Search'),
+                        onTap: () => showSnackBar(context,'Click on Search'),
                         child: Container(
                           padding: const EdgeInsets.all(5),
                           decoration: BoxDecoration(color: Colors.grey[700],shape: BoxShape.circle),
@@ -57,7 +57,7 @@ class _FacebookPageState extends State<FacebookPage> {
                       ),
                       const SizedBox(width: 10),
                       GestureDetector(
-                        onTap: () => print('Click on Search'),
+                        onTap: () => showSnackBar(context,'Click on Search'),
                         child: Container(
                           padding: const EdgeInsets.all(5),
                           decoration: BoxDecoration(color: Colors.grey[700],shape: BoxShape.circle),
@@ -66,7 +66,7 @@ class _FacebookPageState extends State<FacebookPage> {
                       ),
                       const SizedBox(width: 10),
                       GestureDetector(
-                        onTap: () => print('Click on Search'),
+                        onTap: () => showSnackBar(context,'Click on Search'),
                         child: Container(
                           padding: const EdgeInsets.all(5),
                           decoration: BoxDecoration(color: Colors.grey[700],shape: BoxShape.circle),
@@ -146,7 +146,7 @@ class _FacebookPageState extends State<FacebookPage> {
                         ]
                       )
                     ),
-                    onTap: () => print('Add Photo'),
+                    onTap: () => showSnackBar(context,'Add Photo'),
                   )
                 ]
               )
@@ -210,7 +210,7 @@ class _FacebookPageState extends State<FacebookPage> {
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context,index){
                   return GestureDetector(
-                    onTap: () => print('$index click'),
+                    onTap: () => showSnackBar(context,'$index click'),
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.30,
                       margin: const EdgeInsets.only(left: 8, top: 8,bottom: 8),
@@ -321,7 +321,7 @@ class _FacebookPageState extends State<FacebookPage> {
                             ]
                           ),
                           IconButton(
-                            onPressed: () => print('Share post'),
+                            onPressed: () => showSnackBar(context,'Share post'),
                             icon: const Icon(Icons.more_horiz)
                           )
                         ]
@@ -349,5 +349,10 @@ class _FacebookPageState extends State<FacebookPage> {
         ),
       ),
     );
+  }
+
+  showSnackBar(BuildContext _context,String message){
+    var snackBar = SnackBar(content: Text(message),duration: const Duration(seconds: 1));
+    ScaffoldMessenger.of(_context).showSnackBar(snackBar,);
   }
 }

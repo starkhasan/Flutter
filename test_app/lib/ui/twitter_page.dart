@@ -48,9 +48,9 @@ class _TwitterPageState extends State<TwitterPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                IconButton(onPressed: () => print('Click on Drawer Icon'),icon: const Icon(Icons.menu),color: Colors.lightBlue),
+                IconButton(onPressed: () => showSnackBar(context,'Click on Drawer Icon'),icon: const Icon(Icons.menu),color: Colors.lightBlue),
                 SizedBox(width: 20,height: 20, child: Image.asset('asset/twitter.png')),
-                IconButton(onPressed: () => print('Star is Clicked'),icon: const Icon(Icons.star,color: Colors.lightBlue))
+                IconButton(onPressed: () => showSnackBar(context,'Star is Clicked'),icon: const Icon(Icons.star,color: Colors.lightBlue))
               ]
             )
           ),
@@ -149,7 +149,7 @@ class _TwitterPageState extends State<TwitterPage> {
                           )
                         ),
                         IconButton(
-                          onPressed: () => print('Click on Tweet'),
+                          onPressed: () => showSnackBar(context,'Click on Tweet'),
                           padding: const EdgeInsets.only(left: 8),
                           icon: const Icon(Icons.more_horiz,color: Colors.grey)
                         )
@@ -198,7 +198,7 @@ class _TwitterPageState extends State<TwitterPage> {
                           ],
                         ),
                         InkWell(
-                          onTap: () => print('Share'),
+                          onTap: () => showSnackBar(context,'Share'),
                           child: const Icon(Icons.share,size: 20,color: Colors.grey)
                         )
                       ]
@@ -215,5 +215,10 @@ class _TwitterPageState extends State<TwitterPage> {
         return const Divider(height: 1,thickness: 1,color: Colors.grey);
       }
     );
+  }
+
+  showSnackBar(BuildContext _context,String message){
+    var snackBar = SnackBar(content: Text(message),duration: const Duration(seconds: 1));
+    ScaffoldMessenger.of(_context).showSnackBar(snackBar);
   }
 }
