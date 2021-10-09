@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_app/ui/crypto_page.dart';
 import 'package:test_app/ui/facebook_page.dart';
 import 'package:test_app/ui/sliverwidget_page.dart';
 import 'package:test_app/ui/twitter_page.dart';
@@ -10,8 +11,8 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var screenNames = ['Facebook','Twitter','WhatsApp','WebView','Sliver Widget'];
-    var screenAssets = ['asset/facebook.png','asset/twitter.png','asset/whatsapp.png'];
+    var screenNames = ['Facebook','Twitter','WhatsApp','Cypto','WebView','Sliver Widget'];
+    var screenAssets = ['asset/facebook.png','asset/twitter.png','asset/whatsapp.png','asset/crypto.png'];
     return Scaffold(
       appBar: AppBar(
         title: const Text('Templates Design'),
@@ -56,9 +57,12 @@ class LandingPage extends StatelessWidget {
         Navigator.push(_context, MaterialPageRoute(builder: (_context) => const WhatsAppPage()));
         break;
       case 3:
-        Navigator.push(_context, MaterialPageRoute(builder: (_context) => const WebViewPage()));
+        Navigator.push(_context, MaterialPageRoute(builder: (_context) => const Crypto()));
         break;
       case 4:
+        Navigator.push(_context, MaterialPageRoute(builder: (_context) => const WebViewPage()));
+        break;
+      case 5:
         Navigator.push(_context, MaterialPageRoute(builder: (_context) => const SliverWidgetPage()));
         break;
       default:
