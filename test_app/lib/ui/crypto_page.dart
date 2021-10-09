@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_app/ui/transaction_page.dart';
 
 class Crypto extends StatefulWidget {
   const Crypto({ Key? key }) : super(key: key);
@@ -224,7 +225,7 @@ class _CryptoState extends State<Crypto> {
                           ],
                         ),
                         GestureDetector(
-                          onTap: () => showSnackBar(context,'Sorry!! Apps is now in testing mode'),
+                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const TransactionPage())),
                           child: Container(
                             padding: const EdgeInsets.only(left: 30,right: 30,top: 14,bottom: 14),
                             decoration: BoxDecoration(
