@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class WhatsAppPage extends StatefulWidget {
@@ -38,7 +36,7 @@ class _WhatsAppPageState extends State<WhatsAppPage> with SingleTickerProviderSt
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () => print('Click to Send Direct Message'),
+        onPressed: () => showSnackBar(context,'Click to Send Direct Message'),
         child: Icon(fabIcon,color: Colors.white,size: 28),
         backgroundColor: Colors.tealAccent[700],
       ),
@@ -54,11 +52,11 @@ class _WhatsAppPageState extends State<WhatsAppPage> with SingleTickerProviderSt
               backgroundColor: const Color(0xFF323232),
               actions: [
                 IconButton(
-                  onPressed: () => print('Click on Search'),
+                  onPressed: () => showSnackBar(context,'Click on Search'),
                   icon: const Icon(Icons.search,color: Colors.grey)
                 ),
                 IconButton(
-                  onPressed: () => print('Click on More'),
+                  onPressed: () => showSnackBar(context,'Click on More'),
                   icon: const Icon(Icons.more_vert,color: Colors.grey)
                 )
               ],
@@ -85,13 +83,18 @@ class _WhatsAppPageState extends State<WhatsAppPage> with SingleTickerProviderSt
           children: const [
             ListA(),
             ListA(),
-            ListA(),
             ListA()
           ]
         )
       ),
     );
   }
+
+  showSnackBar(BuildContext _context,String message){
+    var snackBar = SnackBar(content: Text(message),duration: const Duration(seconds: 1));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+  
 }
 
 class ListA extends StatelessWidget {
