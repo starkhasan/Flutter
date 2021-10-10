@@ -98,57 +98,9 @@ class _TransactionPageState extends State<TransactionPage> {
                   child: PageView(
                     controller: pageController,
                     scrollDirection: Axis.horizontal,
-                    children: [
-                      GridView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: 8,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: (MediaQuery.of(context).orientation == Orientation.landscape) ? 2 : 3),
-                        itemBuilder: (BuildContext context,int index){
-                          return Container(
-                            margin: const EdgeInsets.only(left: 5,right: 5,bottom: 10),
-                            padding: const EdgeInsets.all(15),
-                            height: MediaQuery.of(context).size.height * 0.10,
-                            decoration: BoxDecoration(
-                              color: Colors.primaries[Random().nextInt(Colors.primaries.length)],
-                              borderRadius: BorderRadius.circular(15)
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text('${73+index*2}',style: const TextStyle(color: Colors.white,fontSize: 30,fontWeight: FontWeight.bold)),
-                                const Text('Waiting for Confirmation')
-                              ]
-                            ),
-                          );
-                        }
-                      ),
-                      GridView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: 8,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: (MediaQuery.of(context).orientation == Orientation.landscape) ? 2 : 3),
-                        itemBuilder: (BuildContext context,int index){
-                          return Container(
-                            margin: const EdgeInsets.only(left: 5,right: 5,bottom: 10),
-                            padding: const EdgeInsets.all(15),
-                            height: MediaQuery.of(context).size.height * 0.10,
-                            decoration: BoxDecoration(
-                              color: Colors.primaries[Random().nextInt(Colors.primaries.length)],
-                              borderRadius: BorderRadius.circular(15)
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text('${1+index*2}',style: const TextStyle(color: Colors.white,fontSize: 30,fontWeight: FontWeight.bold)),
-                                const Text('In Progress')
-                              ]
-                            ),
-                          );
-                        }
-                      ),
+                    children: const [
+                      TrasactionGridView(gridLabel: 'Waiting for Confirmation',gridPice: 73),
+                      TrasactionGridView(gridLabel: 'In Progress',gridPice: 1)
                     ]
                   )
                 ),
@@ -276,4 +228,40 @@ class _TransactionPageState extends State<TransactionPage> {
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 
+}
+
+
+class TrasactionGridView extends StatelessWidget {
+  final String gridLabel;
+  final int gridPice;
+  const TrasactionGridView({ Key? key,required this.gridLabel,required this.gridPice}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: 8,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: (MediaQuery.of(context).orientation == Orientation.landscape) ? 2 : 3),
+      itemBuilder: (BuildContext context,int index){
+        return Container(
+          margin: const EdgeInsets.only(left: 2.5,right: 2.5,bottom: 5),
+          padding: const EdgeInsets.all(15),
+          height: MediaQuery.of(context).size.height * 0.10,
+          decoration: BoxDecoration(
+            color: Colors.primaries[Random().nextInt(Colors.primaries.length)],
+            borderRadius: BorderRadius.circular(15)
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('${gridPice+index*2}',style: const TextStyle(color: Colors.white,fontSize: 30,fontWeight: FontWeight.bold)),
+              Text(gridLabel)
+            ]
+          ),
+        );
+      }
+    );
+  }
 }

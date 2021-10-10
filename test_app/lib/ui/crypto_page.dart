@@ -155,7 +155,7 @@ class _CryptoState extends State<Crypto> {
                                       padding: const EdgeInsets.all(5),
                                       decoration: BoxDecoration(
                                         color: Colors.blue,
-                                        borderRadius: BorderRadius.circular(12)
+                                        borderRadius: BorderRadius.circular(12),
                                       ),
                                       child: const Icon(Icons.add,color: Colors.white,size: 30)
                                     )
