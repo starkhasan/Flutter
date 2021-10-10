@@ -14,9 +14,9 @@ class WebViewPage extends StatefulWidget {
 class _WebViewPageState extends State<WebViewPage> with SingleTickerProviderStateMixin{
   final Completer<WebViewController> _controller = Completer<WebViewController>();
 
-  final List<IconData> menuItems = [Icons.add,Icons.home,Icons.notification_add,Icons.settings];
+  List<IconData> menuItems = [Icons.add,Icons.home,Icons.notification_add,Icons.settings];
   late AnimationController menuAnimation;
-  IconData lastTapped = Icons.notifications;
+  IconData lastTapped = Icons.notification_add;
 
   @override
   void initState() {
@@ -24,7 +24,7 @@ class _WebViewPageState extends State<WebViewPage> with SingleTickerProviderStat
     if (Platform.isAndroid) {
       WebView.platform = SurfaceAndroidWebView();
     }
-    menuAnimation = AnimationController(duration: const Duration(milliseconds: 250), vsync: this);
+    menuAnimation = AnimationController(duration: const Duration(milliseconds: 200), vsync: this);
   }
 
   Widget flowMenuItem(IconData icon) {
@@ -32,8 +32,14 @@ class _WebViewPageState extends State<WebViewPage> with SingleTickerProviderStat
       onTap: (){
         updateMenu(icon);
           menuAnimation.status == AnimationStatus.completed
-              ? menuAnimation.reverse()
-              : menuAnimation.forward();
+          ? {
+            menuItems[0] = Icons.add,
+            menuAnimation.reverse()
+          }
+          : {
+            menuItems[0] = Icons.remove,
+            menuAnimation.forward()
+          };
       },
       child: Container(
         padding: const EdgeInsets.all(15),
