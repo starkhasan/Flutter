@@ -15,6 +15,7 @@ class _TwitterPageState extends State<TwitterPage> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(0),
         child: AppBar(
+          backgroundColor: Colors.lightBlue,
         )
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -59,7 +60,7 @@ class _TwitterPageState extends State<TwitterPage> {
               slivers: [
                 SliverAppBar(
                   titleSpacing: 0,
-                  backgroundColor: const Color(0xFF323232),
+                  backgroundColor: const Color(0xFFFFFFFF),
                   floating: true,
                   automaticallyImplyLeading: false,
                   toolbarHeight: MediaQuery.of(context).size.height * 0.12,
@@ -84,7 +85,7 @@ class _TwitterPageState extends State<TwitterPage> {
                                 radius: 32,
                                 child: CircleAvatar(
                                   radius: 30,
-                                  backgroundColor: Color(0xFF323232),
+                                  backgroundColor: Color(0xFFFFFFFF),
                                   child: CircleAvatar(
                                     radius: 28,
                                     backgroundImage: NetworkImage('https://i.picsum.photos/id/0/5616/3744.jpg?hmac=3GAAioiQziMGEtLbfrdbcoenXoWAW-zlyEAMkfEdBzQ'),
@@ -143,7 +144,7 @@ class _TwitterPageState extends State<TwitterPage> {
                         RichText(
                           text: const TextSpan(
                             children: [
-                              TextSpan(text: 'Ali Hasan'),
+                              TextSpan(text: 'Ali Hasan',style: TextStyle(color: Colors.black)),
                               TextSpan(text: ' @alihasan226  1h',style: TextStyle(color: Colors.grey))
                             ]
                           )

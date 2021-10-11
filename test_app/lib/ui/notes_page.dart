@@ -1,5 +1,7 @@
-  import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:test_app/utils/preferences.dart';
+import 'dart:convert';
 
 class NotesPage extends StatefulWidget {
   const NotesPage({ Key? key }) : super(key: key);
@@ -10,15 +12,7 @@ class NotesPage extends StatefulWidget {
 
 class _NotesPageState extends State<NotesPage> with WidgetsBindingObserver{
 
-  Map<String,bool> listNote = {
-    'Marketing' : false,
-    'Submit Tution Fee': false,
-    'Submit Electricity Bill': false,
-    'Submit Internet Bill':false,
-    'Submit Gas Bill': false,
-    'Order a new Mouse': false,
-    'Design New UI of Deliver Application': false
-  };
+  Map<String,dynamic> listNote = jsonDecode(Preferences.getStoredTask());
 
   late FocusNode focusNode;
   bool fabVisible = true;
@@ -52,21 +46,23 @@ class _NotesPageState extends State<NotesPage> with WidgetsBindingObserver{
     }
   }
   
-  var completedList = [];
+  List<String> completedList = Preferences.getCompleteTask();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: IconButton(onPressed: () => Navigator.pop(context),icon: const Icon(Icons.arrow_back,color: Colors.black)),
         centerTitle: true,
-        title: const Text('Notes',style: TextStyle(color: Colors.black))
+        title: const Text('Notes'),
+        actions: completedList.isEmpty && listNote.isEmpty
+        ? null
+        : [IconButton(onPressed: () => deleteNotesDialog(),icon: const Icon(Icons.delete,color: Colors.white))],
       ),
       floatingActionButton: Visibility(
         visible: fabVisible,
         child: FloatingActionButton(
-          backgroundColor: Colors.indigo,
+          backgroundColor: Colors.teal,
           onPressed: () => {
+            print(Preferences.getStoredTask()),
             focusNode.hasFocus
             ? focusNode.unfocus()
             : {
@@ -89,15 +85,32 @@ class _NotesPageState extends State<NotesPage> with WidgetsBindingObserver{
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Visibility(visible: listNote.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 10,top:15,bottom: 15),child: const Text('Task',style: TextStyle(color: Colors.indigo,fontSize: 20,fontWeight: FontWeight.bold)))),
+                        Visibility(visible: listNote.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 10,top:15,bottom: 15),child: const Text('Task',style: TextStyle(color: Colors.teal,fontSize: 20,fontWeight: FontWeight.bold)))),
                         notesBody(),
-                        Visibility(visible: completedList.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 10,top:15,bottom: 15),child: const Text('Completed',style: TextStyle(color: Colors.indigo,fontSize: 20,fontWeight: FontWeight.bold)))),
+                        Visibility(visible: completedList.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 10,top:15,bottom: 15),child: const Text('Completed',style: TextStyle(color: Colors.teal,fontSize: 20,fontWeight: FontWeight.bold)))),
                         completedNotes()
                       ]
                     )
                   )
                 )
               ]
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: Visibility(
+                visible: completedList.isEmpty && listNote.isEmpty,
+                child:  Center(
+                  child: RichText(
+                    text: const TextSpan(
+                      children: [
+                        TextSpan(text: 'To add Notes click on ',style: TextStyle(color: Colors.black)),
+                        TextSpan(text: '+',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 16)),
+                        TextSpan(text: ' button in bottom right corner',style: TextStyle(color: Colors.black))
+                      ]
+                    )
+                  )
+                )
+              )
             ),
             Align(
               alignment: Alignment.bottomCenter,
@@ -121,7 +134,7 @@ class _NotesPageState extends State<NotesPage> with WidgetsBindingObserver{
                     focusNode: focusNode,
                     minLines: 1,
                     maxLines: 3,
-                    textInputAction: TextInputAction.send,
+                    textInputAction: TextInputAction.done,
                     style: const TextStyle(color: Colors.black,fontSize: 18),
                     decoration: const InputDecoration.collapsed(
                       hintText: 'Add Task',
@@ -129,7 +142,10 @@ class _NotesPageState extends State<NotesPage> with WidgetsBindingObserver{
                     ),
                     onEditingComplete: (){
                       if(textController.text.isNotEmpty){
-                        setState(() {listNote[textController.text] = false;});
+                        setState(() {
+                          listNote[textController.text] = false;
+                          convertMaptoString();
+                        });
                         textController.clear();
                       }
                     }
@@ -153,7 +169,7 @@ class _NotesPageState extends State<NotesPage> with WidgetsBindingObserver{
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (BuildContext context,int index){
         return Dismissible(
-          secondaryBackground: Container(color: Colors.red,padding: const EdgeInsets.only(right: 20),alignment: Alignment.centerRight,child: const Icon(Icons.delete)),
+          secondaryBackground: Container(color: Colors.red,padding: const EdgeInsets.only(right: 20),alignment: Alignment.centerRight,child: const Icon(Icons.delete,color: Colors.white)),
           background: Container(color: Colors.white),
           direction: DismissDirection.endToStart,
           key: Key(listItem.elementAt(index)),
@@ -161,8 +177,9 @@ class _NotesPageState extends State<NotesPage> with WidgetsBindingObserver{
             var item = listItem.elementAt(index);
             setState(() {
               listNote.removeWhere((key, value) => key == listItem.elementAt(index));
+              convertMaptoString();
             });
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(backgroundColor: Colors.indigo[200],content: Text('$item removed')));
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$item removed'),duration: const Duration(seconds: 2)));
           },
           child: Container(
             padding: const EdgeInsets.only(top: 8,bottom: 8,left: 10,right: 8),
@@ -179,9 +196,10 @@ class _NotesPageState extends State<NotesPage> with WidgetsBindingObserver{
                   scale: 1.3,
                   child: Theme(
                     data: ThemeData(
-                      unselectedWidgetColor: Colors.indigo
+                      unselectedWidgetColor: Colors.teal
                     ),
                     child: Checkbox(
+                      activeColor: Colors.teal,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)
                       ),
@@ -190,10 +208,12 @@ class _NotesPageState extends State<NotesPage> with WidgetsBindingObserver{
                         setState((){
                           listNote[listItem.elementAt(index)] = true;
                           completedList.add(listItem.elementAt(index));
+                          storeCompleTaskLocally();
                         }),
                         Future.delayed(const Duration(milliseconds: 500),(){
                           setState((){
                             listNote.removeWhere((key, value) => key == listItem.elementAt(index));
+                            convertMaptoString();
                           });
                         })
                       }
@@ -218,7 +238,7 @@ class _NotesPageState extends State<NotesPage> with WidgetsBindingObserver{
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (BuildContext context,int index){
         return Dismissible(
-          secondaryBackground: Container(color: Colors.red,padding: const EdgeInsets.only(right: 20),alignment: Alignment.centerRight,child: const Icon(Icons.delete)),
+          secondaryBackground: Container(color: Colors.red,padding: const EdgeInsets.only(right: 20),alignment: Alignment.centerRight,child: const Icon(Icons.delete,color: Colors.white)),
           background: Container(color: Colors.red),
           direction: DismissDirection.endToStart,
           key: Key(completedList[index]),
@@ -226,8 +246,9 @@ class _NotesPageState extends State<NotesPage> with WidgetsBindingObserver{
             var item = completedList[index];
             setState(() {
               completedList.removeWhere((element) => element == item);
+              storeCompleTaskLocally();
             });
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(backgroundColor: Colors.indigo[200],content: Text('$item removed')));
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$item removed'),duration: const Duration(seconds: 2)));
           },
           child: Container(
             padding: const EdgeInsets.only(top: 8,bottom: 8,left: 10,right: 8),
@@ -243,8 +264,7 @@ class _NotesPageState extends State<NotesPage> with WidgetsBindingObserver{
                 Transform.scale(
                   scale: 1.3,
                   child: Checkbox(
-                    checkColor: Colors.white,
-                    activeColor: Colors.green,
+                    activeColor: Colors.teal,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)
                     ),
@@ -252,6 +272,8 @@ class _NotesPageState extends State<NotesPage> with WidgetsBindingObserver{
                     onChanged: (value) => {
                       listNote[completedList[index]] = false,
                       completedList.remove(completedList[index]),
+                      convertMaptoString(),
+                      storeCompleTaskLocally(),
                       setState((){})
                     }
                   ),
@@ -265,5 +287,44 @@ class _NotesPageState extends State<NotesPage> with WidgetsBindingObserver{
         );
       }
     );
+  }
+
+  deleteNotesDialog(){
+    showDialog(
+      context: context, 
+      builder: (context){
+        return CupertinoAlertDialog(
+          title: const Text('Delete all Notes'),
+          content: const Text('Are you sure you want to delete all Notes?'),
+          actions: [
+            CupertinoDialogAction(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('No',style: TextStyle(color: Colors.red))
+            ),
+            CupertinoDialogAction(
+              onPressed: () => {
+                setState((){
+                  listNote.clear();
+                  completedList.clear();
+                  convertMaptoString();
+                  storeCompleTaskLocally();
+                }),
+                Navigator.pop(context)
+              },
+              child: const Text('Yes'),
+            )
+          ],
+        );
+      }
+    );
+  }
+
+  void convertMaptoString(){
+    var jsonString = jsonEncode(listNote);
+    Preferences.storeTask(jsonString);
+  }
+  
+  void storeCompleTaskLocally(){
+    Preferences.storeCompleteTask(completedList);
   }
 }

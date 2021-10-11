@@ -16,7 +16,6 @@ class _CryptoState extends State<Crypto> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        shadowColor: Colors.white,
         backgroundColor: Colors.white,
         leading: IconButton(onPressed: () => showSnackBar(context,'Sorry!! Click on Navigation Bar Icon'),icon: const Icon(Icons.menu,color: Colors.black)),
         actions: [

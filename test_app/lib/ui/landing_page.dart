@@ -6,14 +6,29 @@ import 'package:test_app/ui/twitter_page.dart';
 import 'package:test_app/ui/webview_page.dart';
 import 'package:test_app/ui/whatsapp_page.dart';
 import 'package:test_app/ui/notes_page.dart';
+import 'package:test_app/utils/preferences.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var screenNames = ['Facebook','Twitter','WhatsApp','Cypto','WebView','Sliver Widget','Notes'];
-    var screenAssets = ['asset/facebook.png','asset/twitter.png','asset/whatsapp.png','asset/crypto.png'];
+    Preferences.init();
+    var screenNames = [
+      'Facebook',
+      'Twitter',
+      'WhatsApp',
+      'Cypto',
+      'WebView',
+      'Sliver Widget',
+      'Notes'
+    ];
+    var screenAssets = [
+      'asset/facebook.png',
+      'asset/twitter.png',
+      'asset/whatsapp.png',
+      'asset/crypto.png'
+    ];
     return Scaffold(
       appBar: AppBar(
         title: const Text('Templates Design'),
@@ -25,18 +40,22 @@ class LandingPage extends StatelessWidget {
         physics: const ScrollPhysics(),
         scrollDirection: Axis.vertical,
         itemCount: screenNames.length,
-        itemBuilder: (context,index){
+        itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () => onClick(context, index),
             child: Container(
-              padding: const EdgeInsets.only(top: 15,left: 15,right: 15,bottom: 15),
-              margin: const EdgeInsets.only(top: 10,left: 10,right: 10),
-              decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(8)),
+              padding: const EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 15),
+              margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+                boxShadow: const [BoxShadow(color: Colors.grey,blurRadius: 1.0)]
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(screenNames[index],style: const TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 16)),
-                  SizedBox(width: 25,height: 25,child: index >= screenAssets.length ? null : Image.asset(screenAssets[index]))
+                  Text(screenNames[index], style: const TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 16)),
+                  SizedBox(width: 25,height: 25, child: index >= screenAssets.length ? null : Image.asset(screenAssets[index]))
                 ]
               )
             ),
@@ -46,28 +65,35 @@ class LandingPage extends StatelessWidget {
     );
   }
 
-  onClick(BuildContext _context,int index){
+  onClick(BuildContext _context, int index) {
     switch (index) {
       case 0:
-        Navigator.push(_context, MaterialPageRoute(builder: (_context) => const FacebookPage()));
+        Navigator.push(_context,
+            MaterialPageRoute(builder: (_context) => const FacebookPage()));
         break;
       case 1:
-        Navigator.push(_context, MaterialPageRoute(builder: (_context) => const TwitterPage()));
+        Navigator.push(_context,
+            MaterialPageRoute(builder: (_context) => const TwitterPage()));
         break;
       case 2:
-        Navigator.push(_context, MaterialPageRoute(builder: (_context) => const WhatsAppPage()));
+        Navigator.push(_context,
+            MaterialPageRoute(builder: (_context) => const WhatsAppPage()));
         break;
       case 3:
-        Navigator.push(_context, MaterialPageRoute(builder: (_context) => const Crypto()));
+        Navigator.push(
+            _context, MaterialPageRoute(builder: (_context) => const Crypto()));
         break;
       case 4:
-        Navigator.push(_context, MaterialPageRoute(builder: (_context) => const WebViewPage()));
+        Navigator.push(_context,
+            MaterialPageRoute(builder: (_context) => const WebViewPage()));
         break;
       case 5:
-        Navigator.push(_context, MaterialPageRoute(builder: (_context) => const SliverWidgetPage()));
+        Navigator.push(_context,
+            MaterialPageRoute(builder: (_context) => const SliverWidgetPage()));
         break;
       case 6:
-        Navigator.push(_context, MaterialPageRoute(builder: (_context) => const NotesPage()));
+        Navigator.push(_context,
+            MaterialPageRoute(builder: (_context) => const NotesPage()));
         break;
       default:
     }

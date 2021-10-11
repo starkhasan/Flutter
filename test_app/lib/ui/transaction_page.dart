@@ -42,7 +42,7 @@ class _TransactionPageState extends State<TransactionPage> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(0),
-        child: AppBar(backgroundColor: Colors.transparent),
+        child: AppBar(backgroundColor: Colors.white),
       ),
       body: Container(
         padding: EdgeInsets.zero,
