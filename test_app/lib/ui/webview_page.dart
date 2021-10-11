@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:test_app/utils/Helper.dart';
 
 class WebViewPage extends StatefulWidget {
   const WebViewPage({Key? key}) : super(key: key);
@@ -60,11 +61,11 @@ class _WebViewPageState extends State<WebViewPage> with SingleTickerProviderStat
   updateMenu(IconData icon) {
     if (icon != Icons.menu) {
       if(icon == Icons.settings) {
-        showSnackbar(context,'Settings Click');
+        Helper.showSnackBar(context, 'Settings Click');
       } else if(icon == Icons.notification_add){
-        showSnackbar(context, 'Notification Click');
+        Helper.showSnackBar(context, 'Notification Click');
       }else if(icon == Icons.home){
-        showSnackbar(context, 'Home Click');
+        Helper.showSnackBar(context, 'Home Click');
       }
       setState((){});
     }
@@ -95,11 +96,6 @@ class _WebViewPageState extends State<WebViewPage> with SingleTickerProviderStat
         ]
       )
     );
-  }
-
-  showSnackbar(BuildContext _context, String message){
-    var snackbar = SnackBar(content: Text(message),duration: const Duration(seconds: 1));
-    ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 }
 
@@ -154,6 +150,8 @@ class NavigationController extends StatelessWidget {
                 : () async {
                   if(await controller!.canGoBack()){
                     await controller.goBack();
+                  }else{
+                    Helper.showSnackBar(context, 'No Previous Page Found');
                   }
                 },
               icon: const Icon(Icons.arrow_back_ios)
@@ -164,6 +162,8 @@ class NavigationController extends StatelessWidget {
                 : () async {
                   if(await controller!.canGoForward()){
                     await controller.goForward();
+                  }else{
+                    Helper.showSnackBar(context, 'No Next Page Found');
                   }
                 },
               icon: const Icon(Icons.arrow_forward_ios)
