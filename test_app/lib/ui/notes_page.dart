@@ -76,7 +76,7 @@ class _NotesPageState extends State<NotesPage> with WidgetsBindingObserver{
             }
           },
           child: const Icon(Icons.add,color: Colors.white),
-        ),
+        )
       ),
       body: Container(
         color:Colors.white,
@@ -197,15 +197,15 @@ class _NotesPageState extends State<NotesPage> with WidgetsBindingObserver{
                           });
                         })
                       }
-                    ),
-                  ),
+                    )
+                  )
                 ),
                 Expanded(
                   child: Text(listItem.elementAt(index),style: const TextStyle(color: Colors.black,fontWeight: FontWeight.normal,fontSize: 16)),
                 )
               ]
             )
-          ),
+          )
         );
       }
     );
@@ -252,19 +252,18 @@ class _NotesPageState extends State<NotesPage> with WidgetsBindingObserver{
                     onChanged: (value) => {
                       listNote[completedList[index]] = false,
                       completedList.remove(completedList[index]),
-                      setState((){}),
+                      setState((){})
                     }
                   ),
                 ),
                 Expanded(
                   child: Text(completedList[index],style: const TextStyle(decoration: TextDecoration.lineThrough,color: Colors.black,fontWeight: FontWeight.normal,fontSize: 16))
-                ),
+                )
               ]
             )
-          ),
+          )
         );
       }
     );
   }
-
 }
