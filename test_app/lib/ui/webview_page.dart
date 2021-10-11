@@ -14,7 +14,7 @@ class WebViewPage extends StatefulWidget {
 class _WebViewPageState extends State<WebViewPage> with SingleTickerProviderStateMixin{
   final Completer<WebViewController> _controller = Completer<WebViewController>();
 
-  List<IconData> menuItems = [Icons.add,Icons.home,Icons.notification_add,Icons.settings];
+  List<IconData> menuItems = [Icons.remove,Icons.home,Icons.notification_add,Icons.settings];
   late AnimationController menuAnimation;
   IconData lastTapped = Icons.notification_add;
 
@@ -33,25 +33,25 @@ class _WebViewPageState extends State<WebViewPage> with SingleTickerProviderStat
         updateMenu(icon);
           menuAnimation.status == AnimationStatus.completed
           ? {
-            menuItems[0] = Icons.add,
+            menuItems[menuItems.length - 1] = Icons.add,
             menuAnimation.reverse()
           }
           : {
-            menuItems[0] = Icons.remove,
+            menuItems[menuItems.length - 1] = Icons.settings,
             menuAnimation.forward()
           };
       },
       child: Container(
-        padding: const EdgeInsets.all(15),
+        padding: const EdgeInsets.all(12),
         margin: const EdgeInsets.all(5),
-        decoration: BoxDecoration(
-          color: lastTapped == icon ? Colors.amber[700] : Colors.blue,
+        decoration: const BoxDecoration(
+          color: Colors.blue,
           shape: BoxShape.circle
         ),
         child: Icon(
           icon,
           color: Colors.white,
-          size: 35.0,
+          size: 30.0,
         )
       )
     );
@@ -59,7 +59,14 @@ class _WebViewPageState extends State<WebViewPage> with SingleTickerProviderStat
 
   updateMenu(IconData icon) {
     if (icon != Icons.menu) {
-      setState(() => lastTapped = icon);
+      if(icon == Icons.settings) {
+        showSnackbar(context,'Settings Click');
+      } else if(icon == Icons.notification_add){
+        showSnackbar(context, 'Notification Click');
+      }else if(icon == Icons.home){
+        showSnackbar(context, 'Home Click');
+      }
+      setState((){});
     }
   }
 
@@ -71,7 +78,7 @@ class _WebViewPageState extends State<WebViewPage> with SingleTickerProviderStat
       body: Stack(
         children: [
           Container(
-            color: Colors.red,
+            color: Colors.white,
             child: WebView(
               initialUrl: 'https://www.google.co.in/',
               javascriptMode: JavascriptMode.unrestricted,
@@ -88,6 +95,11 @@ class _WebViewPageState extends State<WebViewPage> with SingleTickerProviderStat
         ]
       )
     );
+  }
+
+  showSnackbar(BuildContext _context, String message){
+    var snackbar = SnackBar(content: Text(message),duration: const Duration(seconds: 1));
+    ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 }
 
@@ -107,7 +119,7 @@ class FlowMenuDelegate extends FlowDelegate {
   void paintChildren(FlowPaintingContext context) {
     double dy = 0.0;
     double horizontalAxis = MediaQuery.of(parentContext).size.width * 0.80;
-    double verticalAxis = MediaQuery.of(parentContext).size.height * 0.80;
+    double verticalAxis = MediaQuery.of(parentContext).size.height * 0.78;
     for (int i = 0; i < context.childCount; ++i) {
       dy = context.getChildSize(i)!.width * (-i);
       context.paintChild(
