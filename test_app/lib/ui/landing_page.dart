@@ -5,13 +5,14 @@ import 'package:test_app/ui/sliverwidget_page.dart';
 import 'package:test_app/ui/twitter_page.dart';
 import 'package:test_app/ui/webview_page.dart';
 import 'package:test_app/ui/whatsapp_page.dart';
+import 'package:test_app/ui/notes_page.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var screenNames = ['Facebook','Twitter','WhatsApp','Cypto','WebView','Sliver Widget'];
+    var screenNames = ['Facebook','Twitter','WhatsApp','Cypto','WebView','Sliver Widget','Notes'];
     var screenAssets = ['asset/facebook.png','asset/twitter.png','asset/whatsapp.png','asset/crypto.png'];
     return Scaffold(
       appBar: AppBar(
@@ -64,6 +65,9 @@ class LandingPage extends StatelessWidget {
         break;
       case 5:
         Navigator.push(_context, MaterialPageRoute(builder: (_context) => const SliverWidgetPage()));
+        break;
+      case 6:
+        Navigator.push(_context, MaterialPageRoute(builder: (_context) => const NotesPage()));
         break;
       default:
     }
