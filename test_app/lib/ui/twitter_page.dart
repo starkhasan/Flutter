@@ -46,6 +46,7 @@ class _TwitterPageState extends State<TwitterPage> {
         children: [
           Container(
             padding: EdgeInsets.zero,
+            color: Colors.white,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -124,6 +125,7 @@ class _TwitterPageState extends State<TwitterPage> {
         return Container(
           width: MediaQuery.of(context).size.width,
           padding: const EdgeInsets.all(10),
+          color: Colors.white,
           child: Row(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,

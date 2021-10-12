@@ -5,7 +5,6 @@ import 'package:test_app/ui/sliverwidget_page.dart';
 import 'package:test_app/ui/twitter_page.dart';
 import 'package:test_app/ui/webview_page.dart';
 import 'package:test_app/ui/whatsapp_page.dart';
-import 'package:test_app/ui/notes_page.dart';
 import 'package:test_app/utils/preferences.dart';
 
 class LandingPage extends StatelessWidget {
@@ -20,8 +19,7 @@ class LandingPage extends StatelessWidget {
       'WhatsApp',
       'Cypto',
       'WebView',
-      'Sliver Widget',
-      'Notes'
+      'Sliver Widget'
     ];
     var screenAssets = [
       'asset/facebook.png',
@@ -90,10 +88,6 @@ class LandingPage extends StatelessWidget {
       case 5:
         Navigator.push(_context,
             MaterialPageRoute(builder: (_context) => const SliverWidgetPage()));
-        break;
-      case 6:
-        Navigator.push(_context,
-            MaterialPageRoute(builder: (_context) => const NotesPage()));
         break;
       default:
     }
