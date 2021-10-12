@@ -4,8 +4,6 @@ import 'package:notes_todo/helper/delete_notes_dialog.dart';
 import 'package:notes_todo/helper/empty_message.dart';
 import 'package:notes_todo/providers/notes_provider.dart';
 import 'package:notes_todo/utils/helpers.dart';
-import 'package:notes_todo/utils/preferences.dart';
-import 'dart:convert';
 
 import 'package:provider/provider.dart';
 
@@ -30,15 +28,13 @@ class NotesPage extends StatelessWidget {
 class MainApp extends StatefulWidget {
   final NotesProvider notesProvider;
   const MainApp({ Key? key,required this.notesProvider}) : super(key: key);
-
   @override
   _MainAppState createState() => _MainAppState();
 }
 
 class _MainAppState extends State<MainApp> with WidgetsBindingObserver,Helpers{
 
-  Map<String,dynamic> listNote = jsonDecode(Preferences.getStoredTask());
-
+  
   late FocusNode focusNode;
   var textController = TextEditingController();
 
@@ -65,15 +61,14 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver,Helpers{
       widget.notesProvider.fabAction();
     }
   }
-  
-  List<String> completedList = Preferences.getCompleteTask();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Notes'),
-        actions: completedList.isEmpty && listNote.isEmpty
+        actions: widget.notesProvider.completedList.isEmpty && widget.notesProvider.listNote.isEmpty
         ? null
         : [IconButton(onPressed: () => deleteNotesDialog(),icon: const Icon(Icons.delete,color: Colors.white))],
       ),
@@ -103,9 +98,9 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver,Helpers{
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Visibility(visible: listNote.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 10,top:15,bottom: 15),child: const Text('Task',style: TextStyle(color: Colors.teal,fontSize: 20,fontWeight: FontWeight.bold)))),
+                        Visibility(visible: widget.notesProvider.listNote.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 10,top:15,bottom: 15),child: const Text('Task',style: TextStyle(color: Colors.teal,fontSize: 20,fontWeight: FontWeight.bold)))),
                         notesBody(),
-                        Visibility(visible: completedList.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 10,top:15,bottom: 15),child: const Text('Completed',style: TextStyle(color: Colors.teal,fontSize: 20,fontWeight: FontWeight.bold)))),
+                        Visibility(visible: widget.notesProvider.completedList.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 10,top:15,bottom: 15),child: const Text('Completed',style: TextStyle(color: Colors.teal,fontSize: 20,fontWeight: FontWeight.bold)))),
                         completedNotes()
                       ]
                     )
@@ -116,7 +111,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver,Helpers{
             Align(
               alignment: Alignment.center,
               child: Visibility(
-                visible: completedList.isEmpty && listNote.isEmpty,
+                visible: widget.notesProvider.completedList.isEmpty && widget.notesProvider.listNote.isEmpty,
                 child: const EmptyMessage()
               )
             ),
@@ -150,10 +145,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver,Helpers{
                     ),
                     onEditingComplete: (){
                       if(textController.text.isNotEmpty){
-                        setState(() {
-                          listNote[textController.text] = false;
-                          convertMaptoString();
-                        });
+                        widget.notesProvider.addTask(textController.text);
                         textController.clear();
                       }
                     }
@@ -169,11 +161,11 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver,Helpers{
 
 
   Widget notesBody(){
-    var listItem = listNote.keys;
+    var listItem = widget.notesProvider.listNote.keys;
     return ListView.builder(
       reverse: true,
       shrinkWrap: true,
-      itemCount: listNote.length,
+      itemCount: widget.notesProvider.listNote.length,
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (BuildContext context,int index){
         return Dismissible(
@@ -183,10 +175,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver,Helpers{
           key: Key(listItem.elementAt(index)),
           onDismissed: (direction) {
             var item = listItem.elementAt(index);
-            setState(() {
-              listNote.removeWhere((key, value) => key == listItem.elementAt(index));
-              convertMaptoString();
-            });
+            widget.notesProvider.removeTask(listItem.elementAt(index));
             showSnackBar(context, '$item removed from task');
           },
           child: Container(
@@ -211,20 +200,8 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver,Helpers{
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)
                       ),
-                      value: listNote[listItem.elementAt(index)], 
-                      onChanged: (value) => {
-                        setState((){
-                          listNote[listItem.elementAt(index)] = true;
-                          completedList.add(listItem.elementAt(index));
-                          storeCompleTaskLocally();
-                        }),
-                        Future.delayed(const Duration(milliseconds: 500),(){
-                          setState((){
-                            listNote.removeWhere((key, value) => key == listItem.elementAt(index));
-                            convertMaptoString();
-                          });
-                        })
-                      }
+                      value: widget.notesProvider.listNote[listItem.elementAt(index)], 
+                      onChanged: (value) => widget.notesProvider.checkedTask(listItem.elementAt(index))
                     )
                   )
                 ),
@@ -242,20 +219,17 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver,Helpers{
   Widget completedNotes(){
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: completedList.length,
+      itemCount: widget.notesProvider.completedList.length,
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (BuildContext context,int index){
         return Dismissible(
           secondaryBackground: Container(color: Colors.red,padding: const EdgeInsets.only(right: 20),alignment: Alignment.centerRight,child: const Icon(Icons.delete,color: Colors.white)),
           background: Container(color: Colors.red),
           direction: DismissDirection.endToStart,
-          key: Key(completedList[index]),
+          key: Key(widget.notesProvider.completedList[index]),
           onDismissed: (direction){
-            var item = completedList[index];
-            setState(() {
-              completedList.removeWhere((element) => element == item);
-              storeCompleTaskLocally();
-            });
+            var item = widget.notesProvider.completedList[index];
+            widget.notesProvider.removeCompletedTask(item);
             showSnackBar(context, '$item removed from complated');
           },
           child: Container(
@@ -277,17 +251,11 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver,Helpers{
                       borderRadius: BorderRadius.circular(10)
                     ),
                     value: true, 
-                    onChanged: (value) => {
-                      listNote[completedList[index]] = false,
-                      completedList.remove(completedList[index]),
-                      convertMaptoString(),
-                      storeCompleTaskLocally(),
-                      setState((){})
-                    }
+                    onChanged: (value) => widget.notesProvider.checkedCompletedTask(index),
                   ),
                 ),
                 Expanded(
-                  child: Text(completedList[index],style: const TextStyle(decoration: TextDecoration.lineThrough,color: Colors.black,fontWeight: FontWeight.normal,fontSize: 16))
+                  child: Text(widget.notesProvider.completedList[index],style: const TextStyle(decoration: TextDecoration.lineThrough,color: Colors.black,fontWeight: FontWeight.normal,fontSize: 16))
                 )
               ]
             )
@@ -303,25 +271,12 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver,Helpers{
       builder: (BuildContext context){
         return DeleteNotesDialog(
           onPressed: () => {
-            setState(() {
-              listNote.clear();
-              completedList.clear();
-              convertMaptoString();
-              storeCompleTaskLocally();
-            }),
+            widget.notesProvider.deleteAllNotes(),
             Navigator.pop(context)
           }
         );
       }
     );
   }
-
-  void convertMaptoString(){
-    var jsonString = jsonEncode(listNote);
-    Preferences.storeTask(jsonString);
-  }
   
-  void storeCompleTaskLocally(){
-    Preferences.storeCompleteTask(completedList);
-  }
 }
