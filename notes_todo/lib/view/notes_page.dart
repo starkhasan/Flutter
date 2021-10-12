@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:notes_todo/helper/delete_notes_dialog.dart';
+import 'package:notes_todo/helper/empty_message.dart';
 import 'package:notes_todo/utils/preferences.dart';
 import 'dart:convert';
 
@@ -62,7 +64,6 @@ class _NotesPageState extends State<NotesPage> with WidgetsBindingObserver{
         child: FloatingActionButton(
           backgroundColor: Colors.teal,
           onPressed: () => {
-            print(Preferences.getStoredTask()),
             focusNode.hasFocus
             ? focusNode.unfocus()
             : {
@@ -99,17 +100,7 @@ class _NotesPageState extends State<NotesPage> with WidgetsBindingObserver{
               alignment: Alignment.center,
               child: Visibility(
                 visible: completedList.isEmpty && listNote.isEmpty,
-                child:  Center(
-                  child: RichText(
-                    text: const TextSpan(
-                      children: [
-                        TextSpan(text: 'To add Notes click on ',style: TextStyle(color: Colors.black)),
-                        TextSpan(text: '+',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 16)),
-                        TextSpan(text: ' button in bottom right corner',style: TextStyle(color: Colors.black))
-                      ]
-                    )
-                  )
-                )
+                child: const EmptyMessage()
               )
             ),
             Align(
@@ -292,32 +283,22 @@ class _NotesPageState extends State<NotesPage> with WidgetsBindingObserver{
   deleteNotesDialog(){
     showDialog(
       context: context, 
-      builder: (context){
-        return CupertinoAlertDialog(
-          title: const Text('Delete all Notes'),
-          content: const Text('Are you sure you want to delete all Notes?'),
-          actions: [
-            CupertinoDialogAction(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('No',style: TextStyle(color: Colors.red))
-            ),
-            CupertinoDialogAction(
-              onPressed: () => {
-                setState((){
-                  listNote.clear();
-                  completedList.clear();
-                  convertMaptoString();
-                  storeCompleTaskLocally();
-                }),
-                Navigator.pop(context)
-              },
-              child: const Text('Yes'),
-            )
-          ],
+      builder: (BuildContext context){
+        return DeleteNotesDialog(
+          onPressed: () => {
+            setState(() {
+              listNote.clear();
+              completedList.clear();
+              convertMaptoString();
+              storeCompleTaskLocally();
+            }),
+            Navigator.pop(context)
+          }
         );
       }
     );
   }
+
 
   void convertMaptoString(){
     var jsonString = jsonEncode(listNote);

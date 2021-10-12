@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notes_todo/ui/splash_screen.dart';
+import 'package:notes_todo/view/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
