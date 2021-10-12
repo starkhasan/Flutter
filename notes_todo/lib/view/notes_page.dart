@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:notes_todo/helper/delete_notes_dialog.dart';
 import 'package:notes_todo/helper/empty_message.dart';
 import 'package:notes_todo/providers/notes_provider.dart';
-import 'package:notes_todo/utils/helpers.dart';
-
 import 'package:provider/provider.dart';
 
 
@@ -32,7 +30,7 @@ class MainApp extends StatefulWidget {
   _MainAppState createState() => _MainAppState();
 }
 
-class _MainAppState extends State<MainApp> with WidgetsBindingObserver,Helpers{
+class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
 
   
   late FocusNode focusNode;
@@ -161,7 +159,6 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver,Helpers{
 
 
   Widget notesBody(){
-    var listItem = widget.notesProvider.listNote.keys;
     return ListView.builder(
       reverse: true,
       shrinkWrap: true,
@@ -172,11 +169,11 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver,Helpers{
           secondaryBackground: Container(color: Colors.red,padding: const EdgeInsets.only(right: 20),alignment: Alignment.centerRight,child: const Icon(Icons.delete,color: Colors.white)),
           background: Container(color: Colors.white),
           direction: DismissDirection.endToStart,
-          key: Key(listItem.elementAt(index)),
+          key: Key(widget.notesProvider.listNote[index]),
           onDismissed: (direction) {
-            var item = listItem.elementAt(index);
-            widget.notesProvider.removeTask(listItem.elementAt(index));
-            showSnackBar(context, '$item removed from task');
+            var item = widget.notesProvider.listNote[index];
+            widget.notesProvider.removeTask(widget.notesProvider.listNote[index]);
+            showSnackbar(context,item,'$item removed from Task',index,'task');
           },
           child: Container(
             padding: const EdgeInsets.only(bottom: 5,top: 5,right: 5),
@@ -200,13 +197,13 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver,Helpers{
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)
                       ),
-                      value: widget.notesProvider.listNote[listItem.elementAt(index)], 
-                      onChanged: (value) => widget.notesProvider.checkedTask(listItem.elementAt(index))
+                      value: widget.notesProvider.selectedTaskIndex == index, 
+                      onChanged: (value) => widget.notesProvider.checkedTask(widget.notesProvider.listNote[index],index)
                     )
                   )
                 ),
                 Expanded(
-                  child: Text(listItem.elementAt(index),style: const TextStyle(color: Colors.black,fontWeight: FontWeight.normal,fontSize: 14)),
+                  child: Text(widget.notesProvider.listNote[index],style: const TextStyle(color: Colors.black,fontWeight: FontWeight.normal,fontSize: 14)),
                 )
               ]
             )
@@ -218,6 +215,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver,Helpers{
 
   Widget completedNotes(){
     return ListView.builder(
+      reverse: true,
       shrinkWrap: true,
       itemCount: widget.notesProvider.completedList.length,
       physics: const NeverScrollableScrollPhysics(),
@@ -230,7 +228,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver,Helpers{
           onDismissed: (direction){
             var item = widget.notesProvider.completedList[index];
             widget.notesProvider.removeCompletedTask(item);
-            showSnackBar(context, '$item removed from complated');
+            showSnackbar(context,item,'$item removed from Complated Task',index,'completeTask');
           },
           child: Container(
             padding: const EdgeInsets.only(bottom: 5,top: 5,right: 5),
@@ -251,7 +249,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver,Helpers{
                       borderRadius: BorderRadius.circular(10)
                     ),
                     value: true, 
-                    onChanged: (value) => widget.notesProvider.checkedCompletedTask(index),
+                    onChanged: (value) => widget.notesProvider.unCheckedCompletedTask(index),
                   ),
                 ),
                 Expanded(
@@ -277,6 +275,25 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver,Helpers{
         );
       }
     );
+  }
+
+  void showSnackbar(BuildContext context,String item,String message,int index,String type){
+    var snackbar = SnackBar(
+      content: Text(message),
+      duration: const Duration(seconds: 10),
+      action: SnackBarAction(
+        label: 'UNDO',
+        textColor: Colors.yellow,
+        onPressed: () => {
+          if(type == 'completeTask'){
+            widget.notesProvider.undoCompleteTask(item,index)
+          }else{
+            widget.notesProvider.undoTask(item,index)
+          }
+        }
+      )
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
   
 }

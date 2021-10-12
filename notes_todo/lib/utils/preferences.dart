@@ -10,12 +10,12 @@ class Preferences {
     return _sharedPreferences;
   }
 
-  static String getStoredTask() {
-    return _sharedPreferences!.getString('TASK') ?? "{}";
+  static List<String> getStoredTask() {
+    return _sharedPreferences!.getStringList('TASK') ?? [];
   }
 
-  static void storeTask(String task) {
-    _sharedPreferences!.setString('TASK', task);
+  static void storeTask(List<String> task) {
+    _sharedPreferences!.setStringList('TASK', task);
   }
 
   static List<String> getCompleteTask() {
