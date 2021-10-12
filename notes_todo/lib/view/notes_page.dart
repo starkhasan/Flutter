@@ -67,10 +67,10 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver,Helpers{
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Notes'),
+        title: const Text('Notes',style: TextStyle(fontSize: 16)),
         actions: widget.notesProvider.completedList.isEmpty && widget.notesProvider.listNote.isEmpty
         ? null
-        : [IconButton(onPressed: () => deleteNotesDialog(),icon: const Icon(Icons.delete,color: Colors.white))],
+        : [IconButton(onPressed: () => deleteNotesDialog(),icon: const Icon(Icons.delete,color: Colors.white,size: 22.0))],
       ),
       floatingActionButton: Visibility(
         visible: widget.notesProvider.fabVisible,
@@ -98,9 +98,9 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver,Helpers{
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Visibility(visible: widget.notesProvider.listNote.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 10,top:15,bottom: 15),child: const Text('Task',style: TextStyle(color: Colors.teal,fontSize: 20,fontWeight: FontWeight.bold)))),
+                        Visibility(visible: widget.notesProvider.listNote.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 10,top:15,bottom: 15),child: const Text('Task',style: TextStyle(color: Colors.teal,fontSize: 14,fontWeight: FontWeight.bold)))),
                         notesBody(),
-                        Visibility(visible: widget.notesProvider.completedList.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 10,top:15,bottom: 15),child: const Text('Completed',style: TextStyle(color: Colors.teal,fontSize: 20,fontWeight: FontWeight.bold)))),
+                        Visibility(visible: widget.notesProvider.completedList.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 10,top:15,bottom: 15),child: const Text('Completed',style: TextStyle(color: Colors.teal,fontSize: 14,fontWeight: FontWeight.bold)))),
                         completedNotes()
                       ]
                     )
@@ -138,10 +138,10 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver,Helpers{
                     minLines: 1,
                     maxLines: 3,
                     textInputAction: TextInputAction.done,
-                    style: const TextStyle(color: Colors.black,fontSize: 18),
+                    style: const TextStyle(color: Colors.black,fontSize: 15),
                     decoration: const InputDecoration.collapsed(
                       hintText: 'Add Task',
-                      hintStyle: TextStyle(color: Colors.grey,fontSize: 16)
+                      hintStyle: TextStyle(color: Colors.grey,fontSize: 15)
                     ),
                     onEditingComplete: (){
                       if(textController.text.isNotEmpty){
@@ -179,8 +179,8 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver,Helpers{
             showSnackBar(context, '$item removed from task');
           },
           child: Container(
-            padding: const EdgeInsets.only(top: 8,bottom: 8,left: 10,right: 8),
-            margin: const EdgeInsets.only(bottom: 7,left: 15,right: 5),
+            padding: const EdgeInsets.only(bottom: 5,top: 5,right: 5),
+            margin: const EdgeInsets.only(bottom: 6,left: 15,right: 5),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
@@ -190,7 +190,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver,Helpers{
               mainAxisSize: MainAxisSize.min,
               children: [
                 Transform.scale(
-                  scale: 1.3,
+                  scale: 1.0,
                   child: Theme(
                     data: ThemeData(
                       unselectedWidgetColor: Colors.teal
@@ -206,7 +206,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver,Helpers{
                   )
                 ),
                 Expanded(
-                  child: Text(listItem.elementAt(index),style: const TextStyle(color: Colors.black,fontWeight: FontWeight.normal,fontSize: 16)),
+                  child: Text(listItem.elementAt(index),style: const TextStyle(color: Colors.black,fontWeight: FontWeight.normal,fontSize: 14)),
                 )
               ]
             )
@@ -233,18 +233,18 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver,Helpers{
             showSnackBar(context, '$item removed from complated');
           },
           child: Container(
-            padding: const EdgeInsets.only(top: 8,bottom: 8,left: 10,right: 8),
-            margin: const EdgeInsets.only(bottom: 7,left: 15,right: 5),
+            padding: const EdgeInsets.only(bottom: 5,top: 5,right: 5),
+            margin: const EdgeInsets.only(bottom: 6,left: 15,right: 5),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
-              boxShadow: const [BoxShadow(color: Colors.grey,blurRadius: 2)]
+              boxShadow: const [BoxShadow(color: Colors.grey,blurRadius: 1)]
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Transform.scale(
-                  scale: 1.3,
+                  scale: 1.0,
                   child: Checkbox(
                     activeColor: Colors.teal,
                     shape: RoundedRectangleBorder(
@@ -255,7 +255,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver,Helpers{
                   ),
                 ),
                 Expanded(
-                  child: Text(widget.notesProvider.completedList[index],style: const TextStyle(decoration: TextDecoration.lineThrough,color: Colors.black,fontWeight: FontWeight.normal,fontSize: 16))
+                  child: Text(widget.notesProvider.completedList[index],style: const TextStyle(decoration: TextDecoration.lineThrough,color: Colors.black,fontWeight: FontWeight.normal,fontSize: 14))
                 )
               ]
             )
