@@ -2,23 +2,44 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notes_todo/helper/delete_notes_dialog.dart';
 import 'package:notes_todo/helper/empty_message.dart';
+import 'package:notes_todo/providers/notes_provider.dart';
+import 'package:notes_todo/utils/helpers.dart';
 import 'package:notes_todo/utils/preferences.dart';
 import 'dart:convert';
 
-class NotesPage extends StatefulWidget {
+import 'package:provider/provider.dart';
+
+
+class NotesPage extends StatelessWidget {
   const NotesPage({ Key? key }) : super(key: key);
 
   @override
-  _NotesPageState createState() => _NotesPageState();
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => NotesProvider(),
+      child: Consumer<NotesProvider>(
+        builder: (context,provider,child){
+          return MainApp(notesProvider: provider);
+        }
+      ),
+    );
+  }
 }
 
-class _NotesPageState extends State<NotesPage> with WidgetsBindingObserver{
+
+class MainApp extends StatefulWidget {
+  final NotesProvider notesProvider;
+  const MainApp({ Key? key,required this.notesProvider}) : super(key: key);
+
+  @override
+  _MainAppState createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> with WidgetsBindingObserver,Helpers{
 
   Map<String,dynamic> listNote = jsonDecode(Preferences.getStoredTask());
 
   late FocusNode focusNode;
-  bool fabVisible = true;
-  bool taskContainerVisible = false;
   var textController = TextEditingController();
 
   @override
@@ -41,10 +62,7 @@ class _NotesPageState extends State<NotesPage> with WidgetsBindingObserver{
     super.didChangeMetrics();
     final bottomInset = WidgetsBinding.instance!.window.viewInsets.bottom;
     if(bottomInset == 0.0){
-      setState(() {
-        fabVisible = true;
-        taskContainerVisible = false;
-      });
+      widget.notesProvider.fabAction();
     }
   }
   
@@ -60,15 +78,14 @@ class _NotesPageState extends State<NotesPage> with WidgetsBindingObserver{
         : [IconButton(onPressed: () => deleteNotesDialog(),icon: const Icon(Icons.delete,color: Colors.white))],
       ),
       floatingActionButton: Visibility(
-        visible: fabVisible,
+        visible: widget.notesProvider.fabVisible,
         child: FloatingActionButton(
           backgroundColor: Colors.teal,
           onPressed: () => {
             focusNode.hasFocus
             ? focusNode.unfocus()
             : {
-              taskContainerVisible = true,
-              setState(() => fabVisible = false),
+              widget.notesProvider.fabAction(),
               focusNode.requestFocus()
             }
           },
@@ -106,7 +123,7 @@ class _NotesPageState extends State<NotesPage> with WidgetsBindingObserver{
             Align(
               alignment: Alignment.bottomCenter,
               child: Visibility(
-                visible: taskContainerVisible,
+                visible: widget.notesProvider.taskContainerVisible,
                 child: Container(
                   decoration: const BoxDecoration(
                     color: Colors.white,
@@ -170,7 +187,7 @@ class _NotesPageState extends State<NotesPage> with WidgetsBindingObserver{
               listNote.removeWhere((key, value) => key == listItem.elementAt(index));
               convertMaptoString();
             });
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$item removed'),duration: const Duration(seconds: 2)));
+            showSnackBar(context, '$item removed from task');
           },
           child: Container(
             padding: const EdgeInsets.only(top: 8,bottom: 8,left: 10,right: 8),
@@ -239,7 +256,7 @@ class _NotesPageState extends State<NotesPage> with WidgetsBindingObserver{
               completedList.removeWhere((element) => element == item);
               storeCompleTaskLocally();
             });
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$item removed'),duration: const Duration(seconds: 2)));
+            showSnackBar(context, '$item removed from complated');
           },
           child: Container(
             padding: const EdgeInsets.only(top: 8,bottom: 8,left: 10,right: 8),
@@ -298,7 +315,6 @@ class _NotesPageState extends State<NotesPage> with WidgetsBindingObserver{
       }
     );
   }
-
 
   void convertMaptoString(){
     var jsonString = jsonEncode(listNote);
