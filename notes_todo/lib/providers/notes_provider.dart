@@ -37,11 +37,11 @@ class NotesProvider extends ChangeNotifier {
 
   void checkedTask(String item) {
     listNote[item] = true;
-    completedList.add(item);
-    storeCompleTaskLocally();
     notifyListeners();
-    Future.delayed(const Duration(milliseconds: 500), () {
+    Future.delayed(const Duration(milliseconds: 250), () {
       listNote.removeWhere((key, value) => key == item);
+      completedList.add(item);
+      storeCompleTaskLocally();
       convertMaptoString();
       notifyListeners();
     });
