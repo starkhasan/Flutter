@@ -25,4 +25,28 @@ class Preferences {
   static void storeCompleteTask(List<String> completeTask) {
     _sharedPreferences!.setStringList('COMPLETE_TASK', completeTask);
   }
+
+  static void setUserLogin(bool isLogin) {
+    _sharedPreferences!.setBool('USER_LOGIN', isLogin);
+  }
+
+  static bool getUserLogin() {
+    return _sharedPreferences!.getBool('USER_LOGIN') ?? false;
+  }
+
+  static void setUserID(String userId) {
+    _sharedPreferences!.setString('USER_ID', userId);
+  }
+
+  static String getUserID() {
+    return _sharedPreferences!.getString('USER_ID') ?? '';
+  }
+
+  static bool getSyncEnabled() {
+    return _sharedPreferences!.getBool('SYNC_DATA') ?? false;
+  }
+
+  static void setSyncEnabled(bool sync) {
+    _sharedPreferences!.setBool('SYNC_DATA', sync);
+  }
 }

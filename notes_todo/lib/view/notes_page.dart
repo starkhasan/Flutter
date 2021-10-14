@@ -4,6 +4,7 @@ import 'package:notes_todo/helper/delete_notes_dialog.dart';
 import 'package:notes_todo/helper/empty_message.dart';
 import 'package:notes_todo/providers/notes_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:notes_todo/helper/drawer_page.dart';
 
 
 class NotesPage extends StatelessWidget {
@@ -63,6 +64,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const DrawerPage(),
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Notes',style: TextStyle(fontSize: 16)),
@@ -73,7 +75,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
       floatingActionButton: Visibility(
         visible: widget.notesProvider.fabVisible,
         child: FloatingActionButton(
-          backgroundColor: Colors.teal,
+          backgroundColor: Colors.indigo,
           onPressed: () => {
             focusNode.hasFocus
             ? focusNode.unfocus()
@@ -96,9 +98,9 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Visibility(visible: widget.notesProvider.listNote.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 10,top:15,bottom: 15),child: const Text('Task',style: TextStyle(color: Colors.teal,fontSize: 14,fontWeight: FontWeight.bold)))),
+                        Visibility(visible: widget.notesProvider.listNote.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 10,top:15,bottom: 15),child: const Text('Task',style: TextStyle(color: Colors.indigo,fontSize: 14,fontWeight: FontWeight.bold)))),
                         notesBody(),
-                        Visibility(visible: widget.notesProvider.completedList.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 10,top:15,bottom: 15),child: const Text('Completed',style: TextStyle(color: Colors.teal,fontSize: 14,fontWeight: FontWeight.bold)))),
+                        Visibility(visible: widget.notesProvider.completedList.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 10,top:15,bottom: 15),child: const Text('Completed',style: TextStyle(color: Colors.indigo,fontSize: 14,fontWeight: FontWeight.bold)))),
                         completedNotes()
                       ]
                     )
@@ -190,10 +192,10 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                   scale: 1.0,
                   child: Theme(
                     data: ThemeData(
-                      unselectedWidgetColor: Colors.teal
+                      unselectedWidgetColor: Colors.indigo
                     ),
                     child: Checkbox(
-                      activeColor: Colors.teal,
+                      activeColor: Colors.indigo,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)
                       ),
@@ -244,7 +246,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                 Transform.scale(
                   scale: 1.0,
                   child: Checkbox(
-                    activeColor: Colors.teal,
+                    activeColor: Colors.indigo,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)
                     ),

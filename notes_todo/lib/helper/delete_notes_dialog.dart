@@ -22,7 +22,7 @@ class _DeleteNotesDialogState extends State<DeleteNotesDialog> {
         ),
         CupertinoDialogAction(
           onPressed: () => widget.onPressed(),
-          child: const Text('Yes'),
+          child: const Text('Yes',style: TextStyle(color: Colors.blue)),
         )
       ],
     );
