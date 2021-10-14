@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:notes_todo/utils/preferences.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class NotesProvider extends ChangeNotifier {
+  DatabaseReference databaseReference = FirebaseDatabase.instance.reference().child('notes');
   bool fabVisible = true;
   bool taskContainerVisible = false;
   int selectedTaskIndex = -1;
@@ -15,10 +17,12 @@ class NotesProvider extends ChangeNotifier {
   }
 
   void deleteAllNotes() {
+    Preferences.setSyncEnabled(false);
     listNote.clear();
     completedList.clear();
     storeTaskLocally();
     storeCompleteTaskLocally();
+    Preferences.setSyncEnabled(true);
     notifyListeners();
   }
 
@@ -75,10 +79,31 @@ class NotesProvider extends ChangeNotifier {
   }
 
   void storeTaskLocally() {
+    if (Preferences.getSyncEnabled()) {
+      if (listNote.isNotEmpty) {
+        databaseReference
+            .child(Preferences.getUserID())
+            .update({'task': listNote.join(',')});
+      } else {
+        databaseReference.child(Preferences.getUserID()).child('task').remove();
+      }
+    }
     Preferences.storeTask(listNote);
   }
 
   void storeCompleteTaskLocally() {
+    if (Preferences.getSyncEnabled()) {
+      if (completedList.isEmpty) {
+        databaseReference
+            .child(Preferences.getUserID())
+            .child('completeTask')
+            .remove();
+      } else {
+        databaseReference
+            .child(Preferences.getUserID())
+            .update({'completeTask': completedList.join(',')});
+      }
+    }
     Preferences.storeCompleteTask(completedList);
   }
 }

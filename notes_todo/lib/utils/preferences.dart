@@ -49,4 +49,12 @@ class Preferences {
   static void setSyncEnabled(bool sync) {
     _sharedPreferences!.setBool('SYNC_DATA', sync);
   }
+
+  static void setUserEmail(String email) {
+    _sharedPreferences!.setString('USER_EMAIL', email);
+  }
+
+  static String getUserEmail() {
+    return _sharedPreferences!.getString('USER_EMAIL') ?? '';
+  }
 }

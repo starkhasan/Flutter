@@ -83,7 +83,7 @@ class LoginPage extends StatelessWidget {
                         style: TextStyle(color: Colors.black,fontSize: 12)
                       ),
                       TextSpan(
-                        text: Preferences.getUserID(),
+                        text: Preferences.getUserEmail(),
                         style: const TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.bold,fontStyle: FontStyle.normal)
                       ),
                       const TextSpan(
@@ -100,8 +100,8 @@ class LoginPage extends StatelessWidget {
                   children: [
                     Text(
                       provider.isSyncEnabled
-                      ? 'Disabled Sync'
-                      : 'Enabled Sync'
+                      ? 'Enabled Sync'
+                      : 'Disabled Sync'
                     ),
                     Switch(
                       value: provider.isSyncEnabled, 
@@ -110,12 +110,41 @@ class LoginPage extends StatelessWidget {
                   ]
                 ),
                 const SizedBox(height: 10),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: ElevatedButton(
-                    onPressed: () => provider.logoutUser(),
-                    child: const Text('Sign out')
-                  )
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(Preferences.getUserEmail(),style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+                        const Text('Account Linked',style: TextStyle(color: Colors.grey,fontSize: 12))
+                      ]
+                    ),
+                    ElevatedButton(
+                      onPressed: () => provider.logoutUser(),
+                      child: const Text('Sign out')
+                    )
+                  ]
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text('Delete All Notes',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+                        Text('This will delete all your notes from Firebase Cloud',style: TextStyle(color: Colors.grey,fontSize: 12)),
+                      ]
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.red
+                      ),
+                      onPressed: () => provider.deleteUserData(),
+                      child: const Text('Delete')
+                    )
+                  ]
                 )
               ]
             ),

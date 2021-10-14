@@ -282,7 +282,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
   void showSnackbar(BuildContext context,String item,String message,int index,String type){
     var snackbar = SnackBar(
       content: Text(message),
-      duration: const Duration(seconds: 10),
+      duration: const Duration(seconds: 5),
       action: SnackBarAction(
         label: 'UNDO',
         textColor: Colors.yellow,
