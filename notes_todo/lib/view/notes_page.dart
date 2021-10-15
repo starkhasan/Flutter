@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:notes_todo/helper/delete_notes_dialog.dart';
 import 'package:notes_todo/helper/empty_message.dart';
 import 'package:notes_todo/providers/notes_provider.dart';
+import 'package:notes_todo/utils/preferences.dart';
+import 'package:notes_todo/view/notes_backup_page.dart';
 import 'package:provider/provider.dart';
-import 'package:notes_todo/helper/drawer_page.dart';
 
 
 class NotesPage extends StatelessWidget {
@@ -36,6 +37,8 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
   
   late FocusNode focusNode;
   var textController = TextEditingController();
+  List<IconData> icons = [Icons.sync,Icons.dark_mode_outlined];
+  List<String> screenName = ['Sync Notes','Dark mode'];
 
   @override
   void initState() {
@@ -51,7 +54,6 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
     super.dispose();
   }
 
-
   @override
   void didChangeMetrics() {
     super.didChangeMetrics();
@@ -64,13 +66,18 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const DrawerPage(),
+      drawer: drawerLayout(),
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Notes',style: TextStyle(fontSize: 16)),
-        actions: widget.notesProvider.completedList.isEmpty && widget.notesProvider.listNote.isEmpty
+        actions: widget.notesProvider.completedList.isEmpty && widget.notesProvider.listNote.isEmpty && !widget.notesProvider.isDataSync
         ? null
-        : [IconButton(onPressed: () => deleteNotesDialog(),icon: const Icon(Icons.delete,color: Colors.white,size: 22.0))],
+        : [
+            IconButton(
+              onPressed: widget.notesProvider.isDataSync ? null : () => deleteNotesDialog(),
+              icon: Icon(widget.notesProvider.isDataSync ? Icons.sync :Icons.delete,color: Colors.white,size: 22.0)
+            )
+          ]
       ),
       floatingActionButton: Visibility(
         visible: widget.notesProvider.fabVisible,
@@ -265,11 +272,90 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
     );
   }
 
+  Widget drawerLayout(){
+    return Drawer(
+      child: Container(
+        padding: EdgeInsets.zero,
+        child: Column(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height * 0.10,
+              child: Stack(
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.indigo,
+                      image: DecorationImage(
+                        image: AssetImage('assets/logo.png')
+                      )
+                    ),
+                  ),
+                  const Positioned(
+                    left: 10,
+                    bottom: 10,
+                    child: Text('Notes Todo',style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold))
+                  )
+                ],
+              )
+            ),
+            Container(
+              color: Colors.white,
+              height: MediaQuery.of(context).size.height * 0.90,
+              child: ListView.builder(
+                shrinkWrap: true,
+                padding: EdgeInsets.zero,
+                scrollDirection: Axis.vertical,
+                physics: const ScrollPhysics(),
+                itemCount: icons.length,
+                itemBuilder: (context,index){
+                  return InkWell(
+                    onTap: () => pageNavigation(context,index),
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 10),
+                      padding: const EdgeInsets.all(10),
+                      child: Row(
+                        children: [
+                          Icon(icons[index],color: Colors.indigo),
+                          const SizedBox(width: 10),
+                          Text(screenName[index],style: const TextStyle(fontSize: 16))
+                        ]
+                      ),
+                    )
+                  );
+                }
+              ),
+            )
+          ]
+        )
+      )
+    );
+  }
+
+  pageNavigation(BuildContext _context,int index){
+    switch (index) {
+      case 0:
+        Navigator.pop(_context);
+        Navigator.push(_context, MaterialPageRoute(builder: (_context) => const NotesBackupPage())).then((value) => {
+          if(Preferences.getSyncEnabled()){
+            widget.notesProvider.syncEnableFromSyncNote()
+          }
+        });
+        break;
+      case 1:
+        Navigator.pop(_context);
+        break;
+      default:
+        Navigator.pop(_context);
+    }
+  }
+
   deleteNotesDialog(){
     showDialog(
       context: context, 
       builder: (BuildContext context){
         return DeleteNotesDialog(
+          titleDialog: 'Delete all Notes',
+          contentDialog: 'Are you sure you want to delete all Notes?',
           onPressed: () => {
             widget.notesProvider.deleteAllNotes(),
             Navigator.pop(context)

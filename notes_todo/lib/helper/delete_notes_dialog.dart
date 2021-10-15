@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 
 class DeleteNotesDialog extends StatefulWidget {
   final Function onPressed;
-  const DeleteNotesDialog({Key? key,required this.onPressed}) : super(key: key);
+  final String titleDialog;
+  final String contentDialog;
+  const DeleteNotesDialog({Key? key,required this.onPressed,required this.titleDialog,required this.contentDialog}) : super(key: key);
 
   @override
   State<DeleteNotesDialog> createState() => _DeleteNotesDialogState();
@@ -13,8 +15,8 @@ class _DeleteNotesDialogState extends State<DeleteNotesDialog> {
   @override
   Widget build(BuildContext context) {
     return CupertinoAlertDialog(
-      title: const Text('Delete all Notes'),
-      content: const Text('Are you sure you want to delete all Notes?'),
+      title: Text(widget.titleDialog),
+      content: Text(widget.contentDialog),
       actions: [
         CupertinoDialogAction(
           onPressed: () => Navigator.pop(context),

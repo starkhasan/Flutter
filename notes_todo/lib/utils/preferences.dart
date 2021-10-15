@@ -57,4 +57,12 @@ class Preferences {
   static String getUserEmail() {
     return _sharedPreferences!.getString('USER_EMAIL') ?? '';
   }
+
+  static bool getLocalDeleted() {
+    return _sharedPreferences!.getBool('LOCAL_DELETE') ?? false;
+  }
+
+  static void setLocalDelete(bool localDelete) {
+    _sharedPreferences!.setBool('LOCAL_DELETE', localDelete);
+  }
 }

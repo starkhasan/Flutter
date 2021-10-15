@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:notes_todo/helper/delete_notes_dialog.dart';
 import 'package:notes_todo/providers/authentication_provider.dart';
 import 'package:notes_todo/service/AuthenticationService.dart';
-import 'package:provider/provider.dart';
 import 'package:notes_todo/utils/preferences.dart';
+import 'package:provider/provider.dart';
 
 class NotesBackupPage extends StatefulWidget {
   const NotesBackupPage({Key? key}) : super(key: key);
@@ -27,7 +28,11 @@ class _NotesBackupPageState extends State<NotesBackupPage> {
             return 
               snapshot.data == null
               ? const LogoutPage()
-              : const LoginPage();
+              : Consumer<AuthenticationProvider>(
+                builder: (context,provider,child){
+                  return LoginPage(authProvider: provider);
+                }
+              );
           }
         )
       )
@@ -35,110 +40,131 @@ class _NotesBackupPageState extends State<NotesBackupPage> {
   }
 }
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({ Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  final AuthenticationProvider authProvider;
+  const LoginPage({ Key? key,required this.authProvider}) : super(key: key);
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(15),
-      child: Consumer<AuthenticationProvider>(
-        builder: (context,provider,child){
-          return Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(provider.isSyncEnabled ? Icons.sync : Icons.sync_disabled_sharp,color: provider.isSyncEnabled ? Colors.green : Colors.red),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(widget.authProvider.isSyncEnabled ? Icons.sync : Icons.sync_disabled_sharp,color: widget.authProvider.isSyncEnabled ? Colors.green : Colors.red),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.authProvider.isSyncEnabled
+                  ? 'Sync Enabled'
+                  : 'Sync Disabled',
+                  style: TextStyle(color: widget.authProvider.isSyncEnabled ? Colors.green : Colors.red,fontWeight: FontWeight.bold)),
+                const SizedBox(height: 5),
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      const TextSpan(
+                        text: 'All your notes data sync with your id ',
+                        style: TextStyle(color: Colors.black,fontSize: 12)
+                      ),
+                      TextSpan(
+                        text: Preferences.getUserEmail(),
+                        style: const TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.bold,fontStyle: FontStyle.normal)
+                      ),
+                      const TextSpan(
+                        text: ' on Google Firebase. All your notes automatically sync with Firebase at the time of creating and deletion',
+                        style: TextStyle(color: Colors.black,fontSize: 12)
+                      )
+                    ]
+                  )
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      provider.isSyncEnabled
-                      ? 'Sync Enabled'
-                      : 'Sync Disabled',
-                      style: TextStyle(color: provider.isSyncEnabled ? Colors.green : Colors.red,fontWeight: FontWeight.bold)),
-                    const SizedBox(height: 5),
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          const TextSpan(
-                            text: 'All your notes data sync with your id ',
-                            style: TextStyle(color: Colors.black,fontSize: 12)
-                          ),
-                          TextSpan(
-                            text: Preferences.getUserEmail(),
-                            style: const TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.bold,fontStyle: FontStyle.normal)
-                          ),
-                          const TextSpan(
-                            text: ' on Google Firebase. All your notes automatically sync with Firebase at the time of creating and deletion',
-                            style: TextStyle(color: Colors.black,fontSize: 12)
-                          )
-                        ]
-                      )
+                      widget.authProvider.isSyncEnabled
+                      ? 'Enabled Sync'
+                      : 'Disabled Sync'
                     ),
-                    const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          provider.isSyncEnabled
-                          ? 'Enabled Sync'
-                          : 'Disabled Sync'
-                        ),
-                        Switch(
-                          value: provider.isSyncEnabled, 
-                          onChanged: (value) => provider.modifySyncData()
-                        )
-                      ]
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(Preferences.getUserEmail(),style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                            const Text('Account Linked',style: TextStyle(color: Colors.grey,fontSize: 12))
-                          ]
-                        ),
-                        ElevatedButton(
-                          onPressed: () => provider.logoutUser(),
-                          child: const Text('Sign out')
-                        )
-                      ]
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text('Delete All Notes',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                            Text('This will delete all your notes from Firebase Cloud',style: TextStyle(color: Colors.grey,fontSize: 12)),
-                          ]
-                        ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.red
-                          ),
-                          onPressed: () => provider.deleteUserData(),
-                          child: const Text('Delete')
-                        )
-                      ]
+                    Switch(
+                      value: widget.authProvider.isSyncEnabled, 
+                      onChanged: (value) => {
+                        widget.authProvider.modifySyncData()
+                      }
                     )
                   ]
                 ),
-              )
-            ]
-          );
-        }
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(Preferences.getUserEmail(),style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+                        const Text('Account Linked',style: TextStyle(color: Colors.grey,fontSize: 12))
+                      ]
+                    ),
+                    ElevatedButton(
+                      onPressed: () => widget.authProvider.logoutUser(),
+                      child: const Text('Sign out')
+                    )
+                  ]
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text('Delete All Notes',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+                        Text('This will delete all your notes from Firebase Cloud',style: TextStyle(color: Colors.grey,fontSize: 12)),
+                      ]
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.red
+                      ),
+                      onPressed: () => deleteNotesDialog(),
+                      child: const Text('Delete')
+                    )
+                  ]
+                )
+              ]
+            ),
+          )
+        ]
       )
     );
   }
+
+  deleteNotesDialog(){
+    showDialog(
+      context: context, 
+      builder: (BuildContext context){
+        return DeleteNotesDialog(
+          titleDialog: 'Delete all sync data',
+          contentDialog: 'Are you sure you want to delete all sync data?',
+          onPressed: () => {
+            widget.authProvider.deleteUserData(),
+            Navigator.pop(context)
+          }
+        );
+      }
+    );
+  }
+
 }
 
 
@@ -157,7 +183,6 @@ class _LogoutPageState extends State<LogoutPage> {
 
   @override
   Widget build(BuildContext context) {
-    print('Build UI Again');
     return Container(
       padding: const EdgeInsets.all(15),
       color: Colors.white,
