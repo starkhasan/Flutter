@@ -282,28 +282,14 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
         child: Column(
           children: [
             Container(
-              height: MediaQuery.of(context).size.height * 0.10,
-              child: Stack(
-                children: [
-                  Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.indigo,
-                      image: DecorationImage(
-                        image: AssetImage('assets/logo.png')
-                      )
-                    ),
-                  ),
-                  const Positioned(
-                    left: 10,
-                    bottom: 10,
-                    child: Text('Notes Todo',style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold))
-                  )
-                ],
-              )
+              padding: const EdgeInsets.only(top: 50,bottom: 10,left: 10),
+              color: Colors.indigo,
+              width: double.infinity,
+              child: const Text('Notes Todo',style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold))
             ),
             Container(
               color: Colors.white,
-              height: MediaQuery.of(context).size.height * 0.90,
+              height: MediaQuery.of(context).size.height * 0.85,
               child: ListView.builder(
                 shrinkWrap: true,
                 padding: EdgeInsets.zero,
