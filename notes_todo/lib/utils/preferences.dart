@@ -65,4 +65,13 @@ class Preferences {
   static void setLocalDelete(bool localDelete) {
     _sharedPreferences!.setBool('LOCAL_DELETE', localDelete);
   }
+
+  static bool getSyncExplicitly() {
+    return _sharedPreferences!.getBool('SYNC_DATA_EXPLICIT') ?? false;
+  }
+
+  static void setSyncExplicitly(bool sync) {
+    _sharedPreferences!.setBool('SYNC_DATA_EXPLICIT', sync);
+  }
+
 }

@@ -45,6 +45,9 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
     super.initState();
     WidgetsBinding.instance!.addObserver(this);
     focusNode = FocusNode();
+    if(Preferences.getSyncEnabled()) {
+      Future.delayed(Duration.zero,() => widget.notesProvider.syncEnableFromSyncNote());
+    }
   }
 
   @override
@@ -336,7 +339,8 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
       case 0:
         Navigator.pop(_context);
         Navigator.push(_context, MaterialPageRoute(builder: (_context) => const NotesBackupPage())).then((value) => {
-          if(Preferences.getSyncEnabled()){
+          if(Preferences.getSyncExplicitly()){
+            Preferences.setSyncExplicitly(false),
             widget.notesProvider.syncEnableFromSyncNote()
           }
         });

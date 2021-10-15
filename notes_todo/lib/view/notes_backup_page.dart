@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notes_todo/helper/delete_notes_dialog.dart';
 import 'package:notes_todo/providers/authentication_provider.dart';
-import 'package:notes_todo/service/AuthenticationService.dart';
+import 'package:notes_todo/service/authentication_service.dart';
 import 'package:notes_todo/utils/preferences.dart';
 import 'package:provider/provider.dart';
 
@@ -99,6 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                     Switch(
                       value: widget.authProvider.isSyncEnabled, 
                       onChanged: (value) => {
+                        if(value) Preferences.setSyncExplicitly(true),
                         widget.authProvider.modifySyncData()
                       }
                     )
@@ -136,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                       style: ElevatedButton.styleFrom(
                         primary: Colors.red
                       ),
-                      onPressed: () => deleteNotesDialog(),
+                      onPressed: () => deleteNotesDialog(context),
                       child: const Text('Delete')
                     )
                   ]
@@ -149,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  deleteNotesDialog(){
+  deleteNotesDialog(BuildContext _context){
     showDialog(
       context: context, 
       builder: (BuildContext context){
@@ -157,7 +158,7 @@ class _LoginPageState extends State<LoginPage> {
           titleDialog: 'Delete all sync data',
           contentDialog: 'Are you sure you want to delete all sync data?',
           onPressed: () => {
-            widget.authProvider.deleteUserData(),
+            widget.authProvider.deleteUserData(_context),
             Navigator.pop(context)
           }
         );

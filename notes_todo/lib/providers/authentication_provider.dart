@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:notes_todo/service/AuthenticationService.dart';
 import 'package:notes_todo/utils/helpers.dart';
 import 'package:notes_todo/utils/preferences.dart';
 
@@ -28,6 +27,7 @@ class AuthenticationProvider extends ChangeNotifier with Helpers {
         Preferences.setUserLogin(true);
         Preferences.setUserID(userCredential!.user!.uid);
         Preferences.setSyncEnabled(true);
+        Preferences.setSyncExplicitly(true);
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           showSnackBar(_context,'The password provided is too weak.');
@@ -62,9 +62,10 @@ class AuthenticationProvider extends ChangeNotifier with Helpers {
     notifyListeners();
   }
 
-  void deleteUserData() async{
+  void deleteUserData(BuildContext _context) async{
     await FirebaseDatabase.instance.reference().child('notes').child(Preferences.getUserID()).child('task').remove();
     await FirebaseDatabase.instance.reference().child('notes').child(Preferences.getUserID()).child('completeTask').remove();
+    showSnackBar(_context, 'Sync data has been deleted successfully');
   }
 
   bool validation(BuildContext _context, String email, String password) {

@@ -126,10 +126,7 @@ class NotesProvider extends ChangeNotifier {
   void storeCompleteTaskLocally() async {
     if (Preferences.getSyncEnabled()) {
       if (completedList.isEmpty) {
-        await databaseReference
-            .child(Preferences.getUserID())
-            .child('completeTask')
-            .remove();
+        await databaseReference.child(Preferences.getUserID()).child('completeTask').remove();
       } else {
         await databaseReference.child(Preferences.getUserID()).update({'completeTask': completedList.join(',')});
       }
@@ -137,26 +134,29 @@ class NotesProvider extends ChangeNotifier {
     Preferences.storeCompleteTask(completedList);
   }
 
-  void syncEnableFromSyncNote() async{
+  void syncEnableFromSyncNote() async {
     _dataSync = true;
     notifyListeners();
     await databaseReference.child(Preferences.getUserID()).once().then((DataSnapshot snapshot) {
-        if(snapshot.value  != null){
-          if(snapshot.value['task'] != null){
-            var tempTask = snapshot.value['task'].split(',');
-            for(var item in tempTask){
-              listNote.add(item);
-            }
-            Preferences.storeTask(listNote);
+      if(snapshot.value  != null){
+        if(snapshot.value['task'] != null) {
+          var tempTask = snapshot.value['task'].split(',');
+          for(var item in tempTask){
+            if(!listNote.contains(item)) listNote.add(item);
           }
-          if(snapshot.value['completeTask'] != null){
-            var tempTask = snapshot.value['completeTask'].split(',');
-            for(var item in tempTask){
-              completedList.add(item);
-            }
-            Preferences.storeCompleteTask(completedList);
-          }
+          databaseReference.child(Preferences.getUserID()).update({'task': listNote.join(',')});
+          Preferences.storeTask(listNote);
         }
+        if(snapshot.value['completeTask'] != null){
+          var tempTask = snapshot.value['completeTask'].split(',');
+          for(var item in tempTask){
+            if(!completedList.contains(item)) completedList.add(item);
+          }
+          databaseReference.child(Preferences.getUserID()).update({'completeTask': completedList.join(',')});
+          Preferences.storeCompleteTask(completedList);
+        }
+        Preferences.setLocalDelete(false);
+      }
     });
     _dataSync = false;
     notifyListeners();
