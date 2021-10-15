@@ -6,28 +6,42 @@ import 'package:notes_todo/utils/preferences.dart';
 
 class AuthenticationProvider extends ChangeNotifier with Helpers {
 
-  bool syncData = Preferences.getSyncEnabled();
-  bool get isSyncEnabled => syncData;
+  bool get isSyncEnabled => Preferences.getSyncEnabled();
+  bool _isLogin = false;
+  bool get isLoginUser => _isLogin;
+  UserCredential? userCredential;
+  FirebaseAuth firebaseAuthInstance = FirebaseAuth.instance;
 
-  Future<void> loginUser(BuildContext _context, String email, String password) async {
+  void turnSingIn(){
+    _isLogin = _isLogin ? false : true;
+    notifyListeners();
+  }
+
+  Future<void> userAuthenticate(bool isLogin,BuildContext _context, String email, String password) async {
     if (validation(_context, email, password)) {
       try {
-        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+        isLogin
+        ? userCredential = await firebaseAuthInstance.signInWithEmailAndPassword(email: email, password: password)
+        : userCredential = await firebaseAuthInstance.createUserWithEmailAndPassword(email: email, password: password);
         Preferences.setUserEmail(email);
         Preferences.setUserLogin(true);
-        Preferences.setUserID(userCredential.user!.uid);
+        Preferences.setUserID(userCredential!.user!.uid);
         Preferences.setSyncEnabled(true);
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
-          print('The password provided is too weak.');
+          showSnackBar(_context,'The password provided is too weak.');
         } else if (e.code == 'email-already-in-use') {
-          print('The account already exists for that email.');
+          showSnackBar(_context,'The account already exists for that email.');
+        } else if (e.code == 'user-not-found') {
+          showSnackBar(_context,'No user found for that email.');
+        } else if (e.code == 'wrong-password') {
+          showSnackBar(_context,'Wrong password provided for that user.');
         }
       } catch (e) {
         print(e);
       }
     }
-    //2GrClgIMcjRHUsk1u8p3MrA4fNk1
+    notifyListeners();
   }
 
   Future<void> logoutUser() async {
@@ -39,11 +53,9 @@ class AuthenticationProvider extends ChangeNotifier with Helpers {
   }
 
   void modifySyncData(){
-    if(syncData){
-      syncData = false;
+    if(Preferences.getSyncEnabled()){
       Preferences.setSyncEnabled(false);
     }else{
-      syncData = true;
       Preferences.setSyncEnabled(true);
     }
     notifyListeners();
