@@ -39,7 +39,7 @@ class AuthenticationProvider extends ChangeNotifier with Helpers {
           showSnackBar(_context,'Wrong password provided for that user.');
         }
       } catch (e) {
-        print(e);
+        showSnackBar(_context, e.toString());
       }
     }
     notifyListeners();
