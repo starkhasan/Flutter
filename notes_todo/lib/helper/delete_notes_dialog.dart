@@ -26,7 +26,7 @@ class _DeleteNotesDialogState extends State<DeleteNotesDialog> {
           onPressed: () => widget.onPressed(),
           child: const Text('Yes',style: TextStyle(color: Colors.blue)),
         )
-      ],
+      ]
     );
   }
 }

@@ -19,7 +19,7 @@ class NotesPage extends StatelessWidget {
         builder: (context,provider,child){
           return MainApp(notesProvider: provider);
         }
-      ),
+      )
     );
   }
 }
@@ -308,11 +308,11 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                           const SizedBox(width: 10),
                           Text(screenName[index],style: const TextStyle(fontSize: 16))
                         ]
-                      ),
+                      )
                     )
                   );
                 }
-              ),
+              )
             )
           ]
         )

@@ -143,7 +143,7 @@ class _LoginPageState extends State<LoginPage> {
                   ]
                 )
               ]
-            ),
+            )
           )
         ]
       )
@@ -240,7 +240,7 @@ class _LogoutPageState extends State<LogoutPage> {
                           decoration: const InputDecoration(
                             hintText: 'Email',
                             hintStyle: TextStyle(color: Colors.grey)
-                          ),
+                          )
                         ),
                         const SizedBox(height: 5),
                         TextField(
@@ -250,7 +250,7 @@ class _LogoutPageState extends State<LogoutPage> {
                           decoration: const InputDecoration(
                             hintText: 'Password',
                             hintStyle: TextStyle(color: Colors.grey)
-                          ),
+                          )
                         ),
                         const SizedBox(height: 10),
                         Align(
