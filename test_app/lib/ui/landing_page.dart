@@ -5,6 +5,7 @@ import 'package:test_app/ui/crypto_page.dart';
 import 'package:test_app/ui/facebook_page.dart';
 import 'package:test_app/ui/firebase_authentication.dart';
 import 'package:test_app/ui/sliverwidget_page.dart';
+import 'package:test_app/ui/square_payment_page.dart';
 import 'package:test_app/ui/twitter_page.dart';
 import 'package:test_app/ui/webview_page.dart';
 import 'package:test_app/ui/whatsapp_page.dart';
@@ -127,7 +128,8 @@ class _LandingPageState extends State<LandingPage> {
       'Cypto',
       'WebView',
       'Sliver Widget',
-      'Firebase Services'
+      'Firebase Services',
+      'Square Payment'
     ];
     var screenAssets = [
       'asset/facebook.png',
@@ -204,6 +206,10 @@ class _LandingPageState extends State<LandingPage> {
       case 6:
         Navigator.push(_context,
             MaterialPageRoute(builder: (_context) => const FirebaseAuthentication()));
+        break;
+      case 7:
+        Navigator.push(_context,
+            MaterialPageRoute(builder: (_context) => const SquarePaymentPage()));
         break;
       default:
     }
