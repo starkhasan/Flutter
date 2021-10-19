@@ -48,6 +48,7 @@ dependencies:
   uuid: ^3.0.5
   razorpay_flutter: ^1.2.7
   firebase_dynamic_links: ^2.0.10
+  web_socket_channel: ^2.1.0
   
 
 dev_dependencies:

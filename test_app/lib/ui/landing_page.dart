@@ -1,3 +1,4 @@
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -6,8 +7,10 @@ import 'package:test_app/ui/deeplink/platform_integration_page.dart';
 import 'package:test_app/ui/facebook_page.dart';
 import 'package:test_app/ui/firebase_authentication.dart';
 import 'package:test_app/ui/payment_gateway/razorpay_payment.dart';
+import 'package:test_app/ui/rest_api.dart';
 import 'package:test_app/ui/sliverwidget_page.dart';
 import 'package:test_app/ui/twitter_page.dart';
+import 'package:test_app/ui/web_socket.dart';
 import 'package:test_app/ui/webview_page.dart';
 import 'package:test_app/ui/whatsapp_page.dart';
 import 'package:test_app/utils/preferences.dart';
@@ -84,7 +87,6 @@ class _LandingPageState extends State<LandingPage> {
     //message.notification.title
     //message.notification.body
 
-
     //this methd will be called when app is in backgorund
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message){
       print('A new onMessageOpenedApp event was published! $message');
@@ -99,7 +101,33 @@ class _LandingPageState extends State<LandingPage> {
 
     //it is usedful when we click the fcm when app in foreground state
     flutterLocalNotificationsPlugin.initialize(initializationSettings,onSelectNotification: selectNotification);
+    handleDynamicLink(context);
+  }
+
+  //this is used for handling Firebase dynamic link
+  void handleDynamicLink(BuildContext context) async {
+    //get the initial dynamic link if the app is opened with a dynamic link
+    final PendingDynamicLinkData? data = await FirebaseDynamicLinks.instance.getInitialLink();
+
+    //handle the link that has been reterived
+    if (data != null) {
+      print('App is opened with dynamic link : deeplink $data');
+      Navigator.push(context, MaterialPageRoute(builder: (context) => const FacebookPage()));
+    }
     
+    //Register a link callback if the app is opened from background using the dynamic link
+    FirebaseDynamicLinks.instance.onLink(
+      onSuccess: (PendingDynamicLinkData? dynamicLink) async {
+        if (dynamicLink != null) {
+          print('App is opened from background using dynamic link : deeplink $dynamicLink');
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const FacebookPage()));
+        }
+      }, 
+      onError: (OnLinkErrorException e) async {
+        print('LinkErro ${e.message}');
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const TwitterPage()));
+      }
+    );
   }
 
   void selectNotification(String? payload) async {
@@ -131,7 +159,9 @@ class _LandingPageState extends State<LandingPage> {
       'Sliver Widget',
       'Firebase Services',
       'Square Payment',
-      'Deep Link'
+      'Deep Link',
+      'Rest API',
+      'Web Socket'
     ];
     var screenAssets = [
       'asset/facebook.png',
@@ -179,43 +209,55 @@ class _LandingPageState extends State<LandingPage> {
     );
   }
 
-  onClick(BuildContext _context, int index) {
+  onClick(BuildContext _contexts, int index) async{
     switch (index) {
       case 0:
-        Navigator.push(_context,
-            MaterialPageRoute(builder: (_context) => const FacebookPage()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const FacebookPage()));
         break;
       case 1:
-        Navigator.push(_context,
-            MaterialPageRoute(builder: (_context) => const TwitterPage()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const TwitterPage()));
         break;
       case 2:
-        Navigator.push(_context,
-            MaterialPageRoute(builder: (_context) => const WhatsAppPage()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const WhatsAppPage()));
         break;
       case 3:
         Navigator.push(
-            _context, MaterialPageRoute(builder: (_context) => const Crypto()));
+            context, MaterialPageRoute(builder: (context) => const Crypto()));
         break;
       case 4:
-        Navigator.push(_context,
-            MaterialPageRoute(builder: (_context) => const WebViewPage()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const WebViewPage()));
         break;
       case 5:
-        Navigator.push(_context,
-            MaterialPageRoute(builder: (_context) => const SliverWidgetPage()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const SliverWidgetPage()));
         break;
       case 6:
-        Navigator.push(_context,
-            MaterialPageRoute(builder: (_context) => const FirebaseAuthentication()));
+        Navigator.push(context,MaterialPageRoute(builder: (context) => const FirebaseAuthentication()));
         break;
       case 7:
-        Navigator.push(_context,
-            MaterialPageRoute(builder: (_context) => const RazorpayPaymentGateway()));
+        Navigator.push(context,MaterialPageRoute(builder: (context) => const RazorpayPaymentGateway()));
         break;
       case 8:
-        Navigator.push(_context,
-            MaterialPageRoute(builder: (_context) => const PlatformIntegrationPage()));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) {
+              return const PlatformIntegrationPage();
+            }
+          )
+        ).then((value) => {
+          print(value)
+        });
+        break;
+      case 9:
+        Navigator.push(context,MaterialPageRoute(builder: (context) => const RestAPI()));
+        break;
+      case 10:
+        Navigator.push(context,MaterialPageRoute(builder: (context) => const WebSocket()));
         break;
       default:
     }
