@@ -3,7 +3,7 @@ import 'package:notes_todo/utils/preferences.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class NotesProvider extends ChangeNotifier {
-  DatabaseReference databaseReference = FirebaseDatabase.instance.reference().child('notes');
+  DatabaseReference databaseReference = FirebaseDatabase.instance.reference().child('notes_todo');
   bool fabVisible = true;
   bool taskContainerVisible = false;
   int selectedTaskIndex = -1;

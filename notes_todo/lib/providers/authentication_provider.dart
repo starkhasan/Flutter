@@ -16,13 +16,14 @@ class AuthenticationProvider extends ChangeNotifier with Helpers {
   UserCredential? userCredential;
   FirebaseAuth firebaseAuthInstance = FirebaseAuth.instance;
 
-  void turnSingIn(bool login){
+  void turnSingIn(bool login, String name, String email, String password){
     _isLogin = login;
+    fillEmailPassword(name, email, password);
     notifyListeners();
   }
 
-  Future<void> userAuthenticate(bool isLogin,BuildContext _context, String email, String password) async {
-    if (validation(_context, email, password)) {
+  Future<void> userAuthenticate(bool isLogin,BuildContext _context,String name, String email, String password) async {
+    if (validation(_context,name, email, password)) {
       try {
         isLogin
         ? userCredential = await firebaseAuthInstance.signInWithEmailAndPassword(email: email, password: password)
@@ -32,6 +33,7 @@ class AuthenticationProvider extends ChangeNotifier with Helpers {
         Preferences.setUserID(userCredential!.user!.uid);
         Preferences.setSyncEnabled(true);
         Preferences.setSyncExplicitly(true);
+        if(!isLogin) FirebaseDatabase.instance.reference().child('notes_todo').child(userCredential!.user!.uid).update({'name' : name });
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           showSnackBar(_context,'The password provided is too weak.');
@@ -45,8 +47,8 @@ class AuthenticationProvider extends ChangeNotifier with Helpers {
       } catch (e) {
         showSnackBar(_context, e.toString());
       }
+      notifyListeners();
     }
-    notifyListeners();
   }
 
   Future<void> logoutUser() async {
@@ -67,16 +69,24 @@ class AuthenticationProvider extends ChangeNotifier with Helpers {
   }
 
   void deleteUserData(BuildContext _context) async{
-    await FirebaseDatabase.instance.reference().child('notes').child(Preferences.getUserID()).child('task').remove();
-    await FirebaseDatabase.instance.reference().child('notes').child(Preferences.getUserID()).child('completeTask').remove();
-    showSnackBar(_context, 'Sync data has been deleted successfully');
+    await FirebaseDatabase.instance.reference().child('notes_todo').child(Preferences.getUserID()).child('task').remove();
+    await FirebaseDatabase.instance.reference().child('notes_todo').child(Preferences.getUserID()).child('completeTask').remove();
+    showSnackBar(_context, 'All Sync data has been deleted successfully');
   }
 
-  void fillEmailPassword(String email,String password){
-    if(email.isNotEmpty && password.isNotEmpty){
-      _emailPaswordAvail = true;
+  void fillEmailPassword(String name,String email,String password){
+    if(_isLogin){
+      if(email.isNotEmpty && password.isNotEmpty){
+        _emailPaswordAvail = true;
+      }else{
+        _emailPaswordAvail = false;
+      } 
     }else{
-      _emailPaswordAvail = false;
+      if(email.isNotEmpty && password.isNotEmpty && name.isNotEmpty){
+        _emailPaswordAvail = true;
+      }else{
+        _emailPaswordAvail = false;
+      }
     }
     notifyListeners();
   }
@@ -86,17 +96,23 @@ class AuthenticationProvider extends ChangeNotifier with Helpers {
     notifyListeners();
   }
 
-  bool validation(BuildContext _context, String email, String password) {
+  bool validation(BuildContext _context,String name, String email, String password) {
+    if(_isLogin && name.isEmpty){
+      showSnackBar(_context, 'Please provider name');
+      return false;
+    }
     if (email.isEmpty) {
       showSnackBar(_context, 'Please provide email');
       return false;
     } else if(!validateEmail(email)){
       showSnackBar(_context, 'Invalid Email');
+      return false;
     } else if (password.isEmpty) {
       showSnackBar(_context, 'Please provide password');
       return false;
     }else if(password.length < 6){
       showSnackBar(_context, 'Weak Password!!! Length of Password Should be atleast 6');
+      return false;
     }
     return true;
   }

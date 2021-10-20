@@ -179,7 +179,7 @@ class LogoutPage extends StatefulWidget {
 
 class _LogoutPageState extends State<LogoutPage> {
   var emailCont = TextEditingController();
-
+  var nameCont = TextEditingController();
   var passwordCont = TextEditingController();
 
   @override
@@ -210,7 +210,7 @@ class _LogoutPageState extends State<LogoutPage> {
                           children: [
                             Expanded(
                               child: GestureDetector(
-                                onTap: () => provider.turnSingIn(false),
+                                onTap: () => provider.turnSingIn(false,nameCont.text,emailCont.text,passwordCont.text),
                                 child: Container(
                                   decoration: BoxDecoration(
                                     border: Border(bottom: BorderSide(width: 2.0,color: provider.isLoginUser ? Colors.transparent : Colors.indigo))
@@ -222,7 +222,7 @@ class _LogoutPageState extends State<LogoutPage> {
                             ),
                             Expanded(
                               child: GestureDetector(
-                                onTap: () => provider.turnSingIn(true),
+                                onTap: () => provider.turnSingIn(true,'',emailCont.text,passwordCont.text),
                                 child: Container(
                                   decoration: BoxDecoration(
                                     border: Border(bottom: BorderSide(width: 2.0,color: provider.isLoginUser ? Colors.indigo : Colors.transparent))
@@ -234,6 +234,19 @@ class _LogoutPageState extends State<LogoutPage> {
                             )
                           ]
                         ),
+                        const SizedBox(height: 10),
+                        Visibility(
+                          visible: !provider.isLoginUser,
+                          child: TextField(
+                            controller: nameCont,
+                            keyboardType: TextInputType.text,
+                            decoration: const InputDecoration(
+                              hintText: 'Name',
+                              hintStyle: TextStyle(color: Colors.grey),
+                            ),
+                            onChanged: (value) => provider.fillEmailPassword(value,emailCont.text, passwordCont.text)
+                          )
+                        ),
                         TextField(
                           controller: emailCont,
                           keyboardType: TextInputType.emailAddress,
@@ -241,7 +254,7 @@ class _LogoutPageState extends State<LogoutPage> {
                             hintText: 'Email',
                             hintStyle: TextStyle(color: Colors.grey),
                           ),
-                          onChanged: (value) => provider.fillEmailPassword(value, passwordCont.text)
+                          onChanged: (value) => provider.fillEmailPassword(nameCont.text,value, passwordCont.text)
                         ),
                         const SizedBox(height: 5),
                         TextField(
@@ -253,14 +266,14 @@ class _LogoutPageState extends State<LogoutPage> {
                             hintStyle: const TextStyle(color: Colors.grey),
                             suffixIcon: IconButton(onPressed: provider.passwordVisibility, icon: provider.showPassword ? const Icon(Icons.lock) : const Icon(Icons.lock_open))
                           ),
-                          onChanged: (value) => provider.fillEmailPassword(emailCont.text, value)
+                          onChanged: (value) => provider.fillEmailPassword(nameCont.text,emailCont.text, value)
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 15),
                         Align(
                           alignment: Alignment.center,
                           child: ElevatedButton(
                             onPressed: provider.isEmailPasswordAvail
-                              ? () => provider.userAuthenticate(provider.isLoginUser,context,emailCont.text,passwordCont.text)
+                              ? () => provider.userAuthenticate(provider.isLoginUser,context,nameCont.text,emailCont.text,passwordCont.text)
                               : null,
                             child: Text(
                               provider.isLoginUser
