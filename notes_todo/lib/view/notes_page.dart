@@ -127,7 +127,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
               alignment: Alignment.center,
               child: Visibility(
                 visible: widget.notesProvider.completedList.isEmpty && widget.notesProvider.listNote.isEmpty,
-                child: const EmptyMessage()
+                child: EmptyMessage(darkMode: _isDarkMode)
               )
             ),
             Align(
@@ -135,8 +135,9 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
               child: Visibility(
                 visible: widget.notesProvider.taskContainerVisible,
                 child: Container(
-                  decoration: const BoxDecoration(
-                    border: Border(top: BorderSide(color: Color(0xFFBDBDBD)))
+                  decoration: BoxDecoration(
+                    color: _isDarkMode ? const Color(0xFF343434) : Colors.white,
+                    border: const Border(top: BorderSide(color: Color(0xFFBDBDBD)))
                   ),
                   padding: const EdgeInsets.all(15),
                   child: TextField(
@@ -188,9 +189,9 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
             padding: const EdgeInsets.only(bottom: 5,top: 5,right: 5),
             margin: const EdgeInsets.only(bottom: 6,left: 15,right: 5),
             decoration: BoxDecoration(
-              color: _isDarkMode ? null : Colors.white,
+              color: _isDarkMode ? const Color(0xFF343434) : Colors.white,
               borderRadius: BorderRadius.circular(5),
-              boxShadow: const [BoxShadow(color: Color(0xFFD6D6D6),spreadRadius: 1)]
+              boxShadow: [BoxShadow(color: _isDarkMode ? const Color(0xFF343434) : const Color(0xFFD6D6D6),spreadRadius: 1)]
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -212,7 +213,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                   )
                 ),
                 Expanded(
-                  child: Text(widget.notesProvider.listNote[index],style: const TextStyle(color: Colors.black,fontWeight: FontWeight.normal,fontSize: 14)),
+                  child: Text(widget.notesProvider.listNote[index],style: TextStyle(color: _isDarkMode ? Colors.white : Colors.black,fontWeight: FontWeight.normal,fontSize: 14)),
                 )
               ]
             )
@@ -243,7 +244,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
             padding: const EdgeInsets.only(bottom: 5,top: 5,right: 5),
             margin: const EdgeInsets.only(bottom: 6,left: 15,right: 5),
             decoration: BoxDecoration(
-              color: _isDarkMode ? const Color(0xFF343434) : null,
+              color: _isDarkMode ? const Color(0xFF343434) : Colors.white,
               borderRadius: BorderRadius.circular(5),
               boxShadow: [BoxShadow(color: _isDarkMode ? const Color(0xFF343434) : const Color(0xFFD6D6D6),spreadRadius: 1)]
             ),
@@ -262,7 +263,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                   ),
                 ),
                 Expanded(
-                  child: Text(widget.notesProvider.completedList[index],style: TextStyle(decoration: TextDecoration.lineThrough,color: _isDarkMode ? Colors.white : Colors.black,fontWeight: FontWeight.normal,fontSize: 14))
+                  child: Text(widget.notesProvider.completedList[index],style: const TextStyle(decoration: TextDecoration.lineThrough,color: Colors.grey, fontWeight: FontWeight.normal,fontSize: 14))
                 )
               ]
             )
