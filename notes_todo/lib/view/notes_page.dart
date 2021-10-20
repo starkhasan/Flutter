@@ -6,6 +6,7 @@ import 'package:notes_todo/providers/notes_provider.dart';
 import 'package:notes_todo/utils/preferences.dart';
 import 'package:notes_todo/view/notes_backup_page.dart';
 import 'package:provider/provider.dart';
+import 'package:notes_todo/utils/local_constant.dart';
 
 
 class NotesPage extends StatelessWidget {
@@ -34,7 +35,7 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
 
-  
+  bool _isDarkMode = false;
   late FocusNode focusNode;
   var textController = TextEditingController();
   List<IconData> icons = [Icons.sync,Icons.dark_mode_outlined];
@@ -48,6 +49,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
     if(Preferences.getSyncEnabled() && Preferences.getUserID().isNotEmpty) {
       Future.delayed(Duration.zero,() => widget.notesProvider.syncEnableFromSyncNote());
     }
+    getDark().then((value) => setState((){_isDarkMode = value;}));
   }
 
   @override
@@ -98,7 +100,6 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
         )
       ),
       body: Container(
-        color:Colors.white,
         child: Stack(
           children: [ 
             Column(
@@ -191,9 +192,8 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
             padding: const EdgeInsets.only(bottom: 5,top: 5,right: 5),
             margin: const EdgeInsets.only(bottom: 6,left: 15,right: 5),
             decoration: BoxDecoration(
-              color: Colors.white,
               borderRadius: BorderRadius.circular(8),
-              boxShadow: const [BoxShadow(color: Colors.grey,blurRadius: 1)]
+              boxShadow: const [BoxShadow(color: Colors.grey,spreadRadius: 1)]
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -215,7 +215,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                   )
                 ),
                 Expanded(
-                  child: Text(widget.notesProvider.listNote[index],style: const TextStyle(color: Colors.black,fontWeight: FontWeight.normal,fontSize: 14)),
+                  child: Text(widget.notesProvider.listNote[index],style: const TextStyle(fontWeight: FontWeight.normal,fontSize: 14)),
                 )
               ]
             )
@@ -288,11 +288,11 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
               child: Stack(
                 children: [
                   Positioned(
-                    right: 20,
+                    right: 10,
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.15,
                       height: MediaQuery.of(context).size.height * 0.15,
-                      decoration: const BoxDecoration(image: DecorationImage(opacity: 0.5,image: AssetImage('assets/logo.png'))),
+                      decoration: const BoxDecoration(image: DecorationImage(opacity: 0.1,image: AssetImage('assets/logo.png'))),
                     )
                   ),
                   Positioned(
@@ -304,30 +304,53 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
               )
             ),
             Container(
-              color: Colors.white,
+              padding: EdgeInsets.zero,
               height: MediaQuery.of(context).size.height * 0.85,
-              child: ListView.builder(
-                shrinkWrap: true,
-                padding: EdgeInsets.zero,
-                scrollDirection: Axis.vertical,
-                physics: const ScrollPhysics(),
-                itemCount: icons.length,
-                itemBuilder: (context,index){
-                  return InkWell(
-                    onTap: () => pageNavigation(context,index),
-                    child: Container(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    InkWell(
+                      onTap: () => pageNavigation(context),
+                      child: Container(
+                        margin: const EdgeInsets.only(top: 10),
+                        padding: const EdgeInsets.all(10),
+                        child: Row(
+                          children: [
+                            Icon(icons[0],color: Colors.indigo),
+                            const SizedBox(width: 10),
+                            Text(screenName[0],style: const TextStyle(fontSize: 16))
+                          ]
+                        )
+                      )
+                    ),
+                    Container(
                       margin: const EdgeInsets.only(top: 10),
-                      padding: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.only(top: 2,bottom: 2,left: 10,right: 10),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Icon(icons[index],color: Colors.indigo),
-                          const SizedBox(width: 10),
-                          Text(screenName[index],style: const TextStyle(fontSize: 16))
+                          Row(
+                            children: [
+                              Icon(icons[1],color: Colors.indigo),
+                              const SizedBox(width: 10),
+                              Text(screenName[1],style: const TextStyle(fontSize: 16))
+                            ]
+                          ),
+                          Switch(
+                            value: _isDarkMode, 
+                            activeColor: Colors.indigo,
+                            onChanged: (value){
+                              changeDarkMode(context, value);
+                              setState(() {
+                                _isDarkMode = value;
+                              });
+                            }
+                          )
                         ]
                       )
                     )
-                  );
-                }
+                  ]
+                )
               )
             )
           ]
@@ -336,23 +359,16 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
     );
   }
 
-  pageNavigation(BuildContext _context,int index){
-    switch (index) {
-      case 0:
-        Navigator.pop(_context);
-        Navigator.push(_context, MaterialPageRoute(builder: (_context) => const NotesBackupPage())).then((value) => {
-          if(Preferences.getSyncExplicitly()){
-            Preferences.setSyncExplicitly(false),
-            widget.notesProvider.syncEnableFromSyncNote()
-          }
-        });
-        break;
-      case 1:
-        Navigator.pop(_context);
-        break;
-      default:
-        Navigator.pop(_context);
-    }
+  pageNavigation(BuildContext _context){
+    Navigator.pop(_context);
+    Navigator.push(_context, MaterialPageRoute(builder: (_context) => const NotesBackupPage())).then((value) => {
+      if(Preferences.getSyncExplicitly()){
+        Preferences.setSyncExplicitly(false),
+        widget.notesProvider.syncEnableFromSyncNote()
+      }else{
+        widget.notesProvider.drawerName()
+      }
+    });
   }
 
   deleteNotesDialog(){

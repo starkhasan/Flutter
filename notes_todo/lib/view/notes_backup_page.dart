@@ -186,7 +186,6 @@ class _LogoutPageState extends State<LogoutPage> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(15),
-      color: Colors.white,
       child: Column(
         children: [
           Consumer<AuthenticationProvider>(

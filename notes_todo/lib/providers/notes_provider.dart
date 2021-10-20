@@ -136,6 +136,11 @@ class NotesProvider extends ChangeNotifier {
     Preferences.storeCompleteTask(completedList);
   }
 
+  void drawerName(){
+    _name = Preferences.getUserName();
+    notifyListeners();
+  }
+
   void syncEnableFromSyncNote() async {
     _dataSync = true;
     notifyListeners();

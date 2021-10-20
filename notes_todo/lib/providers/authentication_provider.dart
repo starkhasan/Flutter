@@ -57,6 +57,7 @@ class AuthenticationProvider extends ChangeNotifier with Helpers {
     Preferences.setUserLogin(false);
     Preferences.setUserID('');
     Preferences.setSyncEnabled(false);
+    Preferences.setUserName('');
   }
 
   void modifySyncData(){
@@ -97,7 +98,7 @@ class AuthenticationProvider extends ChangeNotifier with Helpers {
   }
 
   bool validation(BuildContext _context,String name, String email, String password) {
-    if(_isLogin && name.isEmpty){
+    if(!_isLogin && name.isEmpty){
       showSnackBar(_context, 'Please provider name');
       return false;
     }
