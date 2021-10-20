@@ -12,8 +12,8 @@ class AuthenticationProvider extends ChangeNotifier with Helpers {
   UserCredential? userCredential;
   FirebaseAuth firebaseAuthInstance = FirebaseAuth.instance;
 
-  void turnSingIn(){
-    _isLogin = _isLogin ? false : true;
+  void turnSingIn(bool login){
+    _isLogin = login;
     notifyListeners();
   }
 

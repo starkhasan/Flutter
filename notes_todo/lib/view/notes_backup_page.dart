@@ -204,13 +204,13 @@ class _LogoutPageState extends State<LogoutPage> {
                         const SizedBox(height: 5),
                         const Text("Sync your notes with Google Firebase. you can restore them when you reinstall Notes Todo App. Your notes will also sync to your phone's internal storage"),
                         const SizedBox(height: 10),
-                        const Text("Currenly your notes data is stored internally",style: TextStyle(color: Colors.red)),
+                        const Text("Currently your notes data is stored internally",style: TextStyle(color: Colors.red)),
                         const SizedBox(height: 20),
                         Row(
                           children: [
                             Expanded(
                               child: GestureDetector(
-                                onTap: () => provider.turnSingIn(),
+                                onTap: () => provider.turnSingIn(false),
                                 child: Container(
                                   decoration: BoxDecoration(
                                     border: Border(bottom: BorderSide(width: 2.0,color: provider.isLoginUser ? Colors.transparent : Colors.indigo))
@@ -222,7 +222,7 @@ class _LogoutPageState extends State<LogoutPage> {
                             ),
                             Expanded(
                               child: GestureDetector(
-                                onTap: () => provider.turnSingIn(),
+                                onTap: () => provider.turnSingIn(true),
                                 child: Container(
                                   decoration: BoxDecoration(
                                     border: Border(bottom: BorderSide(width: 2.0,color: provider.isLoginUser ? Colors.indigo : Colors.transparent))
