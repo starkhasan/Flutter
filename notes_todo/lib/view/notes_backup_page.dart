@@ -52,6 +52,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Preferences.getAppTheme() ? const Color(0xFF161616) : Colors.white,
       padding: const EdgeInsets.all(15),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,15 +74,15 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       const TextSpan(
                         text: 'All your notes data sync with your id ',
-                        style: TextStyle(color: Colors.black,fontSize: 12)
+                        style: TextStyle(fontSize: 12)
                       ),
                       TextSpan(
                         text: Preferences.getUserEmail(),
-                        style: const TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.bold,fontStyle: FontStyle.normal)
+                        style: const TextStyle(fontSize: 12,fontWeight: FontWeight.bold,fontStyle: FontStyle.normal)
                       ),
                       const TextSpan(
                         text: ' on Google Firebase. All your notes automatically sync with Firebase at the time of creating and deletion',
-                        style: TextStyle(color: Colors.black,fontSize: 12)
+                        style: TextStyle(fontSize: 12)
                       )
                     ]
                   )
@@ -185,6 +186,7 @@ class _LogoutPageState extends State<LogoutPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Preferences.getAppTheme() ? const Color(0xFF161616) : Colors.white,
       padding: const EdgeInsets.all(15),
       child: Column(
         children: [

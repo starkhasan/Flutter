@@ -81,4 +81,12 @@ class Preferences {
   static String getUserName() {
     return _sharedPreferences!.getString('USER_NAME') ?? '';
   }
+
+  static bool getAppTheme() {
+    return _sharedPreferences!.getBool('APP_THEME') ?? false;
+  }
+
+  static void setAppTheme(bool theme) {
+    _sharedPreferences!.setBool('APP_THEME', theme);
+  }
 }

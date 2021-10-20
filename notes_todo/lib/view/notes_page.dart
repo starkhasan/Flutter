@@ -49,7 +49,10 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
     if(Preferences.getSyncEnabled() && Preferences.getUserID().isNotEmpty) {
       Future.delayed(Duration.zero,() => widget.notesProvider.syncEnableFromSyncNote());
     }
-    getDark().then((value) => setState((){_isDarkMode = value;}));
+    getDark().then((value) => setState((){
+      _isDarkMode = value;
+      Preferences.setAppTheme(value);
+    }));
   }
 
   @override
@@ -80,7 +83,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
         : [
             IconButton(
               onPressed: widget.notesProvider.isDataSync ? null : () => deleteNotesDialog(),
-              icon: Icon(widget.notesProvider.isDataSync ? Icons.sync :Icons.delete,color: Colors.white,size: 22.0)
+              icon: Icon(widget.notesProvider.isDataSync ? Icons.sync :Icons.delete,color: _isDarkMode ? Colors.teal : Colors.white,size: 22.0)
             )
           ]
       ),
@@ -100,6 +103,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
         )
       ),
       body: Container(
+        color: _isDarkMode ? const Color(0xFF161616) : Colors.white,
         child: Stack(
           children: [ 
             Column(
@@ -109,9 +113,9 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Visibility(visible: widget.notesProvider.listNote.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 10,top:15,bottom: 15),child: const Text('Task',style: TextStyle(color: Colors.indigo,fontSize: 14,fontWeight: FontWeight.bold)))),
+                        Visibility(visible: widget.notesProvider.listNote.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 10,top:15,bottom: 15),child: const Text('Task',style: TextStyle(color: Colors.indigo,fontSize: 20,fontWeight: FontWeight.bold)))),
                         notesBody(),
-                        Visibility(visible: widget.notesProvider.completedList.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 10,top:15,bottom: 15),child: const Text('Completed',style: TextStyle(color: Colors.indigo,fontSize: 14,fontWeight: FontWeight.bold)))),
+                        Visibility(visible: widget.notesProvider.completedList.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 10,top:15,bottom: 15),child: const Text('Completed',style: TextStyle(color: Colors.indigo,fontSize: 20,fontWeight: FontWeight.bold)))),
                         completedNotes()
                       ]
                     )
@@ -132,15 +136,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                 visible: widget.notesProvider.taskContainerVisible,
                 child: Container(
                   decoration: const BoxDecoration(
-                    color: Colors.white,
-                    border: Border(top: BorderSide(color: Color(0xFFBDBDBD))),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color(0xFFBDBDBD),
-                        blurRadius: 5.0,
-                        offset: Offset(0, 0),
-                      )
-                    ]
+                    border: Border(top: BorderSide(color: Color(0xFFBDBDBD)))
                   ),
                   padding: const EdgeInsets.all(15),
                   child: TextField(
@@ -149,7 +145,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                     minLines: 1,
                     maxLines: 3,
                     textInputAction: TextInputAction.done,
-                    style: const TextStyle(color: Colors.black,fontSize: 15),
+                    style: const TextStyle(fontSize: 15),
                     decoration: const InputDecoration.collapsed(
                       hintText: 'Add Task',
                       hintStyle: TextStyle(color: Colors.grey,fontSize: 15)
@@ -192,8 +188,9 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
             padding: const EdgeInsets.only(bottom: 5,top: 5,right: 5),
             margin: const EdgeInsets.only(bottom: 6,left: 15,right: 5),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              boxShadow: const [BoxShadow(color: Colors.grey,spreadRadius: 1)]
+              color: _isDarkMode ? null : Colors.white,
+              borderRadius: BorderRadius.circular(5),
+              boxShadow: const [BoxShadow(color: Color(0xFFD6D6D6),spreadRadius: 1)]
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -215,7 +212,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                   )
                 ),
                 Expanded(
-                  child: Text(widget.notesProvider.listNote[index],style: const TextStyle(fontWeight: FontWeight.normal,fontSize: 14)),
+                  child: Text(widget.notesProvider.listNote[index],style: const TextStyle(color: Colors.black,fontWeight: FontWeight.normal,fontSize: 14)),
                 )
               ]
             )
@@ -246,9 +243,9 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
             padding: const EdgeInsets.only(bottom: 5,top: 5,right: 5),
             margin: const EdgeInsets.only(bottom: 6,left: 15,right: 5),
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              boxShadow: const [BoxShadow(color: Colors.grey,blurRadius: 1)]
+              color: _isDarkMode ? const Color(0xFF343434) : null,
+              borderRadius: BorderRadius.circular(5),
+              boxShadow: [BoxShadow(color: _isDarkMode ? const Color(0xFF343434) : const Color(0xFFD6D6D6),spreadRadius: 1)]
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -265,7 +262,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                   ),
                 ),
                 Expanded(
-                  child: Text(widget.notesProvider.completedList[index],style: const TextStyle(decoration: TextDecoration.lineThrough,color: Colors.black,fontWeight: FontWeight.normal,fontSize: 14))
+                  child: Text(widget.notesProvider.completedList[index],style: TextStyle(decoration: TextDecoration.lineThrough,color: _isDarkMode ? Colors.white : Colors.black,fontWeight: FontWeight.normal,fontSize: 14))
                 )
               ]
             )
@@ -278,6 +275,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
   Widget drawerLayout(){
     return Drawer(
       child: Container(
+        color: _isDarkMode ? const Color(0xFF161616) : Colors.white,
         padding: EdgeInsets.zero,
         child: Column(
           children: [
@@ -337,11 +335,11 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                             ]
                           ),
                           Switch(
-                            value: _isDarkMode, 
-                            activeColor: Colors.indigo,
+                            value: _isDarkMode,
                             onChanged: (value){
                               changeDarkMode(context, value);
                               setState(() {
+                                Preferences.setAppTheme(value);
                                 _isDarkMode = value;
                               });
                             }
