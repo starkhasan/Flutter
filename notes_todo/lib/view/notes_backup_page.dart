@@ -202,7 +202,7 @@ class _LogoutPageState extends State<LogoutPage> {
                       children: [
                         const Text('Sync Notes',style: TextStyle(fontWeight: FontWeight.bold)),
                         const SizedBox(height: 5),
-                        const Text("Sync your notes with Google Firebase. you can restore them when you reinstall Notes Todo App. Your notes will also sync to your phone's internal storage"),
+                        const Text("Sync your notes with Google Firebase Cloud. you can restore them when you reinstall Notes Todo App. Your notes will also sync to your phone's internal storage"),
                         const SizedBox(height: 10),
                         const Text("Currently your notes data is stored internally",style: TextStyle(color: Colors.red)),
                         const SizedBox(height: 20),
