@@ -8,7 +8,11 @@ class AuthenticationProvider extends ChangeNotifier with Helpers {
 
   bool get isSyncEnabled => Preferences.getSyncEnabled();
   bool _isLogin = false;
+  bool _emailPaswordAvail = false;
+  bool _showPassword = true;
   bool get isLoginUser => _isLogin;
+  bool get isEmailPasswordAvail => _emailPaswordAvail;
+  bool get showPassword => _showPassword;
   UserCredential? userCredential;
   FirebaseAuth firebaseAuthInstance = FirebaseAuth.instance;
 
@@ -68,12 +72,28 @@ class AuthenticationProvider extends ChangeNotifier with Helpers {
     showSnackBar(_context, 'Sync data has been deleted successfully');
   }
 
+  void fillEmailPassword(String email,String password){
+    if(email.isNotEmpty && password.isNotEmpty){
+      _emailPaswordAvail = true;
+    }else{
+      _emailPaswordAvail = false;
+    }
+    notifyListeners();
+  }
+
+  void passwordVisibility(){
+    _showPassword = _showPassword ? false : true;
+    notifyListeners();
+  }
+
   bool validation(BuildContext _context, String email, String password) {
     if (email.isEmpty) {
-      showSnackBar(_context, 'Invalid Email');
+      showSnackBar(_context, 'Please provide email');
       return false;
+    } else if(!validateEmail(email)){
+      showSnackBar(_context, 'Invalid Email');
     } else if (password.isEmpty) {
-      showSnackBar(_context, 'Invalid Password');
+      showSnackBar(_context, 'Please provide password');
       return false;
     }else if(password.length < 6){
       showSnackBar(_context, 'Weak Password!!! Length of Password Should be atleast 6');

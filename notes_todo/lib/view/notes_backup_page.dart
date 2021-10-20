@@ -239,24 +239,29 @@ class _LogoutPageState extends State<LogoutPage> {
                           keyboardType: TextInputType.emailAddress,
                           decoration: const InputDecoration(
                             hintText: 'Email',
-                            hintStyle: TextStyle(color: Colors.grey)
-                          )
+                            hintStyle: TextStyle(color: Colors.grey),
+                          ),
+                          onChanged: (value) => provider.fillEmailPassword(value, passwordCont.text)
                         ),
                         const SizedBox(height: 5),
                         TextField(
                           controller: passwordCont,
-                          obscureText: true,
+                          obscureText: provider.showPassword,
                           keyboardType: TextInputType.emailAddress,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             hintText: 'Password',
-                            hintStyle: TextStyle(color: Colors.grey)
-                          )
+                            hintStyle: const TextStyle(color: Colors.grey),
+                            suffixIcon: IconButton(onPressed: provider.passwordVisibility, icon: provider.showPassword ? const Icon(Icons.lock) : const Icon(Icons.lock_open))
+                          ),
+                          onChanged: (value) => provider.fillEmailPassword(emailCont.text, value)
                         ),
                         const SizedBox(height: 10),
                         Align(
                           alignment: Alignment.center,
                           child: ElevatedButton(
-                            onPressed: () => provider.userAuthenticate(provider.isLoginUser,context,emailCont.text,passwordCont.text), 
+                            onPressed: provider.isEmailPasswordAvail
+                              ? () => provider.userAuthenticate(provider.isLoginUser,context,emailCont.text,passwordCont.text)
+                              : null,
                             child: Text(
                               provider.isLoginUser
                               ? 'Sign in'
