@@ -6,7 +6,8 @@ import 'package:notes_todo/view/notes_page.dart';
 import 'package:notes_todo/utils/preferences.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  final bool darkScreen;
+  const SplashScreen({Key? key,required this.darkScreen}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class SplashScreen extends StatelessWidget {
     startTimer(context);
     return Scaffold(
       body: Container(
-        color: Colors.white,
+        color: darkScreen ? const Color(0xFF161616) : Colors.white,
         child: Stack(
           children: [
             Align(

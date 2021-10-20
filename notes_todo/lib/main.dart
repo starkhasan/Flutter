@@ -42,9 +42,9 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-          primarySwatch: Colors.indigo,
-          brightness: _isDark ? Brightness.dark : Brightness.light),
-      home: const SplashScreen(),
+        primarySwatch: Colors.indigo,
+        brightness: _isDark ? Brightness.dark : Brightness.light),
+      home: SplashScreen(darkScreen: _isDark),
     );
   }
 }
