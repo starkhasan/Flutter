@@ -72,17 +72,17 @@ class _LoginPageState extends State<LoginPage> {
                 RichText(
                   text: TextSpan(
                     children: [
-                      const TextSpan(
+                      TextSpan(
                         text: 'All your notes data sync with your id ',
-                        style: TextStyle(fontSize: 12)
+                        style: TextStyle(fontSize: 12,color: Preferences.getAppTheme() ? Colors.white : Colors.black)
                       ),
                       TextSpan(
                         text: Preferences.getUserEmail(),
-                        style: const TextStyle(fontSize: 12,fontWeight: FontWeight.bold,fontStyle: FontStyle.normal)
+                        style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: Preferences.getAppTheme() ? Colors.white : Colors.black)
                       ),
-                      const TextSpan(
+                      TextSpan(
                         text: ' on Google Firebase. All your notes automatically sync with Firebase at the time of creating and deletion',
-                        style: TextStyle(fontSize: 12)
+                        style: TextStyle(fontSize: 12,color: Preferences.getAppTheme() ? Colors.white : Colors.black)
                       )
                     ]
                   )

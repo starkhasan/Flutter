@@ -83,7 +83,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
         : [
             IconButton(
               onPressed: widget.notesProvider.isDataSync ? null : () => deleteNotesDialog(),
-              icon: Icon(widget.notesProvider.isDataSync ? Icons.sync :Icons.delete,color: _isDarkMode ? Colors.teal : Colors.white,size: 22.0)
+              icon: Icon(widget.notesProvider.isDataSync ? Icons.sync :Icons.delete,color: Colors.white,size: 22.0)
             )
           ]
       ),
