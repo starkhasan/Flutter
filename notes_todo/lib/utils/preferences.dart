@@ -74,4 +74,11 @@ class Preferences {
     _sharedPreferences!.setBool('SYNC_DATA_EXPLICIT', sync);
   }
 
+  static void setUserName(String name) async {
+    _sharedPreferences!.setString('USER_NAME', name);
+  }
+
+  static String getUserName() {
+    return _sharedPreferences!.getString('USER_NAME') ?? '';
+  }
 }

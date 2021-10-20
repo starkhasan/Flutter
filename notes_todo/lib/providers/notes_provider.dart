@@ -5,9 +5,11 @@ import 'package:firebase_database/firebase_database.dart';
 class NotesProvider extends ChangeNotifier {
   DatabaseReference databaseReference = FirebaseDatabase.instance.reference().child('notes_todo');
   bool fabVisible = true;
+  String _name = '';
   bool taskContainerVisible = false;
   int selectedTaskIndex = -1;
   bool _dataSync = false;
+  String get getUserName => _name;
   bool get isDataSync => _dataSync;
   List<String> listNote = Preferences.getStoredTask();
   List<String> completedList = Preferences.getCompleteTask();
@@ -139,6 +141,12 @@ class NotesProvider extends ChangeNotifier {
     notifyListeners();
     await databaseReference.child(Preferences.getUserID()).once().then((DataSnapshot snapshot) {
       if(snapshot.value  != null){
+
+        if(snapshot.value['name'] != null) {
+          _name = snapshot.value['name'];
+          Preferences.setUserName(snapshot.value['name']);
+        }
+
         if(snapshot.value['task'] != null) {
           var tempTask = snapshot.value['task'].split(',');
           for(var item in tempTask){
@@ -147,6 +155,7 @@ class NotesProvider extends ChangeNotifier {
           databaseReference.child(Preferences.getUserID()).update({'task': listNote.join(',')});
           Preferences.storeTask(listNote);
         }
+
         if(snapshot.value['completeTask'] != null){
           var tempTask = snapshot.value['completeTask'].split(',');
           for(var item in tempTask){

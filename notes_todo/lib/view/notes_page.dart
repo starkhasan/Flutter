@@ -45,7 +45,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
     super.initState();
     WidgetsBinding.instance!.addObserver(this);
     focusNode = FocusNode();
-    if(Preferences.getSyncEnabled()) {
+    if(Preferences.getSyncEnabled() && Preferences.getUserID().isNotEmpty) {
       Future.delayed(Duration.zero,() => widget.notesProvider.syncEnableFromSyncNote());
     }
   }
@@ -282,10 +282,26 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
         child: Column(
           children: [
             Container(
-              padding: const EdgeInsets.only(top: 50,bottom: 10,left: 10),
+              height: MediaQuery.of(context).size.height * 0.15,
               color: Colors.indigo,
               width: double.infinity,
-              child: const Text('Notes Todo',style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold))
+              child: Stack(
+                children: [
+                  Positioned(
+                    right: 20,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.15,
+                      height: MediaQuery.of(context).size.height * 0.15,
+                      decoration: const BoxDecoration(image: DecorationImage(opacity: 0.5,image: AssetImage('assets/logo.png'))),
+                    )
+                  ),
+                  Positioned(
+                    bottom: 10,
+                    left: 10,
+                    child: Text('Hi, ${widget.notesProvider.getUserName}',style: const TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold))
+                  )
+                ]
+              )
             ),
             Container(
               color: Colors.white,
