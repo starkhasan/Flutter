@@ -41,7 +41,7 @@ class SplashScreen extends StatelessWidget {
                   children: [
                     Text(
                       'Design & Developed by : Traversal',
-                      style: TextStyle(color: Colors.grey[300],fontSize: 12)
+                      style: TextStyle(color: Colors.grey[200],fontSize: 12)
                     )
                   ]
                 )

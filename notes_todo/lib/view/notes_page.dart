@@ -81,11 +81,11 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
         actions: widget.notesProvider.completedList.isEmpty && widget.notesProvider.listNote.isEmpty && !widget.notesProvider.isDataSync
         ? null
         : [
-            IconButton(
-              onPressed: widget.notesProvider.isDataSync ? null : () => deleteNotesDialog(),
-              icon: Icon(widget.notesProvider.isDataSync ? Icons.sync :Icons.delete,color: Colors.white,size: 22.0)
-            )
-          ]
+          IconButton(
+            onPressed: widget.notesProvider.isDataSync ? null : () => deleteNotesDialog(),
+            icon: Icon(widget.notesProvider.isDataSync ? Icons.sync :Icons.delete,color: Colors.white,size: 22.0)
+          )
+        ]
       ),
       floatingActionButton: Visibility(
         visible: widget.notesProvider.fabVisible,
@@ -260,7 +260,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                     ),
                     value: true, 
                     onChanged: (value) => widget.notesProvider.unCheckedCompletedTask(index),
-                  ),
+                  )
                 ),
                 Expanded(
                   child: Text(widget.notesProvider.completedList[index],style: const TextStyle(decoration: TextDecoration.lineThrough,color: Colors.grey, fontWeight: FontWeight.normal,fontSize: 14))

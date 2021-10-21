@@ -26,13 +26,13 @@ class _NotesBackupPageState extends State<NotesBackupPage> {
           stream: AuthenticationService().onAuthStateChange,
           builder: (context,snapshot){
             return 
-              snapshot.data == null
-              ? const LogoutPage()
-              : Consumer<AuthenticationProvider>(
-                builder: (context,provider,child){
-                  return LoginPage(authProvider: provider);
-                }
-              );
+            snapshot.data == null
+            ? const LogoutPage()
+            : Consumer<AuthenticationProvider>(
+              builder: (context,provider,child){
+                return LoginPage(authProvider: provider);
+              }
+            );
           }
         )
       )
@@ -166,14 +166,10 @@ class _LoginPageState extends State<LoginPage> {
       }
     );
   }
-
 }
-
-
 
 class LogoutPage extends StatefulWidget {
   const LogoutPage({ Key? key}) : super(key: key);
-
   @override
   State<LogoutPage> createState() => _LogoutPageState();
 }

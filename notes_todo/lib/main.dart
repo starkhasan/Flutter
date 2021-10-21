@@ -11,8 +11,8 @@ void main() async {
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
-
   static void setDark(BuildContext _context, bool isDark) {
+    //finding instance of _MyAppState
     var myAppState = _context.findAncestorStateOfType<_MyAppState>();
     myAppState!.setDarkState(isDark);
   }
