@@ -136,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     widget.authProvider.isSyncDataDelete
                     ? SizedBox(height: 20,width: 20,child: CircularProgressIndicator(
-                        color: widget.authProvider.isSyncDataDelete ? Theme.of(context).toggleableActiveColor : Colors.indigo,strokeWidth: 2.0
+                        color: Theme.of(context).toggleableActiveColor,strokeWidth: 2.0
                         )
                       )
                     : ElevatedButton(
@@ -273,7 +273,12 @@ class _LogoutPageState extends State<LogoutPage> {
                         const SizedBox(height: 15),
                         Align(
                           alignment: Alignment.center,
-                          child: ElevatedButton(
+                          child: provider.isAuthProcess
+                          ? Container(margin: const EdgeInsets.only(top : 10),height: 30,width: 30,child: CircularProgressIndicator(
+                              color: Theme.of(context).toggleableActiveColor,strokeWidth: 2.0
+                              )
+                            )
+                          : ElevatedButton(
                             onPressed: provider.isEmailPasswordAvail
                               ? () => provider.userAuthenticate(provider.isLoginUser,context,nameCont.text,emailCont.text,passwordCont.text)
                               : null,

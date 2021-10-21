@@ -9,12 +9,14 @@ class AuthenticationProvider extends ChangeNotifier with Helpers {
   bool get isSyncEnabled => Preferences.getSyncEnabled();
   bool _syncDataDelete = false;
   bool _isLogin = false;
+  bool _authProcess = false;
   bool _emailPaswordAvail = false;
   bool _showPassword = true;
   bool get isLoginUser => _isLogin;
   bool get isEmailPasswordAvail => _emailPaswordAvail;
   bool get showPassword => _showPassword;
   bool get isSyncDataDelete => _syncDataDelete;
+  bool get isAuthProcess => _authProcess;
   UserCredential? userCredential;
   FirebaseAuth firebaseAuthInstance = FirebaseAuth.instance;
 
@@ -26,6 +28,8 @@ class AuthenticationProvider extends ChangeNotifier with Helpers {
 
   Future<void> userAuthenticate(bool isLogin,BuildContext _context,String name, String email, String password) async {
     if (validation(_context,name, email, password)) {
+      _authProcess = true;
+      notifyListeners();
       try {
         isLogin
         ? userCredential = await firebaseAuthInstance.signInWithEmailAndPassword(email: email, password: password)
@@ -49,6 +53,7 @@ class AuthenticationProvider extends ChangeNotifier with Helpers {
       } catch (e) {
         showSnackBar(_context, e.toString());
       }
+      _authProcess = false;
       notifyListeners();
     }
   }
