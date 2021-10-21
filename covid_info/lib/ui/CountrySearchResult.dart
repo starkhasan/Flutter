@@ -74,7 +74,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Color(0xFF0B3054),
-          title: Text('Worldwide',style: TextStyle(fontSize: 16)),
+          title: Text('Worldwide',style: TextStyle(fontSize: 14)),
           centerTitle: true,
           systemOverlayStyle: SystemUiOverlayStyle.light,
           actions: [
@@ -114,8 +114,8 @@ class _CountryMainScreen extends State<CountryMainScreen> {
               Visibility(
                 visible: widget.provider.showSearchBar,
                 child: Container(
-                  margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                  padding: EdgeInsets.all(10),
+                  margin: EdgeInsets.only(top: 4,left: 4,right: 4,bottom: 4),
+                  padding: EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -136,10 +136,10 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                           cursorWidth: 1.5,
                           autofocus: true,
                           inputFormatters: [FilteringTextInputFormatter.allow(RegExp("[a-zA-Z \u0900-\u097F]"))],
-                          style: TextStyle(color: Colors.black,fontFamily: '',fontSize: 16),
+                          style: TextStyle(color: Colors.black,fontFamily: '',fontSize: 14),
                           decoration: InputDecoration.collapsed(
                             hintText: 'Search country',
-                            hintStyle: TextStyle(color: Colors.grey[400],fontSize: 14,fontFamily: '')
+                            hintStyle: TextStyle(color: Colors.grey[400],fontSize: 12,fontFamily: '')
                           ),
                           onChanged: (input){
                             widget.vaccine
@@ -167,34 +167,34 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                           Expanded(
                             child: Text(
                               'Country',
-                              style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),
+                              style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),
                             )
                           ),
                           Expanded(
                             child: Text(
                               'Vaccine',
-                              style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),
+                              style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),
                               textAlign: TextAlign.right
                             )
                           ),
                           Expanded(
                             child: Text(
                               '1 Day',
-                              style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),
+                              style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),
                               textAlign: TextAlign.right
                             )
                           ),
                           Expanded(
                             child: Text(
                               'Dose2',
-                              style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),
+                              style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),
                               textAlign: TextAlign.right
                             )
                           ),
                           Expanded(
                             child: Text(
                               '% Dose2',
-                              style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),
+                              style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),
                               textAlign: TextAlign.right
                             )
                           )
@@ -251,7 +251,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                         response[index].country,
                         textAlign: TextAlign.left,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 12)
+                        style: TextStyle(fontSize: 10)
                       )
                     ),
                     Expanded(
@@ -261,7 +261,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                         : 'N/A',
                         textAlign: TextAlign.right,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 12)
+                        style: TextStyle(fontSize: 10)
                       )
                     ),
                     Expanded(
@@ -271,7 +271,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                         : 'N/A',
                         textAlign: TextAlign.right,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 12)
+                        style: TextStyle(fontSize: 10)
                       )
                     ),
                     Expanded(
@@ -281,7 +281,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                         : 'N/A',
                         textAlign: TextAlign.right,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 12)
+                        style: TextStyle(fontSize: 10)
       
                       )
                     ),
@@ -294,7 +294,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                         : 'N/A',
                         textAlign: TextAlign.right,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 12)
+                        style: TextStyle(fontSize: 10)
                       )
                     )
                   ]
@@ -323,7 +323,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
           itemCount: response.length,
           itemBuilder: (context,index){
             return Container(
-              margin: EdgeInsets.fromLTRB(5, 8, 5, 0),
+              margin: EdgeInsets.fromLTRB(4, 4, 4, 4),
               padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -341,7 +341,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                           response[index].country,
                           softWrap: true,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(color: Colors.black,fontSize: 22,fontFamily: '',fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Colors.black,fontSize: 18,fontFamily: '',fontWeight: FontWeight.bold),
                         )
                       ),
                       SizedBox(width: 5),
@@ -362,12 +362,12 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Cases',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
+                            Text('Cases',style: TextStyle(color:Colors.grey[700],fontSize: 11,fontFamily: '')),
                             Text(
                               response[index].cases == null
                               ? 'N/A'
                               : formatter.format(response[index].cases),
-                              style: TextStyle(color: Colors.blue,fontSize: 16,fontWeight: FontWeight.bold,fontFamily: '')
+                              style: TextStyle(color: Colors.blue,fontSize: 14,fontWeight: FontWeight.bold,fontFamily: '')
                             )
                           ]
                         )
@@ -377,12 +377,12 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text('Recovered',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
+                            Text('Recovered',style: TextStyle(color:Colors.grey[700],fontSize: 11,fontFamily: '')),
                             Text(
                               response[index].recovered == null
                               ? 'N/A'
                               : formatter.format(response[index].recovered),
-                              style: TextStyle(color: Colors.green,fontSize: 16,fontWeight: FontWeight.bold,fontFamily: '')
+                              style: TextStyle(color: Colors.green,fontSize: 14,fontWeight: FontWeight.bold,fontFamily: '')
                             )
                           ]
                         )
@@ -398,12 +398,12 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Deaths',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
+                            Text('Deaths',style: TextStyle(color:Colors.grey[700],fontSize: 11,fontFamily: '')),
                             Text(
                               response[index].deaths == null
                               ? 'N/A'
                               : formatter.format(response[index].deaths),
-                              style: TextStyle(color: Colors.red,fontSize: 16,fontWeight: FontWeight.bold,fontFamily: '')
+                              style: TextStyle(color: Colors.red,fontSize: 14,fontWeight: FontWeight.bold,fontFamily: '')
                             )
                           ]
                         )
@@ -413,12 +413,12 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text('Active',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
+                            Text('Active',style: TextStyle(color:Colors.grey[700],fontSize: 11,fontFamily: '')),
                             Text(
                               response[index].active == null
                               ? 'N/A'
                               : formatter.format(response[index].active),
-                              style: TextStyle(color: Colors.teal,fontSize: 16,fontWeight: FontWeight.bold,fontFamily: '')
+                              style: TextStyle(color: Colors.teal,fontSize: 14,fontWeight: FontWeight.bold,fontFamily: '')
                             )
                           ]
                         )
@@ -434,12 +434,12 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Critical Cases',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
+                            Text('Critical Cases',style: TextStyle(color:Colors.grey[700],fontSize: 11,fontFamily: '')),
                             Text(
                               response[index].critical == null
                               ? 'N/A'
                               : formatter.format(response[index].critical),
-                              style: TextStyle(color: Colors.red,fontSize: 16,fontWeight: FontWeight.bold,fontFamily: '')
+                              style: TextStyle(color: Colors.red,fontSize: 14,fontWeight: FontWeight.bold,fontFamily: '')
                             )
                           ]
                         )
@@ -449,12 +449,12 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text('New Cases',style: TextStyle(color:Colors.grey[700],fontSize: 12,fontFamily: '')),
+                            Text('New Cases',style: TextStyle(color:Colors.grey[700],fontSize: 11,fontFamily: '')),
                             Text(
                               response[index].todayCases == null
                               ? 'N/A'
                               : formatter.format(response[index].todayCases),
-                              style: TextStyle(color: Colors.blue,fontSize: 16,fontWeight: FontWeight.bold,fontFamily: '')
+                              style: TextStyle(color: Colors.blue,fontSize: 14,fontWeight: FontWeight.bold,fontFamily: '')
                             )
                           ]
                         )

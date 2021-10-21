@@ -41,7 +41,7 @@ class _AboutCovidState extends State<AboutCovid> {
         children: [
           Text(
             'What is COVID-19',
-            style: TextStyle(color: Colors.black,fontSize: 22,fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 2),
           Text(
@@ -49,7 +49,7 @@ class _AboutCovidState extends State<AboutCovid> {
           ),
           Text(
             '\nSymptoms of COVID-19',
-            style: TextStyle(color: Colors.black,fontSize: 22,fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 2),
           Text(
@@ -137,7 +137,7 @@ class _AboutCovidState extends State<AboutCovid> {
           SizedBox(height: 20),
           Text(
             'Prevention of COVID-19',
-            style: TextStyle(color: Colors.black,fontSize: 22,fontWeight: FontWeight.bold,fontFamily: '')
+            style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.bold,fontFamily: '')
           ),
           ListView.builder(
             shrinkWrap: true,

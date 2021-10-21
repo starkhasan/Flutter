@@ -38,7 +38,7 @@ class _ShowDocumentState extends State<ShowDocument> {
         centerTitle: true,
         title: Text(
           'States Vaccination Report',
-          style: TextStyle(fontSize: 16)
+          style: TextStyle(fontSize: 14)
         )
       ),
       body: Container(

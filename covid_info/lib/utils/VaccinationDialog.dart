@@ -14,55 +14,55 @@ class VaccinationDialog extends StatelessWidget {
           color: Colors.white,
         ),
         margin: EdgeInsets.only(
-          top: MediaQuery.of(context).size.height * 0.10,
-          bottom: MediaQuery.of(context).size.height * 0.02,
-          left: MediaQuery.of(context).size.width * 0.04,
-          right: MediaQuery.of(context).size.width * 0.04
+          top: MediaQuery.of(context).padding.top + 5,
+          bottom: MediaQuery.of(context).size.height * 0.01,
+          left: MediaQuery.of(context).size.width * 0.02,
+          right: MediaQuery.of(context).size.width * 0.02
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
               width: double.infinity,
-              padding: EdgeInsets.only(top: 14,bottom: 14),
+              padding: EdgeInsets.only(top: 12,bottom: 12),
               decoration: BoxDecoration(
                 color: Colors.blue[300],
               ),
               child: Text(
                 response.country,
-                style: TextStyle(color: Colors.black,fontSize: 15,decoration: TextDecoration.none,fontWeight: FontWeight.bold,fontFamily: ''),
+                style: TextStyle(color: Colors.black,fontSize: 12,decoration: TextDecoration.none,fontWeight: FontWeight.bold,fontFamily: ''),
                 textAlign: TextAlign.center,
               ),
             ),
             Container(
               color: Color(0xFFE3F2FD),
-              padding: EdgeInsets.only(left: 5,right: 5,top: 8,bottom: 8),
+              padding: EdgeInsets.only(left: 5,right: 5,top: 6,bottom: 6),
               child: Row(
                 children: [
                   Expanded(
                     child: Text(
                       'Date',
-                      style: TextStyle(fontFamily: '',color:Colors.black,decoration: TextDecoration.none,fontSize: 12,fontWeight: FontWeight.bold),
+                      style: TextStyle(fontFamily: '',color:Colors.black,decoration: TextDecoration.none,fontSize: 10,fontWeight: FontWeight.bold),
                     )
                   ),
                   Expanded(
                     child: Text(
                       'Total',
-                      style: TextStyle(fontFamily: '',color:Colors.black,decoration: TextDecoration.none,fontSize: 12,fontWeight: FontWeight.bold),
+                      style: TextStyle(fontFamily: '',color:Colors.black,decoration: TextDecoration.none,fontSize: 10,fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center
                     )
                   ),
                   Expanded(
                     child: Text(
                       'Dose1',
-                      style: TextStyle(fontFamily: '',color:Colors.black,decoration: TextDecoration.none,fontSize: 12,fontWeight: FontWeight.bold),
+                      style: TextStyle(fontFamily: '',color:Colors.black,decoration: TextDecoration.none,fontSize: 10,fontWeight: FontWeight.bold),
                       textAlign: TextAlign.right
                     )
                   ),
                   Expanded(
                     child: Text(
                       'Dose2',
-                      style: TextStyle(fontFamily: '',color:Colors.black,decoration: TextDecoration.none,fontSize: 12,fontWeight: FontWeight.bold),
+                      style: TextStyle(fontFamily: '',color:Colors.black,decoration: TextDecoration.none,fontSize: 10,fontWeight: FontWeight.bold),
                       textAlign: TextAlign.right
                     )
                   )
@@ -88,7 +88,7 @@ class VaccinationDialog extends StatelessWidget {
                               response.data[index].date.split('-').reversed.join('-'),
                               textAlign: TextAlign.left,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontFamily: '',color: Colors.black,fontSize: 12,decoration: TextDecoration.none,fontWeight: FontWeight.normal)
+                              style: TextStyle(fontFamily: '',color: Colors.black,fontSize: 10,decoration: TextDecoration.none,fontWeight: FontWeight.normal)
                             )
                           ),
                           Expanded(
@@ -98,7 +98,7 @@ class VaccinationDialog extends StatelessWidget {
                               : 'N/A',
                               textAlign: TextAlign.center,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontFamily: '',color: Colors.black,fontSize: 12,decoration: TextDecoration.none,fontWeight: FontWeight.normal)
+                              style: TextStyle(fontFamily: '',color: Colors.black,fontSize: 10,decoration: TextDecoration.none,fontWeight: FontWeight.normal)
                             )
                           ),
                           Expanded(
@@ -108,7 +108,7 @@ class VaccinationDialog extends StatelessWidget {
                               : 'N/A',
                               textAlign: TextAlign.right,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontFamily: '',color: Colors.black,fontSize: 12,decoration: TextDecoration.none,fontWeight: FontWeight.normal)
+                              style: TextStyle(fontFamily: '',color: Colors.black,fontSize: 10,decoration: TextDecoration.none,fontWeight: FontWeight.normal)
                             )
                           ),
                           Expanded(
@@ -118,7 +118,7 @@ class VaccinationDialog extends StatelessWidget {
                               : 'N/A',
                               textAlign: TextAlign.right,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontFamily: '',color: Colors.black,fontSize: 12,decoration: TextDecoration.none,fontWeight: FontWeight.normal)
+                              style: TextStyle(fontFamily: '',color: Colors.black,fontSize: 10,decoration: TextDecoration.none,fontWeight: FontWeight.normal)
                             )
                           )
                         ],

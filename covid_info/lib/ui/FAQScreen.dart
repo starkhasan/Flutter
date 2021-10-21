@@ -78,7 +78,7 @@ class _MainScreen extends State<MainScreen> {
             backgroundColor: Color(0xFF0B3054),
             centerTitle: true,
             floating: true,
-            title: Text('FAQs',style: TextStyle(fontSize: 16)),
+            title: Text('FAQs',style: TextStyle(fontSize: 14)),
             expandedHeight: kToolbarHeight,
             systemOverlayStyle: SystemUiOverlayStyle.light,
           ),
@@ -127,13 +127,13 @@ class _MainScreen extends State<MainScreen> {
             ]
           ),
           child: ExpansionTile(
-            title: Text(response[index].question,style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.normal)),
-            subtitle: Text(response[index].tag,style: TextStyle(fontSize: 12,fontStyle: FontStyle.italic,color: response[index].tag == 'corona' ? Colors.red : Colors.green)),
+            title: Text(response[index].question,style: TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.normal)),
+            subtitle: Text(response[index].tag,style: TextStyle(fontSize: 11,fontStyle: FontStyle.italic,color: response[index].tag == 'corona' ? Colors.red : Colors.green)),
             children: [
               Container(
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.fromLTRB(subHeaderLeftMargin, 0, 10, 10),
-                child: Text(response[index].answer,style: TextStyle(fontSize: 12))
+                child: Text(response[index].answer,style: TextStyle(fontSize: 11))
               )
             ]
           )
