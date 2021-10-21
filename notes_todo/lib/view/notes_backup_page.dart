@@ -134,7 +134,12 @@ class _LoginPageState extends State<LoginPage> {
                         Text('This will delete all your notes from Firebase Cloud',style: TextStyle(color: Colors.grey,fontSize: 12)),
                       ]
                     ),
-                    ElevatedButton(
+                    widget.authProvider.isSyncDataDelete
+                    ? SizedBox(height: 20,width: 20,child: CircularProgressIndicator(
+                        color: widget.authProvider.isSyncDataDelete ? Theme.of(context).toggleableActiveColor : Colors.indigo,strokeWidth: 2.0
+                        )
+                      )
+                    : ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         primary: Colors.red
                       ),

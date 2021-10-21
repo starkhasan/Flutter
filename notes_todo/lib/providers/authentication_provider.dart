@@ -7,12 +7,14 @@ import 'package:notes_todo/utils/preferences.dart';
 class AuthenticationProvider extends ChangeNotifier with Helpers {
 
   bool get isSyncEnabled => Preferences.getSyncEnabled();
+  bool _syncDataDelete = false;
   bool _isLogin = false;
   bool _emailPaswordAvail = false;
   bool _showPassword = true;
   bool get isLoginUser => _isLogin;
   bool get isEmailPasswordAvail => _emailPaswordAvail;
   bool get showPassword => _showPassword;
+  bool get isSyncDataDelete => _syncDataDelete;
   UserCredential? userCredential;
   FirebaseAuth firebaseAuthInstance = FirebaseAuth.instance;
 
@@ -70,9 +72,13 @@ class AuthenticationProvider extends ChangeNotifier with Helpers {
   }
 
   void deleteUserData(BuildContext _context) async{
+    _syncDataDelete = true;
+    notifyListeners();
     await FirebaseDatabase.instance.reference().child('notes_todo').child(Preferences.getUserID()).child('task').remove();
     await FirebaseDatabase.instance.reference().child('notes_todo').child(Preferences.getUserID()).child('completeTask').remove();
     showSnackBar(_context, 'All Sync data has been deleted successfully');
+    _syncDataDelete = false;
+    notifyListeners();
   }
 
   void fillEmailPassword(String name,String email,String password){
