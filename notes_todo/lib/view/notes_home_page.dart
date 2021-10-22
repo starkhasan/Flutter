@@ -146,6 +146,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                     focusNode: _focusNode,
                     minLines: 1,
                     maxLines: 3,
+                    cursorColor: Theme.of(context).toggleableActiveColor,
                     textInputAction: TextInputAction.done,
                     style: const TextStyle(fontSize: 12),
                     decoration: const InputDecoration.collapsed(
