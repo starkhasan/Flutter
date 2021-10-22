@@ -4,7 +4,7 @@ import 'package:notes_todo/helper/delete_notes_dialog.dart';
 import 'package:notes_todo/helper/empty_message.dart';
 import 'package:notes_todo/providers/notes_provider.dart';
 import 'package:notes_todo/utils/preferences.dart';
-import 'package:notes_todo/view/notes_backup_page.dart';
+import 'package:notes_todo/view/notes_sync_page.dart';
 import 'package:provider/provider.dart';
 import 'package:notes_todo/utils/local_constant.dart';
 
