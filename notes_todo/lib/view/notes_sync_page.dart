@@ -153,10 +153,7 @@ class _LoginPageState extends State<LoginPage> {
                             Expanded(
                               flex: 1,
                               child: widget.authProvider.isSyncDataDelete
-                              ? SizedBox(height: 20,width: 20,child: CircularProgressIndicator(
-                                  color: Theme.of(context).toggleableActiveColor,strokeWidth: 2.0
-                                  )
-                                )
+                              ? SizedBox(height: 5,child: LinearProgressIndicator(color: Theme.of(context).toggleableActiveColor))
                               : ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   primary: Colors.red
