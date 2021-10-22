@@ -15,16 +15,16 @@ class _DeleteNotesDialogState extends State<DeleteNotesDialog> {
   @override
   Widget build(BuildContext context) {
     return CupertinoAlertDialog(
-      title: Text(widget.titleDialog),
-      content: Text(widget.contentDialog),
+      title: Text(widget.titleDialog,style: const TextStyle(fontSize: 14)),
+      content: Text(widget.contentDialog,style: const TextStyle(fontSize: 14)),
       actions: [
         CupertinoDialogAction(
           onPressed: () => Navigator.pop(context),
-          child: const Text('No',style: TextStyle(color: Colors.red))
+          child: const Text('No',style: TextStyle(color: Colors.red,fontSize: 14))
         ),
         CupertinoDialogAction(
           onPressed: () => widget.onPressed(),
-          child: const Text('Yes',style: TextStyle(color: Colors.blue)),
+          child: const Text('Yes',style: TextStyle(color: Colors.blue,fontSize: 14)),
         )
       ]
     );

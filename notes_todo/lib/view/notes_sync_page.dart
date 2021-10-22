@@ -77,12 +77,8 @@ class _LoginPageState extends State<LoginPage> {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: 'All your notes data sync with your id ',
+                                text: 'All your notes data sync with your registered id',
                                 style: TextStyle(fontSize: 10,color: Preferences.getAppTheme() ? Colors.white : Colors.black)
-                              ),
-                              TextSpan(
-                                text: Preferences.getUserEmail(),
-                                style: TextStyle(fontStyle: FontStyle.italic,fontSize: 10,color: Preferences.getAppTheme() ? Colors.white : Colors.black)
                               ),
                               TextSpan(
                                 text: ' on Google Firebase. All your notes automatically sync with Firebase at the time of creating and deletion',
@@ -153,7 +149,7 @@ class _LoginPageState extends State<LoginPage> {
                             Expanded(
                               flex: 1,
                               child: widget.authProvider.isSyncDataDelete
-                              ? SizedBox(height: 5,child: LinearProgressIndicator(color: Theme.of(context).toggleableActiveColor))
+                              ? SizedBox(height: 4,child: LinearProgressIndicator(backgroundColor: Preferences.getAppTheme() ? const Color(0xFF161616) : Colors.white,color: Theme.of(context).toggleableActiveColor))
                               : ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   primary: Colors.red
