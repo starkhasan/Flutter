@@ -288,7 +288,8 @@ class _LogoutPageState extends State<LogoutPage> {
                                 TextField(
                                   controller: passwordCont,
                                   obscureText: provider.showPassword,
-                                  keyboardType: TextInputType.emailAddress,
+                                  keyboardType: TextInputType.text,
+                                  textInputAction: TextInputAction.none,
                                   style: const TextStyle(fontSize: 12),
                                   cursorColor: Theme.of(context).toggleableActiveColor,
                                   decoration: InputDecoration(
