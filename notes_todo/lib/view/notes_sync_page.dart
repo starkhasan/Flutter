@@ -127,7 +127,7 @@ class _LoginPageState extends State<LoginPage> {
                               flex: 1,
                               child: ElevatedButton(
                                 onPressed: () => widget.authProvider.logoutUser(),
-                                child: const Text('Sign out',style: TextStyle(fontSize: 10))
+                                child: const Text('Sign out',style: TextStyle(fontSize: 11))
                               )
                             )
                           ]
@@ -155,7 +155,7 @@ class _LoginPageState extends State<LoginPage> {
                                   primary: Colors.red
                                 ),
                                 onPressed: () => deleteNotesDialog(context),
-                                child: const Text('Delete',style: TextStyle(fontSize: 10))
+                                child: const Text('Delete',style: TextStyle(fontSize: 11))
                               )
                             )
                           ]
