@@ -36,7 +36,7 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
 
   bool _isDarkMode = false;
-  bool mainScreen = true;
+  bool _mainScreen = true;
   late FocusNode _focusNode;
   var textController = TextEditingController();
   List<IconData> icons = [Icons.sync,Icons.dark_mode_outlined];
@@ -65,11 +65,11 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
 
   @override
   void didChangeMetrics() {
+    super.didChangeMetrics();
     final bottomInset = WidgetsBinding.instance!.window.viewInsets.bottom;
-    if(bottomInset == 0.0 && mainScreen){
+    if(bottomInset == 0.0 && _mainScreen){
       widget.notesProvider.fabAction();
-    }
-    super.didChangeMetrics();  
+    }  
   }
 
   @override
@@ -96,6 +96,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
             _focusNode.hasFocus
             ? _focusNode.unfocus()
             : {
+              _mainScreen = true,
               widget.notesProvider.fabAction(),
               _focusNode.requestFocus()
             }
@@ -360,7 +361,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
   }
 
   pageNavigation(BuildContext _context){
-    mainScreen = false;
+    _mainScreen = false;
     Navigator.pop(_context);
     Navigator.push(_context, MaterialPageRoute(builder: (_context) => const NotesBackupPage())).then((value) => {
       if(Preferences.getSyncExplicitly()){
@@ -368,8 +369,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
         widget.notesProvider.syncEnableFromSyncNote()
       }else{
         widget.notesProvider.drawerName()
-      },
-      mainScreen = true
+      }
     });
   }
 
