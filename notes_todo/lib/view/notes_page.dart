@@ -77,7 +77,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
       drawer: drawerLayout(),
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Notes',style: TextStyle(fontSize: 16)),
+        title: const Text('Notes',style: TextStyle(fontSize: 14)),
         actions: widget.notesProvider.completedList.isEmpty && widget.notesProvider.listNote.isEmpty && !widget.notesProvider.isDataSync
         ? null
         : [
@@ -90,7 +90,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
       floatingActionButton: Visibility(
         visible: widget.notesProvider.fabVisible,
         child: FloatingActionButton(
-          backgroundColor: Colors.indigo,
+          backgroundColor: Preferences.getAppTheme() ? Colors.tealAccent[400] : Colors.indigo,
           onPressed: () => {
             focusNode.hasFocus
             ? focusNode.unfocus()
@@ -113,9 +113,9 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Visibility(visible: widget.notesProvider.listNote.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 10,top:15,bottom: 15),child: const Text('Task',style: TextStyle(color: Colors.indigo,fontSize: 20,fontWeight: FontWeight.bold)))),
+                        Visibility(visible: widget.notesProvider.listNote.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 15,top: 10,bottom: 10),child: Text('Task',style: TextStyle(color: Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo,fontSize: 16,fontWeight: FontWeight.bold)))),
                         notesBody(),
-                        Visibility(visible: widget.notesProvider.completedList.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 10,top:15,bottom: 15),child: const Text('Completed',style: TextStyle(color: Colors.indigo,fontSize: 20,fontWeight: FontWeight.bold)))),
+                        Visibility(visible: widget.notesProvider.completedList.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 15,top: 10,bottom: 10),child: Text('Completed',style: TextStyle(color: Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo,fontSize: 16,fontWeight: FontWeight.bold)))),
                         completedNotes()
                       ]
                     )
@@ -146,10 +146,10 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                     minLines: 1,
                     maxLines: 3,
                     textInputAction: TextInputAction.done,
-                    style: const TextStyle(fontSize: 15),
+                    style: const TextStyle(fontSize: 12),
                     decoration: const InputDecoration.collapsed(
                       hintText: 'Add Task',
-                      hintStyle: TextStyle(color: Colors.grey,fontSize: 15)
+                      hintStyle: TextStyle(color: Colors.grey,fontSize: 12)
                     ),
                     onEditingComplete: (){
                       if(textController.text.isNotEmpty){
@@ -200,10 +200,10 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                   scale: 1.0,
                   child: Theme(
                     data: ThemeData(
-                      unselectedWidgetColor: Colors.indigo
+                      unselectedWidgetColor: Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo
                     ),
                     child: Checkbox(
-                      activeColor: Colors.indigo,
+                      activeColor: Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)
                       ),
@@ -213,7 +213,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                   )
                 ),
                 Expanded(
-                  child: Text(widget.notesProvider.listNote[index],style: TextStyle(color: _isDarkMode ? Colors.white : Colors.black,fontWeight: FontWeight.normal,fontSize: 14)),
+                  child: Text(widget.notesProvider.listNote[index],style: TextStyle(color: _isDarkMode ? Colors.white : Colors.black,fontWeight: FontWeight.normal,fontSize: 12)),
                 )
               ]
             )
@@ -254,7 +254,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                 Transform.scale(
                   scale: 1.0,
                   child: Checkbox(
-                    activeColor: Colors.indigo,
+                    activeColor: Preferences.getAppTheme() ? Colors.tealAccent[400] : Colors.indigo,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)
                     ),
@@ -263,7 +263,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                   )
                 ),
                 Expanded(
-                  child: Text(widget.notesProvider.completedList[index],style: const TextStyle(decoration: TextDecoration.lineThrough,color: Colors.grey, fontWeight: FontWeight.normal,fontSize: 14))
+                  child: Text(widget.notesProvider.completedList[index],style: const TextStyle(decoration: TextDecoration.lineThrough,color: Colors.grey, fontWeight: FontWeight.normal,fontSize: 12))
                 )
               ]
             )
@@ -274,86 +274,85 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
   }
 
   Widget drawerLayout(){
-    return Drawer(
-      child: Container(
-        color: _isDarkMode ? const Color(0xFF161616) : Colors.white,
-        padding: EdgeInsets.zero,
-        child: Column(
-          children: [
-            Container(
-              height: MediaQuery.of(context).size.height * 0.15,
-              color: Colors.indigo,
-              width: double.infinity,
-              child: Stack(
-                children: [
-                  Positioned(
-                    right: 10,
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.15,
-                      height: MediaQuery.of(context).size.height * 0.15,
-                      decoration: const BoxDecoration(image: DecorationImage(opacity: 0.1,image: AssetImage('assets/logo.png'))),
-                    )
-                  ),
-                  Positioned(
-                    bottom: 10,
-                    left: 10,
-                    child: Text('Hi, ${widget.notesProvider.getUserName}',style: const TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold))
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.60,
+      color: _isDarkMode ? const Color(0xFF161616) : Colors.white,
+      padding: EdgeInsets.zero,
+      child: Column(
+        children: [
+          Container(
+            height: MediaQuery.of(context).size.height * 0.15,
+            color: _isDarkMode ? const Color(0xFF343434) : Colors.indigo,
+            width: double.infinity,
+            child: Stack(
+              children: [
+                Positioned(
+                  right: 10,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.15,
+                    height: MediaQuery.of(context).size.height * 0.15,
+                    decoration: const BoxDecoration(image: DecorationImage(opacity: 0.1,image: AssetImage('assets/logo.png'))),
                   )
-                ]
-              )
-            ),
-            Container(
-              padding: EdgeInsets.zero,
-              height: MediaQuery.of(context).size.height * 0.85,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    InkWell(
-                      onTap: () => pageNavigation(context),
-                      child: Container(
-                        margin: const EdgeInsets.only(top: 10),
-                        padding: const EdgeInsets.all(10),
-                        child: Row(
-                          children: [
-                            Icon(icons[0],color: Colors.indigo),
-                            const SizedBox(width: 10),
-                            Text(screenName[0],style: const TextStyle(fontSize: 16))
-                          ]
-                        )
-                      )
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 10),
-                      padding: const EdgeInsets.only(top: 2,bottom: 2,left: 10,right: 10),
+                ),
+                Positioned(
+                  bottom: 10,
+                  left: 12,
+                  child: Text('Hi, ${widget.notesProvider.getUserName}',style: const TextStyle(color: Colors.white,fontSize: 12,fontWeight: FontWeight.normal))
+                )
+              ]
+            )
+          ),
+          Container(
+            padding: EdgeInsets.zero,
+            height: MediaQuery.of(context).size.height * 0.85,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  InkWell(
+                    onTap: () => pageNavigation(context),
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 8),
+                      padding: const EdgeInsets.all(10),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
-                            children: [
-                              Icon(icons[1],color: Colors.indigo),
-                              const SizedBox(width: 10),
-                              Text(screenName[1],style: const TextStyle(fontSize: 16))
-                            ]
-                          ),
-                          Switch(
-                            value: _isDarkMode,
-                            onChanged: (value){
-                              changeDarkMode(context, value);
-                              setState(() {
-                                Preferences.setAppTheme(value);
-                                _isDarkMode = value;
-                              });
-                            }
-                          )
+                          Icon(icons[0],size: 20,color: Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo),
+                          const SizedBox(width: 5),
+                          Text(screenName[0],style: const TextStyle(fontSize: 12))
                         ]
                       )
                     )
-                  ]
-                )
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 8),
+                    padding: const EdgeInsets.only(left: 10,right: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(icons[1],size: 20,color: Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo),
+                            const SizedBox(width: 5),
+                            Text(screenName[1],style: const TextStyle(fontSize: 12))
+                          ]
+                        ),
+                        Switch(
+                          value: _isDarkMode,
+                          onChanged: (value){
+                            changeDarkMode(context, value);
+                            setState(() {
+                              Preferences.setAppTheme(value);
+                              _isDarkMode = value;
+                            });
+                          }
+                        )
+                      ]
+                    )
+                  )
+                ]
               )
             )
-          ]
-        )
+          )
+        ]
       )
     );
   }

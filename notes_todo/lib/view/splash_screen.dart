@@ -24,10 +24,10 @@ class SplashScreen extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Image.asset('assets/logo.png',height: MediaQuery.of(context).size.height * 0.12, width: MediaQuery.of(context).size.height * 0.12),
+                  Image.asset('assets/logo.png',height: MediaQuery.of(context).size.height * 0.10, width: MediaQuery.of(context).size.height * 0.10),
                   const Text(
                     'Notes Todo',
-                    style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold,fontFamily: '')
+                    style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
                   )
                 ]
               )
@@ -41,7 +41,7 @@ class SplashScreen extends StatelessWidget {
                   children: [
                     Text(
                       'Design & Developed by : Traversal',
-                      style: TextStyle(color: Colors.grey[200],fontSize: 12)
+                      style: TextStyle(color: darkScreen ? Colors.grey[850] : Colors.grey[100],fontSize: 10)
                     )
                   ]
                 )

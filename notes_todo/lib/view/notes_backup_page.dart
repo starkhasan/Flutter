@@ -20,7 +20,7 @@ class _NotesBackupPageState extends State<NotesBackupPage> {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text('Sync Notes'),
+          title: const Text('Sync Notes',style: TextStyle(fontSize: 14)),
         ),
         body: StreamBuilder(
           stream: AuthenticationService().onAuthStateChange,
@@ -53,102 +53,125 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Container(
       color: Preferences.getAppTheme() ? const Color(0xFF161616) : Colors.white,
-      padding: const EdgeInsets.all(15),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      padding: const EdgeInsets.all(10),
+      child: Column(
         children: [
-          Icon(widget.authProvider.isSyncEnabled ? Icons.sync : Icons.sync_disabled_sharp,color: widget.authProvider.isSyncEnabled ? Colors.green : Colors.red),
-          const SizedBox(width: 10),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.authProvider.isSyncEnabled
-                  ? 'Sync Enabled'
-                  : 'Sync Disabled',
-                  style: TextStyle(color: widget.authProvider.isSyncEnabled ? Colors.green : Colors.red,fontWeight: FontWeight.bold)),
-                const SizedBox(height: 5),
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: 'All your notes data sync with your id ',
-                        style: TextStyle(fontSize: 12,color: Preferences.getAppTheme() ? Colors.white : Colors.black)
-                      ),
-                      TextSpan(
-                        text: Preferences.getUserEmail(),
-                        style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: Preferences.getAppTheme() ? Colors.white : Colors.black)
-                      ),
-                      TextSpan(
-                        text: ' on Google Firebase. All your notes automatically sync with Firebase at the time of creating and deletion',
-                        style: TextStyle(fontSize: 12,color: Preferences.getAppTheme() ? Colors.white : Colors.black)
-                      )
-                    ]
-                  )
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      widget.authProvider.isSyncEnabled
-                      ? 'Enabled Sync'
-                      : 'Disabled Sync'
-                    ),
-                    Switch(
-                      value: widget.authProvider.isSyncEnabled, 
-                      onChanged: (value) => {
-                        if(value) Preferences.setSyncExplicitly(true),
-                        widget.authProvider.modifySyncData()
-                      }
-                    )
-                  ]
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
+            child: SingleChildScrollView(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(widget.authProvider.isSyncEnabled ? Icons.sync : Icons.sync_disabled_sharp,size: 22,color: widget.authProvider.isSyncEnabled ? Colors.green : Colors.red),
+                  const SizedBox(width: 5),
+                  Expanded(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(Preferences.getUserEmail(),style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                        const Text('Account Linked',style: TextStyle(color: Colors.grey,fontSize: 12))
-                      ]
-                    ),
-                    ElevatedButton(
-                      onPressed: () => widget.authProvider.logoutUser(),
-                      child: const Text('Sign out')
-                    )
-                  ]
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text('Delete All Notes',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                        Text('This will delete all your notes from Firebase Cloud',style: TextStyle(color: Colors.grey,fontSize: 12)),
-                      ]
-                    ),
-                    widget.authProvider.isSyncDataDelete
-                    ? SizedBox(height: 20,width: 20,child: CircularProgressIndicator(
-                        color: Theme.of(context).toggleableActiveColor,strokeWidth: 2.0
+                        Text(
+                          widget.authProvider.isSyncEnabled
+                          ? 'Sync Enabled'
+                          : 'Sync Disabled',
+                          style: TextStyle(fontSize: 12,color: widget.authProvider.isSyncEnabled ? Colors.green : Colors.red,fontWeight: FontWeight.bold)),
+                        const SizedBox(height: 5),
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'All your notes data sync with your id ',
+                                style: TextStyle(fontSize: 10,color: Preferences.getAppTheme() ? Colors.white : Colors.black)
+                              ),
+                              TextSpan(
+                                text: Preferences.getUserEmail(),
+                                style: TextStyle(fontSize: 10,color: Preferences.getAppTheme() ? Colors.white : Colors.black)
+                              ),
+                              TextSpan(
+                                text: ' on Google Firebase. All your notes automatically sync with Firebase at the time of creating and deletion',
+                                style: TextStyle(fontSize: 10,color: Preferences.getAppTheme() ? Colors.white : Colors.black)
+                              )
+                            ]
+                          )
+                        ),
+                        const SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              widget.authProvider.isSyncEnabled
+                              ? 'Enabled Sync'
+                              : 'Disabled Sync',
+                              style: const TextStyle(fontSize: 11)
+                            ),
+                            Switch(
+                              value: widget.authProvider.isSyncEnabled, 
+                              onChanged: (value) => {
+                                if(value) Preferences.setSyncExplicitly(true),
+                                widget.authProvider.modifySyncData()
+                              }
+                            )
+                          ]
+                        ),
+                        const SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Expanded(
+                              flex: 2,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(Preferences.getUserEmail(),style: const TextStyle(fontSize: 11)),
+                                  const Text('Account Linked',style: TextStyle(color: Colors.grey,fontSize: 10))
+                                ]
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: ElevatedButton(
+                                onPressed: () => widget.authProvider.logoutUser(),
+                                child: const Text('Sign out',style: TextStyle(fontSize: 11))
+                              )
+                            )
+                          ]
+                        ),
+                        const SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              flex: 2,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: const [
+                                  Text('Delete All Notes',style: TextStyle(fontSize: 11,fontWeight: FontWeight.bold)),
+                                  Text('This will delete all your notes from Firebase Cloud',style: TextStyle(color: Colors.grey,fontSize: 10)),
+                                ]
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: widget.authProvider.isSyncDataDelete
+                              ? SizedBox(height: 20,width: 20,child: CircularProgressIndicator(
+                                  color: Theme.of(context).toggleableActiveColor,strokeWidth: 2.0
+                                  )
+                                )
+                              : ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.red
+                                ),
+                                onPressed: () => deleteNotesDialog(context),
+                                child: const Text('Delete',style: TextStyle(fontSize: 11))
+                              )
+                            )
+                          ]
                         )
-                      )
-                    : ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.red
-                      ),
-                      onPressed: () => deleteNotesDialog(context),
-                      child: const Text('Delete')
+                      ]
                     )
-                  ]
-                )
-              ]
+                  )
+                ]
+              )
             )
           )
         ]
@@ -188,113 +211,134 @@ class _LogoutPageState extends State<LogoutPage> {
   Widget build(BuildContext context) {
     return Container(
       color: Preferences.getAppTheme() ? const Color(0xFF161616) : Colors.white,
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.all(5),
       child: Column(
         children: [
-          Consumer<AuthenticationProvider>(
-            builder: (context,provider,child){
-              return Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
                 children: [
-                  const Icon(Icons.sync_disabled_sharp),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text('Sync Notes',style: TextStyle(fontWeight: FontWeight.bold)),
-                        const SizedBox(height: 5),
-                        const Text("Sync your notes with Google Firebase Cloud. you can restore them when you reinstall Notes Todo App. Your notes will also sync to your phone's internal storage"),
-                        const SizedBox(height: 10),
-                        const Text("Currently your notes data is stored internally",style: TextStyle(color: Colors.red)),
-                        const SizedBox(height: 20),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: GestureDetector(
-                                onTap: () => provider.turnSingIn(false,nameCont.text,emailCont.text,passwordCont.text),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    border: Border(bottom: BorderSide(width: 2.0,color: provider.isLoginUser ? Colors.transparent : Colors.indigo))
+                  Consumer<AuthenticationProvider>(
+                    builder: (context,provider,child){
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Icon(Icons.sync_disabled_sharp,size: 22),
+                          const SizedBox(width: 5),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text('Sync Notes',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12)),
+                                const SizedBox(height: 5),
+                                const Text("Sync your notes with Google Firebase Cloud. you can restore them when you reinstall Notes Todo App. Your notes will also sync to your phone's internal storage",style: TextStyle(fontSize: 10)),
+                                const SizedBox(height: 5),
+                                const Text("Currently your notes data is stored internally",style: TextStyle(color: Colors.red,fontSize: 10)),
+                                const SizedBox(height: 5),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: GestureDetector(
+                                        onTap: () => provider.turnSingIn(false,nameCont.text,emailCont.text,passwordCont.text),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            border: Border(bottom: BorderSide(width: 2.0,color: provider.isLoginUser ? Colors.transparent : Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo))
+                                          ),
+                                          padding: const EdgeInsets.only(top: 12,bottom: 12),
+                                          child: Text('Sign up',textAlign: TextAlign.center,style: TextStyle(fontSize: 12,color: provider.isLoginUser ? Colors.grey : Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo, fontWeight: FontWeight.bold))
+                                        )
+                                      )
+                                    ),
+                                    Expanded(
+                                      child: GestureDetector(
+                                        onTap: () => provider.turnSingIn(true,'',emailCont.text,passwordCont.text),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            border: Border(bottom: BorderSide(width: 2.0,color: provider.isLoginUser ? Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo : Colors.transparent))
+                                          ),
+                                          padding: const EdgeInsets.only(top: 12,bottom: 12),
+                                          child: Text('Sign in',textAlign: TextAlign.center,style: TextStyle(fontSize: 12,color: provider.isLoginUser ? Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo : Colors.grey,fontWeight: FontWeight.bold))
+                                        )
+                                      )
+                                    )
+                                  ]
+                                ),
+                                const SizedBox(height: 10),
+                                Visibility(
+                                  visible: !provider.isLoginUser,
+                                  child: TextField(
+                                    controller: nameCont,
+                                    keyboardType: TextInputType.text,
+                                    style: const TextStyle(fontSize: 12),
+                                    decoration: const InputDecoration(
+                                      hintText: 'Name',
+                                      hintStyle: TextStyle(color: Colors.grey,fontSize: 12),
+                                    ),
+                                    onChanged: (value) => provider.fillEmailPassword(value,emailCont.text, passwordCont.text)
+                                  )
+                                ),
+                                Theme(
+                                  data: ThemeData(
+                                    inputDecorationTheme: const InputDecorationTheme(
+                                      focusColor: Colors.teal
+                                    )
                                   ),
-                                  padding: const EdgeInsets.only(top: 15,bottom: 15),
-                                  child: Text('Sign up',textAlign: TextAlign.center,style: TextStyle(fontSize: 16,color: provider.isLoginUser ? Colors.grey : Colors.indigo, fontWeight: FontWeight.bold))
-                                )
-                              ),
-                            ),
-                            Expanded(
-                              child: GestureDetector(
-                                onTap: () => provider.turnSingIn(true,'',emailCont.text,passwordCont.text),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    border: Border(bottom: BorderSide(width: 2.0,color: provider.isLoginUser ? Colors.indigo : Colors.transparent))
+                                  child: TextField(
+                                    controller: emailCont,
+                                    keyboardType: TextInputType.emailAddress,
+                                    style: const TextStyle(fontSize: 12),
+                                    decoration: const InputDecoration(
+                                      hintText: 'Email',
+                                      hintStyle: TextStyle(color: Colors.grey,fontSize: 12),
+                                    ),
+                                    onChanged: (value) => provider.fillEmailPassword(nameCont.text,value, passwordCont.text)
                                   ),
-                                  padding: const EdgeInsets.only(top: 15,bottom: 15),
-                                  child: Text('Sign in',textAlign: TextAlign.center,style: TextStyle(fontSize: 16,color: provider.isLoginUser ? Colors.indigo : Colors.grey,fontWeight: FontWeight.bold))
+                                ),
+                                const SizedBox(height: 5),
+                                TextField(
+                                  controller: passwordCont,
+                                  obscureText: provider.showPassword,
+                                  keyboardType: TextInputType.emailAddress,
+                                  style: const TextStyle(fontSize: 12),
+                                  cursorColor: Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo,
+                                  decoration: InputDecoration(
+                                    hintText: 'Password',
+                                    hintStyle: const TextStyle(color: Colors.grey,fontSize: 12),
+                                    suffixIcon: IconButton(onPressed: provider.passwordVisibility, icon: provider.showPassword ? const Icon(Icons.lock,size: 22) : const Icon(Icons.lock_open))
+                                  ),
+                                  onChanged: (value) => provider.fillEmailPassword(nameCont.text,emailCont.text, value)
+                                ),
+                                const SizedBox(height: 15),
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: provider.isAuthProcess
+                                  ? Container(margin: const EdgeInsets.only(top : 10),height: 30,width: 30,child: CircularProgressIndicator(
+                                      color: Theme.of(context).toggleableActiveColor,strokeWidth: 2.0
+                                      )
+                                    )
+                                  : ElevatedButton(
+                                    onPressed: provider.isEmailPasswordAvail
+                                      ? () => provider.userAuthenticate(provider.isLoginUser,context,nameCont.text,emailCont.text,passwordCont.text)
+                                      : null,
+                                    style: ElevatedButton.styleFrom(primary: Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo),
+                                    child: Text(
+                                      provider.isLoginUser
+                                      ? 'Sign in'
+                                      : 'Sign up',
+                                      style: TextStyle(fontSize: 12,color: Preferences.getAppTheme() ? Colors.black : Colors.white)
+                                    )
+                                  )
                                 )
-                              ),
-                            )
-                          ]
-                        ),
-                        const SizedBox(height: 10),
-                        Visibility(
-                          visible: !provider.isLoginUser,
-                          child: TextField(
-                            controller: nameCont,
-                            keyboardType: TextInputType.text,
-                            decoration: const InputDecoration(
-                              hintText: 'Name',
-                              hintStyle: TextStyle(color: Colors.grey),
-                            ),
-                            onChanged: (value) => provider.fillEmailPassword(value,emailCont.text, passwordCont.text)
-                          )
-                        ),
-                        TextField(
-                          controller: emailCont,
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: const InputDecoration(
-                            hintText: 'Email',
-                            hintStyle: TextStyle(color: Colors.grey),
-                          ),
-                          onChanged: (value) => provider.fillEmailPassword(nameCont.text,value, passwordCont.text)
-                        ),
-                        const SizedBox(height: 5),
-                        TextField(
-                          controller: passwordCont,
-                          obscureText: provider.showPassword,
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: InputDecoration(
-                            hintText: 'Password',
-                            hintStyle: const TextStyle(color: Colors.grey),
-                            suffixIcon: IconButton(onPressed: provider.passwordVisibility, icon: provider.showPassword ? const Icon(Icons.lock) : const Icon(Icons.lock_open))
-                          ),
-                          onChanged: (value) => provider.fillEmailPassword(nameCont.text,emailCont.text, value)
-                        ),
-                        const SizedBox(height: 15),
-                        Align(
-                          alignment: Alignment.center,
-                          child: provider.isAuthProcess
-                          ? Container(margin: const EdgeInsets.only(top : 10),height: 30,width: 30,child: CircularProgressIndicator(
-                              color: Theme.of(context).toggleableActiveColor,strokeWidth: 2.0
-                              )
-                            )
-                          : ElevatedButton(
-                            onPressed: provider.isEmailPasswordAvail
-                              ? () => provider.userAuthenticate(provider.isLoginUser,context,nameCont.text,emailCont.text,passwordCont.text)
-                              : null,
-                            child: Text(
-                              provider.isLoginUser
-                              ? 'Sign in'
-                              : 'Sign up'
+                              ]
                             )
                           )
-                        )
-                      ]
-                    )
+                        ]
+                      );
+                    }
                   )
                 ]
-              );
-            }
+              )
+            )
           )
         ]
       )
