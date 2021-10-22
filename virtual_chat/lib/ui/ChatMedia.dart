@@ -28,7 +28,7 @@ class _ChatMedia extends State<ChatMedia>{
             child: GestureDetector(
               onDoubleTap: () => {
                 setState((){
-                  fullScreen ? SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values) : SystemChrome.setEnabledSystemUIOverlays([]);
+                  fullScreen ? SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive) : SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
                   fullScreen = fullScreen ? false : true;
                 })
               },
@@ -54,7 +54,7 @@ class _ChatMedia extends State<ChatMedia>{
                 children: [
                   IconButton(
                     onPressed: () => Navigator.pop(context),
-                    icon: Icon(Icons.arrow_back,color: Colors.white,)
+                    icon: Icon(Icons.arrow_back,color: Colors.white,size: 20)
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.04),
                   Column(
@@ -63,13 +63,13 @@ class _ChatMedia extends State<ChatMedia>{
                     children: [
                       Text(
                         widget.name[0].toUpperCase()+widget.name.substring(1),
-                        style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.white,fontSize: 14,fontWeight: FontWeight.bold),
                       ),
                       Visibility(
                         visible: widget.dateTime.isEmpty ? false : true,
                         child: Text(
                           widget.dateTime.isEmpty ? '' : widget.dateTime.formateDate,
-                          style: TextStyle(color: Colors.white,fontSize: 12,fontStyle: FontStyle.italic,fontWeight: FontWeight.normal)
+                          style: TextStyle(color: Colors.white,fontSize: 10,fontStyle: FontStyle.italic,fontWeight: FontWeight.normal)
                         )
                       )
                     ],

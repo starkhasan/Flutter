@@ -3,6 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:virtual_chat/ui/ChatMedia.dart';
@@ -43,8 +44,8 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
     super.didChangeDependencies();
     lottieHeight = MediaQuery.of(context).size.height * 0.45;
     lottieWidth = MediaQuery.of(context).size.width * 0.45;
-    _topMargin = MediaQuery.of(context).size.height * 0.05;
-    _imageSize = MediaQuery.of(context).size.height * 0.07;
+    _topMargin = MediaQuery.of(context).size.height * 0.04;
+    _imageSize = MediaQuery.of(context).size.height * 0.06;
   }
 
   @override
@@ -53,9 +54,9 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         centerTitle: false,
-        title: Text(widget.update ? 'Profile Update' : widget.sender[0].toUpperCase()+widget.sender.substring(1)),
+        title: Text(widget.update ? 'Profile Update' : widget.sender[0].toUpperCase()+widget.sender.substring(1),style: TextStyle(fontSize: 14)),
         backgroundColor: Colors.indigo,
-        brightness: Brightness.dark
+        systemOverlayStyle: SystemUiOverlayStyle.light
       ),
       body: Container(
         margin: EdgeInsets.fromLTRB(10,_topMargin,10,10),
@@ -109,7 +110,7 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                                       var source = await chooseImageSource();
                                       uploadImageFile(source);
                                     },
-                                    icon: Icon(Icons.camera_alt_rounded,color: Colors.white)
+                                    icon: Icon(Icons.camera_alt_rounded,color: Colors.white,size: 20)
                                   )
                                 )
                               )
@@ -125,13 +126,13 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                     children: [
                       Row(
                         children: [
-                          Icon(Icons.info_rounded),
-                          SizedBox(width: 20),
+                          Icon(Icons.info_rounded,size: 20),
+                          SizedBox(width: 15),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('About',style: TextStyle(color: Colors.grey)),
-                              Text(notes['about'])
+                              Text('About',style: TextStyle(color: Colors.grey,fontSize: 12)),
+                              Text(notes['about'],style: TextStyle(fontSize: 12))
                             ]
                           )
                         ]
@@ -140,7 +141,7 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                         visible: widget.update,
                         child: IconButton(
                           onPressed: () => aboutInfoDialog(aboutMessage),
-                          icon: Icon(Icons.edit)
+                          icon: Icon(Icons.edit,size: 20)
                         )
                       )
                     ]
@@ -152,14 +153,14 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                       children: [
                         Row(
                           children: [
-                            Icon(Icons.password_rounded),
-                            SizedBox(width: 20),
-                            Text('Change Password')
+                            Icon(Icons.password_rounded,size: 20),
+                            SizedBox(width: 15),
+                            Text('Change Password',style: TextStyle(fontSize: 12))
                           ]
                         ),
                         IconButton(
                           onPressed: () => changePasswordDialog(),
-                          icon: Icon(Icons.edit)
+                          icon: Icon(Icons.edit,size: 20)
                         )
                       ]
                     )
@@ -171,10 +172,11 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                       children: [
                         Row(
                           children: [
-                            Icon(Icons.cake_rounded),
-                            SizedBox(width: 20),
+                            Icon(Icons.cake_rounded,size: 20),
+                            SizedBox(width: 15),
                             Text(
-                              notes['dob'].isEmpty ? 'Birthday' : notes['dob'].split('-').reversed.join('-')
+                              notes['dob'].isEmpty ? 'Birthday' : notes['dob'].split('-').reversed.join('-'),
+                              style: TextStyle(fontSize: 12)
                             )
                           ]
                         ),
@@ -192,7 +194,7 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                               currentTime: currentDateTime, locale: LocaleType.en
                             );
                           },
-                          icon: Icon(Icons.edit)
+                          icon: Icon(Icons.edit,size: 20)
                         )
                       ]
                     )

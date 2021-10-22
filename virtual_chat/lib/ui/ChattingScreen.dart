@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:virtual_chat/ui/ChatMedia.dart';
@@ -102,7 +103,7 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(receiver[0].toUpperCase()+receiver.substring(1)),
+                    Text(receiver[0].toUpperCase()+receiver.substring(1),style: TextStyle(fontSize: 14)),
                     StreamBuilder(
                       stream: statusDatabase.child(receiver).onValue,
                       builder: (context,AsyncSnapshot snapshot){
@@ -110,7 +111,7 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                           var allUser = snapshot.data.snapshot.value;
                           return allUser['status'] == 'offline'
                             ? SizedBox()
-                            : Text(allUser['status'],style: TextStyle(fontSize: 12,fontWeight: FontWeight.normal));
+                            : Text(allUser['status'],style: TextStyle(fontSize: 10,fontWeight: FontWeight.normal));
                         }else{
                           return SizedBox();
                         }
@@ -122,7 +123,7 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
             )
           )
         ),
-        brightness: Brightness.dark
+        systemOverlayStyle: SystemUiOverlayStyle.light
       ),
       body: mainBody()
     );
@@ -161,7 +162,7 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                             child: Container(
                               margin: EdgeInsets.fromLTRB(10, 2, 10, 0),
                               child: Container(
-                                padding: EdgeInsets.fromLTRB(8, 5, 8, 5),
+                                padding: notes[key]['type'] == 'text' ? EdgeInsets.all(8) : EdgeInsets.all(5),
                                 decoration: BoxDecoration(
                                   color: notes[key]['sender'] == sender ? Colors.indigo : Colors.grey[300],
                                   borderRadius: BorderRadius.all(Radius.circular(5))
@@ -173,14 +174,14 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                                   children: [
                                     Text(
                                       notes[key]['message'],
-                                      style: TextStyle(color: notes[key]['sender'] == sender ? Colors.white : Colors.black,fontSize: 16)
+                                      style: TextStyle(color: notes[key]['sender'] == sender ? Colors.white : Colors.black,fontSize: 14)
                                     ),
-                                    SizedBox(width: 10),
+                                    SizedBox(width: 8),
                                     Text(
                                       notes[key]['time'].substring(11,16),
                                       style: TextStyle(
                                         color: notes[key]['sender'] == sender ? Colors.white70 : Colors.black54,
-                                        fontSize: 12,
+                                        fontSize: 10,
                                         fontStyle: FontStyle.italic,
                                         fontWeight: FontWeight.normal
                                       )
@@ -205,13 +206,13 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.only(topLeft: Radius.circular(20)),
                                               boxShadow: [
-                                                BoxShadow(color: Colors.black26,spreadRadius: 5.0,blurRadius: 5.0)
+                                                BoxShadow(color: Colors.black26,spreadRadius: 2.0,blurRadius: 4.0)
                                               ]
                                             ),
                                             padding: EdgeInsets.fromLTRB(10,10,5,5),
                                             child: Text(
                                               notes[key]['time'].substring(11,16),
-                                              style: TextStyle(color: Colors.white,fontStyle: FontStyle.italic,decoration: TextDecoration.none)
+                                              style: TextStyle(fontSize: 10,color: Colors.white,fontStyle: FontStyle.italic,decoration: TextDecoration.none)
                                             )
                                           )
                                         )
@@ -329,7 +330,7 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
       file = File(photo.path);
       firebaseStore = FirebaseStorage.instance.ref().child("messages/images/$imageName"); 
       UploadTask uploadTask = firebaseStore.putFile(file);
-      if(uploadTask!=null){
+      if(uploadTask != null){
         var snapshot = await uploadTask.whenComplete(() => {
           print('Successfully uploaded')
         });

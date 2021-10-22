@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
 import 'package:virtual_chat/ui/ChatMedia.dart';
 import 'package:virtual_chat/ui/ChatSetting.dart';
@@ -52,9 +53,9 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> with WidgetsBinding
       child: Scaffold(
         appBar: AppBar(
           centerTitle: false,
-          brightness: Brightness.dark,
+          systemOverlayStyle: SystemUiOverlayStyle.light,
           backgroundColor: Colors.indigo,
-          title: Text('Virtual Dashboard'),
+          title: Text('Virtual Dashboard',style: TextStyle(fontSize: 14)),
           actions: [
             popUpMenu(sender)
           ],
@@ -87,7 +88,7 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> with WidgetsBinding
                                     if(allUser[key]['profile'] != ' ') Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: allUser[key]['profile'], name: key,dateTime:'')));
                                   },
                                   child: CircleAvatar(
-                                    radius: 26,
+                                    radius: 24,
                                     backgroundColor: Colors.indigo,
                                     child: allUser[key]['profile'] == ' ' ? Icon(Icons.person,size: 26,color: Colors.white) : null,
                                     backgroundImage: allUser[key]['profile'] == ' ' ? null : NetworkImage(allUser[key]['profile']),
@@ -98,7 +99,7 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> with WidgetsBinding
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Text(key[0].toUpperCase()+key.substring(1),style: TextStyle(color: Colors.black,fontSize: 20))
+                                    Text(key[0].toUpperCase()+key.substring(1),style: TextStyle(color: Colors.black,fontSize: 14))
                                   ]
                                 )
                               ]
@@ -121,7 +122,7 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> with WidgetsBinding
                     );
                   },
                   separatorBuilder: (context,index){
-                    return Divider(color: Colors.grey,height: 0.8);
+                    return Divider(color: Colors.grey[400],height: 0.5);
                   }
                 );
               }else{
@@ -136,26 +137,28 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> with WidgetsBinding
 
   Widget popUpMenu(String sender){
     return PopupMenuButton(
+      padding: EdgeInsets.zero,
+      iconSize: 22,
       itemBuilder: (context) => [
         PopupMenuItem(
           value: 0,
           child: Text(
             sender[0].toUpperCase()+sender.substring(1),
-            style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black)
+            style: TextStyle(fontSize: 12,color: Colors.black)
           )
         ),
         PopupMenuItem(
           value: 1,
           child: Text(
             "Settings",
-            style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black)
+            style: TextStyle(fontSize: 12,color: Colors.black)
           )
         ),
         PopupMenuItem(
           value: 2,
           child: Text(
             "Logout",
-            style: TextStyle(fontWeight: FontWeight.bold,color: Colors.red)
+            style: TextStyle(fontSize: 12,color: Colors.red)
           )
         )
       ],
