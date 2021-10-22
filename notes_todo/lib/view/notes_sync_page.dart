@@ -62,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Icon(widget.authProvider.isSyncEnabled ? Icons.sync : Icons.sync_disabled_sharp,size: 22,color: widget.authProvider.isSyncEnabled ? Colors.green : Colors.red),
-                  const SizedBox(width: 5),
+                  const SizedBox(width: 8),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               TextSpan(
                                 text: Preferences.getUserEmail(),
-                                style: TextStyle(fontSize: 10,color: Preferences.getAppTheme() ? Colors.white : Colors.black)
+                                style: TextStyle(fontStyle: FontStyle.italic,fontSize: 10,color: Preferences.getAppTheme() ? Colors.white : Colors.black)
                               ),
                               TextSpan(
                                 text: ' on Google Firebase. All your notes automatically sync with Firebase at the time of creating and deletion',
@@ -117,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Expanded(
-                              flex: 2,
+                              flex: 3,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisSize: MainAxisSize.min,
@@ -131,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                               flex: 1,
                               child: ElevatedButton(
                                 onPressed: () => widget.authProvider.logoutUser(),
-                                child: const Text('Sign out',style: TextStyle(fontSize: 11))
+                                child: const Text('Sign out',style: TextStyle(fontSize: 10))
                               )
                             )
                           ]
@@ -141,11 +141,11 @@ class _LoginPageState extends State<LoginPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Expanded(
-                              flex: 2,
+                              flex: 3,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: const [
-                                  Text('Delete All Notes',style: TextStyle(fontSize: 11,fontWeight: FontWeight.bold)),
+                                  Text('Delete All Notes',style: TextStyle(fontSize: 11)),
                                   Text('This will delete all your notes from Firebase Cloud',style: TextStyle(color: Colors.grey,fontSize: 10)),
                                 ]
                               ),
@@ -162,7 +162,7 @@ class _LoginPageState extends State<LoginPage> {
                                   primary: Colors.red
                                 ),
                                 onPressed: () => deleteNotesDialog(context),
-                                child: const Text('Delete',style: TextStyle(fontSize: 11))
+                                child: const Text('Delete',style: TextStyle(fontSize: 10))
                               )
                             )
                           ]
@@ -211,7 +211,7 @@ class _LogoutPageState extends State<LogoutPage> {
   Widget build(BuildContext context) {
     return Container(
       color: Preferences.getAppTheme() ? const Color(0xFF161616) : Colors.white,
-      padding: const EdgeInsets.all(5),
+      padding: const EdgeInsets.all(8),
       child: Column(
         children: [
           Expanded(
@@ -223,8 +223,8 @@ class _LogoutPageState extends State<LogoutPage> {
                       return Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Icon(Icons.sync_disabled_sharp,size: 22),
-                          const SizedBox(width: 5),
+                          const Icon(Icons.sync_disabled_sharp,size: 20),
+                          const SizedBox(width: 8),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -234,7 +234,7 @@ class _LogoutPageState extends State<LogoutPage> {
                                 const Text("Sync your notes with Google Firebase Cloud. you can restore them when you reinstall Notes Todo App. Your notes will also sync to your phone's internal storage",style: TextStyle(fontSize: 10)),
                                 const SizedBox(height: 5),
                                 const Text("Currently your notes data is stored internally",style: TextStyle(color: Colors.red,fontSize: 10)),
-                                const SizedBox(height: 5),
+                                const SizedBox(height: 8),
                                 Row(
                                   children: [
                                     Expanded(
@@ -254,10 +254,10 @@ class _LogoutPageState extends State<LogoutPage> {
                                         onTap: () => provider.turnSingIn(true,'',emailCont.text,passwordCont.text),
                                         child: Container(
                                           decoration: BoxDecoration(
-                                            border: Border(bottom: BorderSide(width: 2.0,color: provider.isLoginUser ? Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo : Colors.transparent))
+                                            border: Border(bottom: BorderSide(width: 2.0,color: provider.isLoginUser ? Theme.of(context).toggleableActiveColor : Colors.transparent))
                                           ),
                                           padding: const EdgeInsets.only(top: 12,bottom: 12),
-                                          child: Text('Sign in',textAlign: TextAlign.center,style: TextStyle(fontSize: 12,color: provider.isLoginUser ? Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo : Colors.grey,fontWeight: FontWeight.bold))
+                                          child: Text('Sign in',textAlign: TextAlign.center,style: TextStyle(fontSize: 12,color: provider.isLoginUser ? Theme.of(context).toggleableActiveColor : Colors.grey,fontWeight: FontWeight.bold))
                                         )
                                       )
                                     )
@@ -270,29 +270,26 @@ class _LogoutPageState extends State<LogoutPage> {
                                     controller: nameCont,
                                     keyboardType: TextInputType.text,
                                     style: const TextStyle(fontSize: 12),
-                                    decoration: const InputDecoration(
+                                    cursorColor: Theme.of(context).toggleableActiveColor,
+                                    decoration: InputDecoration(
                                       hintText: 'Name',
-                                      hintStyle: TextStyle(color: Colors.grey,fontSize: 12),
+                                      hintStyle: const TextStyle(color: Colors.grey,fontSize: 12),
+                                      focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Theme.of(context).toggleableActiveColor))
                                     ),
                                     onChanged: (value) => provider.fillEmailPassword(value,emailCont.text, passwordCont.text)
                                   )
                                 ),
-                                Theme(
-                                  data: ThemeData(
-                                    inputDecorationTheme: const InputDecorationTheme(
-                                      focusColor: Colors.teal
-                                    )
+                                TextField(
+                                  controller: emailCont,
+                                  keyboardType: TextInputType.emailAddress,
+                                  style: const TextStyle(fontSize: 12),
+                                  cursorColor: Theme.of(context).toggleableActiveColor,
+                                  decoration: InputDecoration(
+                                    hintText: 'Email',
+                                    hintStyle: const TextStyle(color: Colors.grey,fontSize: 12),
+                                    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Theme.of(context).toggleableActiveColor))
                                   ),
-                                  child: TextField(
-                                    controller: emailCont,
-                                    keyboardType: TextInputType.emailAddress,
-                                    style: const TextStyle(fontSize: 12),
-                                    decoration: const InputDecoration(
-                                      hintText: 'Email',
-                                      hintStyle: TextStyle(color: Colors.grey,fontSize: 12),
-                                    ),
-                                    onChanged: (value) => provider.fillEmailPassword(nameCont.text,value, passwordCont.text)
-                                  ),
+                                  onChanged: (value) => provider.fillEmailPassword(nameCont.text,value, passwordCont.text)
                                 ),
                                 const SizedBox(height: 5),
                                 TextField(
@@ -300,11 +297,16 @@ class _LogoutPageState extends State<LogoutPage> {
                                   obscureText: provider.showPassword,
                                   keyboardType: TextInputType.emailAddress,
                                   style: const TextStyle(fontSize: 12),
-                                  cursorColor: Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo,
+                                  cursorColor: Theme.of(context).toggleableActiveColor,
                                   decoration: InputDecoration(
                                     hintText: 'Password',
                                     hintStyle: const TextStyle(color: Colors.grey,fontSize: 12),
-                                    suffixIcon: IconButton(onPressed: provider.passwordVisibility, icon: provider.showPassword ? const Icon(Icons.lock,size: 22) : const Icon(Icons.lock_open))
+                                    suffixIcon: IconButton(
+                                      padding: EdgeInsets.zero,
+                                      onPressed: provider.passwordVisibility,
+                                      icon: provider.showPassword ? const Icon(Icons.lock,size: 20,color: Colors.grey) : const Icon(Icons.lock_open,size: 20,color: Colors.grey)
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Theme.of(context).toggleableActiveColor))
                                   ),
                                   onChanged: (value) => provider.fillEmailPassword(nameCont.text,emailCont.text, value)
                                 ),
@@ -320,7 +322,7 @@ class _LogoutPageState extends State<LogoutPage> {
                                     onPressed: provider.isEmailPasswordAvail
                                       ? () => provider.userAuthenticate(provider.isLoginUser,context,nameCont.text,emailCont.text,passwordCont.text)
                                       : null,
-                                    style: ElevatedButton.styleFrom(primary: Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo),
+                                    style: ElevatedButton.styleFrom(primary: Theme.of(context).toggleableActiveColor),
                                     child: Text(
                                       provider.isLoginUser
                                       ? 'Sign in'
