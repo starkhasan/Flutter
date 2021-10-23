@@ -215,15 +215,15 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
       context: context,
       builder: (context){
         return CupertinoAlertDialog(
-          title: Text('Choose Image Source'),
+          title: Text('Choose Image Source',style: TextStyle(fontSize: 14)),
           actions: [
             CupertinoDialogAction(
               onPressed: () => Navigator.pop(context,ImageSource.camera),
-              child: Text('Camera')
+              child: Text('Camera',style: TextStyle(fontSize: 14))
             ),
             CupertinoDialogAction(
               onPressed: () => Navigator.pop(context, ImageSource.gallery),
-              child: Text('Gallery',style: TextStyle(color: Colors.red))
+              child: Text('Gallery',style: TextStyle(color: Colors.red,fontSize: 14))
             )
           ]
         );
@@ -246,7 +246,7 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  margin: EdgeInsets.all(15),
+                  margin: EdgeInsets.all(12),
                   child: Column(
                     children: [
                       TextField(
@@ -256,14 +256,13 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                         maxLength: 6,
                         cursorColor: Colors.black,
                         cursorWidth: 1.5,
-                        style: TextStyle(color: Colors.black,fontSize: 16),
+                        style: TextStyle(color: Colors.black,fontSize: 12),
                         decoration: InputDecoration(
                           hintText: 'Old Password',
-                          hintStyle: TextStyle(color: Colors.grey[400]),
+                          hintStyle: TextStyle(color: Colors.grey[400],fontSize: 12),
                           counter: Offstage()
                         )
                       ),
-                      SizedBox(height: 5),
                       TextField(
                         controller: _contNewPassword,
                         keyboardType: TextInputType.visiblePassword,
@@ -271,17 +270,17 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                         maxLength: 6,
                         cursorColor: Colors.black,
                         cursorWidth: 1.5,
-                        style: TextStyle(color: Colors.black,fontSize: 16),
+                        style: TextStyle(color: Colors.black,fontSize: 12),
                         decoration: InputDecoration(
                           hintText: 'New Password',
-                          hintStyle: TextStyle(color: Colors.grey[400]),
+                          hintStyle: TextStyle(color: Colors.grey[400],fontSize: 12),
                           counter: Offstage()
                         )
                       )
                     ]
                   )
                 ),
-                Divider(color: Colors.grey,height: 1),
+                Divider(color: Colors.grey[350],height: 0.5),
                 Container(
                   color: Colors.grey,
                   child: Row(
@@ -292,12 +291,12 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                           onTap: () => Navigator.pop(context),
                           child: Container(
                             color: Colors.white,
-                              padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
-                              child: Center(child: Text('Cancel',style: TextStyle(fontSize: 16,color: Colors.red)))
+                              padding: EdgeInsets.fromLTRB(0, 12, 0, 12),
+                              child: Center(child: Text('Cancel',style: TextStyle(fontSize: 14,color: Colors.red)))
                             )
                         )
                       ),
-                      VerticalDivider(color: Colors.grey[350],width: 1),
+                      VerticalDivider(color: Colors.grey[350],width: 0.5),
                       Expanded(
                         child: InkWell(
                           onTap: () {
@@ -309,8 +308,8 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                           },
                           child: Container(
                             color: Colors.white,
-                            padding: EdgeInsets.fromLTRB(0, 15, 0, 15 ),
-                            child: Center(child: Text('Submit',style: TextStyle(fontSize: 16,color: Colors.indigo)))
+                            padding: EdgeInsets.fromLTRB(0, 12, 0, 12),
+                            child: Center(child: Text('Submit',style: TextStyle(fontSize: 14,color: Colors.indigo)))
                           )
                         )
                       )
@@ -343,12 +342,12 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('About'),
+                      Text('About',style: TextStyle(fontSize: 12)),
                       Container(
-                        padding: EdgeInsets.all(12),
+                        padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           color: Colors.grey[100],
-                          borderRadius: BorderRadius.all(Radius.circular(15))
+                          borderRadius: BorderRadius.all(Radius.circular(10))
                         ),
                         child: TextField(
                           controller: _contAbout,
@@ -357,17 +356,17 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                           maxLength: 100,
                           cursorColor: Colors.black,
                           cursorWidth: 1.5,
-                          style: TextStyle(color: Colors.black),
+                          style: TextStyle(color: Colors.black,fontSize: 12),
                           decoration: InputDecoration.collapsed(
                             hintText: 'Type a message',
-                            hintStyle: TextStyle(color: Colors.grey[400])
+                            hintStyle: TextStyle(color: Colors.grey[400],fontSize: 12)
                           )
                         )
                       )
                     ]
                   )
                 ),
-                Divider(height: 0.0,color: Colors.grey[400],thickness: 0.8,),
+                Divider(height: 0.0,color: Colors.grey[400],thickness: 0.5),
                 GestureDetector(
                   onTap: () => {
                     firebaseDatabase.update({
@@ -377,8 +376,8 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                   },
                   child: Container(
                     color: Colors.white,
-                    padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
-                    child: Center(child: Text('Submit',style: TextStyle(fontSize: 18,color: Colors.indigo)))
+                    padding: EdgeInsets.fromLTRB(0, 12, 0, 12),
+                    child: Center(child: Text('Submit',style: TextStyle(fontSize: 14,color: Colors.indigo)))
                   )
                 )
               ]

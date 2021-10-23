@@ -137,7 +137,7 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
         children: [
           Expanded(
             child: Container(
-              padding: EdgeInsets.fromLTRB(8, 5, 8, 0),
+              padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
               color: Colors.white,
               child: StreamBuilder(
                 stream: myRefSender.child(senderReceiver).onValue,
@@ -160,9 +160,9 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                           child: Align(
                             alignment: notes[key]['sender'] == sender ? Alignment.centerRight : Alignment.centerLeft,
                             child: Container(
-                              margin: EdgeInsets.fromLTRB(10, 2, 10, 0),
+                              margin: EdgeInsets.fromLTRB(5, 2, 5, 0),
                               child: Container(
-                                padding: notes[key]['type'] == 'text' ? EdgeInsets.all(8) : EdgeInsets.all(5),
+                                padding: notes[key]['type'] == 'text' ? EdgeInsets.all(6) : EdgeInsets.all(4),
                                 decoration: BoxDecoration(
                                   color: notes[key]['sender'] == sender ? Colors.indigo : Colors.grey[300],
                                   borderRadius: BorderRadius.all(Radius.circular(5))
@@ -174,7 +174,7 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                                   children: [
                                     Text(
                                       notes[key]['message'],
-                                      style: TextStyle(color: notes[key]['sender'] == sender ? Colors.white : Colors.black,fontSize: 14)
+                                      style: TextStyle(color: notes[key]['sender'] == sender ? Colors.white : Colors.black,fontSize: 12)
                                     ),
                                     SizedBox(width: 8),
                                     Text(
@@ -196,9 +196,14 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                                   child: Hero(
                                     tag: 'Image Hero$index',
                                     child: Stack(
-                                      fit: StackFit.passthrough,
                                       children: [
-                                        Image.network(notes[key]['message'],width: imageWidth),
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(5),
+                                          child: Image.network(
+                                            notes[key]['message'],
+                                            width: imageWidth
+                                          )
+                                        ),
                                         Positioned(
                                           right: 0,
                                           bottom: 0,
@@ -240,7 +245,7 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
               children: [
                 Flexible(
                   child: Container(
-                    padding: EdgeInsets.all(15),
+                    padding: EdgeInsets.all(12),
                     decoration: BoxDecoration(
                       color: Colors.grey[300],
                       borderRadius: BorderRadius.all(Radius.circular(25))
@@ -252,10 +257,10 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                       maxLines: null,
                       cursorColor: Colors.black,
                       cursorWidth: 1.5,
-                      style: TextStyle(color: Colors.black,fontSize: 16),
+                      style: TextStyle(color: Colors.black,fontSize: 12),
                       decoration: InputDecoration.collapsed(
                         hintText: 'Type a message',
-                        hintStyle: TextStyle(color: Colors.grey,fontSize: 16)
+                        hintStyle: TextStyle(color: Colors.grey,fontSize: 12)
                       )
                     )
                   )
@@ -273,8 +278,8 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                       color: Colors.indigo
                     ),
                     child: imageUploading
-                      ? SizedBox(height: 25,width: 25,child:CircularProgressIndicator(backgroundColor: Colors.grey[100],strokeWidth: 2.0))
-                      : Icon(Icons.image,color: Colors.white)
+                      ? SizedBox(height: 20,width: 20,child:CircularProgressIndicator(backgroundColor: Colors.grey[100],strokeWidth: 2.0))
+                      : Icon(Icons.image,color: Colors.white,size: 20)
                   )
                 ),
                 SizedBox(width: MediaQuery.of(context).size.width * 0.01),
@@ -289,7 +294,7 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                       shape: BoxShape.circle,
                       color: Colors.indigo
                     ),
-                    child: Icon(Icons.send,color: Colors.white)
+                    child: Icon(Icons.send,color: Colors.white,size: 20)
                   )
                 )
               ]
