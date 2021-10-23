@@ -81,7 +81,7 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar( 
         backgroundColor: Colors.indigo,
         centerTitle: false,
         titleSpacing: 0.0,

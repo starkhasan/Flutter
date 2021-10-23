@@ -28,7 +28,7 @@ class _ChatMedia extends State<ChatMedia>{
             child: GestureDetector(
               onDoubleTap: () => {
                 setState((){
-                  fullScreen ? SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive) : SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+                  fullScreen ? SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge) : SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
                   fullScreen = fullScreen ? false : true;
                 })
               },
@@ -84,7 +84,7 @@ class _ChatMedia extends State<ChatMedia>{
   }
   @override
   void dispose() {
-    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     super.dispose();
   }
 }
