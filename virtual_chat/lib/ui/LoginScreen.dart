@@ -53,20 +53,21 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           children: [
-            Text('Virtual Chat',style: TextStyle(fontFamily: 'Pattaya',fontSize: 40)),
+            Text('Virtual Chat',style: TextStyle(fontFamily: 'Pattaya',fontSize: 30)),
             Text(
               'Welcome to VirtualChat',
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.black,fontSize: 24),
+              style: TextStyle(color: Colors.black,fontSize: 20),
             ),
             SizedBox(height: 10),
             TextField(
               controller: _idCont,
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.text,
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(fontSize: 14),
               decoration: InputDecoration(
-                hintText: 'User ID'
+                hintText: 'User ID',
+                hintStyle: TextStyle(fontSize: 14)
               )
             ),
             SizedBox(height: 10),
@@ -75,9 +76,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 textInputAction: TextInputAction.done,
                 keyboardType: TextInputType.text,
                 obscureText: showPassword,
-                style: TextStyle(fontSize: 18),
+                style: TextStyle(fontSize: 14),
                 decoration: InputDecoration(
                   hintText: 'Password',
+                  hintStyle: TextStyle(fontSize: 14),
                   suffixIcon: IconButton(icon: showPassword ? Icon(Icons.lock_open_rounded) : Icon(Icons.lock),onPressed: () => setState((){showPassword = showPassword ? false : true;}))
                 ),
               onSubmitted: (value) => userLogin(),
@@ -88,12 +90,12 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Container(
                 padding: EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(8),
                   color: Colors.indigo
                 ),
                 child: Text(
                   'Continue',
-                  style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w600)
+                  style: TextStyle(color: Colors.white,fontSize: 14,fontWeight: FontWeight.w600)
                 )
               ),
             ),
@@ -101,10 +103,10 @@ class _LoginScreenState extends State<LoginScreen> {
             RichText(
               text: TextSpan(
                 children: [
-                  TextSpan(text: "Don't have account? ",style: TextStyle(color: Colors.black)),
+                  TextSpan(text: "Don't have account? ",style: TextStyle(color: Colors.black,fontSize: 12)),
                   TextSpan(
                     text: 'Register',
-                    style: TextStyle(color: Colors.indigo,fontSize: 16),
+                    style: TextStyle(color: Colors.indigo,fontSize: 12),
                     recognizer:  TapGestureRecognizer()..onTap = (){
                       Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterScreen()));
                     }

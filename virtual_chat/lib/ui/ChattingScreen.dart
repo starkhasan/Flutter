@@ -81,7 +81,7 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar( 
+      appBar: AppBar(
         backgroundColor: Colors.indigo,
         centerTitle: false,
         titleSpacing: 0.0,
@@ -133,7 +133,6 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
   Widget mainBody(){
     return Container(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
             child: Container(
@@ -243,7 +242,7 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Flexible(
+                Expanded(
                   child: Container(
                     padding: EdgeInsets.all(12),
                     decoration: BoxDecoration(
@@ -257,10 +256,10 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                       maxLines: null,
                       cursorColor: Colors.black,
                       cursorWidth: 1.5,
-                      style: TextStyle(color: Colors.black,fontSize: 12),
+                      style: TextStyle(color: Colors.black,fontSize: 14),
                       decoration: InputDecoration.collapsed(
                         hintText: 'Type a message',
-                        hintStyle: TextStyle(color: Colors.grey,fontSize: 12)
+                        hintStyle: TextStyle(color: Colors.grey,fontSize: 14)
                       )
                     )
                   )
@@ -272,7 +271,7 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                     uploadImageFile(imageSource);
                   },
                   child: Container(
-                    padding: EdgeInsets.all(10),
+                    padding: EdgeInsets.all(12),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: Colors.indigo
@@ -289,7 +288,7 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                     scrollToBottom()
                   },
                   child: Container(
-                    padding: EdgeInsets.all(10),
+                    padding: EdgeInsets.all(12),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: Colors.indigo

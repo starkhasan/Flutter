@@ -84,7 +84,7 @@ class _ChatMedia extends State<ChatMedia>{
   }
   @override
   void dispose() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,overlays: [SystemUiOverlay.bottom,SystemUiOverlay.top]);
     super.dispose();
   }
 }
