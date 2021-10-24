@@ -16,7 +16,8 @@ import 'package:test_app/ui/whatsapp_page.dart';
 import 'package:test_app/utils/preferences.dart';
 import 'package:test_app/ui/notification_page.dart';
 import 'package:test_app/ui/offer_page.dart';
-
+import 'package:test_app/ui/keys_example/widget_element_keys.dart';
+import 'package:test_app/ui/keys_example/scroll_position_example.dart';
 import '../main.dart';
 
 class LandingPage extends StatefulWidget {
@@ -161,7 +162,9 @@ class _LandingPageState extends State<LandingPage> {
       'Square Payment',
       'Deep Link',
       'Rest API',
-      'Web Socket'
+      'Web Socket',
+      'Widget Element Keys',
+      'Scroll Position'
     ];
     var screenAssets = [
       'asset/facebook.png',
@@ -258,6 +261,12 @@ class _LandingPageState extends State<LandingPage> {
         break;
       case 10:
         Navigator.push(context,MaterialPageRoute(builder: (context) => const WebSocket()));
+        break;
+      case 11:
+        Navigator.push(context,MaterialPageRoute(builder: (context) => const WidgetElementKeys()));
+        break;
+      case 12:
+        Navigator.push(context,MaterialPageRoute(builder: (context) => const ScrollPositionExample()));
         break;
       default:
     }
