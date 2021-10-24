@@ -9,20 +9,18 @@ class ScrollPositionExample extends StatefulWidget {
 
 class _ScrollPositionExampleState extends State<ScrollPositionExample> with SingleTickerProviderStateMixin{
 
-  late TabController tabController;
+  //late TabController tabController;
 
   @override
   void initState() {
     super.initState();
-    tabController = TabController(
-      length: 2,
-      vsync: this
-    );
   }
 
   List<Widget> tabChildren = const [
     ListItemChild(key: PageStorageKey<String>('Tab1')),
-    ListItemChild(key: PageStorageKey<String>('Tab2'))
+    ListItemChild(key: PageStorageKey<String>('Tab2')),
+    ListItemChild(key: PageStorageKey<String>('Tab3')),
+    ListItemChild(key: PageStorageKey<String>('Tab4'))
   ];
 
   @override
@@ -31,21 +29,31 @@ class _ScrollPositionExampleState extends State<ScrollPositionExample> with Sing
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Scroll Position'),
-        bottom: TabBar(
-          controller: tabController,
-          tabs: const[
-            Tab(text: 'First'),
-            Tab(text: 'Second')
+      ),
+      body: DefaultTabController(
+        length: 4,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget> [
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.zero,
+                child: TabBarView(
+                  children: tabChildren
+                )
+              )
+            ),
+            Container(
+              padding: const EdgeInsets.only(top: 5,bottom: 5),
+              child: const TabPageSelector(
+                indicatorSize: 15.0,
+              )
+            )
           ]
         )
-      ),
-      body: TabBarView(
-        controller:  tabController,
-        children: tabChildren
       )
     );
   }
-
 }
 
 class ListItemChild extends StatefulWidget {
