@@ -48,7 +48,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
     WidgetsBinding.instance!.addObserver(this);
     _focusNode = FocusNode();
     if(Preferences.getSyncEnabled() && Preferences.getUserID().isNotEmpty) {
-      Future.delayed(Duration.zero,() => widget.notesProvider.syncEnableFromSyncNote());
+      Future.delayed(Duration.zero,() => widget.notesProvider.syncEnableFromSyncNote(context));
     }
     getDark().then((value) => setState((){
       _isDarkMode = value;
@@ -362,7 +362,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
     Navigator.push(_context, MaterialPageRoute(builder: (_context) => const NotesBackupPage())).then((value) => {
       if(Preferences.getSyncExplicitly()){
         Preferences.setSyncExplicitly(false),
-        widget.notesProvider.syncEnableFromSyncNote()
+        widget.notesProvider.syncEnableFromSyncNote(_context)
       }else{
         widget.notesProvider.drawerName()
       }

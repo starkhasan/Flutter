@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:notes_todo/utils/helpers.dart';
 import 'package:notes_todo/utils/preferences.dart';
 import 'package:firebase_database/firebase_database.dart';
 
-class NotesProvider extends ChangeNotifier {
+class NotesProvider extends ChangeNotifier with Helpers{
   DatabaseReference databaseReference = FirebaseDatabase.instance.reference().child('notes_todo');
   bool fabVisible = true;
   String _name = '';
@@ -141,38 +142,42 @@ class NotesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void syncEnableFromSyncNote() async {
-    _dataSync = true;
-    notifyListeners();
-    await databaseReference.child(Preferences.getUserID()).once().then((DataSnapshot snapshot) {
-      if(snapshot.value  != null){
+  void syncEnableFromSyncNote(BuildContext _context) async {
+    if(await checkInternetConnection()){
+      _dataSync = true;
+      notifyListeners();
+      await databaseReference.child(Preferences.getUserID()).once().then((DataSnapshot snapshot) {
+        if(snapshot.value  != null){
 
-        if(snapshot.value['name'] != null) {
-          _name = snapshot.value['name'];
-          Preferences.setUserName(snapshot.value['name']);
-        }
-
-        if(snapshot.value['task'] != null) {
-          var tempTask = snapshot.value['task'].split(',');
-          for(var item in tempTask){
-            if(!listNote.contains(item)) listNote.add(item);
+          if(snapshot.value['name'] != null) {
+            _name = snapshot.value['name'];
+            Preferences.setUserName(snapshot.value['name']);
           }
-          databaseReference.child(Preferences.getUserID()).update({'task': listNote.join(',')});
-          Preferences.storeTask(listNote);
-        }
 
-        if(snapshot.value['completeTask'] != null){
-          var tempTask = snapshot.value['completeTask'].split(',');
-          for(var item in tempTask){
-            if(!completedList.contains(item)) completedList.add(item);
+          if(snapshot.value['task'] != null) {
+            var tempTask = snapshot.value['task'].split(',');
+            for(var item in tempTask){
+              if(!listNote.contains(item)) listNote.add(item);
+            }
+            databaseReference.child(Preferences.getUserID()).update({'task': listNote.join(',')});
+            Preferences.storeTask(listNote);
           }
-          databaseReference.child(Preferences.getUserID()).update({'completeTask': completedList.join(',')});
-          Preferences.storeCompleteTask(completedList);
+
+          if(snapshot.value['completeTask'] != null){
+            var tempTask = snapshot.value['completeTask'].split(',');
+            for(var item in tempTask){
+              if(!completedList.contains(item)) completedList.add(item);
+            }
+            databaseReference.child(Preferences.getUserID()).update({'completeTask': completedList.join(',')});
+            Preferences.storeCompleteTask(completedList);
+          }
+          Preferences.setLocalDelete(false);
         }
-        Preferences.setLocalDelete(false);
-      }
-    });
-    _dataSync = false;
-    notifyListeners();
+      });
+      _dataSync = false;
+      notifyListeners();
+    }else{
+      showSnackBar(_context, 'No Internet Connection');
+    }
   }
 }
