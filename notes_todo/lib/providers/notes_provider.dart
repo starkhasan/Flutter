@@ -180,4 +180,10 @@ class NotesProvider extends ChangeNotifier with Helpers{
       showSnackBar(_context, 'No Internet Connection');
     }
   }
+
+  void getLocationData(){
+    listNote = Preferences.getStoredTask();
+    completedList = Preferences.getCompleteTask();
+    notifyListeners();
+  }
 }

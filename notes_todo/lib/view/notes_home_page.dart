@@ -371,6 +371,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
         Preferences.setSyncExplicitly(false),
         widget.notesProvider.syncEnableFromSyncNote(_context)
       }else{
+        widget.notesProvider.getLocationData(),
         widget.notesProvider.drawerName()
       }
     });

@@ -65,6 +65,8 @@ class AuthenticationProvider extends ChangeNotifier with Helpers {
     Preferences.setUserID('');
     Preferences.setSyncEnabled(false);
     Preferences.setUserName('');
+    Preferences.storeCompleteTask([]);
+    Preferences.storeTask([]);
   }
 
   void modifySyncData(){
