@@ -155,6 +155,7 @@ class NotesProvider extends ChangeNotifier with Helpers{
           }
 
           if(snapshot.value['task'] != null) {
+            listNote = Preferences.getStoredTask();
             var tempTask = snapshot.value['task'].split(',');
             for(var item in tempTask){
               if(!listNote.contains(item)) listNote.add(item);
@@ -164,6 +165,7 @@ class NotesProvider extends ChangeNotifier with Helpers{
           }
 
           if(snapshot.value['completeTask'] != null){
+            completedList = Preferences.getCompleteTask();
             var tempTask = snapshot.value['completeTask'].split(',');
             for(var item in tempTask){
               if(!completedList.contains(item)) completedList.add(item);
