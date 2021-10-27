@@ -90,9 +90,8 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
       ),
       floatingActionButton: Visibility(
         visible: widget.notesProvider.fabVisible,
-        child: FloatingActionButton(
-          backgroundColor: Preferences.getAppTheme() ? Colors.tealAccent[400] : Colors.indigo,
-          onPressed: () => {
+        child: GestureDetector(
+          onTap: () => {
             _focusNode.hasFocus
             ? _focusNode.unfocus()
             : {
@@ -101,7 +100,15 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
               _focusNode.requestFocus()
             }
           },
-          child: const Icon(Icons.add,color: Colors.white),
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.14,
+            height: MediaQuery.of(context).size.height * 0.14,
+            decoration: BoxDecoration(
+              color: Preferences.getAppTheme() ? Colors.tealAccent[400] : Colors.indigo,
+              shape: BoxShape.circle
+            ),
+            child: const Icon(Icons.add,color: Colors.white),
+          ),
         )
       ),
       body: Container(
@@ -367,6 +374,14 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
         widget.notesProvider.drawerName()
       }
     });
+
+    /**
+     * The framework calls didChangeDependencies.
+     * Subclasses of State should override didChangeDependencies to perform initialization involving inheritedWidget
+     * If BuildContext.dependOnInheritedWidgetOfExactType is called, the didChangeDependencies method will be called again if the 
+     * inherited widgets subsequently change or if the widget moves in the tree
+     */
+    //_context.dependOnInheritedWidgetOfExactType();
   }
 
   deleteNotesDialog(){

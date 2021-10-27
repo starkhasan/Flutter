@@ -113,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Expanded(
-                              flex: 3,
+                              flex: 2,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisSize: MainAxisSize.min,
@@ -137,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Expanded(
-                              flex: 3,
+                              flex: 2,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: const [
