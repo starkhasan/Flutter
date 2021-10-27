@@ -101,8 +101,8 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
             }
           },
           child: Container(
-            width: MediaQuery.of(context).size.width * 0.14,
-            height: MediaQuery.of(context).size.height * 0.14,
+            width: MediaQuery.of(context).size.width * 0.13,
+            height: MediaQuery.of(context).size.height * 0.13,
             decoration: BoxDecoration(
               color: Preferences.getAppTheme() ? Colors.tealAccent[400] : Colors.indigo,
               shape: BoxShape.circle
