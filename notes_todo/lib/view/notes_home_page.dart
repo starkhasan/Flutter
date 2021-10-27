@@ -197,7 +197,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
           },
           child: Container(
             padding: const EdgeInsets.only(bottom: 2,top: 2,right: 2),
-            margin: const EdgeInsets.only(bottom: 6,left: 15,right: 5),
+            margin: const EdgeInsets.only(bottom: 5,left: 15,right: 5),
             decoration: BoxDecoration(
               color: _isDarkMode ? const Color(0xFF343434) : Colors.white,
               borderRadius: BorderRadius.circular(5),
@@ -250,7 +250,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
           },
           child: Container(
             padding: const EdgeInsets.only(bottom: 2,top: 2,right: 2),
-            margin: const EdgeInsets.only(bottom: 6,left: 15,right: 5),
+            margin: const EdgeInsets.only(bottom: 5,left: 15,right: 5),
             decoration: BoxDecoration(
               color: _isDarkMode ? const Color(0xFF343434) : Colors.white,
               borderRadius: BorderRadius.circular(5),
