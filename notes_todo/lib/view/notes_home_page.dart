@@ -115,9 +115,9 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Visibility(visible: widget.notesProvider.listNote.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 15,top: 10,bottom: 10),child: Text('Task',style: TextStyle(color: Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo,fontSize: 16,fontWeight: FontWeight.bold)))),
+                        Visibility(visible: widget.notesProvider.listNote.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 15,top: 10,bottom: 10),child: Text('Task',style: TextStyle(color: Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo,fontSize: 14,fontWeight: FontWeight.bold)))),
                         notesBody(),
-                        Visibility(visible: widget.notesProvider.completedList.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 15,top: 10,bottom: 10),child: Text('Completed',style: TextStyle(color: Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo,fontSize: 16,fontWeight: FontWeight.bold)))),
+                        Visibility(visible: widget.notesProvider.completedList.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 15,top: 10,bottom: 10),child: Text('Completed',style: TextStyle(color: Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo,fontSize: 14,fontWeight: FontWeight.bold)))),
                         completedNotes()
                       ]
                     )
@@ -189,7 +189,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
             showSnackbar(context,item,'$item removed from Task',index,'task');
           },
           child: Container(
-            padding: const EdgeInsets.only(bottom: 5,top: 5,right: 5),
+            padding: const EdgeInsets.only(bottom: 2,top: 2,right: 2),
             margin: const EdgeInsets.only(bottom: 6,left: 15,right: 5),
             decoration: BoxDecoration(
               color: _isDarkMode ? const Color(0xFF343434) : Colors.white,
@@ -207,16 +207,14 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                     ),
                     child: Checkbox(
                       activeColor: Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)
-                      ),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
                       value: widget.notesProvider.selectedTaskIndex == index, 
                       onChanged: (value) => widget.notesProvider.checkedTask(widget.notesProvider.listNote[index],index)
                     )
                   )
                 ),
                 Expanded(
-                  child: Text(widget.notesProvider.listNote[index],style: TextStyle(color: _isDarkMode ? Colors.white : Colors.black,fontWeight: FontWeight.normal,fontSize: 12)),
+                  child: Text(widget.notesProvider.listNote[index],style: TextStyle(color: _isDarkMode ? Colors.white : Colors.black,fontWeight: FontWeight.normal,fontSize: 11)),
                 )
               ]
             )
@@ -244,7 +242,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
             showSnackbar(context,item,'$item removed from Complated Task',index,'completeTask');
           },
           child: Container(
-            padding: const EdgeInsets.only(bottom: 5,top: 5,right: 5),
+            padding: const EdgeInsets.only(bottom: 2,top: 2,right: 2),
             margin: const EdgeInsets.only(bottom: 6,left: 15,right: 5),
             decoration: BoxDecoration(
               color: _isDarkMode ? const Color(0xFF343434) : Colors.white,
@@ -258,15 +256,13 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                   scale: 1.0,
                   child: Checkbox(
                     activeColor: Preferences.getAppTheme() ? Colors.tealAccent[400] : Colors.indigo,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)
-                    ),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     value: true, 
                     onChanged: (value) => widget.notesProvider.unCheckedCompletedTask(index),
                   )
                 ),
                 Expanded(
-                  child: Text(widget.notesProvider.completedList[index],style: const TextStyle(decoration: TextDecoration.lineThrough,color: Colors.grey, fontWeight: FontWeight.normal,fontSize: 12))
+                  child: Text(widget.notesProvider.completedList[index],style: const TextStyle(decoration: TextDecoration.lineThrough,color: Colors.grey, fontWeight: FontWeight.normal,fontSize: 11))
                 )
               ]
             )
@@ -292,15 +288,15 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                 Positioned(
                   right: 10,
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 0.15,
-                    height: MediaQuery.of(context).size.height * 0.15,
+                    width: MediaQuery.of(context).size.width * 0.14,
+                    height: MediaQuery.of(context).size.height * 0.14,
                     decoration: const BoxDecoration(image: DecorationImage(opacity: 0.1,image: AssetImage('assets/logo.png'))),
                   )
                 ),
                 Positioned(
                   bottom: 10,
                   left: 12,
-                  child: Text('Hi, ${widget.notesProvider.getUserName}',style: const TextStyle(color: Colors.white,fontSize: 12,fontWeight: FontWeight.normal))
+                  child: Text('Hi, ${widget.notesProvider.getUserName}',style: const TextStyle(color: Colors.white,fontSize: 11,fontWeight: FontWeight.normal))
                 )
               ]
             )
@@ -320,7 +316,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                         children: [
                           Icon(icons[0],size: 20,color: Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo),
                           const SizedBox(width: 5),
-                          Text(screenName[0],style: const TextStyle(fontSize: 12))
+                          Text(screenName[0],style: const TextStyle(fontSize: 11))
                         ]
                       )
                     )
@@ -335,7 +331,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                           children: [
                             Icon(icons[1],size: 20,color: Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo),
                             const SizedBox(width: 5),
-                            Text(screenName[1],style: const TextStyle(fontSize: 12))
+                            Text(screenName[1],style: const TextStyle(fontSize: 11))
                           ]
                         ),
                         Switch(
