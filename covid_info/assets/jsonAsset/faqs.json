@@ -6,7 +6,7 @@
     },
     {
         "tag": "corona",
-        "question": "What should I do if I have been exposed to someone who has COVID-19?",
+        "question": "What should I do if I have been exposed to someone who has Corona?",
         "answer": "Call your health care provider or COVID-19 hotline for instructions and find out when and where to get a test, stay at home for 14 days away from others and monitor your health."
     },
     {
@@ -25,13 +25,8 @@
         "answer": "Vaccines reduce risks of getting a disease by working with your body’s natural defenses to build protection. When you get a vaccine, your immune system responds. It:\n\nRecognizes the invading germ, such as the virus or bacteria.\nProduces antibodies. Antibodies are proteins produced naturally by the immune system to fight disease.\nRemembers the disease and how to fight it. If you are then exposed to the germ in the future, your immune system can quickly destroy it before you become unwell.\n\nThe vaccine is therefore a safe and clever way to produce an immune response in the body, without causing illness."
     },
     {
-        "tag": "corona",
-        "question": "Are antibiotics effective in preventing or treating COVID-19?",
-        "answer": "Antibiotics do not work against viruses; they only work on bacterial infections. COVID-19 is caused by a virus, so antibiotics do not work. Antibiotics should not be used as a means of prevention or treatment of COVID-19."
-    },
-    {
         "tag": "vaccine",
-        "question": "Are antibiotics effective in preventing or treating COVID-19?",
+        "question": "Are antibiotics effective in preventing or treating Corona?",
         "answer": "Antibiotics do not work against viruses; they only work on bacterial infections. COVID-19 is caused by a virus, so antibiotics do not work. Antibiotics should not be used as a means of prevention or treatment of COVID-19."
     },
     {

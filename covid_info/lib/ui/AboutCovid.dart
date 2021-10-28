@@ -40,7 +40,7 @@ class _AboutCovidState extends State<AboutCovid> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'What is COVID-19',
+            'What is Corona',
             style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 2),

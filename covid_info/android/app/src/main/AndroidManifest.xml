@@ -2,7 +2,7 @@
     package="com.ali.covid_info">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="Covid Info"
+        android:label="CoBit Info"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <activity
