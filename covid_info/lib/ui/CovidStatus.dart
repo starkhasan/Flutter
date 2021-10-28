@@ -124,7 +124,7 @@ class _MainScreen extends State<MainScreen> {
   
   Widget covidStatusWidget(){
     return Container(
-      padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+      padding: EdgeInsets.fromLTRB(8, 10, 8, 10),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -183,19 +183,19 @@ class _MainScreen extends State<MainScreen> {
           ListView.builder(
             itemCount: HelperAbout.listIcons.length,
             shrinkWrap: true,
-            padding: EdgeInsets.only(top: 10),
+            padding: EdgeInsets.only(top: 5),
             physics: BouncingScrollPhysics(),
             itemBuilder: (context, index){
               return Container(
                 padding: EdgeInsets.all(10),
-                margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                margin: EdgeInsets.fromLTRB(0, 8, 0, 0),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey,
-                      blurRadius: 2.0
+                      blurRadius: 1.0
                     )
                   ]
                 ),

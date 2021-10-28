@@ -12,7 +12,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class Vaccination extends StatefulWidget {
-
   @override
   _VaccinationState createState() => _VaccinationState();
 }
@@ -122,7 +121,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
 
   Widget vaccinationStatusWidget(){
     return Container(
-      padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+      padding: EdgeInsets.fromLTRB(8, 10, 8, 10),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -186,14 +185,14 @@ class _VaccineScreenState extends State<VaccineScreen> {
             itemBuilder: (context, index){
               return Container(
                 padding: EdgeInsets.all(10),
-                margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                margin: EdgeInsets.fromLTRB(0, 8, 0, 0),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey,
-                      blurRadius: 2.0
+                      blurRadius: 1.0
                     )
                   ]
                 ),
@@ -233,14 +232,14 @@ class _VaccineScreenState extends State<VaccineScreen> {
           ),
           Container(
             padding: EdgeInsets.all(10),
-            margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+            margin: EdgeInsets.fromLTRB(0, 8, 0, 0),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(8)),
+              borderRadius: BorderRadius.all(Radius.circular(5)),
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey,
-                  blurRadius: 2.0
+                  blurRadius: 1.0
                 )
               ]
             ),
@@ -333,14 +332,14 @@ class _VaccineScreenState extends State<VaccineScreen> {
           ),
           Container(
             padding: EdgeInsets.all(10),
-            margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+            margin: EdgeInsets.fromLTRB(0, 8, 0, 0),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(8)),
+              borderRadius: BorderRadius.all(Radius.circular(5)),
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey,
-                  blurRadius: 2.0
+                  blurRadius: 1.0
                 )
               ]
             ),
@@ -389,14 +388,14 @@ class _VaccineScreenState extends State<VaccineScreen> {
             onTap: () => launch(HelperVaccination.vaccinationRegistration),
             child: Container(
               padding: EdgeInsets.all(10),
-              margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+              margin: EdgeInsets.fromLTRB(0, 8, 0, 0),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(8)),
+                borderRadius: BorderRadius.all(Radius.circular(5)),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.blue,
-                    blurRadius: 2.0
+                    blurRadius: 1.0
                   )
                 ]
               ),
@@ -422,11 +421,11 @@ class _VaccineScreenState extends State<VaccineScreen> {
             onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ShowDocument(url: widget.provider.stateVaccineUrl))),
             child: Container(
               padding: EdgeInsets.all(10),
-              margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+              margin: EdgeInsets.fromLTRB(0, 8, 0, 0),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-                boxShadow: [ BoxShadow(color: Colors.blue,blurRadius: 2.0)]
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+                boxShadow: [ BoxShadow(color: Colors.blue,blurRadius: 1.0)]
               ),
               child: Row(
                 children: [
@@ -445,11 +444,11 @@ class _VaccineScreenState extends State<VaccineScreen> {
             onTap: () => launch(HelperVaccination.verifyCertification),
             child: Container(
               padding: EdgeInsets.all(10),
-              margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+              margin: EdgeInsets.fromLTRB(0, 8, 0, 0),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-                boxShadow: [ BoxShadow(color: Colors.blue,blurRadius: 2.0)]
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+                boxShadow: [ BoxShadow(color: Colors.blue,blurRadius: 1.0)]
               ),
               child: Row(
                 children: [
