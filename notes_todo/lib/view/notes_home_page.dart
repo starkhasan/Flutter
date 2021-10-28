@@ -71,101 +71,104 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: drawerLayout(),
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('Notes',style: TextStyle(fontSize: 14)),
-        actions: widget.notesProvider.completedList.isEmpty && widget.notesProvider.listNote.isEmpty && !widget.notesProvider.isDataSync
-        ? null
-        : [
-          IconButton(
-            onPressed: widget.notesProvider.isDataSync ? null : () => deleteNotesDialog(),
-            icon: Icon(widget.notesProvider.isDataSync ? Icons.sync :Icons.delete,color: Colors.white,size: 22.0)
-          )
-        ]
-      ),
-      floatingActionButton: Visibility(
-        visible: widget.notesProvider.fabVisible,
-        child: GestureDetector(
-          onTap: () => {
-            _mainScreen = true,
-            widget.notesProvider.fabAction(),
-          },
-          child: Container(
-            width: MediaQuery.of(context).size.width * 0.13,
-            height: MediaQuery.of(context).size.height * 0.13,
-            decoration: BoxDecoration(
-              color: Preferences.getAppTheme() ? Colors.tealAccent[400] : Colors.indigo,
-              shape: BoxShape.circle
+    return WillPopScope(
+      onWillPop: onBackPressed,
+      child: Scaffold(
+        drawer: drawerLayout(),
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text('Notes',style: TextStyle(fontSize: 14)),
+          actions: widget.notesProvider.completedList.isEmpty && widget.notesProvider.listNote.isEmpty && !widget.notesProvider.isDataSync
+          ? null
+          : [
+            IconButton(
+              onPressed: widget.notesProvider.isDataSync ? null : () => deleteNotesDialog(),
+              icon: Icon(widget.notesProvider.isDataSync ? Icons.sync :Icons.delete,color: Colors.white,size: 22.0)
+            )
+          ]
+        ),
+        floatingActionButton: Visibility(
+          visible: widget.notesProvider.fabVisible,
+          child: GestureDetector(
+            onTap: () => {
+              _mainScreen = true,
+              widget.notesProvider.fabAction(),
+            },
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.13,
+              height: MediaQuery.of(context).size.height * 0.13,
+              decoration: BoxDecoration(
+                color: Preferences.getAppTheme() ? Colors.tealAccent[400] : Colors.indigo,
+                shape: BoxShape.circle
+              ),
+              child: const Icon(Icons.add,color: Colors.white),
             ),
-            child: const Icon(Icons.add,color: Colors.white),
-          ),
-        )
-      ),
-      body: Container(
-        color: _isDarkMode ? const Color(0xFF161616) : Colors.white,
-        child: Stack(
-          children: [ 
-            Column(
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Visibility(visible: widget.notesProvider.listNote.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 15,top: 10,bottom: 10),child: Text('Task',style: TextStyle(color: Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo,fontSize: 14,fontWeight: FontWeight.bold)))),
-                        notesBody(),
-                        Visibility(visible: widget.notesProvider.completedList.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 15,top: 10,bottom: 10),child: Text('Completed',style: TextStyle(color: Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo,fontSize: 14,fontWeight: FontWeight.bold)))),
-                        completedNotes()
-                      ]
+          )
+        ),
+        body: Container(
+          color: _isDarkMode ? const Color(0xFF161616) : Colors.white,
+          child: Stack(
+            children: [ 
+              Column(
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Visibility(visible: widget.notesProvider.listNote.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 15,top: 10,bottom: 10),child: Text('Task',style: TextStyle(color: Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo,fontSize: 14,fontWeight: FontWeight.bold)))),
+                          notesBody(),
+                          Visibility(visible: widget.notesProvider.completedList.isNotEmpty,child: Container(margin: const EdgeInsets.only(left: 15,top: 10,bottom: 10),child: Text('Completed',style: TextStyle(color: Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo,fontSize: 14,fontWeight: FontWeight.bold)))),
+                          completedNotes()
+                        ]
+                      )
+                    )
+                  )
+                ]
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Visibility(
+                  visible: widget.notesProvider.completedList.isEmpty && widget.notesProvider.listNote.isEmpty,
+                  child: EmptyMessage(darkMode: _isDarkMode)
+                )
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Visibility(
+                  visible: widget.notesProvider.taskContainerVisible,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: _isDarkMode ? const Color(0xFF343434) : Colors.white,
+                      border: const Border(top: BorderSide(color: Color(0xFFBDBDBD)))
+                    ),
+                    padding: const EdgeInsets.all(15),
+                    child: TextField(
+                      controller: textController,
+                      autofocus: true,
+                      minLines: 1,
+                      maxLines: 3,
+                      cursorColor: Theme.of(context).toggleableActiveColor,
+                      textInputAction: TextInputAction.done,
+                      style: const TextStyle(fontSize: 12),
+                      decoration: const InputDecoration.collapsed(
+                        hintText: 'Add Task',
+                        hintStyle: TextStyle(color: Colors.grey,fontSize: 12)
+                      ),
+                      onEditingComplete: (){
+                        if(textController.text.isNotEmpty){
+                          widget.notesProvider.addTask(textController.text);
+                          textController.clear();
+                        }
+                      }
                     )
                   )
                 )
-              ]
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: Visibility(
-                visible: widget.notesProvider.completedList.isEmpty && widget.notesProvider.listNote.isEmpty,
-                child: EmptyMessage(darkMode: _isDarkMode)
               )
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Visibility(
-                visible: widget.notesProvider.taskContainerVisible,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: _isDarkMode ? const Color(0xFF343434) : Colors.white,
-                    border: const Border(top: BorderSide(color: Color(0xFFBDBDBD)))
-                  ),
-                  padding: const EdgeInsets.all(15),
-                  child: TextField(
-                    controller: textController,
-                    autofocus: true,
-                    minLines: 1,
-                    maxLines: 3,
-                    cursorColor: Theme.of(context).toggleableActiveColor,
-                    textInputAction: TextInputAction.done,
-                    style: const TextStyle(fontSize: 12),
-                    decoration: const InputDecoration.collapsed(
-                      hintText: 'Add Task',
-                      hintStyle: TextStyle(color: Colors.grey,fontSize: 12)
-                    ),
-                    onEditingComplete: (){
-                      if(textController.text.isNotEmpty){
-                        widget.notesProvider.addTask(textController.text);
-                        textController.clear();
-                      }
-                    }
-                  )
-                )
-              )
-            )
-          ]
+            ]
+          )
         )
-      )
+      ),
     );
   }
 
@@ -411,5 +414,26 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
     );
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
-  
+
+  Future<bool> onBackPressed() async {
+    return await showDialog(
+      context: context, 
+      builder: (BuildContext context){
+        return CupertinoAlertDialog(
+          title: const Text('Exit'),
+          content: const Text('Are you sure you want to Exit?'),
+          actions: [
+            CupertinoDialogAction(
+              onPressed: () => Navigator.pop(context,false),
+              child: const Text('No',style: TextStyle(color: Colors.red))
+            ),
+            CupertinoDialogAction(
+              onPressed: () => Navigator.pop(context,true),
+              child: const Text('Yes')
+            )
+          ],
+        );
+      }
+    ) ?? false;
+  }
 }
