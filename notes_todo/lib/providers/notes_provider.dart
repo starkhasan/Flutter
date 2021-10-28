@@ -138,6 +138,8 @@ class NotesProvider extends ChangeNotifier with Helpers{
   }
 
   void drawerName(){
+    listNote = Preferences.getStoredTask();
+    completedList = Preferences.getCompleteTask();
     _name = Preferences.getUserName();
     notifyListeners();
   }
@@ -183,9 +185,4 @@ class NotesProvider extends ChangeNotifier with Helpers{
     }
   }
 
-  void getLocationData(){
-    listNote = Preferences.getStoredTask();
-    completedList = Preferences.getCompleteTask();
-    notifyListeners();
-  }
 }
