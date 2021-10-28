@@ -18,7 +18,7 @@ class _AboutCovidState extends State<AboutCovid> {
             backgroundColor: Color(0xFF0B3054),
             centerTitle: true,
             floating: true,
-            title: Text('COVID',style: TextStyle(fontSize: 16)),
+            title: Text('About',style: TextStyle(fontSize: 16)),
             expandedHeight: kToolbarHeight,
             systemOverlayStyle: SystemUiOverlayStyle.light,
           ),
@@ -48,7 +48,7 @@ class _AboutCovidState extends State<AboutCovid> {
             HelperAbout.aboutCrona
           ),
           Text(
-            '\nSymptoms of COVID-19',
+            '\nSymptoms',
             style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 2),
@@ -136,7 +136,7 @@ class _AboutCovidState extends State<AboutCovid> {
           Center(child: Image.asset('assets/images/symptoms.jpg',height: MediaQuery.of(context).size.height * 0.15)),
           SizedBox(height: 20),
           Text(
-            'Prevention of COVID-19',
+            'Prevention',
             style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.bold,fontFamily: '')
           ),
           ListView.builder(

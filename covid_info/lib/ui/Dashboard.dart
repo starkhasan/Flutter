@@ -88,11 +88,11 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver{
               icon: Icon(Icons.equalizer_outlined,size: 18)
             ),
             BottomNavigationBarItem(
-              label: 'Vaccinations',
+              label: 'Vaccine',
               icon: Icon(Icons.local_hospital,size: 18)
             ),
             BottomNavigationBarItem(
-              label: 'COVID',
+              label: 'About',
               icon: Icon(Icons.coronavirus_rounded,size: 18)
             ),
             BottomNavigationBarItem(

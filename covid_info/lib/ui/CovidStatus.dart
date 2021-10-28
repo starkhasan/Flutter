@@ -103,7 +103,7 @@ class _MainScreen extends State<MainScreen> {
               backgroundColor: Color(0xFF0B3054),
               centerTitle: true,
               floating: true,
-              title: Text('Corona Status',style: TextStyle(fontSize: 14)),
+              title: Text('Status',style: TextStyle(fontSize: 14)),
               expandedHeight: kToolbarHeight,
               systemOverlayStyle: SystemUiOverlayStyle.light,
             ),

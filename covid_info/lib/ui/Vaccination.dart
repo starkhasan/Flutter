@@ -101,7 +101,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
               backgroundColor: Color(0xFF0B3054),
               centerTitle: true,
               floating: true,
-              title: Text('Vaccination',style: TextStyle(fontSize: 14)),
+              title: Text('Vaccine',style: TextStyle(fontSize: 14)),
               expandedHeight: kToolbarHeight,
               systemOverlayStyle: SystemUiOverlayStyle.light,
             ),
@@ -252,7 +252,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Sites Conducting Vaccination',
+                        'Total Sites',
                         style: TextStyle(color: Colors.grey[800],fontSize: 11,fontFamily: ''),
                       ),
                       SizedBox(height: 5),
@@ -405,7 +405,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                 children: [
                   Expanded(
                     child: Text(
-                      'Register or SignIn for Vaccination with official Government of India CoWIN Portal',
+                      'Register or SignIn with CoWIN Portal',
                       style: TextStyle(color: Colors.blue,fontSize: 13,fontFamily: ''),
                     )
                   ),
@@ -432,7 +432,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                 children: [
                   Expanded(
                     child: Text(
-                      'States Vaccination Report',
+                      'States Report',
                       style: TextStyle(color: Colors.blue,fontSize: 13,fontFamily: ''),
                     )
                   ),
@@ -455,7 +455,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                 children: [
                   Expanded(
                     child: Text(
-                      'Verify a vaccination certificate',
+                      'Verify Certificate',
                       style: TextStyle(color: Colors.blue,fontSize: 13,fontFamily: ''),
                     )
                   ),
@@ -476,7 +476,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                 children: [
                   TextSpan(text: 'Source Data : ',style: TextStyle(color: Colors.grey[400])),
                   TextSpan(
-                    text: 'CoWIN Official',
+                    text: 'CoWIN',
                     style: TextStyle(decoration: TextDecoration.underline,color: Colors.blue[300]),
                     recognizer: TapGestureRecognizer()..onTap = () => launch(HelperVaccination.vaccineIndiaUrl)
                   )

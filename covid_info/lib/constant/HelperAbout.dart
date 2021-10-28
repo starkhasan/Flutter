@@ -35,7 +35,7 @@ class HelperAbout {
     'Recovered',
     'Active',
     'Deaths',
-    'Critical Cases',
+    'Critical',
     'New Cases',
     'New Deaths'
   ];
@@ -49,7 +49,7 @@ class HelperAbout {
 
   static var listVaccineTag = [
     'Registrations',
-    'Vaccinations',
+    'Total Dose',
     'Dose1',
     'Dose2',
   ];
