@@ -37,7 +37,6 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
 
   bool _isDarkMode = false;
   bool _mainScreen = true;
-  late FocusNode _focusNode;
   var textController = TextEditingController();
   List<IconData> icons = [Icons.sync,Icons.dark_mode_outlined];
   List<String> screenName = ['Sync Notes','Dark mode'];
@@ -46,7 +45,6 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addObserver(this);
-    _focusNode = FocusNode();
     if(Preferences.getSyncEnabled() && Preferences.getUserID().isNotEmpty) {
       Future.delayed(Duration.zero,() => widget.notesProvider.syncEnableFromSyncNote(context));
     }
@@ -59,7 +57,6 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
   @override
   void dispose() {
     WidgetsBinding.instance!.removeObserver(this);
-    _focusNode.dispose();
     super.dispose();
   }
 
@@ -92,13 +89,8 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
         visible: widget.notesProvider.fabVisible,
         child: GestureDetector(
           onTap: () => {
-            _focusNode.hasFocus
-            ? _focusNode.unfocus()
-            : {
-              _mainScreen = true,
-              widget.notesProvider.fabAction(),
-              _focusNode.requestFocus()
-            }
+            _mainScreen = true,
+            widget.notesProvider.fabAction(),
           },
           child: Container(
             width: MediaQuery.of(context).size.width * 0.13,
@@ -151,7 +143,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                   padding: const EdgeInsets.all(15),
                   child: TextField(
                     controller: textController,
-                    focusNode: _focusNode,
+                    autofocus: true,
                     minLines: 1,
                     maxLines: 3,
                     cursorColor: Theme.of(context).toggleableActiveColor,
