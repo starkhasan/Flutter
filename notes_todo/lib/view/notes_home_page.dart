@@ -140,7 +140,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                   child: Container(
                     decoration: BoxDecoration(
                       color: _isDarkMode ? const Color(0xFF343434) : Colors.white,
-                      border: const Border(top: BorderSide(color: Color(0xFFBDBDBD)))
+                      border: const Border(top: BorderSide(color: Color(0xFFBDBDBD),width: 0.5))
                     ),
                     padding: const EdgeInsets.all(15),
                     child: TextField(
@@ -305,7 +305,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
           ),
           Container(
             padding: EdgeInsets.zero,
-            height: MediaQuery.of(context).size.height * 0.85,
+            height: MediaQuery.of(context).size.height * 0.80,
             child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -352,6 +352,11 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                 ]
               )
             )
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height * 0.05,
+            alignment: Alignment.center,
+            child: Text('Traversal',style: TextStyle(color: _isDarkMode ? Colors.grey[850] : Colors.grey[100],fontSize: 12))
           )
         ]
       )
