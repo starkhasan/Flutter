@@ -346,7 +346,7 @@ class _CountryMainScreen extends State<CountryMainScreen> {
                       ),
                       SizedBox(width: 5),
                       Image.network(
-                        'https://flagcdn.com/108x81/za.png',
+                        'https://flagcdn.com/w160/${HelperAbout.flagCode[response[index].country]}.png',
                         height: 22,
                         width: 22,
                         errorBuilder: (context,exception,stackTrace){return Icon(Icons.flag);},

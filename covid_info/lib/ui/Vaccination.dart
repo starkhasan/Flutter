@@ -152,7 +152,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Image.network(
-                            'https://www.countryflags.io/IN/shiny/64.png',
+                            'https://flagcdn.com/w160/in.png',
                             height: 24,
                             width: 24,
                             errorBuilder: (context,exception,stackTrace){return Icon(Icons.flag);},

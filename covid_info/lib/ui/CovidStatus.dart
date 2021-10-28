@@ -154,7 +154,7 @@ class _MainScreen extends State<MainScreen> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Image.network(
-                            'https://www.countryflags.io/IN/shiny/64.png',
+                            'https://flagcdn.com/w160/in.png',
                             height: 24,
                             width: 24,
                             errorBuilder: (context,exception,stackTrace){return Icon(Icons.flag);},
