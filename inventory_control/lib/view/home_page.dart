@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:inventory_control/constants/app_constant.dart';
 import 'package:inventory_control/view/input_page.dart';
 import 'package:inventory_control/view/inventory_page.dart';
@@ -14,10 +13,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-  var productController = TextEditingController();
-  var quantityController = TextEditingController();
-  var firebaseDataBaseReferene = FirebaseDatabase.instance.reference().child('inventory');
 
   @override
   Widget build(BuildContext context) {
@@ -70,19 +65,5 @@ class _HomePageState extends State<HomePage> {
         break;
       default:
     }
-  }
-
-  void createInventory(String productId) async{
-    await firebaseDataBaseReferene.child(productId).update({
-      'quantiry': quantityController.text,
-      'createdAt': DateTime.now().toString()
-    });
-    quantityController.clear();
-    productController.clear();
-  }
-
-  void snackBar(String message,BuildContext _context){
-    var snackbar = SnackBar(content: Text(message),duration: const Duration(seconds: 2));
-    ScaffoldMessenger.of(_context).showSnackBar(snackbar);
   }
 }
