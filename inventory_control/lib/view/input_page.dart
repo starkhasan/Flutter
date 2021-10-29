@@ -40,6 +40,7 @@ class _MainInputScreenState extends State<MainInputScreen> with WidgetsBindingOb
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) => widget.provider.getFirebaseInputData());
   }
 
   @override
@@ -78,72 +79,61 @@ class _MainInputScreenState extends State<MainInputScreen> with WidgetsBindingOb
       : null,
       body: Stack(
         children: [
-          StreamBuilder(
-            stream: firebaseDataBaseReferene.child('input').onValue,
-            builder: (BuildContext context, AsyncSnapshot snapshot){
-              if(snapshot.connectionState == ConnectionState.waiting){
-                return Container(child: const Center(child:  CircularProgressIndicator(color: Colors.indigo,strokeWidth: 3)));
-              }else if(snapshot.connectionState == ConnectionState.active && snapshot.data.snapshot.value != null){
-                var input = snapshot.data.snapshot.value;
-                return ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: input.length,
-                  itemBuilder: (BuildContext context,int index){
-                    var key = input.keys.elementAt(index);
-                    return Container(
-                      margin: const EdgeInsets.only(top: 8,left: 5,right: 5),
-                      padding: const EdgeInsets.all(10),
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(5)),
-                        boxShadow: [BoxShadow(color: Colors.grey,blurRadius: 1.0)]
-                      ),
-                      child: Column(
+          widget.provider.loadingData
+          ? const Center(child:  CircularProgressIndicator(color: Colors.indigo,strokeWidth: 3))
+          : ListView.builder(
+            shrinkWrap: true,
+            itemCount: widget.provider.inventoryInput.length,
+            itemBuilder: (BuildContext context,int index){
+              return Container(
+                margin: const EdgeInsets.only(top: 8,left: 5,right: 5),
+                padding: const EdgeInsets.all(10),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                  boxShadow: [BoxShadow(color: Colors.grey,blurRadius: 1.0)]
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text('Product Id',style: TextStyle(color: Colors.grey,fontSize: 10)),
+                              Text(widget.provider.inventoryInput[index].productID!,style: const TextStyle(color: Colors.black,fontSize: 12))
+                            ]
+                          ),
+                        ),
+                        Text(widget.provider.inventoryInput[index].createdAt!,style: const TextStyle(color: Colors.black,fontSize: 10))
+                      ]
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text('Quantity',style: TextStyle(color: Colors.grey,fontSize: 10)),
+                        Text(widget.provider.inventoryInput[index].quantity!,style: const TextStyle(color: Colors.black,fontSize: 11))
+                      ]
+                    ),
+                    const SizedBox(height: 10),
+                    Visibility(
+                      visible: widget.provider.inventoryInput[index].productDescription!.isNotEmpty,
+                        child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Text('Product Id',style: TextStyle(color: Colors.grey,fontSize: 10)),
-                                    Text(input[key]['productID'],style: const TextStyle(color: Colors.black,fontSize: 12))
-                                  ]
-                                ),
-                              ),
-                              Text(input[key]['createdAt'],style: const TextStyle(color: Colors.black,fontSize: 10))
-                            ]
-                          ),
-                          const SizedBox(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text('Quantity',style: TextStyle(color: Colors.grey,fontSize: 10)),
-                              Text(input[key]['quantity'],style: const TextStyle(color: Colors.black,fontSize: 11))
-                            ]
-                          ),
-                          const SizedBox(height: 10),
-                          Visibility(
-                            visible: input[key]['productDescription'].isNotEmpty,
-                              child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text('Product Description',style: TextStyle(color: Colors.grey,fontSize: 10)),
-                                Text(input[key]['productDescription'],style: const TextStyle(color: Colors.black,fontSize: 11))
-                              ]
-                            )
-                          )
+                          const Text('Product Description',style: TextStyle(color: Colors.grey,fontSize: 10)),
+                          Text(widget.provider.inventoryInput[index].productDescription!,style: const TextStyle(color: Colors.black,fontSize: 11))
                         ]
                       )
-                    );
-                  }
-                );
-              }else{
-                return Container(child: const Center(child: Text('To add Input Click on + button')));
-              }
+                    )
+                  ]
+                )
+              );
             }
           ),
           Align(
@@ -201,7 +191,14 @@ class _MainInputScreenState extends State<MainInputScreen> with WidgetsBindingOb
                     ),
                     const SizedBox(height: 5),
                     ElevatedButton(
-                      onPressed: createInventory,
+                      onPressed: () async {
+                        var data = await widget.provider.createInventory(context,productController.text,quantityController.text,descriptionConstroller.text);
+                        if(data){
+                          productController.clear();
+                          quantityController.clear();
+                          descriptionConstroller.clear();
+                        }
+                      },
                       child: const Text('Create',style: TextStyle(fontSize: 12))
                     )
                   ]
@@ -212,37 +209,6 @@ class _MainInputScreenState extends State<MainInputScreen> with WidgetsBindingOb
         ]
       )
     );
-  }
-
-  bool validation(){
-    if(productController.text.isEmpty){
-      snackBar('Please provide product id');
-      return false;
-    }else if(quantityController.text.isEmpty){
-      snackBar('Please provide quantity');
-      return false;
-    }
-    return true;
-  } 
-
-  void createInventory() async{
-    if(validation()){
-      await firebaseDataBaseReferene.child('input').push().set({
-        'productID': productController.text,
-        'quantity': quantityController.text,
-        'productDescription': descriptionConstroller.text,
-        'createdAt': DateTime.now().toString().substring(0,19)
-      });
-      quantityController.clear();
-      productController.clear();
-      descriptionConstroller.clear();
-      snackBar('Input Added');
-    }
-  }
-
-  void snackBar(String message){
-    var snackbar = SnackBar(content: Text(message),duration: const Duration(seconds: 2));
-    ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 
 }
