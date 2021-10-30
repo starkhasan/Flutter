@@ -1,48 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:inventory_control/model/input_model.dart';
 
 class InputProvider extends ChangeNotifier {
   bool _showFab = true;
-  bool _loading = false;
-  bool get loadingData => _loading;
   bool get showFabButton => _showFab;
-  List<InputModel> inventoryInput = [];
   var firebaseDataBaseReferene =FirebaseDatabase.instance.reference().child('inventory_control');
 
-  void fabVisibility(bool visible) async {
+  void fabVisibility(bool visible) {
     _showFab = visible;
-    if(visible){
-      inventoryInput.clear();
-      getFirebaseInputData();
-    }
     notifyListeners();
   }
-
-  void getFirebaseInputData() async {
-    _loading = true;
-    notifyListeners();
-    await firebaseDataBaseReferene.child('input').once().then((snapshot) => {
-      if (snapshot.value != null){
-        snapshot.value.keys.forEach((key) {
-          var input = snapshot.value[key];
-          inventoryInput.add(InputModel(
-              input['createdAt'],
-              input['quantity'],
-              input['productID'],
-              input['productDescription']
-            )
-          );
-        })
-      }else{
-        inventoryInput = []
-      }
-    });
-    _loading = false;
-    notifyListeners();
-  }
-
 
   bool validation(BuildContext _context,String productId,String quantity){
     if(productId.isEmpty){
@@ -66,6 +34,7 @@ class InputProvider extends ChangeNotifier {
       snackBar(_context,'Input Added');
       return true;
     }return false;
+    
   }
 
   void snackBar(BuildContext _context,String message){
