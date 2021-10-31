@@ -98,7 +98,7 @@ class _MainOutputScreenState extends State<MainOutputScreen>{
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text('Product Id',style: TextStyle(color: Colors.grey,fontSize: 10)),
+                                    const Text('Product Id',style: TextStyle(color: Colors.grey,fontSize: 11)),
                                     Text(input[key]['productID'],style: const TextStyle(color: Colors.black,fontSize: 12))
                                   ]
                                 )
@@ -109,8 +109,8 @@ class _MainOutputScreenState extends State<MainOutputScreen>{
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    const Text('Quantity',style: TextStyle(color: Colors.grey,fontSize: 10)),
-                                    Text(input[key]['quantity'],style: const TextStyle(color: Colors.black,fontSize: 11))
+                                    const Text('Quantity',style: TextStyle(color: Colors.grey,fontSize: 11)),
+                                    Text(input[key]['quantity'],style: const TextStyle(color: Colors.black,fontSize: 12))
                                   ]
                                 ),
                               )
@@ -190,10 +190,10 @@ class _MainOutputScreenState extends State<MainOutputScreen>{
                               onTap: () => provider.fabVisibility(true),
                               child: Container(
                                 margin: const EdgeInsets.only(top: 8),
-                                padding: const EdgeInsets.only(top: 5,bottom: 5,left: 5,right: 5),
+                                padding: const EdgeInsets.only(top: 7,bottom: 7,left: 7,right: 7),
                                 decoration: BoxDecoration(
                                   color: const Color(0xFFFFEBEE),
-                                  borderRadius: const BorderRadius.all(Radius.circular(2)),
+                                  borderRadius: const BorderRadius.all(Radius.circular(4)),
                                   border: Border.all(color: Colors.red,width: 0.5)
                                 ),
                                 child: const Text('Close',style: TextStyle(color: Colors.red,fontSize: 10))

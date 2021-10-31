@@ -53,7 +53,7 @@ class _InventoryPageState extends State<InventoryPage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text('Product Id',style: TextStyle(color: Colors.grey,fontSize: 10)),
+                                const Text('Product Id',style: TextStyle(color: Colors.grey,fontSize: 11)),
                                 Text(key,style: const TextStyle(color: Colors.black,fontSize: 12))
                               ]
                             ),
@@ -64,8 +64,8 @@ class _InventoryPageState extends State<InventoryPage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                Text(input[key]['quantity']>0 ? 'In Stock' : 'Out of Stock',style: TextStyle(color: input[key]['quantity']>0 ? Colors.green : Colors.red,fontSize: 10)),
-                                Text(input[key]['quantity'].toString(),style: const TextStyle(color: Colors.black,fontSize: 11))
+                                Text(input[key]['quantity']>0 ? 'In Stock' : 'Out of Stock',style: TextStyle(color: input[key]['quantity']>0 ? Colors.green : Colors.red,fontSize: 11)),
+                                Text(input[key]['quantity'].toString(),style: const TextStyle(color: Colors.black,fontSize: 12))
                               ]
                             ),
                           )
