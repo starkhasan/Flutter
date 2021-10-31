@@ -22,6 +22,7 @@ class InputProvider extends ChangeNotifier {
     await firebaseDataBaseReferene.child('inventory').once().then((snapshot){
       if(snapshot.value != null){
         inventoryData.clear();
+        productId.clear();
         var invData = snapshot.value;
         for(var item in invData.keys){
           productId.add(item);
