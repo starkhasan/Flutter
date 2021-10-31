@@ -48,6 +48,9 @@ class InputProvider extends ChangeNotifier {
     }else if(quantity.isEmpty){
       snackBar(_context,'Please provide quantity');
       return false;
+    }else if(int.parse(quantity) <= 0){
+      snackBar(_context,'Please provide valid quantity');
+      return false;
     }
     return true;
   } 
