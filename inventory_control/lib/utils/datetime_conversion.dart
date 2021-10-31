@@ -1,5 +1,5 @@
 import 'package:intl/intl.dart';
-extension on String{
+extension TimeConversion on String{
   String get convertTime{
     var createdDate = this;
     String time = DateFormat.jm().format(DateTime.parse(createdDate));

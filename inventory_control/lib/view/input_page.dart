@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory_control/provider/input_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:inventory_control/utils/datetime_conversion.dart';
 
 class InputPage extends StatefulWidget {
   const InputPage({ Key? key }) : super(key: key);
@@ -127,7 +128,7 @@ class _MainInputScreenState extends State<MainInputScreen>{
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text('Created At',style: TextStyle(color: Colors.grey[600],fontSize: 10)),
-                                Text(input[key]['createdAt'],style: const TextStyle(color: Colors.black,fontSize: 10))
+                                Text(input[key]['createdAt'].toString().convertTime,style: const TextStyle(color: Colors.black,fontSize: 10))
                               ]
                             ),
                           )
