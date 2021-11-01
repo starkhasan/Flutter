@@ -2,6 +2,8 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:inventory_control/services/connectivity_service.dart';
+import 'package:inventory_control/utils/preferences.dart';
+import 'package:inventory_control/view/authentication_page.dart';
 import 'dart:async';
 
 import 'package:inventory_control/view/home_page.dart';
@@ -12,6 +14,7 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Preferences.init();
     return StreamProvider<ConnectivityResult>(
       create: (_) => ConnectivityService().connectionStream,
       initialData: ConnectivityResult.none,
@@ -94,7 +97,11 @@ class _MainSplashScreenState extends State<MainSplashScreen> {
     Timer(const Duration(seconds: 3), (){
       if(provider != null){
         if(provider == ConnectivityResult.wifi || provider == ConnectivityResult.mobile){
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()));
+          if(Preferences.getLogin()){
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()));
+          }else{
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const AuthenticationPage()));
+          }
         }else{
           var snackBar = const SnackBar(
             elevation: 0.0,
