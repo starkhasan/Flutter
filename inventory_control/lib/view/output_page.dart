@@ -31,7 +31,7 @@ class MainOutputScreen extends StatefulWidget {
 
 class _MainOutputScreenState extends State<MainOutputScreen>{
 
-  var productController = TextEditingValue(text: '');
+  var productController = const TextEditingValue(text: '');
   var quantityController = TextEditingController();
   var descriptionConstroller = TextEditingController();
   var firebaseDataBaseReferene = FirebaseDatabase.instance.reference().child('inventory_control');
@@ -196,7 +196,11 @@ class _MainOutputScreenState extends State<MainOutputScreen>{
                               ),
                             ),
                             InkWell(
-                              onTap: () => provider.fabVisibility(true),
+                              onTap: () => {
+                                quantityController.clear(),
+                                descriptionConstroller.clear(),
+                                provider.fabVisibility(true)
+                              },
                               child: Container(
                                 margin: const EdgeInsets.only(top: 8),
                                 padding: const EdgeInsets.only(top: 7,bottom: 7,left: 7,right: 7),

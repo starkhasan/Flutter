@@ -174,7 +174,12 @@ class _MainInputScreenState extends State<MainInputScreen>{
                         Align(
                           alignment: Alignment.centerRight,
                           child: InkWell(
-                            onTap: () => provider.fabVisibility(true),
+                            onTap: () => {
+                              productController.clear(),
+                              quantityController.clear(),
+                              descriptionConstroller.clear(),
+                              provider.fabVisibility(true)
+                            },
                             child: Container(
                               margin: const EdgeInsets.only(top: 8),
                               padding: const EdgeInsets.only(top: 7,bottom: 7,left: 7,right: 7),

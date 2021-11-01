@@ -15,6 +15,9 @@ class InputProvider extends ChangeNotifier {
   var firebaseDataBaseReferene =FirebaseDatabase.instance.reference().child('inventory_control');
 
   void fabVisibility(bool visible) {
+    if(visible){
+      _showInStock = false;
+    }
     _showFab = visible;
     notifyListeners();
   }

@@ -32,12 +32,19 @@ class MainSplashScreen extends StatefulWidget {
 
 class _MainSplashScreenState extends State<MainSplashScreen> {
 
-  var provider;
+  late ConnectivityResult provider;
+  double imageSize = 0.0;
 
   @override
   void initState() {
     super.initState();
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,DeviceOrientation.portraitDown]);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    imageSize = MediaQuery.of(context).size.height * 0.12;
   }
 
   @override
@@ -54,7 +61,7 @@ class _MainSplashScreenState extends State<MainSplashScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Image.asset('asset/app_icon.png',height: MediaQuery.of(context).size.height * 0.12, width: MediaQuery.of(context).size.height * 0.12),
+                  Image.asset('asset/app_icon.png',height: imageSize, width: imageSize),
                   const Text(
                     'Inventory',
                     style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')
@@ -65,7 +72,7 @@ class _MainSplashScreenState extends State<MainSplashScreen> {
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                margin: EdgeInsets.fromLTRB(0, 0, 0, MediaQuery.of(context).size.height * 0.10),
+                margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.10),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
