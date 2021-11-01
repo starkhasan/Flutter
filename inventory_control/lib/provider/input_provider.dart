@@ -18,7 +18,7 @@ class InputProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getInventoryData() async{
+  void getInventoryData(String product) async{
     await firebaseDataBaseReferene.child('inventory').once().then((snapshot){
       if(snapshot.value != null){
         inventoryData.clear();
@@ -27,6 +27,9 @@ class InputProvider extends ChangeNotifier {
         for(var item in invData.keys){
           productId.add(item);
           inventoryData[item] = invData[item]['quantity'];
+          if(product.isNotEmpty){
+            _quantity = invData[product]['quantity'];
+          }
         }
       }else{
         inventoryData = {};
@@ -89,8 +92,7 @@ class InputProvider extends ChangeNotifier {
         'quantity': ServerValue.increment(-int.parse(quantity)),
         'productDescription': description
       });
-      getInventoryData();
-      _showInStock = false;
+      getInventoryData(productId);
       snackBar(_context,'Input Added');
       return true;
     }
@@ -111,7 +113,11 @@ class InputProvider extends ChangeNotifier {
       snackBar(_context,'Please provide valid quantity');
       return false;
     }else if(inventoryData[productId] < int.parse(quantity)){
-      snackBar(_context,'Maximum ${inventoryData[productId]} stock available of $productId');
+      if(inventoryData[productId] == 0){
+        snackBar(_context,'Out of Stock');
+      }else{
+        snackBar(_context,'Maximum ${inventoryData[productId]} stock available of $productId');
+      }
       return false;
     }
     return true;

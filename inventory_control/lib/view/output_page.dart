@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:inventory_control/provider/input_provider.dart';
 import 'package:inventory_control/utils/datetime_conversion.dart';
 import 'package:provider/provider.dart';
+import 'dart:async';
 
 class OutputPage extends StatefulWidget {
   const OutputPage({ Key? key }) : super(key: key);
@@ -34,16 +35,22 @@ class _MainOutputScreenState extends State<MainOutputScreen>{
   var quantityController = TextEditingController();
   var descriptionConstroller = TextEditingController();
   var firebaseDataBaseReferene = FirebaseDatabase.instance.reference().child('inventory_control');
+  late ScrollController scrollController;
   Map<String,dynamic> inventoryData = {};
   List<String> products = [];
 
   @override
   void initState() {
     super.initState();
+    scrollController = ScrollController();
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       final provider = Provider.of<InputProvider>(context,listen: false);
-      provider.getInventoryData();
+      provider.getInventoryData('');
     });
+  }
+
+  scrollTop() {
+    Timer(const Duration(milliseconds: 100), () => scrollController.animateTo(scrollController.position.maxScrollExtent, duration: const Duration(milliseconds: 100), curve: Curves.easeOut));
   }
 
   @override
@@ -71,11 +78,13 @@ class _MainOutputScreenState extends State<MainOutputScreen>{
               if(snapshot.connectionState == ConnectionState.waiting){
                 return const Center(child: CircularProgressIndicator());
               }else if(snapshot.connectionState == ConnectionState.active && snapshot.data.snapshot.value != null){
+                scrollTop();
                 var input = snapshot.data.snapshot.value;
                 return ListView.builder(
                   shrinkWrap: true,
                   itemCount: input.length,
                   reverse: true,
+                  controller: scrollController,
                   itemBuilder: (BuildContext context,int index){
                     var key = input.keys.elementAt(index);
                     return Container(
@@ -209,6 +218,7 @@ class _MainOutputScreenState extends State<MainOutputScreen>{
                             provider.onSelectAutoCompleteText(value),
                             productController = TextEditingValue(text: value)
                           },
+                          optionsMaxHeight: MediaQuery.of(context).size.height * 0.15,
                         ),
                         const SizedBox(height: 8),
                         TextField(

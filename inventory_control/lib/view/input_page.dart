@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:inventory_control/provider/input_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:inventory_control/utils/datetime_conversion.dart';
+import 'dart:async';
 
 class InputPage extends StatefulWidget {
   const InputPage({ Key? key }) : super(key: key);
@@ -35,6 +36,17 @@ class _MainInputScreenState extends State<MainInputScreen>{
   var quantityController = TextEditingController();
   var descriptionConstroller = TextEditingController();
   var firebaseDataBaseReferene = FirebaseDatabase.instance.reference().child('inventory_control');
+  late ScrollController scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController = ScrollController();
+  }
+
+  scrollTop(){
+    Timer(const Duration(milliseconds: 100),() => scrollController.animateTo(scrollController.position.maxScrollExtent, duration: const Duration(milliseconds: 100), curve: Curves.easeOut));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,8 +73,10 @@ class _MainInputScreenState extends State<MainInputScreen>{
               if(snapshot.connectionState == ConnectionState.waiting){
                 return const Center(child: CircularProgressIndicator());
               }else if(snapshot.connectionState == ConnectionState.active && snapshot.data.snapshot.value != null){
+                scrollTop();
                 var input = snapshot.data.snapshot.value;
                 return ListView.builder(
+                  controller: scrollController,
                   shrinkWrap: true,
                   itemCount: input.length,
                   reverse: true,
