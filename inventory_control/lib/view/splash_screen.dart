@@ -1,15 +1,48 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:inventory_control/services/connectivity_service.dart';
 import 'dart:async';
 
 import 'package:inventory_control/view/home_page.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,DeviceOrientation.portraitUp]);
+    return StreamProvider<ConnectivityResult>(
+      create: (_) => ConnectivityService().connectionStream,
+      initialData: ConnectivityResult.none,
+      builder: (context,child){
+        return const MainSplashScreen();
+      }
+    );
+  }
+}
+
+
+class MainSplashScreen extends StatefulWidget {
+  const MainSplashScreen({ Key? key }) : super(key: key);
+
+  @override
+  _MainSplashScreenState createState() => _MainSplashScreenState();
+}
+
+class _MainSplashScreenState extends State<MainSplashScreen> {
+
+  var provider;
+
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,DeviceOrientation.portraitDown]);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    provider = Provider.of<ConnectivityResult>(context);
     startTimer(context);
     return Scaffold(
       body: Container(
@@ -51,6 +84,21 @@ class SplashScreen extends StatelessWidget {
   }
 
   startTimer(BuildContext _context) {
-    Timer(const Duration(seconds: 3),() => Navigator.pushReplacement(_context, MaterialPageRoute(builder: (context) => const HomePage())));
+    Timer(const Duration(seconds: 3), (){
+      if(provider != null){
+        if(provider == ConnectivityResult.wifi || provider == ConnectivityResult.mobile){
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()));
+        }else{
+          var snackBar = const SnackBar(
+            elevation: 0.0,
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+            content: Text('No Internet Connection',style: TextStyle(color: Colors.white)),
+            margin: EdgeInsets.fromLTRB(10, 0, 10, 20),
+          );
+          ScaffoldMessenger.of(_context).showSnackBar(snackBar);
+        }
+      }
+    });
   }
 }

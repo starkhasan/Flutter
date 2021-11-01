@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:inventory_control/services/connectivity_service.dart';
 
 class InputProvider extends ChangeNotifier {
   bool _showFab = true;
@@ -59,44 +60,54 @@ class InputProvider extends ChangeNotifier {
   } 
 
   Future<bool> createInventory(BuildContext _context,String productId,String quantity,String description) async{
-    if(validation(_context,productId,quantity)){
-      var time = DateTime.now().toString().substring(0,19);
-      await firebaseDataBaseReferene.child('input').push().set({
-        'productID': productId,
-        'quantity': quantity,
-        'productDescription': description,
-        'createdAt': time
-      });
-      await firebaseDataBaseReferene.child('inventory').child(productId).update({
-        'updatedAt': time,
-        'quantity': ServerValue.increment(int.parse(quantity)),
-        'productDescription': description
-      });
-      snackBar(_context,'Input Added');
-      return true;
-    }return false;
-    
+    if(await ConnectivityService().getConnection()){
+      if(validation(_context,productId,quantity)){
+        var time = DateTime.now().toString().substring(0,19);
+        await firebaseDataBaseReferene.child('input').push().set({
+          'productID': productId,
+          'quantity': quantity,
+          'productDescription': description,
+          'createdAt': time
+        });
+        await firebaseDataBaseReferene.child('inventory').child(productId).update({
+          'updatedAt': time,
+          'quantity': ServerValue.increment(int.parse(quantity)),
+          'productDescription': description
+        });
+        snackBar(_context,'Input Added');
+        return true;
+      }
+      return false;
+    }else{
+      snackBar(_context,'No Internet Connection');
+      return false;
+    }
   }
 
   Future<bool> removeInventory(BuildContext _context,String productId,String quantity,String description) async{
-    if(outputValidation(_context,productId,quantity)){
-      var time = DateTime.now().toString().substring(0,19);
-      await firebaseDataBaseReferene.child('output').push().set({
-        'productID': productId,
-        'quantity': quantity,
-        'productDescription': description,
-        'createdAt': time
-      });
-      await firebaseDataBaseReferene.child('inventory').child(productId).update({
-        'updatedAt': time,
-        'quantity': ServerValue.increment(-int.parse(quantity)),
-        'productDescription': description
-      });
-      getInventoryData(productId);
-      snackBar(_context,'Input Added');
-      return true;
+    if(await ConnectivityService().getConnection()){
+      if(outputValidation(_context,productId,quantity)){
+        var time = DateTime.now().toString().substring(0,19);
+        await firebaseDataBaseReferene.child('output').push().set({
+          'productID': productId,
+          'quantity': quantity,
+          'productDescription': description,
+          'createdAt': time
+        });
+        await firebaseDataBaseReferene.child('inventory').child(productId).update({
+          'updatedAt': time,
+          'quantity': ServerValue.increment(-int.parse(quantity)),
+          'productDescription': description
+        });
+        getInventoryData(productId);
+        snackBar(_context,'Input Added');
+        return true;
+      }
+      return false;
+    }else{
+      snackBar(_context,'No Internet Connection');
+      return false;
     }
-    return false;
   }
 
   bool outputValidation(BuildContext _context,String productId,String quantity){
