@@ -32,13 +32,21 @@ class AuthProvider extends ChangeNotifier with Helper{
         Preferences.setLogin(true);
         Preferences.setInventoryName(name);
         Preferences.setUserId(userCredential!.user!.uid);
-        if(!_isSignin) await FirebaseDatabase.instance.reference().child('inventory_control').child(userCredential!.user!.uid).update({'name' : name });
+        if(!_isSignin) {
+          await FirebaseDatabase.instance.reference().child('inventory_control').child(userCredential!.user!.uid).update({'name' : name });
+        }else{
+          await FirebaseDatabase.instance.reference().child('inventory_control').child(userCredential!.user!.uid).once().then((snapshot){
+            if(snapshot.value != null){
+              Preferences.setInventoryName(snapshot.value['name']);
+            }
+          });
+        }
         Navigator.pushReplacement(_context, MaterialPageRoute(builder: (_context) => const HomePage()));
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
-          showSnackBar(_context,'The password provided is too weak.');
+          showSnackBar(_context,'Password provided is too weak.');
         } else if (e.code == 'email-already-in-use') {
-          showSnackBar(_context,'The account already exists for that email.');
+          showSnackBar(_context,'Account already exists for that email.');
         } else if (e.code == 'user-not-found') {
           showSnackBar(_context,'No user found for that email.');
         } else if (e.code == 'wrong-password') {
