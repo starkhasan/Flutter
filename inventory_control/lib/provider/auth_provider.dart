@@ -9,7 +9,7 @@ import 'package:inventory_control/view/home_page.dart';
 class AuthProvider extends ChangeNotifier with Helper{
   bool _isSignin = false;
   bool _authProcess = false;
-  bool _showPassword = false;
+  bool _showPassword = true;
   bool get showPassword => _showPassword;
   bool get userSignIn => _isSignin;
   bool get authenticationProces => _authProcess;

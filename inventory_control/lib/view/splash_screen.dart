@@ -55,6 +55,10 @@ class _MainSplashScreenState extends State<MainSplashScreen> {
     provider = Provider.of<ConnectivityResult>(context);
     startTimer(context);
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(0),
+        child: AppBar(backgroundColor: Colors.blue),
+      ),
       body: Container(
         color: Colors.white,
         child: Stack(

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory_control/constants/app_constant.dart';
+import 'package:inventory_control/utils/confirmation_dialog.dart';
 import 'package:inventory_control/view/authentication_page.dart';
 import 'package:inventory_control/view/input_page.dart';
 import 'package:inventory_control/view/inventory_page.dart';
@@ -26,14 +27,7 @@ class _HomePageState extends State<HomePage> {
           title: Text(Preferences.getInventoryName(),style: const TextStyle(fontSize: 14)),
           actions: [
             IconButton(
-              onPressed: () async{
-                if(await showLogoutDialog()){
-                  Preferences.setLogin(false);
-                  Preferences.setInventoryName('');
-                  Preferences.setUserId('');
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const AuthenticationPage()));
-                }
-              }, 
+              onPressed: () => showLogoutDialog(), 
               icon: const Icon(Icons.logout)
             )
           ],
@@ -85,26 +79,22 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  Future<bool> showLogoutDialog() async{
-    return await showDialog(
+  showLogoutDialog() {
+    showDialog(
       context: context, 
       builder: (context){
-        return CupertinoAlertDialog(
-          title: const Text('Logout',style: TextStyle(fontSize: 14)),
-          content: const Text('Are you sure you want to logout?'),
-          actions: [
-            CupertinoDialogAction(
-              onPressed: () => Navigator.pop(context,false),
-              child: const Text('No',style: TextStyle(fontSize: 14,color: Colors.red)),
-            ),
-            CupertinoDialogAction(
-              onPressed: () => Navigator.pop(context,true),
-              child: const Text('Yes',style: TextStyle(fontSize: 14)),
-            )
-          ],
+        return ConfirmationDialog(
+          title: 'Logout', 
+          content: 'Are you sure you want to logout?', 
+          onPressed: () => {
+            Preferences.setLogin(false),
+            Preferences.setInventoryName(''),
+            Preferences.setUserId(''),
+            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const AuthenticationPage()), (route) => false)
+          }
         );
       }
-    ) ?? false;
+    );
   }
 
   Future<bool> showExitDialog() async{

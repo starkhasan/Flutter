@@ -36,7 +36,7 @@ class _MainAuthenticationPageState extends State<MainAuthenticationPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    imageSize = MediaQuery.of(context).size.height * 0.18;
+    imageSize = MediaQuery.of(context).size.height * 0.16;
   }
 
   @override
