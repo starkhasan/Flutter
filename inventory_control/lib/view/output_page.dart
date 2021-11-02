@@ -1,6 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory_control/provider/input_provider.dart';
+import 'package:inventory_control/utils/close_button.dart';
 import 'package:inventory_control/utils/datetime_conversion.dart';
 import 'package:inventory_control/utils/preferences.dart';
 import 'package:provider/provider.dart';
@@ -198,16 +199,7 @@ class _MainOutputScreenState extends State<MainOutputScreen>{
                                 descriptionConstroller.clear(),
                                 provider.fabVisibility(true)
                               },
-                              child: Container(
-                                margin: const EdgeInsets.only(top: 8),
-                                padding: const EdgeInsets.only(top: 7,bottom: 7,left: 7,right: 7),
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFFFFEBEE),
-                                  borderRadius: const BorderRadius.all(Radius.circular(4)),
-                                  border: Border.all(color: Colors.red,width: 0.5)
-                                ),
-                                child: const Text('Close',style: TextStyle(color: Colors.red,fontSize: 10))
-                              )
+                              child: const CloseButtonHelper()
                             )
                           ]
                         ),
