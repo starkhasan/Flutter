@@ -30,8 +30,8 @@ class _MainAuthenticationPageState extends State<MainAuthenticationPage> {
 
   double imageSize = 0.0;
   var nameController = TextEditingController();
-  var email = TextEditingController();
-  var password = TextEditingController();
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
 
   @override
   void didChangeDependencies() {
@@ -101,9 +101,10 @@ class _MainAuthenticationPageState extends State<MainAuthenticationPage> {
                             controller: nameController,
                             keyboardType: TextInputType.emailAddress,
                             style: const TextStyle(fontSize: 12),
+                            textInputAction: TextInputAction.next,
                             cursorColor: Theme.of(context).toggleableActiveColor,
                             decoration: InputDecoration(
-                              hintText: 'Name',
+                              hintText: 'Inventory Name*',
                               hintStyle: const TextStyle(color: Colors.grey,fontSize: 12),
                               focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Theme.of(context).toggleableActiveColor))
                             ),
@@ -111,31 +112,41 @@ class _MainAuthenticationPageState extends State<MainAuthenticationPage> {
                         ),
                         const SizedBox(height: 5),
                         TextField(
-                          controller: nameController,
+                          controller: emailController,
                           keyboardType: TextInputType.emailAddress,
                           style: const TextStyle(fontSize: 12),
+                          textInputAction: TextInputAction.next,
                           cursorColor: Theme.of(context).toggleableActiveColor,
                           decoration: InputDecoration(
-                            hintText: 'Email',
+                            hintText: 'Email*',
                             hintStyle: const TextStyle(color: Colors.grey,fontSize: 12),
                             focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Theme.of(context).toggleableActiveColor))
                           ),
                         ),
                         const SizedBox(height: 5),
                         TextField(
-                          controller: nameController,
-                          keyboardType: TextInputType.emailAddress,
+                          controller: passwordController,
+                          keyboardType: TextInputType.text,
+                          obscureText: authProvider.showPassword,
                           style: const TextStyle(fontSize: 12),
+                          textInputAction: TextInputAction.done,
                           cursorColor: Theme.of(context).toggleableActiveColor,
                           decoration: InputDecoration(
-                            hintText: 'Password',
+                            hintText: 'Password*',
                             hintStyle: const TextStyle(color: Colors.grey,fontSize: 12),
-                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Theme.of(context).toggleableActiveColor))
-                          ),
+                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Theme.of(context).toggleableActiveColor)),
+                            suffixIcon: IconButton(
+                              padding: EdgeInsets.zero,
+                              onPressed: authProvider.passwordVisibility,
+                              icon: authProvider.showPassword ? const Icon(Icons.lock,size: 20) : const Icon(Icons.lock_open,size: 20)
+                            )
+                          )
                         ),
-                        const SizedBox(height: 10),
-                        ElevatedButton(
-                          onPressed: () => authProvider.userAuthenticate(context,nameController.text,email.text,password.text),
+                        const SizedBox(height: 15),
+                        authProvider.authenticationProces
+                        ? const CircularProgressIndicator(strokeWidth: 2.0)
+                        : ElevatedButton(
+                          onPressed: () => authProvider.userAuthenticate(context,nameController.text,emailController.text,passwordController.text),
                           child: const Text('Submit')
                         )
                       ]

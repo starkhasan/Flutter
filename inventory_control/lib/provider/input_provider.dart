@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory_control/services/connectivity_service.dart';
+import 'package:inventory_control/utils/preferences.dart';
 
 class InputProvider extends ChangeNotifier {
   bool _showFab = true;
@@ -12,7 +13,7 @@ class InputProvider extends ChangeNotifier {
   bool get showFabButton => _showFab;
   Map<String,dynamic> inventoryData = {};
   List<String> productId = [];
-  var firebaseDataBaseReferene =FirebaseDatabase.instance.reference().child('inventory_control');
+  var firebaseDataBaseReferene = FirebaseDatabase.instance.reference().child('inventory_control').child(Preferences.getUserId());
 
   void fabVisibility(bool visible) {
     if(visible){

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:inventory_control/utils/datetime_conversion.dart';
+import 'package:inventory_control/utils/preferences.dart';
 
 class InventoryPage extends StatefulWidget {
   const InventoryPage({ Key? key }) : super(key: key);
@@ -11,7 +12,7 @@ class InventoryPage extends StatefulWidget {
 
 class _InventoryPageState extends State<InventoryPage> {
 
-  var firebaseDataBaseReferene = FirebaseDatabase.instance.reference().child('inventory_control');
+  var firebaseDataBaseReferene = FirebaseDatabase.instance.reference().child('inventory_control').child(Preferences.getUserId());
 
   @override
   Widget build(BuildContext context) {

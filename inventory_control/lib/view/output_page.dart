@@ -2,6 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory_control/provider/input_provider.dart';
 import 'package:inventory_control/utils/datetime_conversion.dart';
+import 'package:inventory_control/utils/preferences.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
 
@@ -34,7 +35,7 @@ class _MainOutputScreenState extends State<MainOutputScreen>{
   var productController = const TextEditingValue(text: '');
   var quantityController = TextEditingController();
   var descriptionConstroller = TextEditingController();
-  var firebaseDataBaseReferene = FirebaseDatabase.instance.reference().child('inventory_control');
+  var firebaseDataBaseReferene = FirebaseDatabase.instance.reference().child('inventory_control').child(Preferences.getUserId());
   late ScrollController scrollController;
   Map<String,dynamic> inventoryData = {};
   List<String> products = [];

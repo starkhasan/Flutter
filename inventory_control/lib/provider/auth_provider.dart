@@ -1,13 +1,18 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:inventory_control/utils/helper.dart';
 import 'package:inventory_control/utils/preferences.dart';
+import 'package:inventory_control/view/home_page.dart';
 
 class AuthProvider extends ChangeNotifier with Helper{
   bool _isSignin = false;
   bool _authProcess = false;
+  bool _showPassword = false;
+  bool get showPassword => _showPassword;
   bool get userSignIn => _isSignin;
+  bool get authenticationProces => _authProcess;
   UserCredential? userCredential;
   FirebaseAuth firebaseAuthInstance = FirebaseAuth.instance;
 
@@ -27,7 +32,8 @@ class AuthProvider extends ChangeNotifier with Helper{
         Preferences.setLogin(true);
         Preferences.setInventoryName(name);
         Preferences.setUserId(userCredential!.user!.uid);
-        if(!_isSignin) FirebaseDatabase.instance.reference().child('inventory_control').child(userCredential!.user!.uid).update({'name' : name });
+        if(!_isSignin) await FirebaseDatabase.instance.reference().child('inventory_control').child(userCredential!.user!.uid).update({'name' : name });
+        Navigator.pushReplacement(_context, MaterialPageRoute(builder: (_context) => const HomePage()));
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           showSnackBar(_context,'The password provided is too weak.');
@@ -44,6 +50,11 @@ class AuthProvider extends ChangeNotifier with Helper{
       _authProcess = false;
       notifyListeners();
     }
+  }
+
+  void passwordVisibility(){
+    _showPassword = _showPassword ? false : true;
+    notifyListeners();
   }
 
   bool validation(BuildContext _context,String name, String email, String password) {
