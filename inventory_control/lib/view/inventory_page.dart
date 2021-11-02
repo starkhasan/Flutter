@@ -35,12 +35,12 @@ class _InventoryPageState extends State<InventoryPage> {
               itemBuilder: (BuildContext context,int index){
                 var key = input.keys.elementAt(index);
                 return Container(
-                  margin: const EdgeInsets.only(top: 8,left: 5,right: 5),
+                  margin: const EdgeInsets.only(top: 5,left: 5,right: 5,bottom: 5),
                   padding: const EdgeInsets.all(10),
-                  decoration: const BoxDecoration(
+                  decoration:  BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                    boxShadow: [BoxShadow(color: Colors.grey,blurRadius: 1.0)]
+                    boxShadow: const [BoxShadow(color: Color(0xFFBDBDBD),blurRadius: 0.5)],
+                    border: Border(right: BorderSide(color: input[key]['quantity'] > 0 ? Colors.green : Colors.red,width: 3)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,7 +65,7 @@ class _InventoryPageState extends State<InventoryPage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                Text(input[key]['quantity']>0 ? 'In Stock' : 'Out of Stock',style: TextStyle(color: input[key]['quantity']>0 ? Colors.green : Colors.red,fontSize: 11)),
+                                Text(input[key]['quantity']>0 ? 'In Stock' : 'Out of Stock',style: TextStyle(color: input[key]['quantity'] > 0 ? Colors.green : Colors.red,fontSize: 11)),
                                 Text(input[key]['quantity'].toString(),style: const TextStyle(color: Colors.black,fontSize: 12))
                               ]
                             ),
