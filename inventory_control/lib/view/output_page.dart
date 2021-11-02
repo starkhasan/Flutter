@@ -37,8 +37,6 @@ class _MainOutputScreenState extends State<MainOutputScreen>{
   var descriptionConstroller = TextEditingController();
   var firebaseDataBaseReferene = FirebaseDatabase.instance.reference().child('inventory_control').child(Preferences.getUserId());
   late ScrollController scrollController;
-  Map<String,dynamic> inventoryData = {};
-  List<String> products = [];
 
   @override
   void initState() {
@@ -158,11 +156,9 @@ class _MainOutputScreenState extends State<MainOutputScreen>{
                   }
                 );
               }else{
-                return Center(
+                return const Center(
                   child: Text(
-                    inventoryData.isNotEmpty
-                    ? 'To add output inventory click + button in bottom right corner'
-                    : 'Empty Inventory, Please add First'
+                    'Empty Output Inventory'
                   )
                 );
               }

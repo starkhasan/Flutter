@@ -101,7 +101,6 @@ class InputProvider extends ChangeNotifier {
         await firebaseDataBaseReferene.child('inventory').child(productId).update({
           'updatedAt': time,
           'quantity': ServerValue.increment(-int.parse(quantity)),
-          'productDescription': description
         });
         getInventoryData(productId);
         snackBar(_context,'Input Added');
