@@ -7,7 +7,7 @@ class CloseButtonHelper extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 8),
-      padding: const EdgeInsets.only(top: 7,bottom: 7,left: 7,right: 7),
+      padding: const EdgeInsets.only(top: 6,bottom: 6,left: 6,right: 6),
       decoration: BoxDecoration(
         color: const Color(0xFFFFEBEE),
         borderRadius: const BorderRadius.all(Radius.circular(4)),

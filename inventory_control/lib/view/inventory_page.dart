@@ -38,7 +38,7 @@ class _InventoryPageState extends State<InventoryPage> {
                   margin: const EdgeInsets.only(top: 5,left: 5,right: 5,bottom: 5),
                   padding: const EdgeInsets.all(10),
                   decoration:  BoxDecoration(
-                    color: Colors.white,
+                    color: const Color(0xFFFFFFFF),
                     boxShadow: const [BoxShadow(color: Color(0xFFBDBDBD),blurRadius: 0.5)],
                     border: Border(right: BorderSide(color: input[key]['quantity'] > 0 ? Colors.green : Colors.red,width: 3)),
                   ),
