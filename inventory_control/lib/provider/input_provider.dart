@@ -1,17 +1,25 @@
-import 'package:flutter/cupertino.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:inventory_control/model/inventory_model.dart';
 import 'package:inventory_control/services/connectivity_service.dart';
 import 'package:inventory_control/utils/preferences.dart';
 
 class InputProvider extends ChangeNotifier {
+  bool _inventoryFab = false;
+  bool _searchBar = false;
   bool _showFab = true;
   bool _showInStock = false;
   int _quantity = 0;
+  bool _inventoryLoading = true;
+  bool get inventoryFabVisible => _inventoryFab;
+  bool get showSearchBar => _searchBar;
+  bool get mainInventoryLoading => _inventoryLoading;
   bool get showStock => _showInStock;
   int get productQuantity => _quantity;
   bool get showFabButton => _showFab;
   Map<String,dynamic> inventoryData = {};
+  List<InventoryModel> inventoryModel = [];
+  List<InventoryModel> inventoryModelOriginal = [];
   List<String> productId = [];
   var firebaseDataBaseReferene = FirebaseDatabase.instance.reference().child('inventory_control').child(Preferences.getUserId());
 
@@ -20,6 +28,16 @@ class InputProvider extends ChangeNotifier {
       _showInStock = false;
     }
     _showFab = visible;
+    notifyListeners();
+  }
+
+  inventoryShowTab(){
+    _inventoryFab = _inventoryFab ? false : true;
+    notifyListeners();
+  }
+
+  void searchBarVisibility(bool isVisible){
+    _searchBar = isVisible;
     notifyListeners();
   }
 
@@ -111,6 +129,49 @@ class InputProvider extends ChangeNotifier {
       snackBar(_context,'No Internet Connection');
       return false;
     }
+  }
+
+  Future<void> getTotalInventory(BuildContext _context,bool showIndicator) async{
+    _inventoryLoading = showIndicator;
+    notifyListeners();
+    await firebaseDataBaseReferene.child('inventory').once().then((snapshot) {
+      if(snapshot.value != null){
+        var input = snapshot.value;
+        inventoryModel.clear();
+        inventoryModelOriginal.clear();
+        List<InventoryModel> temp = [];
+        for(var itemKey in input.keys){
+          temp.add(
+            InventoryModel(
+              itemKey, 
+              input[itemKey]['quantity'], 
+              input[itemKey]['productDescription'], 
+              input[itemKey]['updatedAt']
+            )
+          );
+        }
+        inventoryModel.addAll(temp);
+        inventoryModelOriginal.addAll(temp);
+      }else{
+        inventoryModel = [];
+      }
+    });
+    _inventoryLoading = false;
+    notifyListeners();
+  }
+
+  void searchInventoryProduct(String productId){
+    inventoryModel.clear();
+    if(productId.isNotEmpty){
+      for(var item in inventoryModelOriginal){
+        if(item.productId.toLowerCase().contains(productId.toLowerCase())){
+          inventoryModel.add(item);
+        }
+      }
+    }else{
+      inventoryModel.addAll(inventoryModelOriginal);
+    }
+    notifyListeners();
   }
 
   bool outputValidation(BuildContext _context,String productId,String quantity){

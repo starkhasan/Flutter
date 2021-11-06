@@ -14,6 +14,7 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.blue));
     Preferences.init();
     return StreamProvider<ConnectivityResult>(
       create: (_) => ConnectivityService().connectionStream,
