@@ -33,7 +33,7 @@ class BottomSearchBar extends StatelessWidget implements PreferredSizeWidget{
               inputFormatters: [FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9\u0900-\u097F]"))],
               style: const TextStyle(color: Colors.black,fontFamily: '',fontSize: 14),
               decoration: InputDecoration.collapsed(
-                hintText: 'Search ProductID',
+                hintText: 'Search Products Here',
                 hintStyle: TextStyle(color: Colors.grey[400],fontSize: 12,fontFamily: '')
               ),
               onChanged: (input) => inputProvider.searchInventoryProduct(input)
