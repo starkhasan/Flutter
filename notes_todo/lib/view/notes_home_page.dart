@@ -95,8 +95,8 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
               widget.notesProvider.fabAction(),
             },
             child: Container(
-              width: MediaQuery.of(context).size.width * 0.13,
-              height: MediaQuery.of(context).size.height * 0.13,
+              width: MediaQuery.of(context).size.width * 0.12,
+              height: MediaQuery.of(context).size.height * 0.12,
               decoration: BoxDecoration(
                 color: Preferences.getAppTheme() ? Colors.tealAccent[400] : Colors.indigo,
                 shape: BoxShape.circle
@@ -184,10 +184,10 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
           secondaryBackground: Container(color: Colors.red,padding: const EdgeInsets.only(right: 20),alignment: Alignment.centerRight,child: const Icon(Icons.delete,color: Colors.white)),
           background: Container(color: Colors.white),
           direction: DismissDirection.endToStart,
-          key: Key(widget.notesProvider.listNote[index]),
+          key: UniqueKey(),
           onDismissed: (direction) {
             var item = widget.notesProvider.listNote[index];
-            widget.notesProvider.removeTask(widget.notesProvider.listNote[index]);
+            widget.notesProvider.removeTask(widget.notesProvider.listNote[index], index);
             showSnackbar(context,item,'$item removed from Task',index,'task');
           },
           child: Container(
@@ -211,7 +211,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                       activeColor: Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
                       value: widget.notesProvider.selectedTaskIndex == index, 
-                      onChanged: (value) => widget.notesProvider.checkedTask(widget.notesProvider.listNote[index],index)
+                      onChanged: (value) => widget.notesProvider.checkedTask(index)
                     )
                   )
                 ),
@@ -237,10 +237,10 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
           secondaryBackground: Container(color: Colors.red,padding: const EdgeInsets.only(right: 20),alignment: Alignment.centerRight,child: const Icon(Icons.delete,color: Colors.white)),
           background: Container(color: Colors.red),
           direction: DismissDirection.endToStart,
-          key: Key(widget.notesProvider.completedList[index]),
+          key: UniqueKey(),
           onDismissed: (direction){
             var item = widget.notesProvider.completedList[index];
-            widget.notesProvider.removeCompletedTask(item);
+            widget.notesProvider.removeCompletedTask(index);
             showSnackbar(context,item,'$item removed from Complated Task',index,'completeTask');
           },
           child: Container(

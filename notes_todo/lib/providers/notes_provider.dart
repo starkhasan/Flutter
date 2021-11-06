@@ -3,8 +3,9 @@ import 'package:notes_todo/utils/helpers.dart';
 import 'package:notes_todo/utils/preferences.dart';
 import 'package:firebase_database/firebase_database.dart';
 
-class NotesProvider extends ChangeNotifier with Helpers{
-  DatabaseReference databaseReference = FirebaseDatabase.instance.reference().child('notes_todo');
+class NotesProvider extends ChangeNotifier with Helpers {
+  DatabaseReference databaseReference =
+      FirebaseDatabase.instance.reference().child('notes_todo');
   bool fabVisible = true;
   String _name = '';
   bool taskContainerVisible = false;
@@ -15,7 +16,6 @@ class NotesProvider extends ChangeNotifier with Helpers{
   List<String> listNote = Preferences.getStoredTask();
   List<String> completedList = Preferences.getCompleteTask();
 
-
   void fabAction() {
     fabVisible = fabVisible ? false : true;
     taskContainerVisible = taskContainerVisible ? false : true;
@@ -24,14 +24,14 @@ class NotesProvider extends ChangeNotifier with Helpers{
 
   void deleteAllNotes() {
     Preferences.setLocalDelete(true);
-    if(Preferences.getSyncEnabled()){
+    if (Preferences.getSyncEnabled()) {
       Preferences.setSyncEnabled(false);
       listNote.clear();
       completedList.clear();
       storeTaskLocally();
       storeCompleteTaskLocally();
       Preferences.setSyncEnabled(true);
-    }else{
+    } else {
       listNote.clear();
       completedList.clear();
       storeTaskLocally();
@@ -46,18 +46,18 @@ class NotesProvider extends ChangeNotifier with Helpers{
     notifyListeners();
   }
 
-  void removeTask(String item) {
-    listNote.removeWhere((key) => key == item);
+  void removeTask(String item, int index) {
+    listNote.removeAt(index);
     storeTaskLocally();
     notifyListeners();
   }
 
-  void checkedTask(String item, int index) {
+  void checkedTask(int index) {
     selectedTaskIndex = index;
     notifyListeners();
     Future.delayed(const Duration(milliseconds: 250), () {
-      listNote.removeWhere((key) => key == item);
-      completedList.add(item);
+      completedList.add(listNote[index]);
+      listNote.removeAt(index);
       storeCompleteTaskLocally();
       storeTaskLocally();
       selectedTaskIndex = -1;
@@ -65,16 +65,15 @@ class NotesProvider extends ChangeNotifier with Helpers{
     });
   }
 
-  void removeCompletedTask(String item) {
-    completedList.removeWhere((element) => element == item);
+  void removeCompletedTask(int index) {
+    completedList.removeAt(index);
     storeCompleteTaskLocally();
     notifyListeners();
   }
 
   void unCheckedCompletedTask(int index) {
-    var item = completedList[index];
-    listNote.add(item);
-    completedList.remove(item);
+    listNote.add(completedList[index]);
+    completedList.removeAt(index);
     storeTaskLocally();
     storeCompleteTaskLocally();
     notifyListeners();
@@ -92,35 +91,43 @@ class NotesProvider extends ChangeNotifier with Helpers{
     notifyListeners();
   }
 
-  void storeTaskLocally() async{
+  void storeTaskLocally() async {
     if (Preferences.getSyncEnabled()) {
       if (listNote.isNotEmpty) {
-        if(Preferences.getLocalDeleted()){
+        if (Preferences.getLocalDeleted()) {
           _dataSync = true;
           notifyListeners();
-          await databaseReference.child(Preferences.getUserID()).once().then((DataSnapshot snapshot) {
-              if(snapshot.value  != null){
-                if(snapshot.value['task'] != null){
-                  var tempTask = snapshot.value['task'].split(',');
-                  for(var item in tempTask){
-                    listNote.add(item);
-                  }
-                }
-                if(snapshot.value['completeTask'] != null){
-                  var tempTask = snapshot.value['completeTask'].split(',');
-                  for(var item in tempTask){
-                    completedList.add(item);
-                  }
+          await databaseReference
+              .child(Preferences.getUserID())
+              .once()
+              .then((DataSnapshot snapshot) {
+            if (snapshot.value != null) {
+              if (snapshot.value['task'] != null) {
+                var tempTask = snapshot.value['task'].split(',');
+                for (var item in tempTask) {
+                  listNote.add(item);
                 }
               }
+              if (snapshot.value['completeTask'] != null) {
+                var tempTask = snapshot.value['completeTask'].split(',');
+                for (var item in tempTask) {
+                  completedList.add(item);
+                }
+              }
+            }
           });
           Preferences.setLocalDelete(false);
           _dataSync = false;
           notifyListeners();
         }
-        await databaseReference.child(Preferences.getUserID()).update({'task': listNote.join(',')});
+        await databaseReference
+            .child(Preferences.getUserID())
+            .update({'task': listNote.join(',')});
       } else {
-        await databaseReference.child(Preferences.getUserID()).child('task').remove();
+        await databaseReference
+            .child(Preferences.getUserID())
+            .child('task')
+            .remove();
       }
     }
     Preferences.storeTask(listNote);
@@ -129,15 +136,20 @@ class NotesProvider extends ChangeNotifier with Helpers{
   void storeCompleteTaskLocally() async {
     if (Preferences.getSyncEnabled()) {
       if (completedList.isEmpty) {
-        await databaseReference.child(Preferences.getUserID()).child('completeTask').remove();
+        await databaseReference
+            .child(Preferences.getUserID())
+            .child('completeTask')
+            .remove();
       } else {
-        await databaseReference.child(Preferences.getUserID()).update({'completeTask': completedList.join(',')});
+        await databaseReference
+            .child(Preferences.getUserID())
+            .update({'completeTask': completedList.join(',')});
       }
     }
     Preferences.storeCompleteTask(completedList);
   }
 
-  void drawerName(){
+  void drawerName() {
     listNote = Preferences.getStoredTask();
     completedList = Preferences.getCompleteTask();
     _name = Preferences.getUserName();
@@ -145,34 +157,40 @@ class NotesProvider extends ChangeNotifier with Helpers{
   }
 
   void syncEnableFromSyncNote(BuildContext _context) async {
-    if(await checkInternetConnection()){
+    if (await checkInternetConnection()) {
       _dataSync = true;
       notifyListeners();
-      await databaseReference.child(Preferences.getUserID()).once().then((DataSnapshot snapshot) {
-        if(snapshot.value  != null){
-
-          if(snapshot.value['name'] != null) {
+      await databaseReference
+          .child(Preferences.getUserID())
+          .once()
+          .then((DataSnapshot snapshot) {
+        if (snapshot.value != null) {
+          if (snapshot.value['name'] != null) {
             _name = snapshot.value['name'];
             Preferences.setUserName(snapshot.value['name']);
           }
 
-          if(snapshot.value['task'] != null) {
+          if (snapshot.value['task'] != null) {
             listNote = Preferences.getStoredTask();
             var tempTask = snapshot.value['task'].split(',');
-            for(var item in tempTask){
-              if(!listNote.contains(item)) listNote.add(item);
+            for (var item in tempTask) {
+              if (!listNote.contains(item)) listNote.add(item);
             }
-            databaseReference.child(Preferences.getUserID()).update({'task': listNote.join(',')});
+            databaseReference
+                .child(Preferences.getUserID())
+                .update({'task': listNote.join(',')});
             Preferences.storeTask(listNote);
           }
 
-          if(snapshot.value['completeTask'] != null){
+          if (snapshot.value['completeTask'] != null) {
             completedList = Preferences.getCompleteTask();
             var tempTask = snapshot.value['completeTask'].split(',');
-            for(var item in tempTask){
-              if(!completedList.contains(item)) completedList.add(item);
+            for (var item in tempTask) {
+              if (!completedList.contains(item)) completedList.add(item);
             }
-            databaseReference.child(Preferences.getUserID()).update({'completeTask': completedList.join(',')});
+            databaseReference
+                .child(Preferences.getUserID())
+                .update({'completeTask': completedList.join(',')});
             Preferences.storeCompleteTask(completedList);
           }
           Preferences.setLocalDelete(false);
@@ -180,9 +198,8 @@ class NotesProvider extends ChangeNotifier with Helpers{
       });
       _dataSync = false;
       notifyListeners();
-    }else{
+    } else {
       showSnackBar(_context, 'No Internet Connection');
     }
   }
-
 }
