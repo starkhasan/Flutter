@@ -204,7 +204,7 @@ class _LogoutPageState extends State<LogoutPage> {
   Widget build(BuildContext context) {
     return Container(
       color: Preferences.getAppTheme() ? const Color(0xFF161616) : Colors.white,
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(10),
       child: Column(
         children: [
           Expanded(
