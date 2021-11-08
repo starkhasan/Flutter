@@ -21,7 +21,7 @@ class InputProvider extends ChangeNotifier {
   List<InventoryModel> inventoryModel = [];
   List<InventoryModel> inventoryModelOriginal = [];
   List<String> productId = [];
-  var firebaseDataBaseReferene = FirebaseDatabase.instance.reference().child('inventory_control').child(Preferences.getUserId());
+  var firebaseDataBaseReferene = FirebaseDatabase.instance.reference().child('inventory_control').child(Preferences.getUserId()).child(Preferences.getInventoryName());
 
   void fabVisibility(bool visible) {
     if(visible){
@@ -87,7 +87,7 @@ class InputProvider extends ChangeNotifier {
         var time = DateTime.now().toString().substring(0,19);
         await firebaseDataBaseReferene.child('input').push().set({
           'productID': productId,
-          'quantity': quantity,
+          'quantity': int.parse(quantity),
           'productDescription': description,
           'createdAt': time
         });

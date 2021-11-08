@@ -29,14 +29,27 @@ class AuthProvider extends ChangeNotifier with Helper{
         ? userCredential = await firebaseAuthInstance.signInWithEmailAndPassword(email: email, password: password)
         : userCredential = await firebaseAuthInstance.createUserWithEmailAndPassword(email: email, password: password);
         Preferences.setLogin(true);
-        Preferences.setInventoryName(name);
         Preferences.setUserId(userCredential!.user!.uid);
         if(!_isSignin) {
-          await FirebaseDatabase.instance.reference().child('inventory_control').child(userCredential!.user!.uid).update({'name' : name });
+          Preferences.setUserName(name);
+          await FirebaseDatabase.instance.reference().child('inventory_control').child(userCredential!.user!.uid).update({
+            'email': email,
+            'userName': name
+          });
         }else{
           await FirebaseDatabase.instance.reference().child('inventory_control').child(userCredential!.user!.uid).once().then((snapshot){
             if(snapshot.value != null){
-              Preferences.setInventoryName(snapshot.value['name']);
+              Preferences.setUserName(snapshot.value['userName']);
+              List<String> temp = [];
+              snapshot.value.keys.forEach((item) {
+                if(item != 'email' && item != 'userName'){
+                  if(Preferences.getInventoryName().isEmpty){
+                    Preferences.setInventoryName(item);
+                  }
+                  temp.add(item);
+                }
+              });
+              Preferences.setTotalInventory(temp);
             }
           });
         }

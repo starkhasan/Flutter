@@ -15,7 +15,7 @@ class InventoryPage extends StatefulWidget {
 
 class _InventoryPageState extends State<InventoryPage> {
 
-  var firebaseDataBaseReferene = FirebaseDatabase.instance.reference().child('inventory_control').child(Preferences.getUserId());
+  var firebaseDataBaseReferene = FirebaseDatabase.instance.reference().child('inventory_control').child(Preferences.getUserId()).child(Preferences.getInventoryName());
 
   @override
   Widget build(BuildContext context) {
@@ -163,7 +163,7 @@ class ProductContainer extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text('Product Id',style: TextStyle(color: Colors.grey,fontSize: 11)),
-                    Text(provider.inventoryModel[index].productId,style: const TextStyle(color: Colors.black,fontSize: 12))
+                    Text(provider.inventoryModel[index].productId.toString(),style: const TextStyle(color: Colors.black,fontSize: 12))
                   ]
                 ),
               ),
@@ -187,7 +187,7 @@ class ProductContainer extends StatelessWidget {
               children: [
                 const SizedBox(height: 10),
                 const Text('Product Description',style: TextStyle(color: Colors.grey,fontSize: 10)),
-                Text(provider.inventoryModel[index].productDescription,style: const TextStyle(color: Colors.black,fontSize: 11))
+                Text(provider.inventoryModel[index].productDescription.toString(),style: const TextStyle(color: Colors.black,fontSize: 11))
               ]
             )
           ),

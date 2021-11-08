@@ -29,7 +29,7 @@ class ProductContent extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text('Product Id',style: TextStyle(color: Colors.grey,fontSize: 11)),
-                    Text(input[keyInput]['productID'],style: const TextStyle(color: Colors.black,fontSize: 12))
+                    Text(input[keyInput]['productID'].toString(),style: const TextStyle(color: Colors.black,fontSize: 12))
                   ]
                 ),
               ),
@@ -40,7 +40,7 @@ class ProductContent extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     const Text('Quantity',style: TextStyle(color: Colors.grey,fontSize: 11)),
-                    Text(input[keyInput]['quantity'],style: const TextStyle(color: Colors.black,fontSize: 12))
+                    Text(input[keyInput]['quantity'].toString(),style: const TextStyle(color: Colors.black,fontSize: 12))
                   ]
                 ),
               )

@@ -70,6 +70,7 @@ class _MainSplashScreenState extends State<MainSplashScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Image.asset('asset/app_icon.png',height: imageSize, width: imageSize),
+                  const SizedBox(height: 15),
                   const Text(
                     'Inventory',
                     style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,fontFamily: '')

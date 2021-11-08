@@ -36,7 +36,7 @@ class _MainAuthenticationPageState extends State<MainAuthenticationPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    imageSize = MediaQuery.of(context).size.height * 0.16;
+    imageSize = MediaQuery.of(context).size.height * 0.12;
   }
 
   @override
@@ -44,13 +44,13 @@ class _MainAuthenticationPageState extends State<MainAuthenticationPage> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(0),
-        child: AppBar(backgroundColor: Colors.blue),
+        child: AppBar(backgroundColor: Colors.blue)
       ),
       body: Consumer<AuthProvider>(
         builder: (context, authProvider, child){
           return Container(
             color: Colors.white,
-            padding: EdgeInsets.only(top: 5,left: MediaQuery.of(context).size.width * 0.15,right: MediaQuery.of(context).size.width * 0.15,bottom: 5),
+            padding: EdgeInsets.only(top: 20,left: MediaQuery.of(context).size.width * 0.10,right: MediaQuery.of(context).size.width * 0.10,bottom: 5),
             child: Column(
               children: [
                 Expanded(
@@ -61,6 +61,7 @@ class _MainAuthenticationPageState extends State<MainAuthenticationPage> {
                           alignment: Alignment.center,
                           child: Image.asset('asset/app_icon.png',height: imageSize,width: imageSize)
                         ),
+                        const SizedBox(height: 15),
                         const Text(
                           'Authentication Users',
                           style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)
@@ -77,7 +78,7 @@ class _MainAuthenticationPageState extends State<MainAuthenticationPage> {
                                     border: Border(bottom: BorderSide(width: 2,color: authProvider.userSignIn ? Colors.transparent : Colors.red))
                                   ),
                                   child: Text('Signup',textAlign: TextAlign.center,style: TextStyle(color: authProvider.userSignIn ? Colors.grey : Colors.black,fontWeight: FontWeight.bold))
-                                ),
+                                )
                               )
                             ),
                             Expanded(
@@ -104,11 +105,11 @@ class _MainAuthenticationPageState extends State<MainAuthenticationPage> {
                             textInputAction: TextInputAction.next,
                             cursorColor: Theme.of(context).toggleableActiveColor,
                             decoration: InputDecoration(
-                              hintText: 'Inventory Name*',
+                              hintText: 'Username *',
                               hintStyle: const TextStyle(color: Colors.grey,fontSize: 12),
                               focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Theme.of(context).toggleableActiveColor))
-                            ),
-                          ),
+                            )
+                          )
                         ),
                         const SizedBox(height: 5),
                         TextField(
@@ -121,7 +122,7 @@ class _MainAuthenticationPageState extends State<MainAuthenticationPage> {
                             hintText: 'Email*',
                             hintStyle: const TextStyle(color: Colors.grey,fontSize: 12),
                             focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Theme.of(context).toggleableActiveColor))
-                          ),
+                          )
                         ),
                         const SizedBox(height: 5),
                         TextField(
@@ -151,7 +152,7 @@ class _MainAuthenticationPageState extends State<MainAuthenticationPage> {
                         )
                       ]
                     )
-                  ),
+                  )
                 )
               ]
             )
