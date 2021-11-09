@@ -34,7 +34,8 @@ class AuthProvider extends ChangeNotifier with Helper{
           Preferences.setUserName(name);
           await FirebaseDatabase.instance.reference().child('inventory_control').child(userCredential!.user!.uid).update({
             'email': email,
-            'userName': name
+            'userName': name,
+            'createdAt': DateTime.now().toString()
           });
         }else{
           await FirebaseDatabase.instance.reference().child('inventory_control').child(userCredential!.user!.uid).once().then((snapshot){

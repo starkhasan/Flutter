@@ -7,6 +7,7 @@ import 'package:inventory_control/provider/home_provider.dart';
 import 'package:inventory_control/view/setting_page.dart';
 
 mixin Helper{
+  
   showSnackBar(BuildContext _context,String message){
     var snackBar = SnackBar(content: Text(message,style: const TextStyle(fontSize: 11)),duration: const Duration(seconds: 3));
     ScaffoldMessenger.of(_context).showSnackBar(snackBar);
