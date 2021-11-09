@@ -13,6 +13,7 @@ class CreateInventoryDialog extends StatefulWidget{
 class _CreateInventoryDialogState extends State<CreateInventoryDialog> with Helper {
 
   var textController = TextEditingController();
+  bool isShowError = false; 
 
   @override
   Widget build(BuildContext context) {
@@ -54,13 +55,15 @@ class _CreateInventoryDialogState extends State<CreateInventoryDialog> with Help
               controller: textController,
               autofocus: true,
               style: const TextStyle(fontSize: 12),
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'Inventory Name',
                 labelText: 'Inventory Name',
-                hintStyle: TextStyle(color: Colors.grey,fontSize: 12.0)
+                errorText: isShowError ? 'Please provide valid name' : null,
+                hintStyle: const TextStyle(color: Colors.grey,fontSize: 12.0)
               ),
               onChanged: (value) => {
                 if(value.isNotEmpty){
+                  isShowError = false,
                   widget.provider.searchInventoryName(value)
                 },
                 setState((){})
@@ -98,7 +101,8 @@ class _CreateInventoryDialogState extends State<CreateInventoryDialog> with Help
                           Navigator.pop(context);
                         }
                       }else{
-                        showSnackBar(context, 'Please provider valid name');
+                        isShowError = true;
+                        setState(() {});
                       }
                     },
                     child: Container(
