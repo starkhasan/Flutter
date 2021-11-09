@@ -6,9 +6,6 @@ import 'package:inventory_control/utils/confirmation_dialog.dart';
 import 'package:inventory_control/utils/helper.dart';
 import 'package:inventory_control/utils/inventory_create_dialog.dart';
 import 'package:inventory_control/view/authentication_page.dart';
-import 'package:inventory_control/view/input_page.dart';
-import 'package:inventory_control/view/inventory_page.dart';
-import 'package:inventory_control/view/output_page.dart';
 import 'package:inventory_control/utils/preferences.dart';
 import 'package:provider/provider.dart';
 
