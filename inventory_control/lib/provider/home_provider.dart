@@ -1,10 +1,11 @@
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:inventory_control/utils/helper.dart';
 import 'package:inventory_control/utils/preferences.dart';
 
-class HomeProvider extends ChangeNotifier {
-  bool _loading = true;
+class HomeProvider extends ChangeNotifier with Helper{
+  bool _loading = false;
   bool get isLoading => _loading;
   bool _inventoryAvailable = false;
   bool get isInventoryAvailable => _inventoryAvailable;
@@ -74,15 +75,23 @@ class HomeProvider extends ChangeNotifier {
     });
   }
 
-  Future<bool> createInventory(String inventoryName) async{
+  Future<bool> createInventory(BuildContext _context,String inventoryName) async{
+    _loading = true;
+    notifyListeners();
     var returnValue = false;
     await firebaseReference.child(inventoryName).update({'createdAt': DateTime.now().toString()})
     .then((value) async{
       await updatedInventory();
       getPopupMenuData();
+      showSnackBar(_context,'Inventory Created Successfully');
       returnValue = true;
     })
-    .onError((error, stackTrace){returnValue = false;});
+    .onError((error, stackTrace){
+      showSnackBar(_context, 'Error : ${error.toString}');
+      returnValue = false;
+    });
+    _loading = false;
+    notifyListeners();
     return returnValue;
   }
 }
