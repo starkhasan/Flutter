@@ -161,7 +161,7 @@ class InputProvider extends ChangeNotifier {
   }
 
   void searchInventoryProduct(String productId){
-
+    inventoryModel.clear();
     if(productId.isNotEmpty){
       for(var item in inventoryModelOriginal){
         if(item.productId.toLowerCase().contains(productId.toLowerCase())){
