@@ -116,6 +116,7 @@ class _MainHomePageState extends State<MainHomePage> with Helper{
             Preferences.setUserId(''),
             Preferences.setUserName(''),
             Preferences.setTotalInventory([]),
+            Preferences.setImagePath(''),
             Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const AuthenticationPage()), (route) => false)
           }
         );
@@ -140,10 +141,10 @@ class _MainHomePageState extends State<MainHomePage> with Helper{
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const CircleAvatar(
-                  radius: 26.0,
-                  backgroundImage: AssetImage('asset/app_icon.png'),
-                  backgroundColor: Colors.blue
+                 CircleAvatar(
+                  backgroundColor: Colors.grey[200],
+                  backgroundImage: Preferences.getImagePath().isEmpty ? const NetworkImage('https://i.ibb.co/Tm8jmFY/add-1.png') : NetworkImage(Preferences.getImagePath()),
+                  radius: 26.0
                 ),
                 const SizedBox(height: 20),
                 Text('Hi, ${Preferences.getUserName()}',style: const TextStyle(color: Colors.white,fontSize: 12,fontWeight: FontWeight.bold))

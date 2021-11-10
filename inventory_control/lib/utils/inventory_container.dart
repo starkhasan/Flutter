@@ -29,8 +29,8 @@ class InventoryContainer extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Product Id',style: TextStyle(color: Colors.grey,fontSize: 11)),
-                    Text(provider.inventoryModel[index].productId.toString(),style: const TextStyle(color: Colors.black,fontSize: 12))
+                    const Text('Product Id',style: TextStyle(color: Colors.grey,fontSize: 12)),
+                    Text(provider.inventoryModel[index].productId.toString(),style: const TextStyle(color: Colors.black,fontSize: 14))
                   ]
                 ),
               ),
@@ -40,8 +40,8 @@ class InventoryContainer extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(provider.inventoryModel[index].productQuantity > 0 ? 'In Stock' : 'Out of Stock',style: TextStyle(color: provider.inventoryModel[index].productQuantity > 0 ? Colors.green : Colors.red,fontSize: 11)),
-                    Text(provider.inventoryModel[index].productQuantity.toString(),style: const TextStyle(color: Colors.black,fontSize: 12))
+                    Text(provider.inventoryModel[index].productQuantity > 0 ? 'In Stock' : 'Out of Stock',style: TextStyle(color: provider.inventoryModel[index].productQuantity > 0 ? Colors.green : Colors.red,fontSize: 12)),
+                    Text(provider.inventoryModel[index].productQuantity.toString(),style: const TextStyle(color: Colors.black,fontSize: 14))
                   ]
                 ),
               )
@@ -54,7 +54,7 @@ class InventoryContainer extends StatelessWidget {
               children: [
                 const SizedBox(height: 10),
                 const Text('Product Description',style: TextStyle(color: Colors.grey,fontSize: 10)),
-                Text(provider.inventoryModel[index].productDescription.toString(),style: const TextStyle(color: Colors.black,fontSize: 11))
+                Text(provider.inventoryModel[index].productDescription.toString(),style: const TextStyle(color: Colors.black,fontSize: 12))
               ]
             )
           ),

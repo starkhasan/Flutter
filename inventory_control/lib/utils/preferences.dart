@@ -50,4 +50,12 @@ class Preferences {
   static List<String> getTotalInventory() {
     return _sharedPreferences!.getStringList('TOTAL_INVENTORY') ?? [];
   }
+
+  static void setImagePath(String imagePath) {
+    _sharedPreferences!.setString('IMAGE_PATH', imagePath);
+  }
+
+  static String getImagePath() {
+    return _sharedPreferences!.getString('IMAGE_PATH') ?? '';
+  }
 }

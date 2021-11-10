@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:inventory_control/provider/setting_provider.dart';
 import 'package:inventory_control/utils/datetime_conversion.dart';
 import 'package:provider/provider.dart';
@@ -31,6 +33,8 @@ class _MainSettingPageState extends State<MainSettingPage> with Helper{
 
   var emailController = TextEditingController();
   var nameController = TextEditingController();
+  var _imageSize = 0.0;
+  var _buttonSize = 0.0;
 
   @override
   void initState() {
@@ -38,6 +42,13 @@ class _MainSettingPageState extends State<MainSettingPage> with Helper{
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) { 
       widget.provider.getInventoryData();
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _imageSize = MediaQuery.of(context).size.height * 0.05;
+    _buttonSize = MediaQuery.of(context).size.height * 0.04;
   }
 
   @override
@@ -69,12 +80,39 @@ class _MainSettingPageState extends State<MainSettingPage> with Helper{
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Align(
+          Align(
             alignment: Alignment.center,
-            child: CircleAvatar(
-              radius: 40,
-              backgroundColor: Colors.white,
-              backgroundImage: AssetImage('asset/app_icon.png')
+            child: Container(
+              padding: EdgeInsets.zero,
+              height: _imageSize * 2,
+              width: _imageSize * 2,
+              child: Stack(
+                children: [
+                  CircleAvatar(
+                    backgroundColor: Colors.grey[200],
+                    backgroundImage: data.imagePath.isEmpty ? const NetworkImage('https://i.ibb.co/Tm8jmFY/add-1.png') : NetworkImage(data.imagePath),
+                    radius: _imageSize
+                  ),
+                  Positioned(
+                    right: 0,bottom: 0,
+                    child: Container(
+                      width: _buttonSize,
+                      height: _buttonSize,
+                      decoration: const BoxDecoration(color: Colors.blue,shape: BoxShape.circle),
+                      child: Center(
+                        child: IconButton(
+                          padding: EdgeInsets.zero,
+                          onPressed: () async{
+                            var source = await chooseImageSource();
+                            widget.provider.uploadImageFile(context,source);
+                          },
+                          icon: const Icon(Icons.camera_alt_rounded,color: Colors.white,size: 20)
+                        )
+                      )
+                    )
+                  )
+                ]
+              )
             )
           ),
           const SizedBox(height: 10),
@@ -132,7 +170,7 @@ class _MainSettingPageState extends State<MainSettingPage> with Helper{
             )
           ),
           const SizedBox(height: 15),
-          const Text('Total Inventory',style: TextStyle(fontSize: 12.0)),
+          Visibility(visible: data.listInventory.isNotEmpty, child: const Text('Total Inventory',style: TextStyle(fontSize: 12.0))),
           const SizedBox(height: 2),
           ListView.builder(
             shrinkWrap: true,
@@ -170,5 +208,28 @@ class _MainSettingPageState extends State<MainSettingPage> with Helper{
         ]
       )
     );
+  }
+
+  Future<ImageSource> chooseImageSource() async{
+    var source = await showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context){
+        return CupertinoAlertDialog(
+          title: const Text('Choose Image Source',style: TextStyle(fontSize: 14)),
+          actions: [
+            CupertinoDialogAction(
+              onPressed: () => Navigator.pop(context,ImageSource.camera),
+              child: const Text('Camera',style: TextStyle(fontSize: 14))
+            ),
+            CupertinoDialogAction(
+              onPressed: () => Navigator.pop(context, ImageSource.gallery),
+              child: const Text('Gallery',style: TextStyle(color: Colors.red,fontSize: 14))
+            )
+          ]
+        );
+      }
+    );
+    return source;
   }
 }

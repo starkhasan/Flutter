@@ -29,7 +29,7 @@ class ProductContent extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text('Product Id',style: TextStyle(color: Colors.grey,fontSize: 11)),
-                    Text(input[keyInput]['productID'].toString(),style: const TextStyle(color: Colors.black,fontSize: 12))
+                    Text(input[keyInput]['productID'].toString(),style: const TextStyle(color: Colors.black,fontSize: 14))
                   ]
                 ),
               ),
@@ -40,7 +40,7 @@ class ProductContent extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     const Text('Quantity',style: TextStyle(color: Colors.grey,fontSize: 11)),
-                    Text(input[keyInput]['quantity'].toString(),style: const TextStyle(color: Colors.black,fontSize: 12))
+                    Text(input[keyInput]['quantity'].toString(),style: const TextStyle(color: Colors.black,fontSize: 14))
                   ]
                 ),
               )
@@ -52,8 +52,8 @@ class ProductContent extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 10),
-                const Text('Product Description',style: TextStyle(color: Colors.grey,fontSize: 10)),
-                Text(input[keyInput]['productDescription'],style: const TextStyle(color: Colors.black,fontSize: 11))
+                const Text('Product Description',style: TextStyle(color: Colors.grey,fontSize: 11)),
+                Text(input[keyInput]['productDescription'],style: const TextStyle(color: Colors.black,fontSize: 12))
               ]
             )
           ),
@@ -67,8 +67,8 @@ class ProductContent extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Created At',style: TextStyle(color: Colors.grey[600],fontSize: 10)),
-                Text(input[keyInput]['createdAt'].toString().convertTime,style: const TextStyle(color: Colors.black,fontSize: 10))
+                Text('Created At',style: TextStyle(color: Colors.grey[600],fontSize: 11)),
+                Text(input[keyInput]['createdAt'].toString().convertTime,style: const TextStyle(color: Colors.black,fontSize: 11))
               ]
             )
           )

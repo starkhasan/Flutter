@@ -65,9 +65,10 @@ class HomeProvider extends ChangeNotifier with Helper{
     await FirebaseDatabase.instance.reference().child('inventory_control').child(Preferences.getUserId()).once().then((snapshot){
       if(snapshot.value != null){
         Preferences.setUserName(snapshot.value['userName']);
+        Preferences.setImagePath(snapshot.value['profileImage']);
         List<String> temp = [];
         snapshot.value.keys.forEach((item) {
-          if(item != 'email' && item != 'userName' && item != 'createdAt'){
+          if(item != 'email' && item != 'userName' && item != 'createdAt' && item != 'profileImage'){
             if(Preferences.getInventoryName().isEmpty){
               Preferences.setInventoryName(item);
             }
