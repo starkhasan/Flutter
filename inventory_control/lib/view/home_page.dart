@@ -57,9 +57,11 @@ class _MainHomePageState extends State<MainHomePage> with Helper{
             : 'Inventory Control',
             style: const TextStyle(fontSize: 14)
           ),
-          actions: [popUpMenu()],
+          actions: [popUpMenu()]
         ),
-        body: Container(
+        body: widget.homeProvider.isLoading
+        ? const Center(child: CircularProgressIndicator(strokeWidth: 2.0))
+        : Container(
           padding: const EdgeInsets.only(top: 5),
           child: Preferences.getTotalInventory().isNotEmpty
           ? ListView.builder(
@@ -86,7 +88,7 @@ class _MainHomePageState extends State<MainHomePage> with Helper{
               );
             }
           )
-          : const Center(child: Text('Please create inventory'),)
+          : const Center(child: Text('Please create inventory'))
         )
       )
     );
@@ -97,7 +99,7 @@ class _MainHomePageState extends State<MainHomePage> with Helper{
       onSelected: (value) => widget.homeProvider.changePopUpMenuData(value!),
       padding: EdgeInsets.zero,
       iconSize: 22,
-      itemBuilder: (context) => widget.homeProvider.listPopupMenu,
+      itemBuilder: (context) => widget.homeProvider.listPopupMenu
     );
   }
 

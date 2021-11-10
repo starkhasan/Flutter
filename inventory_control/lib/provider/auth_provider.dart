@@ -43,7 +43,7 @@ class AuthProvider extends ChangeNotifier with Helper{
               Preferences.setUserName(snapshot.value['userName']);
               List<String> temp = [];
               snapshot.value.keys.forEach((item) {
-                if(item != 'email' && item != 'userName'){
+                if(item != 'email' && item != 'userName' && item != 'createdAt'){
                   if(Preferences.getInventoryName().isEmpty){
                     Preferences.setInventoryName(item);
                   }

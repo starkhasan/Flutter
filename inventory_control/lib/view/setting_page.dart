@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:inventory_control/utils/helper.dart';
 
 class SettingPage extends StatelessWidget {
+
   const SettingPage({ Key? key }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,6 @@ class SettingPage extends StatelessWidget {
 class MainSettingPage extends StatefulWidget {
   final SettingProvider provider;
   const MainSettingPage({ Key? key,required this.provider}) : super(key: key);
-
   @override
   _MainSettingPageState createState() => _MainSettingPageState();
 }
@@ -98,6 +98,7 @@ class _MainSettingPageState extends State<MainSettingPage> with Helper{
                 Text('Created At',style: TextStyle(color: Colors.grey[600],fontSize: 11)),
                 const SizedBox(height: 5),
                 TextField(
+                  enabled: false,
                   controller: TextEditingController(text: data.createdAt.toString().convertTime),
                   style: const TextStyle(fontSize: 14),
                   decoration: const InputDecoration.collapsed(
@@ -120,6 +121,7 @@ class _MainSettingPageState extends State<MainSettingPage> with Helper{
                 Text('Registered Email',style: TextStyle(color: Colors.grey[600],fontSize: 11)),
                 const SizedBox(height: 5),
                 TextField(
+                  enabled: false,
                   controller: TextEditingController(text: data.email),
                   style: const TextStyle(fontSize: 14),
                   decoration: const InputDecoration.collapsed(
@@ -131,7 +133,7 @@ class _MainSettingPageState extends State<MainSettingPage> with Helper{
           ),
           const SizedBox(height: 15),
           const Text('Total Inventory',style: TextStyle(fontSize: 12.0)),
-          const SizedBox(height: 4),
+          const SizedBox(height: 2),
           ListView.builder(
             shrinkWrap: true,
             padding: EdgeInsets.zero,
@@ -140,11 +142,11 @@ class _MainSettingPageState extends State<MainSettingPage> with Helper{
             itemBuilder: (BuildContext context,int index){
               return Container(
                 padding: const EdgeInsets.all(14),
-                margin: const EdgeInsets.only(top: 6,right: 5),
-                decoration: const BoxDecoration(
+                margin: const EdgeInsets.only(top: 6),
+                decoration: BoxDecoration(
                   color: Colors.white,
-                  boxShadow: [BoxShadow(color: Colors.grey,blurRadius: 1.0)],
-                  borderRadius: BorderRadius.all(Radius.circular(5))
+                  borderRadius: const BorderRadius.all(Radius.circular(5)),
+                  border: Border.all(color: const Color(0xFF424242),width: 0.5)
                 ),
                 child: Text(data.listInventory[index],style: const TextStyle(fontSize: 16.0))
               );
@@ -157,12 +159,12 @@ class _MainSettingPageState extends State<MainSettingPage> with Helper{
               widget.provider.changeName(context,nameController.text)
             },
             child: Container(
-              height: MediaQuery.of(context).size.height * 0.045,
+              height: MediaQuery.of(context).size.height * 0.048,
               decoration: const BoxDecoration(
                 color: Colors.blue,
                 borderRadius: BorderRadius.all(Radius.circular(5))
               ),
-              child: const Center(child: Text('Update',style: TextStyle(color: Colors.white))),
+              child: const Center(child: Text('Update',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white))),
             ),
           )
         ]

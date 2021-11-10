@@ -64,15 +64,28 @@ class HomeProvider extends ChangeNotifier with Helper{
   updatedInventory() async{
     await FirebaseDatabase.instance.reference().child('inventory_control').child(Preferences.getUserId()).once().then((snapshot){
       if(snapshot.value != null){
+        Preferences.setUserName(snapshot.value['userName']);
         List<String> temp = [];
         snapshot.value.keys.forEach((item) {
-          if(item != 'email' && item != 'userName'){
+          if(item != 'email' && item != 'userName' && item != 'createdAt'){
+            if(Preferences.getInventoryName().isEmpty){
+              Preferences.setInventoryName(item);
+            }
             temp.add(item);
           }
         });
         Preferences.setTotalInventory(temp);
       }
     });
+  }
+
+  updateHomeScreenData() async{
+    _loading = true;
+    notifyListeners();
+    await updatedInventory();
+    getPopupMenuData();
+    _loading = false;
+    notifyListeners();
   }
 
   Future<bool> createInventory(BuildContext _context,String inventoryName) async{

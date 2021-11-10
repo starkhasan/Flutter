@@ -50,7 +50,9 @@ mixin Helper{
         break;
       case 1:
         Navigator.pop(_context);
-        Navigator.push(_context, MaterialPageRoute(builder: (context) => const SettingPage()));
+        Navigator.push(_context, MaterialPageRoute(builder: (context) => const SettingPage())).then((value) => {
+          provider.updateHomeScreenData()
+        });
         break;
       default:
     }
