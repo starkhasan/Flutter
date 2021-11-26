@@ -138,15 +138,14 @@ class _MainHomePageState extends State<MainHomePage> with Helper{
             padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 5,left: 10,bottom: 5),
             width: double.infinity,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                  CircleAvatar(
                   backgroundColor: Colors.grey[200],
                   backgroundImage: Preferences.getImagePath().isEmpty ? const NetworkImage('https://i.ibb.co/Tm8jmFY/add-1.png') : NetworkImage(Preferences.getImagePath()),
-                  radius: 26.0
+                  radius: 24.0
                 ),
-                const SizedBox(height: 20),
                 Text('Hi, ${Preferences.getUserName()}',style: const TextStyle(color: Colors.white,fontSize: 12,fontWeight: FontWeight.bold))
               ]
             )
@@ -168,7 +167,7 @@ class _MainHomePageState extends State<MainHomePage> with Helper{
                     child: Row(
                       children: [
                         AppConstant.homeIcon[index],
-                        const SizedBox(width: 10),
+                        const SizedBox(width: 8),
                         Text(AppConstant.screenName[index],style: const TextStyle(fontSize: 12,fontWeight: FontWeight.bold))
                       ]
                     )

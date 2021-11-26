@@ -61,7 +61,7 @@ class _MainSettingPageState extends State<MainSettingPage> with Helper{
         slivers: [
           const SliverAppBar(
             centerTitle: true,
-            title: Text('Settings'),
+            title: Text('Settings',style: TextStyle(fontSize: 14)),
             snap: true,
             floating: true
           ),
@@ -121,7 +121,9 @@ class _MainSettingPageState extends State<MainSettingPage> with Helper{
           const SizedBox(height: 10),
           TextField(
             controller: nameController,
+            style: const TextStyle(fontSize: 14),
             decoration: const InputDecoration(
+              isDense: true,
               hintText: 'Username',
               labelText: 'Username'
             )
