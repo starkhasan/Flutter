@@ -63,8 +63,7 @@ class _MainInventoryPageState extends State<MainInventoryPage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-      var provider = Provider.of<InputProvider>(context,listen: false);
-      provider.getTotalInventory(context,true);
+      widget.provider.getTotalInventory(context,true);
     });
   }
 

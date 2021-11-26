@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inventory_control/provider/setting_provider.dart';
+import 'package:inventory_control/utils/confirmation_dialog.dart';
 import 'package:inventory_control/utils/datetime_conversion.dart';
 import 'package:provider/provider.dart';
 import 'package:inventory_control/utils/helper.dart';
@@ -171,22 +174,64 @@ class _MainSettingPageState extends State<MainSettingPage> with Helper{
           ),
           const SizedBox(height: 15),
           Visibility(visible: data.listInventory.isNotEmpty, child: const Text('Total Inventory',style: TextStyle(fontSize: 12.0))),
-          const SizedBox(height: 2),
           ListView.builder(
             shrinkWrap: true,
             padding: EdgeInsets.zero,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: data.listInventory.length,
             itemBuilder: (BuildContext context,int index){
-              return Container(
-                padding: const EdgeInsets.all(14),
-                margin: const EdgeInsets.only(top: 6),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: const BorderRadius.all(Radius.circular(5)),
-                  border: Border.all(color: const Color(0xFF424242),width: 0.5)
+              return InkWell(
+                onTap: () => print('Click Here to Edit or Delete the Inventory'),
+                child: Container(
+                  padding: const EdgeInsets.only(top: 5, bottom: 5,right: 8),
+                  margin: const EdgeInsets.only(top: 5),
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 15,
+                            backgroundColor: Colors.primaries[Random().nextInt(Colors.primaries.length)],
+                            child: Center(child: Text(data.listInventory[index].substring(0,1).toUpperCase(),style: const TextStyle(color: Colors.black))),
+                          ),
+                          const SizedBox(width: 5),
+                          Text(data.listInventory[index],style: const TextStyle(fontSize: 16.0)),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          InkWell(
+                            onTap: () => print('Click Here to Edit the Inventory'),
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Colors.blue[50],
+                                shape: BoxShape.circle
+                              ),
+                              child: const Icon(Icons.edit,size: 20,color: Colors.blue)
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          InkWell(
+                            onTap: () => showLogoutDialog(data.listInventory[index]),
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Colors.red[50],
+                                shape: BoxShape.circle
+                              ),
+                              child: const Icon(Icons.delete,size: 20,color: Colors.red)
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  )
                 ),
-                child: Text(data.listInventory[index],style: const TextStyle(fontSize: 16.0))
               );
             }
           ),
@@ -207,6 +252,19 @@ class _MainSettingPageState extends State<MainSettingPage> with Helper{
           )
         ]
       )
+    );
+  }
+
+  showLogoutDialog(String inventoryName) {
+    showDialog(
+      context: context, 
+      builder: (context){
+        return ConfirmationDialog(
+          title: 'Delete', 
+          content: 'Are you sure you want to Delete $inventoryName?', 
+          onPressed: () => widget.provider.deleteInventory(context, inventoryName)
+        );
+      }
     );
   }
 

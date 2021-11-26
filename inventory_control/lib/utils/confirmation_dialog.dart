@@ -23,7 +23,10 @@ class _ConfirmationDialogState extends State<ConfirmationDialog> {
           child: const Text('No',style: TextStyle(fontSize: 14,color: Colors.red)),
         ),
         CupertinoDialogAction(
-          onPressed: () => widget.onPressed(),
+          onPressed: () => {
+            Navigator.pop(context),
+            widget.onPressed()
+          },
           child: const Text('Yes',style: TextStyle(fontSize: 14)),
         )
       ]

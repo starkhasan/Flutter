@@ -49,6 +49,17 @@ class SettingProvider extends ChangeNotifier with Helper {
     }
   }
 
+  deleteInventory(BuildContext _context,String inventoryName) async{
+    _isLoading = true;
+    notifyListeners();
+    firebaseReference.child(inventoryName).remove().then((value) => {
+      getInventoryData(),
+      showSnackBar(_context, '$inventoryName deleted successfully'),
+    });
+    _isLoading = false;
+    notifyListeners();
+  }
+
 
   Future<void> uploadImageFile(BuildContext _context,ImageSource imgSource) async{
     var photo = await ImagePicker().pickImage(source: imgSource);
