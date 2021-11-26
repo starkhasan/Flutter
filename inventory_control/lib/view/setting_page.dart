@@ -109,7 +109,7 @@ class _MainSettingPageState extends State<MainSettingPage> with Helper{
                             var source = await chooseImageSource();
                             widget.provider.uploadImageFile(context,source);
                           },
-                          icon: const Icon(Icons.camera_alt_rounded,color: Colors.white,size: 20)
+                          icon: const Icon(Icons.camera_alt_rounded,color: Colors.white,size: 18)
                         )
                       )
                     )
@@ -183,7 +183,6 @@ class _MainSettingPageState extends State<MainSettingPage> with Helper{
             itemCount: data.listInventory.length,
             itemBuilder: (BuildContext context,int index){
               return InkWell(
-                onTap: () => print('Click Here to Edit or Delete the Inventory'),
                 child: Container(
                   padding: const EdgeInsets.only(top: 5, bottom: 5,right: 8),
                   margin: const EdgeInsets.only(top: 5),
@@ -207,7 +206,6 @@ class _MainSettingPageState extends State<MainSettingPage> with Helper{
                       Row(
                         children: [
                           InkWell(
-                            onTap: () => print('Click Here to Edit the Inventory'),
                             child: Container(
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
@@ -244,12 +242,12 @@ class _MainSettingPageState extends State<MainSettingPage> with Helper{
               widget.provider.changeName(context,nameController.text)
             },
             child: Container(
-              height: MediaQuery.of(context).size.height * 0.048,
+              height: MediaQuery.of(context).size.height * 0.05,
               decoration: const BoxDecoration(
                 color: Colors.blue,
-                borderRadius: BorderRadius.all(Radius.circular(5))
+                borderRadius: BorderRadius.all(Radius.circular(4))
               ),
-              child: const Center(child: Text('Update',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white))),
+              child: const Center(child: Text('Update',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,color: Colors.white))),
             ),
           )
         ]

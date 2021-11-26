@@ -69,7 +69,7 @@ class SettingProvider extends ChangeNotifier with Helper {
       UploadTask uploadTask = firebaseStorage.putFile(file);
       if(uploadTask != null){
         var snapshot = await uploadTask.whenComplete(() => {
-          print('Successfully uploaded')
+          //print('Successfully uploaded')
         });
         _isLoading = true;
         notifyListeners();
@@ -83,7 +83,7 @@ class SettingProvider extends ChangeNotifier with Helper {
         });
         await getInventoryData();
       }else{
-        print('Upload Task is null : ');
+        //print('Upload Task is null : ');
       }
     }
     if(_isLoading){
