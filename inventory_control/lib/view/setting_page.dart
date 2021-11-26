@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:inventory_control/provider/setting_provider.dart';
 import 'package:inventory_control/utils/confirmation_dialog.dart';
 import 'package:inventory_control/utils/datetime_conversion.dart';
+import 'package:inventory_control/view/setting_inventory.dart';
 import 'package:provider/provider.dart';
 import 'package:inventory_control/utils/helper.dart';
 
@@ -206,6 +207,7 @@ class _MainSettingPageState extends State<MainSettingPage> with Helper{
                       Row(
                         children: [
                           InkWell(
+                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SettingInventory(name: data.listInventory[index]))),
                             child: Container(
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
