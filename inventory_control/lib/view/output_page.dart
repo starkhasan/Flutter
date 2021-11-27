@@ -2,6 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory_control/provider/input_provider.dart';
 import 'package:inventory_control/utils/close_button.dart';
+import 'package:inventory_control/utils/disabled_inventory_tag.dart';
 import 'package:inventory_control/utils/preferences.dart';
 import 'package:inventory_control/utils/product_content.dart';
 import 'package:provider/provider.dart';
@@ -46,6 +47,7 @@ class _MainOutputScreenState extends State<MainOutputScreen>{
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       final provider = Provider.of<InputProvider>(context,listen: false);
       provider.getInventoryData('');
+      provider.isInventoryEnabled();
     });
   }
 
@@ -62,7 +64,7 @@ class _MainOutputScreenState extends State<MainOutputScreen>{
       ),
       floatingActionButton: Consumer<InputProvider>(
         builder: (context,provider,child){
-          return provider.showFabButton && provider.inventoryData.isNotEmpty
+          return provider.showFabButton && provider.inventoryData.isNotEmpty && provider.inventoryDisabled
           ? FloatingActionButton(
               onPressed: () => provider.fabVisibility(false),
               child: const Icon(Icons.add),
@@ -97,6 +99,17 @@ class _MainOutputScreenState extends State<MainOutputScreen>{
                   )
                 );
               }
+            }
+          ),
+          Consumer<InputProvider>(
+            builder: (context,provider,child){
+              return Visibility(
+                visible: !provider.inventoryDisabled,
+                child: const Align(
+                  alignment: Alignment.topCenter,
+                  child: DisabledInventoryTag()
+                )
+              );
             }
           ),
           Consumer<InputProvider>(

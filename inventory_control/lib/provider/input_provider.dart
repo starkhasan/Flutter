@@ -5,12 +5,14 @@ import 'package:inventory_control/services/connectivity_service.dart';
 import 'package:inventory_control/utils/preferences.dart';
 
 class InputProvider extends ChangeNotifier {
+  bool _isInventoryDisabled = true;
   bool _inventoryFab = false;
   bool _searchBar = false;
   bool _showFab = true;
   bool _showInStock = false;
   int _quantity = 0;
   bool _inventoryLoading = true;
+  bool get inventoryDisabled => _isInventoryDisabled;
   bool get inventoryFabVisible => _inventoryFab;
   bool get showSearchBar => _searchBar;
   bool get mainInventoryLoading => _inventoryLoading;
@@ -56,6 +58,17 @@ class InputProvider extends ChangeNotifier {
         }
       }else{
         inventoryData = {};
+      }
+    });
+    notifyListeners();
+  }
+
+  void isInventoryEnabled() async{
+    await firebaseDataBaseReferene.once().then((snapshot){
+      if(snapshot.value != null){
+        _isInventoryDisabled = snapshot.value['enable'];
+      }else{
+        _isInventoryDisabled = true;
       }
     });
     notifyListeners();

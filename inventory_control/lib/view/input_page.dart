@@ -2,6 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory_control/provider/input_provider.dart';
 import 'package:inventory_control/utils/close_button.dart';
+import 'package:inventory_control/utils/disabled_inventory_tag.dart';
 import 'package:inventory_control/utils/preferences.dart';
 import 'package:inventory_control/utils/product_content.dart';
 import 'package:provider/provider.dart';
@@ -43,6 +44,10 @@ class _MainInputScreenState extends State<MainInputScreen>{
   void initState() {
     super.initState();
     scrollController = ScrollController();
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) { 
+      final provider = Provider.of<InputProvider>(context,listen: false);
+      provider.isInventoryEnabled();
+    });
   }
 
   scrollTop(){
@@ -58,7 +63,7 @@ class _MainInputScreenState extends State<MainInputScreen>{
       ),
       floatingActionButton: Consumer<InputProvider>(
         builder: (context,provider,child){
-          return provider.showFabButton
+          return provider.showFabButton && provider.inventoryDisabled
           ? FloatingActionButton(
               onPressed: () => provider.fabVisibility(false),
               child: const Icon(Icons.add),
@@ -82,13 +87,24 @@ class _MainInputScreenState extends State<MainInputScreen>{
                   itemCount: input.length,
                   reverse: true,
                   itemBuilder: (BuildContext context,int index){
-                    var key = input.keys.elementAt(index);
+                    var key = input.keys.elementAt(0);
                     return ProductContent(input: input,keyInput: key);
                   }
                 );
               }else{
                 return const Center(child: Text('To add input click + button in bottom right corner'));
               }
+            }
+          ),
+          Consumer<InputProvider>(
+            builder: (context,provider,child){
+              return Visibility(
+                visible: !provider.inventoryDisabled,
+                child: const Align(
+                  alignment: Alignment.topCenter,
+                  child: DisabledInventoryTag()
+                )
+              );
             }
           ),
           Consumer<InputProvider>(
