@@ -48,7 +48,7 @@ class _MainSplashScreenState extends State<MainSplashScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    imageSize = MediaQuery.of(context).size.height * 0.12;
+    imageSize = MediaQuery.of(context).size.height * 0.10;
   }
 
   @override
