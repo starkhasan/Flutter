@@ -95,13 +95,13 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
               widget.notesProvider.fabAction(),
             },
             child: Container(
-              width: MediaQuery.of(context).size.width * 0.12,
-              height: MediaQuery.of(context).size.height * 0.12,
+              width: MediaQuery.of(context).size.width * 0.115,
+              height: MediaQuery.of(context).size.height * 0.115,
               decoration: BoxDecoration(
                 color: Preferences.getAppTheme() ? Colors.tealAccent[400] : Colors.indigo,
                 shape: BoxShape.circle
               ),
-              child: const Icon(Icons.add,color: Colors.white),
+              child: Icon(Icons.add,color: _isDarkMode ? Colors.black : Colors.white),
             ),
           )
         ),
@@ -188,7 +188,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
           onDismissed: (direction) {
             var item = widget.notesProvider.listNote[index];
             widget.notesProvider.removeTask(widget.notesProvider.listNote[index], index);
-            showSnackbar(context,item,'$item removed from Task',index,'task');
+            showSnackbar(context,item,item,' removed from Task',index,'task');
           },
           child: Container(
             padding: const EdgeInsets.only(bottom: 2,top: 2,right: 2),
@@ -241,7 +241,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
           onDismissed: (direction){
             var item = widget.notesProvider.completedList[index];
             widget.notesProvider.removeCompletedTask(index);
-            showSnackbar(context,item,'$item removed from Complated Task',index,'completeTask');
+            showSnackbar(context,item,item,' removed from Complated Task',index,'completeTask');
           },
           child: Container(
             padding: const EdgeInsets.only(bottom: 2,top: 2,right: 2),
@@ -298,7 +298,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                 Positioned(
                   bottom: 10,
                   left: 12,
-                  child: Text('Hi, ${widget.notesProvider.getUserName}',style: const TextStyle(color: Colors.white,fontSize: 11,fontWeight: FontWeight.normal))
+                  child: Text('Hi, ${widget.notesProvider.getUserName}',style: const TextStyle(color: Colors.white,fontSize: 12,fontWeight: FontWeight.normal))
                 )
               ]
             )
@@ -318,7 +318,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                         children: [
                           Icon(icons[0],size: 20,color: Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo),
                           const SizedBox(width: 5),
-                          Text(screenName[0],style: const TextStyle(fontSize: 11))
+                          Text(screenName[0],style: const TextStyle(fontSize: 12))
                         ]
                       )
                     )
@@ -333,7 +333,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
                           children: [
                             Icon(icons[1],size: 20,color: Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo),
                             const SizedBox(width: 5),
-                            Text(screenName[1],style: const TextStyle(fontSize: 11))
+                            Text(screenName[1],style: const TextStyle(fontSize: 12))
                           ]
                         ),
                         Switch(
@@ -374,7 +374,6 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
         widget.notesProvider.drawerName()
       }
     });
-
     /**
      * The framework calls didChangeDependencies.
      * Subclasses of State should override didChangeDependencies to perform initialization involving inheritedWidget
@@ -400,10 +399,18 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
     );
   }
 
-  void showSnackbar(BuildContext context,String item,String message,int index,String type){
+  void showSnackbar(BuildContext context,String item,String title,String message,int index,String type){
     var snackbar = SnackBar(
-      content: Text(message,style: const TextStyle(fontSize: 11)),
-      duration: const Duration(seconds: 4),
+      content: RichText(
+        text: TextSpan(
+          style: TextStyle(color: _isDarkMode ? Colors.black : Colors.white),
+          children: [
+            TextSpan(text: title,style: const TextStyle(fontStyle: FontStyle.italic,fontSize: 11)),
+            TextSpan(text: message,style: const TextStyle(fontSize: 11))
+          ]
+        )
+      ),
+      duration: const Duration(seconds: 2),
       action: SnackBarAction(
         label: 'UNDO',
         textColor: _isDarkMode ? Colors.indigo : Colors.yellow,
@@ -435,7 +442,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
               onPressed: () => Navigator.pop(context,true),
               child: const Text('Yes')
             )
-          ],
+          ]
         );
       }
     ) ?? false;

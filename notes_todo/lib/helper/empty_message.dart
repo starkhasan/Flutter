@@ -7,15 +7,16 @@ class EmptyMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: RichText(
-        textAlign: TextAlign.center,
-        text: TextSpan(
+      child: Align(
+        alignment: Alignment.center,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            TextSpan(text: 'To add Notes click on ',style: TextStyle(color: darkMode ? Colors.white : Colors.black,fontSize: 12)),
-            TextSpan(text: ' + ',style: TextStyle(color: Theme.of(context).toggleableActiveColor,fontWeight: FontWeight.bold,fontSize: 14)),
-            TextSpan(text: ' button in bottom right corner',style: TextStyle(color: darkMode ? Colors.white : Colors.black,fontSize: 12))
+            Text('To add Notes click on ',style: TextStyle(color: darkMode ? Colors.white : Colors.black,fontSize: 12)),
+            Icon(Icons.add_circle,size: 16,color: Theme.of(context).toggleableActiveColor),
+            Text(' in bottom right corner',style: TextStyle(color: darkMode ? Colors.white : Colors.black,fontSize: 12))
           ]
-        )
+        ),
       )
     );
   }

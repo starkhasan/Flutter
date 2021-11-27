@@ -78,11 +78,11 @@ class _LoginPageState extends State<LoginPage> {
                             children: [
                               TextSpan(
                                 text: 'All your notes data sync with your registered id',
-                                style: TextStyle(fontSize: 10,color: Preferences.getAppTheme() ? Colors.white : Colors.black)
+                                style: TextStyle(fontSize: 11,color: Preferences.getAppTheme() ? Colors.white : Colors.black)
                               ),
                               TextSpan(
-                                text: ' on Google Firebase. All your notes automatically sync with Firebase at the time of creating and deletion',
-                                style: TextStyle(fontSize: 10,color: Preferences.getAppTheme() ? Colors.white : Colors.black)
+                                text: ' on Google Firebase Cloud. Notes automatically sync with Firebase Cloud at the time of notes creating and deletion',
+                                style: TextStyle(fontSize: 11,color: Preferences.getAppTheme() ? Colors.white : Colors.black)
                               )
                             ]
                           )
@@ -96,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                               widget.authProvider.isSyncEnabled
                               ? 'Enabled Sync'
                               : 'Disabled Sync',
-                              style: const TextStyle(fontSize: 11)
+                              style: const TextStyle(fontSize: 12)
                             ),
                             Switch(
                               value: widget.authProvider.isSyncEnabled, 
@@ -118,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Text(Preferences.getUserEmail(),style: const TextStyle(fontSize: 11)),
+                                  Text(Preferences.getUserEmail(),style: const TextStyle(fontSize: 12)),
                                   const Text('Account Linked',style: TextStyle(color: Colors.grey,fontSize: 10))
                                 ]
                               ),
@@ -141,8 +141,8 @@ class _LoginPageState extends State<LoginPage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: const [
-                                  Text('Delete All Notes',style: TextStyle(fontSize: 11)),
-                                  Text('This will delete all your notes from Firebase Cloud',style: TextStyle(color: Colors.grey,fontSize: 10)),
+                                  Text('Delete All Notes',style: TextStyle(fontSize: 12)),
+                                  Text('Delete all your notes from Firebase Cloud',style: TextStyle(color: Colors.grey,fontSize: 10)),
                                 ]
                               ),
                             ),
@@ -224,9 +224,9 @@ class _LogoutPageState extends State<LogoutPage> {
                               children: [
                                 const Text('Sync Notes',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12)),
                                 const SizedBox(height: 5),
-                                const Text("Sync your notes with Google Firebase Cloud. you can restore them when you reinstall Notes Todo App. Your notes will also sync to your phone's internal storage",style: TextStyle(fontSize: 10)),
+                                const Text("Sync your notes with Google Firebase Cloud. you can restore them when you reinstall Notes Todo App. Your notes will also sync to your phone's internal storage",style: TextStyle(fontSize: 11)),
                                 const SizedBox(height: 5),
-                                const Text("Currently your notes data is stored internally",style: TextStyle(color: Colors.red,fontSize: 10)),
+                                const Text("Currently your notes data is stored internally",style: TextStyle(color: Colors.red,fontSize: 11)),
                                 const SizedBox(height: 8),
                                 Row(
                                   children: [
