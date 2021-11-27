@@ -1,9 +1,9 @@
 import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inventory_control/provider/setting_provider.dart';
+import 'package:inventory_control/utils/button_update.dart';
 import 'package:inventory_control/utils/confirmation_dialog.dart';
 import 'package:inventory_control/utils/datetime_conversion.dart';
 import 'package:inventory_control/view/setting_inventory.dart';
@@ -243,14 +243,7 @@ class _MainSettingPageState extends State<MainSettingPage> with Helper{
               FocusScope.of(context).unfocus(),
               widget.provider.changeName(context,nameController.text)
             },
-            child: Container(
-              height: MediaQuery.of(context).size.height * 0.05,
-              decoration: const BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.all(Radius.circular(4))
-              ),
-              child: const Center(child: Text('Update',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,color: Colors.white))),
-            ),
+            child: const ButtonUpdate()
           )
         ]
       )

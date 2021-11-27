@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory_control/provider/setting_inventory_provider.dart';
+import 'package:inventory_control/utils/button_update.dart';
 import 'package:inventory_control/utils/datetime_conversion.dart';
 import 'package:provider/provider.dart';
 
@@ -175,14 +176,8 @@ class _MainSettingInventoryState extends State<MainSettingInventory> {
           ),
           const SizedBox(height: 20),
           InkWell(
-            child: Container(
-              height: MediaQuery.of(context).size.height * 0.05,
-              decoration: const BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.all(Radius.circular(4))
-              ),
-              child: const Center(child: Text('Update',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,color: Colors.white))),
-            ),
+            onTap: () => print('Click Here to Update'),
+            child: const ButtonUpdate()
           )
         ]
       )
