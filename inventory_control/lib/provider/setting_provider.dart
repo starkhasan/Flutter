@@ -41,9 +41,11 @@ class SettingProvider extends ChangeNotifier with Helper {
 
   changeName(BuildContext _context,String name) async {
     if(name.isNotEmpty){
+      _isLoading = true;
+      notifyListeners();
       await firebaseReference.update({'userName': name});
       await getInventoryData();
-      showSnackBar(_context, 'Profile updated Successfully');
+      showSnackBar(_context, 'Profile updated successfully');
     }else{
       showSnackBar(_context, 'Please provide name');
     }
@@ -53,6 +55,7 @@ class SettingProvider extends ChangeNotifier with Helper {
     _isLoading = true;
     notifyListeners();
     firebaseReference.child(inventoryName).remove().then((value) => {
+      if(inventoryName == Preferences.getInventoryName()) Preferences.setInventoryName(''),
       getInventoryData(),
       showSnackBar(_context, '$inventoryName deleted successfully'),
     });

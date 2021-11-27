@@ -29,13 +29,15 @@ class MainSettingInventory extends StatefulWidget {
 class _MainSettingInventoryState extends State<MainSettingInventory> {
 
   late TextEditingController inventoryNameCont;
+  String oldInventoryName = '';
   @override
   void initState() {
     super.initState();
+    oldInventoryName = widget.inventoryName;
     inventoryNameCont = TextEditingController(text: widget.inventoryName);
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) { 
       var provider = Provider.of<SettingInventoryProvider>(context,listen: false);
-      provider.getInventoryData(context,widget.inventoryName);
+      provider.getInventoryData(true,context,widget.inventoryName);
     });
   }
 
@@ -141,7 +143,7 @@ class _MainSettingInventoryState extends State<MainSettingInventory> {
                           Text(data.totalProduct.toString(),style: const TextStyle(color: Colors.black,fontSize: 14)),
                         ]
                       ),
-                      const SizedBox(height: 5),
+                      const SizedBox(height: 2),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -149,7 +151,7 @@ class _MainSettingInventoryState extends State<MainSettingInventory> {
                           Text(data.inStockProduct.toString(),style: const TextStyle(color: Colors.green,fontSize: 14)),
                         ]
                       ),
-                      const SizedBox(height: 5),
+                      const SizedBox(height: 2),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -176,7 +178,7 @@ class _MainSettingInventoryState extends State<MainSettingInventory> {
           ),
           const SizedBox(height: 20),
           InkWell(
-            onTap: () => print('Click Here to Update'),
+            onTap: () => provider.renameInventoryName(context,oldInventoryName,inventoryNameCont.text),
             child: const ButtonUpdate()
           )
         ]

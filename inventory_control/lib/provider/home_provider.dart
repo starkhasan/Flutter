@@ -93,7 +93,7 @@ class HomeProvider extends ChangeNotifier with Helper{
     _loading = true;
     notifyListeners();
     var returnValue = false;
-    await firebaseReference.child(inventoryName).update({'createdAt': DateTime.now().toString()})
+    await firebaseReference.child(inventoryName).update({'createdAt': DateTime.now().toString(),'enable': true})
     .then((value) async{
       await updatedInventory();
       getPopupMenuData();

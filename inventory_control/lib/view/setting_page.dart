@@ -147,7 +147,7 @@ class _MainSettingPageState extends State<MainSettingPage> with Helper{
                   style: const TextStyle(fontSize: 14),
                   decoration: const InputDecoration.collapsed(
                     hintText: 'Created At'
-                  ),
+                  )
                 )
               ]
             )
@@ -170,7 +170,7 @@ class _MainSettingPageState extends State<MainSettingPage> with Helper{
                   style: const TextStyle(fontSize: 14),
                   decoration: const InputDecoration.collapsed(
                     hintText: 'Registered Email',
-                  ),
+                  )
                 )
               ]
             )
@@ -201,13 +201,17 @@ class _MainSettingPageState extends State<MainSettingPage> with Helper{
                             child: Center(child: Text(data.listInventory[index].substring(0,1).toUpperCase(),style: const TextStyle(color: Colors.black))),
                           ),
                           const SizedBox(width: 5),
-                          Text(data.listInventory[index],style: const TextStyle(fontSize: 16.0)),
-                        ],
+                          Text(data.listInventory[index],style: const TextStyle(fontSize: 16.0))
+                        ]
                       ),
                       Row(
                         children: [
                           InkWell(
-                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SettingInventory(name: data.listInventory[index]))),
+                            onTap: () => {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => SettingInventory(name: data.listInventory[index]))).then((value) {
+                                widget.provider.getInventoryData();
+                              })
+                            },
                             child: Container(
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
@@ -215,11 +219,11 @@ class _MainSettingPageState extends State<MainSettingPage> with Helper{
                                 shape: BoxShape.circle
                               ),
                               child: const Icon(Icons.edit,size: 20,color: Colors.blue)
-                            ),
+                            )
                           ),
                           const SizedBox(width: 10),
                           InkWell(
-                            onTap: () => showLogoutDialog(data.listInventory[index]),
+                            onTap: () => showDeleteDialog(data.listInventory[index]),
                             child: Container(
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
@@ -227,13 +231,13 @@ class _MainSettingPageState extends State<MainSettingPage> with Helper{
                                 shape: BoxShape.circle
                               ),
                               child: const Icon(Icons.delete,size: 20,color: Colors.red)
-                            ),
+                            )
                           )
-                        ],
+                        ]
                       )
-                    ],
+                    ]
                   )
-                ),
+                )
               );
             }
           ),
@@ -250,7 +254,7 @@ class _MainSettingPageState extends State<MainSettingPage> with Helper{
     );
   }
 
-  showLogoutDialog(String inventoryName) {
+  showDeleteDialog(String inventoryName) {
     showDialog(
       context: context, 
       builder: (context){

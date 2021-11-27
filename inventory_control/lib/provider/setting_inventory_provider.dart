@@ -8,14 +8,14 @@ class SettingInventoryProvider extends ChangeNotifier with Helper{
   bool _isLoading = false;
   bool get loading => _isLoading;
 
-
   var firebaseReference = FirebaseDatabase.instance.reference().child('inventory_control').child(Preferences.getUserId());
-
   var settingInventoryData = SettingInventoryModel('2021-11-08 11:23:08.316419', false,0,0,0,0,0);
 
-  getInventoryData(BuildContext context,String inventoryName) async{
-    _isLoading = true;
-    notifyListeners();
+  getInventoryData(bool loading,BuildContext context,String inventoryName) async{
+    if(loading){
+      _isLoading = true;
+      notifyListeners();
+    }
     await firebaseReference.child(inventoryName).once().then((DataSnapshot snapshot) {
       if(snapshot.value != null){
         settingInventoryData.createdAt = snapshot.value['createdAt'];
@@ -46,13 +46,29 @@ class SettingInventoryProvider extends ChangeNotifier with Helper{
     notifyListeners();
   }
 
+  renameInventoryName(BuildContext _context,String oldName,String newName) async{
+    _isLoading = true;
+    notifyListeners();
+    var oldData = <String,dynamic>{};
+    await firebaseReference.child(oldName).once().then((DataSnapshot snapshot) {
+      if(snapshot.value != null){
+        oldData = Map<String,dynamic>.from(snapshot.value);
+      }
+    });
+    await firebaseReference.child(newName).update(oldData);
+    await firebaseReference.child(oldName).remove();
+    if(oldName == Preferences.getInventoryName()) Preferences.setInventoryName(newName);
+    showSnackBar(_context, 'Inventory name updated successfully');
+    await getInventoryData(false,_context, newName);
+  }
+
   enabledInventory(BuildContext context,String inventoryName,bool value) async{
     _isLoading = true;
     notifyListeners();
     await firebaseReference.child(inventoryName).update({
       'enable': value
     });
-    await getInventoryData(context, inventoryName);
+    await getInventoryData(false,context, inventoryName);
     _isLoading = false;
     notifyListeners();
   }
