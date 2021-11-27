@@ -12,9 +12,11 @@ class DisabledInventoryTag extends StatelessWidget {
         children: const [
           Icon(Icons.warning,color: Colors.amber,size: 20),
           SizedBox(width:  5),
-          Text(
-            'Inventory Disabled. Please enable inventory to perform action.',
-            style: TextStyle(color: Colors.black,fontSize: 12)
+          Expanded(
+            child: Text(
+              'Inventory Disabled. Please enable inventory to perform action.',
+              style: TextStyle(color: Colors.black,fontSize: 12)
+            ),
           )
         ]
       )

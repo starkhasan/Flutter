@@ -5,6 +5,7 @@ import 'package:inventory_control/utils/bottom_search_bar.dart';
 import 'package:inventory_control/utils/inventory_container.dart';
 import 'package:inventory_control/utils/preferences.dart';
 import 'package:provider/provider.dart';
+import 'package:inventory_control/utils/disabled_inventory_tag.dart';
 
 class InventoryPage extends StatefulWidget {
   const InventoryPage({ Key? key }) : super(key: key);
@@ -64,6 +65,7 @@ class _MainInventoryPageState extends State<MainInventoryPage> {
     super.didChangeDependencies();
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       widget.provider.getTotalInventory(context,true);
+      widget.provider.isInventoryEnabled();
     });
   }
 
@@ -113,17 +115,28 @@ class _MainInventoryPageState extends State<MainInventoryPage> {
         ? const Center(child: CircularProgressIndicator(strokeWidth: 3.0))
         : widget.provider.inventoryModel.isEmpty
           ? const Center(child: Text('Empty Inventory'))
-          : RefreshIndicator(
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: widget.provider.inventoryModel.length,
-              padding: EdgeInsets.zero,
-              itemBuilder: (BuildContext context,int index){
-                return InventoryContainer(provider: widget.provider, index: index);
-              }
-          ), 
-          onRefresh: () => widget.provider.getTotalInventory(context,false)
-        )
+          : Stack(
+            children: [
+              RefreshIndicator(
+                  child: ListView.builder(
+                    padding: EdgeInsets.only(top: widget.provider.inventoryDisabled ? 0 : MediaQuery.of(context).size.height * 0.045),
+                    shrinkWrap: true,
+                    itemCount: widget.provider.inventoryModel.length,
+                    itemBuilder: (BuildContext context,int index){
+                      return InventoryContainer(provider: widget.provider, index: index);
+                    }
+                ), 
+                onRefresh: () => widget.provider.getTotalInventory(context,false)
+              ),
+              Visibility(
+                visible: !widget.provider.inventoryDisabled,
+                child: const Align(
+                  alignment: Alignment.topCenter,
+                  child: DisabledInventoryTag()
+                )
+              )
+            ]
+          )
       ),
       floatingActionButton: widget.provider.inventoryFabVisible
       ? FloatingActionButton(

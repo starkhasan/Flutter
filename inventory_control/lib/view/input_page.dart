@@ -73,39 +73,43 @@ class _MainInputScreenState extends State<MainInputScreen>{
       ),
       body: Stack(
         children: [
-          StreamBuilder(
-            stream: firebaseDataBaseReferene.child('input').onValue,
-            builder: (BuildContext context, AsyncSnapshot snapshot){
-              if(snapshot.connectionState == ConnectionState.waiting){
-                return const Center(child: CircularProgressIndicator());
-              }else if(snapshot.connectionState == ConnectionState.active && snapshot.data.snapshot.value != null){
-                scrollTop();
-                var input = snapshot.data.snapshot.value;
-                return ListView.builder(
-                  controller: scrollController,
-                  shrinkWrap: true,
-                  itemCount: input.length,
-                  reverse: true,
-                  itemBuilder: (BuildContext context,int index){
-                    var key = input.keys.elementAt(0);
-                    return ProductContent(input: input,keyInput: key);
+          Column(
+            children: [
+              Consumer<InputProvider>(
+                builder: (context,provider,child){
+                  return Visibility(
+                    visible: !provider.inventoryDisabled,
+                    child: const DisabledInventoryTag()
+                  );
+                }
+              ),
+              Flexible(
+                child: StreamBuilder(
+                  stream: firebaseDataBaseReferene.child('input').onValue,
+                  builder: (BuildContext context, AsyncSnapshot snapshot){
+                    if(snapshot.connectionState == ConnectionState.waiting){
+                      return const Center(child: CircularProgressIndicator());
+                    }else if(snapshot.connectionState == ConnectionState.active && snapshot.data.snapshot.value != null){
+                      scrollTop();
+                      var input = snapshot.data.snapshot.value;
+                      return ListView.builder(
+                        controller: scrollController,
+                        shrinkWrap: true,
+                        itemCount: input.length,
+                        reverse: true,
+                        padding: EdgeInsets.zero,
+                        itemBuilder: (BuildContext context,int index){
+                          var key = input.keys.elementAt(index);
+                          return ProductContent(input: input,keyInput: key);
+                        }
+                      );
+                    }else{
+                      return const Center(child: Text('To add input click + button in bottom right corner'));
+                    }
                   }
-                );
-              }else{
-                return const Center(child: Text('To add input click + button in bottom right corner'));
-              }
-            }
-          ),
-          Consumer<InputProvider>(
-            builder: (context,provider,child){
-              return Visibility(
-                visible: !provider.inventoryDisabled,
-                child: const Align(
-                  alignment: Alignment.topCenter,
-                  child: DisabledInventoryTag()
-                )
-              );
-            }
+                ),
+              ),
+            ],
           ),
           Consumer<InputProvider>(
             builder: (context,provider,child){
