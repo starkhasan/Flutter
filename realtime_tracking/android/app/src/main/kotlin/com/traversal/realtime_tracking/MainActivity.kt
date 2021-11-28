@@ -1,4 +1,4 @@
-package com.example.realtime_tracking
+package com.traversal.realtime_tracking
 
 import io.flutter.embedding.android.FlutterActivity
 
