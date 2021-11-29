@@ -15,10 +15,8 @@ class LocationService{
     try {
       var locationData = await location.getLocation();
       currentLocation = LocationModel(locationData.latitude!, locationData.longitude!);
-      print('Current Location Fetched ${locationData.latitude} ${locationData.longitude}');
     } on Exception {
       currentLocation = LocationModel(0.0, 0.0);
-      print('Something went wrong');
     }
     return currentLocation;
   }
@@ -27,7 +25,6 @@ class LocationService{
   Future<LocationModel> getCurrentLocationGeoLocator() async{
     var position = await Geolocator.getCurrentPosition();
     currentLocation = LocationModel(position.latitude, position.longitude);
-    print('Current Location Fetched ${position.latitude} ${position.longitude}');
     return currentLocation;
 
   }

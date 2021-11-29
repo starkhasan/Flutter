@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 import 'package:realtime_tracking/provider/home_provider.dart';
 import 'package:realtime_tracking/service/location_sevice.dart';
@@ -26,6 +27,7 @@ class MainHomeScreen extends StatefulWidget {
 
 class _MainHomeScreenState extends State<MainHomeScreen> {
   var remoteAddressController = TextEditingController();
+  var startLocationShare = false;
   var collectionUser = FirebaseFirestore.instance.collection('users');
   Stream userDocStream = FirebaseFirestore.instance.collection('users').doc('979234').snapshots();
 
@@ -33,21 +35,30 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-      LocationService().getCurrentLocation();
+      getLocation();
     });
+  }
+
+  getLocation() async{
+    var currentLocation = await LocationService().getCurrentLocation();
+    print('Location ${currentLocation.lat}  ${currentLocation.lng}');
   }
 
   @override
   Widget build(BuildContext context) {
+    //Share Current Location to Requesting User
+    Location().onLocationChanged.listen((event) { 
+      if(startLocationShare){
+        print('Location Stream ------------------ ${event.latitude} and ${event.longitude}');
+        collectionUser.doc('979019').update({'userLocation': GeoPoint(event.latitude!,event.longitude!)});
+      }
+    });
+    //HomeProvider instance
     var provider = Provider.of<HomeProvider>(context,listen: false);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Tracking'),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => LocationService().getCurrentLocation(),
-        child: const Icon(Icons.add),
       ),
       body: StreamBuilder(
         stream: userDocStream,
@@ -59,6 +70,9 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
             return const Center(child: CircularProgressIndicator());
           }else{
             var mapData = snapshot.data.data();
+            if(mapData['online']) {
+              provider.updateDatabase(context,'979234',remoteAddressController.text);
+            }
             return Container(
               padding: const EdgeInsets.all(10),
               child: Stack(
@@ -89,8 +103,37 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
                           ]
                         )
                       ),
-                      const SizedBox(height: 20),
-                      Container(
+                      const SizedBox(height: 10),
+                      mapData['shareLocation']
+                      ? Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: const BoxDecoration(color: Colors.blue,borderRadius: BorderRadius.all(Radius.circular(10))),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 4,
+                                child: Text(
+                                  'you are sharing your location with ${mapData['requestId']}',
+                                  style: const TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Switch(
+                                  value: mapData['shareLocation'],
+                                  onChanged: (value) => {
+                                    collectionUser.doc('979234').update({'shareLocation': false}),
+                                    collectionUser.doc('979019').update({'shareLocation': false}),
+                                    setState((){
+                                      startLocationShare = false;
+                                    })
+                                  }
+                                ),
+                              )
+                            ]
+                          )
+                        )
+                      : Container(
                         padding: const EdgeInsets.all(15),
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -114,11 +157,11 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
                             Align(
                               alignment: Alignment.center,
                               child: InkWell(
-                                onTap: () => {
-                                  provider.connectDevice(context, remoteAddressController.text, '979234')
-                                },
+                                onTap: () => mapData['response']
+                                ? null 
+                                : provider.connectDevice(context, remoteAddressController.text, '979234'),
                                 child: Container(
-                                  decoration: const BoxDecoration(color: Colors.teal,borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                                  decoration: BoxDecoration(color: mapData['response'] ? Colors.grey : Colors.teal,borderRadius: const BorderRadius.all(Radius.circular(5.0))),
                                   padding: const EdgeInsets.only(top: 12, left: 18, bottom: 12, right: 18),
                                   child: const Text('Connect',style: TextStyle(color: Colors.white)),
                                 )
@@ -155,7 +198,10 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 InkWell(
-                                  onTap: () => collectionUser.doc('979234').update({'request': false}),
+                                  onTap: () => {
+                                    collectionUser.doc('979234').update({'request': false}),
+                                    collectionUser.doc(remoteAddressController.text).update({'response': false})
+                                  },
                                   child: Container(
                                     decoration: const BoxDecoration(color: Colors.red,borderRadius: BorderRadius.all(Radius.circular(5.0))),
                                     padding: const EdgeInsets.only(top: 8, left: 8, bottom: 8, right: 8),
@@ -164,7 +210,12 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
                                 ),
                                 const SizedBox(width: 20),
                                 InkWell(
-                                  onTap: () => print('Click Here to Reject'),
+                                  onTap: () => {
+                                    provider.requestAccept(context,'979234','979019'),
+                                    setState((){
+                                      startLocationShare = true;
+                                    })
+                                  },
                                   child: Container(
                                     decoration: const BoxDecoration(color: Colors.green,borderRadius: BorderRadius.all(Radius.circular(5.0))),
                                     padding: const EdgeInsets.only(top: 8, left: 8, bottom: 8, right: 8),
@@ -172,6 +223,47 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
                                   )
                                 )
                               ]
+                            )
+                          ]
+                        )
+                      )
+                    )
+                  ),
+                  Visibility(
+                    visible: mapData['response'],
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        margin: const EdgeInsets.only(left: 30, right: 30),
+                        decoration: const BoxDecoration(color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(5.0)),boxShadow: [BoxShadow(blurRadius: 5.0,color: Colors.grey)]),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: const [
+                                SizedBox(width: 20, height: 20,child: CircularProgressIndicator(strokeWidth: 2.0)),
+                                SizedBox(width: 15),
+                                Expanded(child: Text('Waiting for Remote Device connectivity response')),
+                              ]
+                            ),
+                            const SizedBox(height: 10),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: InkWell(
+                                onTap: () => {
+                                  collectionUser.doc('979234').update({'response': false,'online': false}),
+                                  collectionUser.doc(remoteAddressController.text).update({'request': false})
+                                },
+                                child: Container(
+                                  decoration: const BoxDecoration(color: Colors.red,borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                                  padding: const EdgeInsets.only(top: 8, left: 8, bottom: 8, right: 8),
+                                  child: const Text('Cancel',style: TextStyle(color: Colors.white)),
+                                )
+                              ),
                             )
                           ]
                         )
