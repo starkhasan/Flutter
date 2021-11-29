@@ -32,19 +32,6 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
   Stream userDocStream = FirebaseFirestore.instance.collection('users').doc('979234').snapshots();
 
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-      getLocation();
-    });
-  }
-
-  getLocation() async{
-    var currentLocation = await LocationService().getCurrentLocation();
-    print('Location ${currentLocation.lat}  ${currentLocation.lng}');
-  }
-
-  @override
   Widget build(BuildContext context) {
     //Share Current Location to Requesting User
     Location().onLocationChanged.listen((event) { 
