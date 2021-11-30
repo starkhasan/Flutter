@@ -64,7 +64,7 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
     SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft,DeviceOrientation.landscapeRight]);
     return WillPopScope(
       onWillPop: ()  async {
-        await videoPlayerController.dispose();
+        if(videoPlayerController.value.isInitialized) await videoPlayerController.dispose();
         return true;
       },
       child: Scaffold(
@@ -134,7 +134,7 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
                       left: 20,
                       child: IconButton(
                         onPressed: () => {
-                          videoPlayerController.dispose(),
+                          if(videoPlayerController.value.isInitialized) videoPlayerController.dispose(),
                           Navigator.pop(context),
                         },
                         icon: const Icon(Icons.arrow_back,color: Colors.white),
