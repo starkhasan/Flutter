@@ -82,6 +82,9 @@ class BuySheetState extends State<BuySheet> {
           _showapplePayMerchantIdNotSet();
         }
         break;
+      case PaymentType.secureRemoteCommerce:
+        // TODO: Handle this case.
+        break;
     }
   }
 

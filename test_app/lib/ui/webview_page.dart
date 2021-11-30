@@ -52,7 +52,7 @@ class _WebViewPageState extends State<WebViewPage> with SingleTickerProviderStat
         child: Icon(
           icon,
           color: Colors.white,
-          size: 30.0,
+          size: 30.0
         )
       )
     );
@@ -86,7 +86,7 @@ class _WebViewPageState extends State<WebViewPage> with SingleTickerProviderStat
               gestureNavigationEnabled: true,
               onWebViewCreated: (WebViewController webViewController) {
                 _controller.complete(webViewController);
-              },
+              }
             )
           ),
           Flow(
@@ -100,8 +100,7 @@ class _WebViewPageState extends State<WebViewPage> with SingleTickerProviderStat
 }
 
 class FlowMenuDelegate extends FlowDelegate {
-  FlowMenuDelegate({required this.menuAnimation,required this.parentContext})
-      : super(repaint: menuAnimation);
+  FlowMenuDelegate({required this.menuAnimation,required this.parentContext}) : super(repaint: menuAnimation);
 
   final Animation<double> menuAnimation;
   final BuildContext parentContext;

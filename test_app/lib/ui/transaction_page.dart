@@ -49,6 +49,7 @@ class _TransactionPageState extends State<TransactionPage> {
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
+              title: const Text('Transaction',style: TextStyle(color: Colors.black)),
               backgroundColor: Colors.white,
               pinned: false,
               floating: true,
@@ -58,7 +59,7 @@ class _TransactionPageState extends State<TransactionPage> {
                 IconButton(
                   onPressed: () => showSnackBar(context,'Click on Search Icon'),
                   icon: const Icon(Icons.search,color: Colors.grey))
-              ],
+              ]
             ),
             SliverList(
               delegate: SliverChildListDelegate([ mainBody()])
@@ -109,7 +110,7 @@ class _TransactionPageState extends State<TransactionPage> {
               ]
             )
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 10),
           Container(
             padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.04),
             child: Divider(height: 1,thickness: 1,color: Colors.grey[400])

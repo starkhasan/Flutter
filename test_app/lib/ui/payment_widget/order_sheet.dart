@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'cookie_button.dart';
 
 enum PaymentType { giftcardPayment, cardPayment, googlePay, applePay, buyerVerification, secureRemoteCommerce }
-final int cookieAmount = 100;
+const int cookieAmount = 100;
 
 String getCookieAmount() => (cookieAmount / 100).toStringAsFixed(2);
 
 class OrderSheet extends StatelessWidget {
   final bool googlePayEnabled;
   final bool applePayEnabled;
-  OrderSheet({required this.googlePayEnabled, required this.applePayEnabled});
+  const OrderSheet({Key? key, required this.googlePayEnabled, required this.applePayEnabled}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
@@ -52,23 +52,20 @@ class OrderSheet extends StatelessWidget {
 
   Widget _title(context) =>
       Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
-        Container(
-            child: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(Icons.close),
-                color: Colors.red)),
-        Container(
-          child: const Expanded(
-            child: Text(
-              "Place your order",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
+        IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.close),
+            color: Colors.red),
+        const Expanded(
+          child: Text(
+            "Place your order",
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
           ),
         ),
-        Padding(padding: EdgeInsets.only(right: 56)),
+        const Padding(padding: EdgeInsets.only(right: 56)),
       ]);
 
   Widget _payButtons(context) => Row(
@@ -108,16 +105,16 @@ class _ShippingInformation extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Padding(padding: EdgeInsets.only(left: 30)),
-          Text(
+          const Padding(padding: EdgeInsets.only(left: 30)),
+          const Text(
             "Ship to",
             style: TextStyle(fontSize: 16, color: Colors.teal),
           ),
-          Padding(padding: EdgeInsets.only(left: 30)),
+          const Padding(padding: EdgeInsets.only(left: 30)),
           Column(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
+              children: const [
                 Text(
                   "Lauren Nobel",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
@@ -138,8 +135,8 @@ class _ShippingInformation extends StatelessWidget {
 class _LineDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
-      margin: EdgeInsets.only(left: 30, right: 30),
-      child: Divider(
+      margin: const EdgeInsets.only(left: 30, right: 30),
+      child: const Divider(
         height: 1,
         color: Colors.grey,
       ));
@@ -151,12 +148,12 @@ class _PaymentTotal extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Padding(padding: EdgeInsets.only(left: 30)),
-          Text(
+          const Padding(padding: EdgeInsets.only(left: 30)),
+          const Text(
             "Total",
             style: TextStyle(fontSize: 16, color: Colors.teal),
           ),
-          Padding(padding: EdgeInsets.only(right: 47)),
+          const Padding(padding: EdgeInsets.only(right: 47)),
           Text(
             "\$${getCookieAmount()}",
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),

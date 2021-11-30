@@ -10,6 +10,7 @@ import 'package:test_app/ui/payment_gateway/razorpay_payment.dart';
 import 'package:test_app/ui/rest_api.dart';
 import 'package:test_app/ui/sliverwidget_page.dart';
 import 'package:test_app/ui/twitter_page.dart';
+import 'package:test_app/ui/video_play_screen.dart';
 import 'package:test_app/ui/web_socket.dart';
 import 'package:test_app/ui/webview_page.dart';
 import 'package:test_app/ui/whatsapp_page.dart';
@@ -90,7 +91,7 @@ class _LandingPageState extends State<LandingPage> {
 
     //this methd will be called when app is in backgorund
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message){
-      print('A new onMessageOpenedApp event was published! $message');
+      //print('A new onMessageOpenedApp event was published! $message');
       // var messageArguments = MessageArguments;
       // Navigator.pushNamed(context, '/message', arguments: messageArguments(message, true));
       if(message.data['type'] == 'notification') {
@@ -112,7 +113,7 @@ class _LandingPageState extends State<LandingPage> {
 
     //handle the link that has been reterived
     if (data != null) {
-      print('App is opened with dynamic link : deeplink $data');
+      //print('App is opened with dynamic link : deeplink $data');
       Navigator.push(context, MaterialPageRoute(builder: (context) => const FacebookPage()));
     }
     
@@ -120,12 +121,12 @@ class _LandingPageState extends State<LandingPage> {
     FirebaseDynamicLinks.instance.onLink(
       onSuccess: (PendingDynamicLinkData? dynamicLink) async {
         if (dynamicLink != null) {
-          print('App is opened from background using dynamic link : deeplink $dynamicLink');
+          //print('App is opened from background using dynamic link : deeplink $dynamicLink');
           Navigator.push(context, MaterialPageRoute(builder: (context) => const FacebookPage()));
         }
       }, 
       onError: (OnLinkErrorException e) async {
-        print('LinkErro ${e.message}');
+        //print('LinkErro ${e.message}');
         Navigator.push(context, MaterialPageRoute(builder: (context) => const TwitterPage()));
       }
     );
@@ -144,8 +145,8 @@ class _LandingPageState extends State<LandingPage> {
 
 
   Future<void> sendPushNotification() async{
-    var token = await FirebaseMessaging.instance.getToken();
-    print(token);
+    //var token = await FirebaseMessaging.instance.getToken();
+    //print(token);
   }
 
   @override
@@ -164,7 +165,8 @@ class _LandingPageState extends State<LandingPage> {
       'Rest API',
       'Web Socket',
       'Widget Element Keys',
-      'Scroll Position'
+      'Scroll Position',
+      'Video Player'
     ];
     var screenAssets = [
       'asset/facebook.png',
@@ -192,7 +194,7 @@ class _LandingPageState extends State<LandingPage> {
             onTap: () => onClick(context, index),
             child: Container(
               padding: const EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 15),
-              margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
+              margin: const EdgeInsets.only(top: 5, left: 10, right: 10,bottom: 5),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(8),
@@ -267,6 +269,9 @@ class _LandingPageState extends State<LandingPage> {
         break;
       case 12:
         Navigator.push(context,MaterialPageRoute(builder: (context) => const ScrollPositionExample()));
+        break;
+      case 13:
+        Navigator.push(context,MaterialPageRoute(builder: (context) => const VideoPlayScreen()));
         break;
       default:
     }
