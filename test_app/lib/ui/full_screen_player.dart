@@ -89,21 +89,44 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
                   children: [
                     Align(
                       alignment: Alignment.center,
-                      child: InkWell(
-                        onTap: () => {
-                          setState(() {
-                            videoPlayerController.value.isPlaying
-                            ? videoPlayerController.pause()
-                            : videoPlayerController.play();
-                          })
-                        },
-                        child: Icon(
-                          videoPlayerController.value.isPlaying
-                          ? Icons.pause_circle
-                          : Icons.play_circle,
-                          size: 60,
-                          color: Colors.white
-                        )
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          InkWell(
+                            onTap: () => videoPlayerController.seekTo(const Duration(seconds: -10)),
+                            child: const Icon(
+                              Icons.replay_10_sharp,
+                              size: 40,
+                              color: Colors.white
+                            )
+                          ),
+                          const SizedBox(width: 30),
+                          InkWell(
+                            onTap: () => {
+                              setState(() {
+                                videoPlayerController.value.isPlaying
+                                ? videoPlayerController.pause()
+                                : videoPlayerController.play();
+                              })
+                            },
+                            child: Icon(
+                              videoPlayerController.value.isPlaying
+                              ? Icons.pause_circle
+                              : Icons.play_circle,
+                              size: 60,
+                              color: Colors.white
+                            ),
+                          ),
+                          const SizedBox(width: 30),
+                          InkWell(
+                            onTap: () => videoPlayerController.seekTo(const Duration(seconds: 10)),
+                            child: const Icon(
+                              Icons.forward_10_sharp,
+                              size: 40,
+                              color: Colors.white
+                            )
+                          )
+                        ]
                       )
                     ),
                     Positioned(
