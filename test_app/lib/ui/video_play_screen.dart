@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:test_app/ui/full_screen_player.dart';
 import 'package:video_player/video_player.dart';
@@ -12,6 +12,15 @@ class VideoPlayScreen extends StatefulWidget {
 }
 
 class _VideoPlayScreenState extends State<VideoPlayScreen> {
+
+  late VideoPlayerController videoPlayerController;
+
+  @override
+  void initState() {
+    super.initState();
+    videoPlayerController = VideoPlayerController.asset('asset/video/bee.mp4')
+    ..initialize().then((value) => setState((){}));
+  }
 
   @override
   void didChangeDependencies() {
@@ -46,6 +55,13 @@ class _VideoPlayScreenState extends State<VideoPlayScreen> {
                   child: Card(
                     color: Colors.white,
                     child: ListTile(
+                      leading: Container(
+                          width: 50.0,
+                          height: 50.0,
+                          child: videoPlayerController.value.isInitialized
+                          ? VideoPlayer(videoPlayerController)
+                          : const Center(child: CircularProgressIndicator(strokeWidth: 2.0))
+                      ),
                       title: Text(snapshot.data[index].substring(12,snapshot.data[index].length - 4)),
                     ),
                   ),
@@ -64,5 +80,22 @@ class _VideoPlayScreenState extends State<VideoPlayScreen> {
     var images = json.decode(manifestJson).keys.where((String key) => key.startsWith('asset/video'));
     images.forEach((element) => listVideoAssets.add(element));
     return listVideoAssets;
+  }
+
+
+  readInternalFiles(BuildContext _context) async{
+    Directory dir = Directory('/storage/emulated/0/');
+    String mp3Path = dir.toString();
+    print(mp3Path);
+    List<FileSystemEntity> _files;
+    List<FileSystemEntity> _songs = [];
+    _files = dir.listSync(recursive: true, followLinks: false);
+    for(FileSystemEntity entity in _files) {
+      String path = entity.path;
+      if(path.endsWith('.mp3'))
+        _songs.add(entity);
+    }
+    print(_songs);
+    print(_songs.length);
   }
 }
