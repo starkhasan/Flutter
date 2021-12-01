@@ -113,7 +113,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                             margin: const EdgeInsets.only(right: 8),
                             padding: const EdgeInsets.all(5),
                             decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.red[50]),
-                            child: const Icon(Icons.keyboard_arrow_down_rounded),
+                            child: const Icon(Icons.remove),
                           )
                         ),
                         Text(itemCount.toString(),style: const TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.bold)),
@@ -123,7 +123,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                             margin: const EdgeInsets.only(left: 8,right: 10),
                             padding: const EdgeInsets.all(5),
                             decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.green[50]),
-                            child: const Icon(Icons.keyboard_arrow_up_rounded),
+                            child: const Icon(Icons.add),
                           )
                         )
                       ],

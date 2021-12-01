@@ -105,7 +105,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                         margin: const EdgeInsets.only(right: 8),
                                         padding: const EdgeInsets.all(5),
                                         decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.red[50]),
-                                        child: const Icon(Icons.keyboard_arrow_down_rounded),
+                                        child: const Icon(Icons.remove),
                                       )
                                     ),
                                     Text(itemCount.toString(),style: const TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.bold)),
@@ -115,7 +115,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                         margin: const EdgeInsets.only(left: 8,right: 10),
                                         padding: const EdgeInsets.all(5),
                                         decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.green[50]),
-                                        child: const Icon(Icons.keyboard_arrow_up_rounded),
+                                        child: const Icon(Icons.add),
                                       )
                                     )
                                   ]
@@ -210,7 +210,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                   ]
                 ),
                 const SizedBox(height: 10),
-                CustomPaint(size: const Size(double.infinity, 0),painter: DashedLineVerticalPainter(line: 'horizontal')),
+                CustomPaint(size: const Size(double.infinity, 0),painter: DashedLineVerticalPainter(line: 'horizontal',lineColor: Colors.grey,type: 'dash')),
                 const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_app/ui/grocery/notification_screen.dart';
 import 'package:test_app/ui/grocery/product_details.dart';
 
 class GroceryHome extends StatefulWidget {
@@ -50,7 +51,7 @@ class _GroceryHomeState extends State<GroceryHome> {
                 children: [
                   const Text('Grocery Plus',style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.bold)),
                   IconButton(
-                    onPressed: () => print('Click Here to get Nootification Screen'),
+                    onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationScreen())),
                     icon: const Icon(Icons.notifications),
                   )
                 ]
