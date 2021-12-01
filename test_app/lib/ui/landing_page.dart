@@ -6,6 +6,8 @@ import 'package:test_app/ui/crypto_page.dart';
 import 'package:test_app/ui/deeplink/platform_integration_page.dart';
 import 'package:test_app/ui/facebook_page.dart';
 import 'package:test_app/ui/firebase_authentication.dart';
+import 'package:test_app/ui/grocery/grocery_home.dart';
+import 'package:test_app/ui/grocery/main_screen.dart';
 import 'package:test_app/ui/payment_gateway/razorpay_payment.dart';
 import 'package:test_app/ui/rest_api.dart';
 import 'package:test_app/ui/sliverwidget_page.dart';
@@ -166,7 +168,8 @@ class _LandingPageState extends State<LandingPage> {
       'Web Socket',
       'Widget Element Keys',
       'Scroll Position',
-      'Video Player'
+      'Video Player',
+      'Grocery Plus'
     ];
     var screenAssets = [
       'asset/facebook.png',
@@ -272,6 +275,9 @@ class _LandingPageState extends State<LandingPage> {
         break;
       case 13:
         Navigator.push(context,MaterialPageRoute(builder: (context) => const VideoPlayScreen()));
+        break;
+      case 14:
+        Navigator.push(context,MaterialPageRoute(builder: (context) => const MainScreen()));
         break;
       default:
     }
