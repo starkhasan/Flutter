@@ -186,7 +186,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                         margin: const EdgeInsets.only(left: 8,right: 10),
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.red[50]),
-                        child: const Icon(Icons.phone),
+                        child: const Icon(Icons.phone,color: Colors.red),
                       )
                     )
                   ],
@@ -234,7 +234,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
                     Text('Subtotal',style: TextStyle(fontSize: 12)),
-                    Text('300.00',style: TextStyle(fontWeight: FontWeight.normal))
+                    Text('\u{20B9}300.00',style: TextStyle(fontWeight: FontWeight.normal))
                   ]
                 ),
                 const SizedBox(height: 2),
@@ -242,7 +242,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
                     Text('Delivery',style: TextStyle(fontSize: 12)),
-                    Text('50.00',style: TextStyle(fontSize: 12))
+                    Text('\u{20B9}50.00',style: TextStyle(fontSize: 12))
                   ]
                 ),
                 const SizedBox(height: 2),
@@ -250,7 +250,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
                     Text('GST',style: TextStyle(fontSize: 12)),
-                    Text('5.00',style: TextStyle(fontSize: 12))
+                    Text('\u{20B9}5.00',style: TextStyle(fontSize: 12))
                   ]
                 ),
                 const SizedBox(height: 2),
@@ -258,7 +258,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
                     Text('Coupon Discount',style: TextStyle(fontSize: 12)),
-                    Text('-10.00',style: TextStyle(fontSize: 12,color: Colors.green))
+                    Text('\u{20B9}-10.00',style: TextStyle(fontSize: 12,color: Colors.green))
                   ]
                 ),
                 const SizedBox(height: 10),
