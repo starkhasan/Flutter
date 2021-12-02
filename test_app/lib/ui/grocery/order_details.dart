@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_app/ui/grocery/rating_screen.dart';
 import 'package:test_app/utils/dash_line.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -109,7 +110,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: const [
-                          Text('Packed',style: TextStyle(fontSize: 14,color: Colors.black)),
+                          Text('Packing',style: TextStyle(fontSize: 14,color: Colors.black)),
                           Text('15 Aug 2021',style: TextStyle(fontSize: 12,color: Colors.grey))
                         ]
                       )
@@ -295,7 +296,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                       onRatingUpdate: (rating) => productRating = rating,
                     ),
                     InkWell(
-                      onTap: () => print('Click Here to Change Address'),
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => RatingScreen(productId: 'Aashirvaad Whole Wheat Atta 10 kg',imagePath: widget.imagePath,productRating: productRating))),
                       child: const Text('Write a Review',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.blue)),
                     )
                   ]
