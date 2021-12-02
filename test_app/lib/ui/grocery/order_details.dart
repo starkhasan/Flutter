@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/utils/dash_line.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class OrderDetails extends StatefulWidget {
   final String imagePath;
@@ -13,13 +14,7 @@ class _OrderDetailsState extends State<OrderDetails> {
   
   final currentPageNotifier = ValueNotifier<int>(0);
   var itemCount = 1;
-  var listImageURL = [
-    'https://m.media-amazon.com/images/I/91pDdDLHquL._SX522_.jpg',
-    'https://www.bigbasket.com/media/uploads/p/xxl/40198145_1-popular-essentials-premium-jeera-rice.jpg',
-    'https://m.media-amazon.com/images/I/71LpBnx+5xL._SL1500_.jpg',
-    'https://m.media-amazon.com/images/I/71bSLxCaGGL._SL1500_.jpg',
-    'https://www.jiomart.com/images/product/original/490001392/amul-butter-500-g-carton-6-20210315.jpg'
-  ];
+  var productRating = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +27,11 @@ class _OrderDetailsState extends State<OrderDetails> {
             backgroundColor: Colors.white,
             floating: true,
             snap: true,
-            leading: IconButton(onPressed: () => Navigator.pop(context),icon: const Icon(Icons.arrow_back,color:Colors.black)),
+            leading: IconButton(onPressed: () => Navigator.pop(context),icon: const Icon(Icons.arrow_back,color:Colors.black))
           ),
           SliverList(delegate: SliverChildListDelegate([mainBody()]))
-        ],
-      ),
+        ]
+      )
     );
   }
 
@@ -69,7 +64,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                   height: MediaQuery.of(context).size.height * 0.08,
                   width: MediaQuery.of(context).size.width * 0.15,
                   child: Image.network(widget.imagePath),
-                ),
+                )
               ]
             )
           ),
@@ -144,13 +139,13 @@ class _OrderDetailsState extends State<OrderDetails> {
             margin: const EdgeInsets.all(15),
             height: 48,
             decoration: BoxDecoration(color: Colors.green[100],borderRadius: const BorderRadius.all(Radius.circular(5))),
-            child: const Center(child: Text('Delivery Details',style: TextStyle(fontWeight: FontWeight.bold,))),
+            child: const Center(child: Text('Delivery Details',style: TextStyle(fontWeight: FontWeight.bold,)))
           ),
           Container(
             margin: const EdgeInsets.only(left: 15,right: 15,bottom: 15),
             height: 48,
             decoration: BoxDecoration(color: Colors.green[100],borderRadius: const BorderRadius.all(Radius.circular(5))),
-            child: const Center(child: Text('Show Full Package',style: TextStyle(fontWeight: FontWeight.bold,))),
+            child: const Center(child: Text('Show Full Package',style: TextStyle(fontWeight: FontWeight.bold,)))
           ),
           Divider(height: 1,thickness: 1,color: Colors.grey[400]), 
           Padding(
@@ -186,10 +181,10 @@ class _OrderDetailsState extends State<OrderDetails> {
                         margin: const EdgeInsets.only(left: 8,right: 10),
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.red[50]),
-                        child: const Icon(Icons.phone,color: Colors.red),
+                        child: const Icon(Icons.phone,color: Colors.red)
                       )
                     )
-                  ],
+                  ]
                 )
               ]
             )
@@ -276,7 +271,7 @@ class _OrderDetailsState extends State<OrderDetails> {
           ),
           Divider(height: 1,thickness: 1,color: Colors.grey[400]), 
           Padding(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.only(left: 15,right: 15,top: 20,bottom: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -286,10 +281,22 @@ class _OrderDetailsState extends State<OrderDetails> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Row(children: List<Widget>.generate(5, (index) => const Icon(Icons.star_border))),
+                    RatingBar.builder(
+                      initialRating: 0,
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      glowColor: Colors.white,
+                      glowRadius: 0.0,
+                      itemCount: 5,
+                      itemSize: 28.0,
+                      itemPadding: EdgeInsets.zero,
+                      itemBuilder: (context, _) => const Icon(Icons.star, color: Colors.amber),
+                      onRatingUpdate: (rating) => productRating = rating,
+                    ),
                     InkWell(
                       onTap: () => print('Click Here to Change Address'),
-                      child: const Text('Write a Review',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,color: Colors.blue)),
+                      child: const Text('Write a Review',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.blue)),
                     )
                   ]
                 )

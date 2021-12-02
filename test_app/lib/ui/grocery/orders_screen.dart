@@ -41,8 +41,8 @@ class _OrdersScreenState extends State<OrdersScreen> with SingleTickerProviderSt
                 indicatorWeight: 2.0,
                 controller: tabController,
                 tabs: const [
-                  Padding(padding: EdgeInsets.only(bottom: 10),child: Text('Ongoing',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16))),
-                  Padding(padding: EdgeInsets.only(bottom: 10),child: Text('Completed',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16)))
+                  Tab(text: 'Ongoing'),
+                  Tab(text: 'Complete')
                 ]
               ),
             )

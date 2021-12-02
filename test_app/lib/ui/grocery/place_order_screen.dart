@@ -31,20 +31,20 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
           height: 50,
           color: Colors.deepOrange,
           child: const Center(child: Text('Place Order',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Colors.white)))
-        ),
+        )
       ),
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            title: const Text('Place Orders',style: TextStyle(color: Colors.black)),
+          const SliverAppBar(
+            title: Text('Place Orders',style: TextStyle(color: Colors.black)),
             backgroundColor: Colors.white,
             floating: true,
             snap: true,
-            leading: IconButton(onPressed: () => Navigator.pop(context),icon: const Icon(Icons.arrow_back,color:Colors.black)),
+            automaticallyImplyLeading: false
           ),
           SliverList(delegate: SliverChildListDelegate([mainBody()]))
-        ],
-      ),
+        ]
+      )
     );
   }
 
@@ -56,7 +56,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
         children: [
           const Padding(
             padding: EdgeInsets.only(top: 15, left: 15,right: 15),
-            child: Text('Products',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+            child: Text('Products',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold))
           ),
           ListView.separated(
             shrinkWrap: true,
@@ -72,7 +72,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                     children: [
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.30,
-                        child: Image.network(listImageURL[index]),
+                        child: Image.network(listImageURL[index])
                       ),
                       const SizedBox(width: 10), 
                       Expanded(
@@ -127,7 +127,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                       )
                     ]
                   )
-                ),
+                )
               );
             },
             separatorBuilder: (context,index) => Divider(height: 1,thickness: 1,color: Colors.grey[300]), 
@@ -217,13 +217,13 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                   children: const [
                     Text('Total',style: TextStyle(fontWeight: FontWeight.bold)),
                     Text('\u{20B9}790',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold))
-                  ],
+                  ]
                 )
               ]
             )
           )
         ]
-      ),
+      )
     );
   }
 
