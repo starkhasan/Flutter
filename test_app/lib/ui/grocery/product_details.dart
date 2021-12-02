@@ -99,9 +99,15 @@ class _ProductDetailsState extends State<ProductDetails> {
                         const Text('\u{20B9}300',style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold)),
                         const SizedBox(width: 10),
                         Container(
-                          padding: const EdgeInsets.all(2),
-                          decoration: const BoxDecoration(color:Colors.green,borderRadius: BorderRadius.all(Radius.circular(2))),
-                          child: const Text('5% OFF',style: TextStyle(color: Colors.white)),
+                          padding: const EdgeInsets.only(left: 5,top: 2,right: 5,bottom: 2),
+                          decoration: BoxDecoration(color:Colors.green[800],borderRadius: const BorderRadius.all(Radius.circular(2))),
+                          child: Row(
+                            children: const [
+                              Text('4.5',style: TextStyle(color: Colors.white)),
+                              SizedBox(width: 5),
+                              Icon(Icons.star,size: 15,color: Colors.white)
+                            ]
+                          )
                         )
                       ]
                     ),
@@ -215,9 +221,15 @@ class _ProductDetailsState extends State<ProductDetails> {
                               const Text('\u{20B9}300',style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.normal)),
                               const SizedBox(width: 10),
                               Container(
-                                padding: const EdgeInsets.all(2),
-                                decoration: const BoxDecoration(color:Colors.green,borderRadius: BorderRadius.all(Radius.circular(2))),
-                                child: const Text('5% OFF',style: TextStyle(color: Colors.white)),
+                                padding: const EdgeInsets.only(left: 5,top: 2,right: 5,bottom: 2),
+                                decoration: BoxDecoration(color:Colors.green[800],borderRadius: const BorderRadius.all(Radius.circular(2))),
+                                child: Row(
+                                  children: const [
+                                    Text('4.5',style: TextStyle(color: Colors.white)),
+                                    SizedBox(width: 5),
+                                    Icon(Icons.star,size: 15,color: Colors.white)
+                                  ]
+                                )
                               )
                             ]
                           )

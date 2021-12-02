@@ -32,7 +32,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      padding: const EdgeInsets.only(top: 10),
+      padding: const EdgeInsets.only(top: 0),
       itemBuilder: (BuildContext context,int index){
         return Container(
           padding: const EdgeInsets.all(10),
