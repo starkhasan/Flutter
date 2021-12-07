@@ -77,7 +77,7 @@ class _ContactDetailsState extends State<ContactDetails> {
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: mapContact[indexName.elementAt(index)]!.length,
                 itemBuilder: (BuildContext context,int localIndex){
-                  var data = mapContact[indexName.elementAt(index)]!!;
+                  var data = mapContact[indexName.elementAt(index)]!;
                   return Container(padding: const EdgeInsets.only(left: 15,top: 10,bottom: 10),child: Row(
                     children: [
                       CircleAvatar(
@@ -108,7 +108,7 @@ class _ContactDetailsState extends State<ContactDetails> {
     List.generate(listContact.length, (index) {
       indexName.add(listContact[index].substring(0,1));
       if(mapContact.containsKey(listContact[index].substring(0,1))){
-        var tempList = mapContact[listContact[index].substring(0,1)]!!;
+        var tempList = mapContact[listContact[index].substring(0,1)]!;
         tempList.add(listContact[index]);
         mapContact[listContact[index].substring(0,1)] = tempList;
       }else{
