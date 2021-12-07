@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
@@ -81,6 +83,7 @@ class _ContactDetailsState extends State<ContactDetails> {
                       CircleAvatar(
                         radius: 15,
                         child: Center(child: Text(data[localIndex].substring(0,1))),
+                        backgroundColor: Colors.primaries[Random().nextInt(Colors.primaries.length)]
                       ),
                       const SizedBox(width: 10),
                       Text(data[localIndex],style: const TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 16)),
