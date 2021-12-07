@@ -206,14 +206,17 @@ class _OrderDetailsState extends State<OrderDetails> {
                       backgroundColor: Colors.green
                     ),
                     const SizedBox(width: 10),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text('Ali Hasan',style: TextStyle(color: Colors.black,fontSize: 16)),
-                        SizedBox(height: 2),
-                        Text('MOH - Wali Ganj Infront of Badi Masjid, Arrah, Bhojpur Bihar 802301',style: TextStyle(color: Colors.black,fontSize: 12)),
-                        Text('9760656467',style: TextStyle(color: Colors.black,fontSize: 12))
-                      ]
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text('Ali Hasan',style: TextStyle(color: Colors.black,fontSize: 16)),
+                          SizedBox(height: 2),
+                          Text('MOH - Wali Ganj Infront of Badi Masjid, Arrah, Bhojpur Bihar 802301',style: TextStyle(color: Colors.black,fontSize: 12)),
+                          SizedBox(height: 2),
+                          Text('9760656467',style: TextStyle(color: Colors.black,fontSize: 12))
+                        ]
+                      ),
                     )
                   ]
                 )
@@ -272,7 +275,7 @@ class _OrderDetailsState extends State<OrderDetails> {
           ),
           Divider(height: 1,thickness: 1,color: Colors.grey[400]), 
           Padding(
-            padding: const EdgeInsets.only(left: 15,right: 15,top: 20,bottom: 20),
+            padding: const EdgeInsets.only(left: 15,right: 15,top: 15,bottom: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:test_app/utils/helper.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:test_app/utils/Helper.dart';
 
 class WebViewPage extends StatefulWidget {
   const WebViewPage({Key? key}) : super(key: key);
@@ -12,7 +11,7 @@ class WebViewPage extends StatefulWidget {
   _WebViewPageState createState() => _WebViewPageState();
 }
 
-class _WebViewPageState extends State<WebViewPage> with SingleTickerProviderStateMixin{
+class _WebViewPageState extends State<WebViewPage> with SingleTickerProviderStateMixin { 
   final Completer<WebViewController> _controller = Completer<WebViewController>();
 
   List<IconData> menuItems = [Icons.remove,Icons.home,Icons.notification_add,Icons.settings];

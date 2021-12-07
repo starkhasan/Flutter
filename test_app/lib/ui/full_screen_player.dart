@@ -75,7 +75,7 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
               width: MediaQuery.of(context).size.width,
               child: GestureDetector(
                 onTap: () => {
-                  setState((){ controllerVisible = true;}),
+                  setState(() => controllerVisible = true),
                   timerToHideController()
                 },
                 child: VideoPlayer(videoPlayerController)
@@ -115,7 +115,7 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
                               : Icons.play_circle,
                               size: 60,
                               color: Colors.white
-                            ),
+                            )
                           ),
                           const SizedBox(width: 30),
                           InkWell(
@@ -137,7 +137,7 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
                           if(videoPlayerController.value.isInitialized) videoPlayerController.dispose(),
                           Navigator.pop(context),
                         },
-                        icon: const Icon(Icons.arrow_back,color: Colors.white),
+                        icon: const Icon(Icons.arrow_back,color: Colors.white)
                       )
                     ),
                     Positioned(

@@ -100,7 +100,7 @@ class _GroceryHomeState extends State<GroceryHome> {
                   return InkWell(
                     onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetails(imagePath: listImageURL[index], productDetails: listProductName[index], productId: '10'))),
                     child: Container(
-                      margin: const EdgeInsets.only(top: 5,left: 7.5,bottom: 5,right: 7.5),
+                      margin: const EdgeInsets.only(top: 5,left: 5,bottom: 5,right: 5),
                       decoration: const BoxDecoration(color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(5.0)),boxShadow: [BoxShadow(blurRadius: 2.0,color: Color(0xFFE0E0E0))]),
                       child: Column(
                         children: [
@@ -111,12 +111,12 @@ class _GroceryHomeState extends State<GroceryHome> {
                           )
                         ]
                       )
-                    ),
+                    )
                   );
                 }
               )
             ]
-          ),
+          )
         )
       )
     );

@@ -164,14 +164,17 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                       backgroundColor: Colors.green
                     ),
                     const SizedBox(width: 10),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text('Ali Hasan',style: TextStyle(color: Colors.black,fontSize: 16)),
-                        SizedBox(height: 2),
-                        Text('MOH - Wali Ganj Infront of Badi Masjid, Arrah, Bhojpur Bihar 802301',style: TextStyle(color: Colors.black,fontSize: 12)),
-                        Text('9760656467',style: TextStyle(color: Colors.black,fontSize: 12))
-                      ]
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text('Ali Hasan',style: TextStyle(color: Colors.black,fontSize: 16)),
+                          SizedBox(height: 2),
+                          Text('MOH - Wali Ganj Infront of Badi Masjid, Arrah, Bhojpur Bihar 802301',style: TextStyle(color: Colors.black,fontSize: 12)),
+                          SizedBox(height: 2),
+                          Text('9760656467',style: TextStyle(color: Colors.black,fontSize: 12))
+                        ]
+                      ),
                     )
                   ]
                 )
