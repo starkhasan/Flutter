@@ -1,5 +1,6 @@
-import 'package:block_arch/ui/bloc_consumer_example.dart';
-import 'package:block_arch/ui/weather_report_screen.dart';
+import 'package:block_arch/ui/block/bloc_consumer_example.dart';
+import 'package:block_arch/ui/block/weather_report_screen.dart';
+import 'package:block_arch/ui/contact_details.dart';
 import 'package:flutter/material.dart';
 
 class LandingPage extends StatelessWidget {
@@ -7,7 +8,7 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _listScreen = ['Counter Bloc','Weather Bloc'];
+    var _listScreen = ['Counter Bloc','Weather Bloc','Contact Details'];
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -24,6 +25,9 @@ class LandingPage extends StatelessWidget {
                   break;
                 case 1:
                   navigateScreen(context, const WeatherReportScreen());
+                  break;
+                case 2:
+                  navigateScreen(context, const ContactDetails());
                   break;
                 default:
               }

@@ -63,7 +63,7 @@ class _MainScreenState extends State<MainScreen> {
             response = state as WeatherFetchedState;
             return buildContent(state.weatherResponse);
           }
-        },
+        }
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.read<WeatherBloc>().add(WeatherEvent.fabRequestEvent),
