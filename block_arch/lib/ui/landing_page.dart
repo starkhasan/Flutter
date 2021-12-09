@@ -34,7 +34,7 @@ class LandingPage extends StatelessWidget {
             },
             child: Container(
               padding: const EdgeInsets.all(20),
-              margin: const EdgeInsets.all(2),
+              margin: const EdgeInsets.only(top: 5,bottom: 5,left: 10,right: 10),
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(8)),

@@ -11,10 +11,10 @@ class ApiProvider {
       if (response.statusCode == 200) {
         return WeatherResponse.fromJson(jsonDecode(response.body));
       } else {
-        throw Exception('failed to load players');;
+        throw Exception('failed to load players');
       }
     } catch (e) {
-      throw Exception('failed to load players');;
+      throw Exception('failed to load players');
     }
   }
 }
