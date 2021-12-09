@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:block_arch/utils/progress_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
@@ -13,6 +14,7 @@ class ContactDetails extends StatefulWidget {
 class _ContactDetailsState extends State<ContactDetails> {
 
   var headerCount = 0;
+  late ProgressDialog progressDialog;
   Map<String,List<String>> contactMap = {};
   List<String> listContact = [
     'Ali Hasan',
@@ -57,12 +59,21 @@ class _ContactDetailsState extends State<ContactDetails> {
     'Nasir',
     'Tariq',
     'Umran',
-    'Zakir'
+    'Yadav Ji',
+    'Yuvraj',
+    'Yasin',
+    'Yasmin',
+    'Zakir',
   ];
 
   Set<String> indexName = {};
   Map<String,List<String>> mapContact = {};
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    progressDialog = ProgressDialog(buildContext: context);
+  }
 
   @override
   Widget build(BuildContext context) {
