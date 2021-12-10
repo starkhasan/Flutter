@@ -1,6 +1,9 @@
 import 'package:block_arch/ui/block/bloc_consumer_example.dart';
 import 'package:block_arch/ui/block/weather_report_screen.dart';
 import 'package:block_arch/ui/contact_details.dart';
+import 'package:block_arch/ui/list_slidable.dart';
+import 'package:block_arch/ui/multi_select_list.dart';
+import 'package:block_arch/ui/single_select.dart';
 import 'package:flutter/material.dart';
 
 class LandingPage extends StatelessWidget {
@@ -8,7 +11,7 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _listScreen = ['Counter Bloc','Weather Bloc','Contact Details'];
+    var _listScreen = ['Counter Bloc','Weather Bloc','Contact Details','Single Select','Multi Select','List Slidable'];
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -28,6 +31,15 @@ class LandingPage extends StatelessWidget {
                   break;
                 case 2:
                   navigateScreen(context, const ContactDetails());
+                  break;
+                case 3:
+                  navigateScreen(context, const SingleSelect());
+                  break;
+                case 4: 
+                  navigateScreen(context, const MultiSelectList());
+                  break;
+                case 5:
+                  navigateScreen(context, const ListSlidable());
                   break;
                 default:
               }

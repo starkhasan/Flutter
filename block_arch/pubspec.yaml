@@ -38,6 +38,7 @@ dependencies:
   http: ^0.13.3
   scrollable_positioned_list: ^0.2.3
   sticky_headers: ^0.2.0
+  flutter_slidable: ^1.1.0
 
 dev_dependencies:
   flutter_test:

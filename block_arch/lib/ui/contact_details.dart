@@ -63,7 +63,7 @@ class _ContactDetailsState extends State<ContactDetails> {
     'Yuvraj',
     'Yasin',
     'Yasmin',
-    'Zakir',
+    'Zakir'
   ];
 
   Set<String> indexName = {};
@@ -86,6 +86,7 @@ class _ContactDetailsState extends State<ContactDetails> {
       body: Container(
         color: Colors.white,
         child: Scrollbar(
+          radius: const Radius.circular(5.0),
           child: ListView.builder(
             shrinkWrap: true,
             itemBuilder: (BuildContext context,int index){
@@ -96,7 +97,7 @@ class _ContactDetailsState extends State<ContactDetails> {
                   padding: const EdgeInsets.only(left: 15,top: 10,bottom: 10),
                   child: Text(
                     indexName.elementAt(index),
-                    style: const TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 18),
+                    style: const TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 18)
                   )
                 ),
                 content: Container(
@@ -121,14 +122,14 @@ class _ContactDetailsState extends State<ContactDetails> {
                                   backgroundColor: Colors.primaries[Random().nextInt(Colors.primaries.length)]
                                 ),
                                 const SizedBox(width: 12),
-                                Text(data[localIndex],style: const TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 16)),
+                                Text(data[localIndex],style: const TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 16))
                               ]
                             ),
                             Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 InkWell(
-                                  onTap: () => print('Click Here to Call'),
+                                  onTap: () => print('Click Here to Call ${data[localIndex]}'),
                                   child: const CircleAvatar(
                                     radius: 15,
                                     child: Center(child: Icon(Icons.phone_enabled,color: Colors.green,size: 20)),
@@ -137,7 +138,7 @@ class _ContactDetailsState extends State<ContactDetails> {
                                 ),
                                 const SizedBox(width: 15),
                                 InkWell(
-                                  onTap: () => print('Click Here to Email'),
+                                  onTap: () => print('Click Here to Email ${data[localIndex]}'),
                                   child: const CircleAvatar(
                                     radius: 16,
                                     child: Center(child: Icon(Icons.email,color: Colors.blue,size: 20)),
