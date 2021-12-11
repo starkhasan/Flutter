@@ -1,22 +1,19 @@
-import 'package:block_arch/ui/animation/home_animation.dart';
-import 'package:block_arch/ui/block/bloc_consumer_example.dart';
-import 'package:block_arch/ui/block/weather_report_screen.dart';
-import 'package:block_arch/ui/contact_details.dart';
-import 'package:block_arch/ui/list_slidable.dart';
-import 'package:block_arch/ui/multi_select_list.dart';
-import 'package:block_arch/ui/single_select.dart';
+import 'package:block_arch/ui/animation/bounce_ball_explicit.dart';
+import 'package:block_arch/ui/animation/fade_animation.dart';
+import 'package:block_arch/ui/animation/shape_effect.dart';
+import 'package:block_arch/ui/animation/tween_animation.dart';
 import 'package:flutter/material.dart';
 
-class LandingPage extends StatelessWidget {
-  const LandingPage({ Key? key }) : super(key: key);
+class HomeAnimation extends StatelessWidget {
+  const HomeAnimation({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var _listScreen = ['Counter Bloc','Weather Bloc','Contact Details','Single Select','Multi Select','List Slidable','Home Animation'];
+    var _listScreen = ['Opacity Effect Implicit','Shape Shifting Implicit','Tween Animation Implicit','BounceBall Explicit'];
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Landing Page'),
+        title: const Text('Home Animation'),
       ),
       body: ListView.builder(
         itemCount: _listScreen.length,
@@ -25,25 +22,16 @@ class LandingPage extends StatelessWidget {
             onTap: () {
               switch (index) {
                 case 0:
-                  navigateScreen(context, const BlocConsumerExample());
+                  navigateScreen(context, const FadeAnimation());
                   break;
                 case 1:
-                  navigateScreen(context, const WeatherReportScreen());
+                  navigateScreen(context, const ShapeEffect());
                   break;
                 case 2:
-                  navigateScreen(context, const ContactDetails());
+                  navigateScreen(context, const TweenAnimationExample());
                   break;
                 case 3:
-                  navigateScreen(context, const SingleSelect());
-                  break;
-                case 4: 
-                  navigateScreen(context, const MultiSelectList());
-                  break;
-                case 5:
-                  navigateScreen(context, const ListSlidable());
-                  break;
-                case 6:
-                  navigateScreen(context, const HomeAnimation());
+                  navigateScreen(context, const BounceBallExplicit());
                   break;
                 default:
               }

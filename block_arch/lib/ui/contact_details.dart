@@ -63,7 +63,11 @@ class _ContactDetailsState extends State<ContactDetails> {
     'Yuvraj',
     'Yasin',
     'Yasmin',
-    'Zakir'
+    'Zakir',
+    'Nebula',
+    'Stark',
+    'Martin',
+    'Kings'
   ];
 
   Set<String> indexName = {};
