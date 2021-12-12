@@ -1,7 +1,9 @@
 import 'package:block_arch/ui/animation/bounce_ball_explicit.dart';
+import 'package:block_arch/ui/animation/bounce_ball_implicit.dart';
 import 'package:block_arch/ui/animation/fade_animation.dart';
 import 'package:block_arch/ui/animation/shape_effect.dart';
 import 'package:block_arch/ui/animation/tween_animation.dart';
+import 'package:block_arch/ui/animation/tween_explicit.dart';
 import 'package:flutter/material.dart';
 
 class HomeAnimation extends StatelessWidget {
@@ -9,7 +11,7 @@ class HomeAnimation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _listScreen = ['Opacity Effect Implicit','Shape Shifting Implicit','Tween Animation Implicit','BounceBall Explicit'];
+    var _listScreen = ['Opacity Effect Implicit','Shape Shifting Implicit','Tween Animation Implicit','BounceBall Implicit','BounceBall Explicit','Tween Explicit'];
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -31,7 +33,13 @@ class HomeAnimation extends StatelessWidget {
                   navigateScreen(context, const TweenAnimationExample());
                   break;
                 case 3:
+                  navigateScreen(context, const BounceBallImplicit());
+                  break;
+                case 4:
                   navigateScreen(context, const BounceBallExplicit());
+                  break;
+                case 5:
+                  navigateScreen(context, const TweenExplicit());
                   break;
                 default:
               }

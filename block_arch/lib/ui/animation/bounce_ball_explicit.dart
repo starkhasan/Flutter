@@ -10,66 +10,50 @@ class BounceBallExplicit extends StatefulWidget {
   _BounceBallExplicitState createState() => _BounceBallExplicitState();
 }
 
-class _BounceBallExplicitState extends State<BounceBallExplicit> {
+class _BounceBallExplicitState extends State<BounceBallExplicit> with SingleTickerProviderStateMixin{
 
-  double topMargin = 0.0;
-  double ballSize = 0.0;
-  Color ballColor = Colors.red;
-  late Timer ballBouncingTimer;
-
+  late AnimationController animationController;
 
   @override
   void initState() {
     super.initState();
-    ballSize = 10;
-    ballBouncingTimer = Timer.periodic(const Duration(milliseconds: 700), changePosition);
-  }
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+      lowerBound: 0,
+      upperBound: 100
+    );
 
-
-  void changePosition(Timer t){
-    setState(() {
-      ballColor = Colors.primaries[Random().nextInt(Colors.primaries.length)];
-      topMargin = topMargin == 0 ? 200 : 0;
+    animationController.addListener(() {
+      setState(() {
+        
+      });
     });
+
+    animationController.repeat(reverse: true);
   }
 
   @override
   void dispose() {
-    ballBouncingTimer.cancel();
+    animationController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Bounce Ball')),
+      appBar: AppBar(title: const Text('Bounce Ball Explicit')),
       body: Stack(
         children: [
           Center(
-            child: AnimatedContainer(
-              curve: Curves.linear,
-              duration: const Duration(milliseconds: 700),
-              height: ballSize,
-              width: ballSize,
-              margin: EdgeInsets.only(bottom: topMargin),
-              decoration: BoxDecoration(color: ballColor,shape: BoxShape.circle)
+            child: Container(
+              margin: EdgeInsets.only(top: animationController.value),
+              height: 50,
+              width: 50,
+              decoration: const BoxDecoration(color: Colors.green,shape: BoxShape.circle)
             )
-          ),
-          Positioned(
-            bottom: 50,
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: Slider(
-                label: "Size ${ballSize.toInt()}",
-                divisions: 10,
-                value: ballSize, 
-                max: 100,
-                min: 0,
-                onChanged: (value) => setState(() => ballSize = value)
-              ),
-            ),
           )
-        ],
+        ]
       )
     );
   }
