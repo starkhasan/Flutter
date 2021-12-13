@@ -17,10 +17,6 @@ class _TweenExplicitState extends State<TweenExplicit> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Music Play Explicit Animation")),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => print('Click Here'),
-        child: const Icon(Icons.stop,),
-      ),
       body: Column(
         children: [
           SizedBox(height: MediaQuery.of(context).size.height * 0.30),
@@ -32,9 +28,7 @@ class _TweenExplicitState extends State<TweenExplicit> {
               children: List.generate(4, (index) => MainScreen(durations: animationDuration[index])),
             )
           ),
-          Expanded(
-            child: Container()
-          )
+          Expanded(child: Container())
         ]
       )
     );
