@@ -19,7 +19,7 @@ class HomeAnimation extends StatelessWidget {
     'BounceBall Explicit',
     'Tween Explicit',
     'Custom Painter',
-    'Icon Shake Example'
+    'Animated BottomNavigationBar'
   ];
   
   @override
@@ -27,7 +27,7 @@ class HomeAnimation extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Home Animation'),
+        title: const Text('Home Animation')
       ),
       body: ListView.builder(
         itemCount: _listScreen.length,

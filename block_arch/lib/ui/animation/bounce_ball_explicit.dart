@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class BounceBallExplicit extends StatefulWidget {
@@ -8,8 +7,35 @@ class BounceBallExplicit extends StatefulWidget {
   _BounceBallExplicitState createState() => _BounceBallExplicitState();
 }
 
-class _BounceBallExplicitState extends State<BounceBallExplicit> with SingleTickerProviderStateMixin{
+class _BounceBallExplicitState extends State<BounceBallExplicit>{
 
+  final List<int> durations = [400,500,600];
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Bounce Ball Explicit')),
+      body: Stack(
+        children: [
+          Center(
+            child: Row(mainAxisSize: MainAxisSize.min,children: List.generate(3, (index) => BallLoading(ballDuration: durations[index])))
+          )
+        ]
+      )
+    );
+  }
+}
+
+class BallLoading extends StatefulWidget {
+  final int ballDuration;
+  const BallLoading({ Key? key,required this.ballDuration}) : super(key: key);
+
+  @override
+  _BallLoadingState createState() => _BallLoadingState();
+}
+
+class _BallLoadingState extends State<BallLoading> with SingleTickerProviderStateMixin{
+  
   late AnimationController animationController;
 
   @override
@@ -17,17 +43,12 @@ class _BounceBallExplicitState extends State<BounceBallExplicit> with SingleTick
     super.initState();
     animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 800),
+      duration: Duration(milliseconds: widget.ballDuration),
       lowerBound: 0,
       upperBound: 100
     );
 
-    animationController.addListener(() {
-      setState(() {
-        
-      });
-    });
-
+    animationController.addListener(() => setState(() {}));
     animationController.repeat(reverse: true);
   }
 
@@ -39,19 +60,12 @@ class _BounceBallExplicitState extends State<BounceBallExplicit> with SingleTick
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Bounce Ball Explicit')),
-      body: Stack(
-        children: [
-          Center(
-            child: Container(
-              margin: EdgeInsets.only(top: animationController.value),
-              height: 50,
-              width: 50,
-              decoration: const BoxDecoration(color: Colors.green,shape: BoxShape.circle)
-            )
-          )
-        ]
+    return Center(
+      child: Container(
+        margin: EdgeInsets.only(top: animationController.value),
+        height: 20,
+        width: 20,
+        decoration: const BoxDecoration(color: Colors.black,shape: BoxShape.circle)
       )
     );
   }

@@ -21,7 +21,7 @@ class _IconShakeState extends State<IconShake> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Icon Shake UI')),
+      appBar: AppBar(title: const Text('Animated BottomNavigationBar')),
       body: Column(
         children: [
           Expanded(

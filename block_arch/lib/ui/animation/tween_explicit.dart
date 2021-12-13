@@ -10,7 +10,7 @@ class TweenExplicit extends StatefulWidget {
 class _TweenExplicitState extends State<TweenExplicit> {
 
   final List<Duration> animationDuration = const [Duration(milliseconds: 400),Duration(milliseconds: 300),Duration(milliseconds: 500),Duration(milliseconds: 700)];
-
+  
   bool isAnimate = true;
 
   @override
@@ -53,8 +53,8 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
     animationController = AnimationController(
       vsync: this,
       duration: widget.durations,
-      lowerBound: 5,
-      upperBound: 100
+      lowerBound: 15,
+      upperBound: 95
     );    
     // final curveAnimation = CurvedAnimation(parent: animationController, curve: Curves.linear);
     // animation = Tween<double>(begin: 0, end: 100).animate(curveAnimation);
@@ -78,6 +78,7 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
     super.dispose();
   }
 
+  //music
   @override
   Widget build(BuildContext context) {
     return Container(
