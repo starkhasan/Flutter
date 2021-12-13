@@ -53,7 +53,7 @@ class _IconShakeState extends State<IconShake> {
                   icon: selectedItem == 3 ? TweenIcon(showIcon: normalIcon[3]) : Icon(normalIcon[3])
                 )
               ]
-            ),
+            )
           )
         ]
       )

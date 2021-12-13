@@ -21,7 +21,7 @@ class _BounceBallImplicitState extends State<BounceBallImplicit> {
   @override
   void initState() {
     super.initState();
-    ballSize = 10;
+    ballSize = 25;
     ballBouncingTimer = Timer.periodic(const Duration(milliseconds: 700), changePosition);
   }
 
@@ -61,7 +61,7 @@ class _BounceBallImplicitState extends State<BounceBallImplicit> {
               width: MediaQuery.of(context).size.width,
               child: Slider(
                 label: "Size ${ballSize.toInt()}",
-                divisions: 10,
+                divisions: 8,
                 value: ballSize, 
                 max: 100,
                 min: 0,
