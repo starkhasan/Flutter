@@ -2,6 +2,7 @@ import 'package:block_arch/ui/animation/bounce_ball_explicit.dart';
 import 'package:block_arch/ui/animation/bounce_ball_implicit.dart';
 import 'package:block_arch/ui/animation/custom_painting.dart';
 import 'package:block_arch/ui/animation/fade_animation.dart';
+import 'package:block_arch/ui/animation/icon_shake.dart';
 import 'package:block_arch/ui/animation/shape_effect.dart';
 import 'package:block_arch/ui/animation/tween_animation.dart';
 import 'package:block_arch/ui/animation/tween_explicit.dart';
@@ -17,7 +18,8 @@ class HomeAnimation extends StatelessWidget {
     'BounceBall Implicit',
     'BounceBall Explicit',
     'Tween Explicit',
-    'Custom Painter'
+    'Custom Painter',
+    'Icon Shake Example'
   ];
   
   @override
@@ -53,6 +55,9 @@ class HomeAnimation extends StatelessWidget {
                   break;
                 case 6:
                   navigateScreen(context, const CustomPainting());
+                  break;
+                case 7:
+                  navigateScreen(context, const IconShake());
                   break;
                 default:
               }

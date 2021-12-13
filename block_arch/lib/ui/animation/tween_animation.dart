@@ -35,9 +35,10 @@ class _TweenAnimationExampleState extends State<TweenAnimationExample> {
               builder: (context,angle,child){
                 return Transform.rotate(
                   angle: angle,
-                  child: Image.asset('assets/earth.png'),
+                  child: Image.asset('assets/earth.png')
                 );
-              }
+              },
+              child: Container(color: Colors.red,height: MediaQuery.of(context).size.height * 0.80,width: MediaQuery.of(context).size.width * 0.80),
             )
           )
         ),

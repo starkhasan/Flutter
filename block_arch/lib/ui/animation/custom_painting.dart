@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
 
 class CustomPainting extends StatefulWidget {
   const CustomPainting({ Key? key }) : super(key: key);
-
   @override
   _CustomPaintingState createState() => _CustomPaintingState();
 }
@@ -20,7 +18,7 @@ class _CustomPaintingState extends State<CustomPainting> {
               width: MediaQuery.of(context).size.width,
               color: Colors.blue,
               child: CustomPaint(painter: HorizontalLine()),
-            ),
+            )
           ),
           Expanded(
             child: Container(
@@ -65,6 +63,7 @@ class HorizontalLine extends CustomPainter{
     //drawing a solid rectangle with from its left top right bottom edges with only edge
     canvas.drawRect(Rect.fromLTRB(50, 50, size.width - 50, size.height - 50), Paint()..style = PaintingStyle.stroke..color = Colors.pink..strokeWidth = 5);
   }
+
   //this method is called when new instance of the class is provided, to check if new instance actually represent different information
   //if new instance is not provided or you draw it for only once then retun false
   @override
@@ -78,6 +77,8 @@ class CircularPaint extends CustomPainter{
     final radius = size.height / 2 - 20;
     canvas.drawCircle(Offset(size.width / 2,size.height / 2), radius, Paint()..style = PaintingStyle.stroke..color = Colors.white..strokeWidth = 2);
     canvas.drawLine(Offset(size.width / 2 , size.height /2), Offset(size.width/1.25,size.height / 2), Paint()..color = Colors.white..strokeWidth = 2);
+
+    
   }
 
   @override
