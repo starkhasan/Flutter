@@ -33,17 +33,22 @@ class MainApp extends StatefulWidget {
   _MainAppState createState() => _MainAppState();
 }
 
-class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
+class _MainAppState extends State<MainApp> with WidgetsBindingObserver, SingleTickerProviderStateMixin{
 
   bool _isDarkMode = false;
   bool _mainScreen = true;
   var textController = TextEditingController();
   List<IconData> icons = [Icons.sync,Icons.dark_mode_outlined];
   List<String> screenName = ['Sync Notes','Dark mode'];
+  late AnimationController animationController;
 
   @override
   void initState() {
     super.initState();
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2)
+    );
     WidgetsBinding.instance!.addObserver(this);
     if(Preferences.getSyncEnabled() && Preferences.getUserID().isNotEmpty) {
       Future.delayed(Duration.zero,() => widget.notesProvider.syncEnableFromSyncNote(context));
@@ -52,11 +57,15 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
       _isDarkMode = value;
       Preferences.setAppTheme(value);
     }));
+
+
+    animationController.addListener(() => setState((){}));
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance!.removeObserver(this);
+    animationController.dispose();
     super.dispose();
   }
 
@@ -71,6 +80,9 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
 
   @override
   Widget build(BuildContext context) {
+    widget.notesProvider.isDataSync
+    ? animationController.repeat()
+    : animationController.reset();
     return WillPopScope(
       onWillPop: onBackPressed,
       child: Scaffold(
@@ -81,10 +93,20 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver{
           actions: widget.notesProvider.completedList.isEmpty && widget.notesProvider.listNote.isEmpty && !widget.notesProvider.isDataSync
           ? null
           : [
-            IconButton(
-              onPressed: widget.notesProvider.isDataSync ? null : () => deleteNotesDialog(),
-              icon: Icon(widget.notesProvider.isDataSync ? Icons.sync :Icons.delete,color: Colors.white,size: 22.0)
-            )
+            widget.notesProvider.isDataSync
+            ? AnimatedBuilder(
+                animation: animationController,
+                builder: (context, child){
+                  return RotationTransition(
+                    turns: Tween<double>(begin: 0,end: -1).animate(animationController),
+                    child: const Padding(padding: EdgeInsets.all(8.0),child: Icon(Icons.sync))
+                  );
+                }
+              )
+            : IconButton(
+                onPressed: () => deleteNotesDialog(),
+                icon: const Icon(Icons.delete,color: Colors.white,size: 22.0)
+              )
           ]
         ),
         floatingActionButton: Visibility(
