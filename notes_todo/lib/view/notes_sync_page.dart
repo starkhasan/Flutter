@@ -262,6 +262,7 @@ class _LogoutPageState extends State<LogoutPage> {
                                   child: TextField(
                                     controller: nameCont,
                                     keyboardType: TextInputType.text,
+                                    textInputAction: TextInputAction.next,
                                     style: const TextStyle(fontSize: 12),
                                     cursorColor: Theme.of(context).toggleableActiveColor,
                                     decoration: InputDecoration(
@@ -276,6 +277,7 @@ class _LogoutPageState extends State<LogoutPage> {
                                   controller: emailCont,
                                   keyboardType: TextInputType.emailAddress,
                                   style: const TextStyle(fontSize: 12),
+                                  textInputAction: TextInputAction.next,
                                   cursorColor: Theme.of(context).toggleableActiveColor,
                                   decoration: InputDecoration(
                                     hintText: 'Email',
@@ -289,7 +291,7 @@ class _LogoutPageState extends State<LogoutPage> {
                                   controller: passwordCont,
                                   obscureText: provider.showPassword,
                                   keyboardType: TextInputType.text,
-                                  textInputAction: TextInputAction.none,
+                                  textInputAction: TextInputAction.done,
                                   style: const TextStyle(fontSize: 12),
                                   cursorColor: Theme.of(context).toggleableActiveColor,
                                   decoration: InputDecoration(
