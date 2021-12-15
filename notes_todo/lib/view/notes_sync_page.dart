@@ -78,11 +78,11 @@ class _LoginPageState extends State<LoginPage> {
                             children: [
                               TextSpan(
                                 text: 'All your notes data sync with your registered id',
-                                style: TextStyle(fontSize: 11,color: Preferences.getAppTheme() ? Colors.white : Colors.black)
+                                style: TextStyle(fontSize: 12,color: Preferences.getAppTheme() ? Colors.white : Colors.black)
                               ),
                               TextSpan(
                                 text: ' on Google Firebase Cloud. Notes automatically sync with Firebase Cloud at the time of notes creating and deletion',
-                                style: TextStyle(fontSize: 11,color: Preferences.getAppTheme() ? Colors.white : Colors.black)
+                                style: TextStyle(fontSize: 12,color: Preferences.getAppTheme() ? Colors.white : Colors.black)
                               )
                             ]
                           )
