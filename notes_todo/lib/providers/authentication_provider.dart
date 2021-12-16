@@ -39,7 +39,7 @@ class AuthenticationProvider extends ChangeNotifier with Helpers {
         Preferences.setUserID(userCredential!.user!.uid);
         Preferences.setSyncEnabled(true);
         Preferences.setSyncExplicitly(true);
-        if(!isLogin) FirebaseDatabase.instance.reference().child('notes_todo').child(userCredential!.user!.uid).update({'name' : name });
+        if(!isLogin) FirebaseDatabase.instance.ref().child('notes_todo').child(userCredential!.user!.uid).update({'name' : name });
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           showSnackBar(_context,'The password provided is too weak.');
@@ -81,8 +81,8 @@ class AuthenticationProvider extends ChangeNotifier with Helpers {
   void deleteUserData(BuildContext _context) async{
     _syncDataDelete = true;
     notifyListeners();
-    await FirebaseDatabase.instance.reference().child('notes_todo').child(Preferences.getUserID()).child('task').remove();
-    await FirebaseDatabase.instance.reference().child('notes_todo').child(Preferences.getUserID()).child('completeTask').remove();
+    await FirebaseDatabase.instance.ref().child('notes_todo').child(Preferences.getUserID()).child('task').remove();
+    await FirebaseDatabase.instance.ref().child('notes_todo').child(Preferences.getUserID()).child('completeTask').remove();
     showSnackBar(_context, 'All Sync data has been deleted successfully');
     _syncDataDelete = false;
     notifyListeners();

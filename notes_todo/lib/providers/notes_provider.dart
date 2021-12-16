@@ -4,8 +4,7 @@ import 'package:notes_todo/utils/preferences.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class NotesProvider extends ChangeNotifier with Helpers {
-  DatabaseReference databaseReference =
-      FirebaseDatabase.instance.reference().child('notes_todo');
+  DatabaseReference databaseReference = FirebaseDatabase.instance.ref().child('notes_todo');
   bool fabVisible = true;
   String _name = '';
   bool taskContainerVisible = false;
@@ -97,19 +96,17 @@ class NotesProvider extends ChangeNotifier with Helpers {
         if (Preferences.getLocalDeleted()) {
           _dataSync = true;
           notifyListeners();
-          await databaseReference
-              .child(Preferences.getUserID())
-              .once()
-              .then((DataSnapshot snapshot) {
-            if (snapshot.value != null) {
-              if (snapshot.value['task'] != null) {
-                var tempTask = snapshot.value['task'].split(',');
+          await databaseReference.child(Preferences.getUserID()).once().then((DatabaseEvent event) {
+            if (event.snapshot.value != null) {
+              var _data = event.snapshot.value as Map;
+              if (_data['task'] != null) {
+                var tempTask = _data['task'].split(',');
                 for (var item in tempTask) {
                   listNote.add(item);
                 }
               }
-              if (snapshot.value['completeTask'] != null) {
-                var tempTask = snapshot.value['completeTask'].split(',');
+              if (_data['completeTask'] != null) {
+                var tempTask = _data['completeTask'].split(',');
                 for (var item in tempTask) {
                   completedList.add(item);
                 }
@@ -120,14 +117,9 @@ class NotesProvider extends ChangeNotifier with Helpers {
           _dataSync = false;
           notifyListeners();
         }
-        await databaseReference
-            .child(Preferences.getUserID())
-            .update({'task': listNote.join(',')});
+        await databaseReference.child(Preferences.getUserID()).update({'task': listNote.join(',')});
       } else {
-        await databaseReference
-            .child(Preferences.getUserID())
-            .child('task')
-            .remove();
+        await databaseReference.child(Preferences.getUserID()).child('task').remove();
       }
     }
     Preferences.storeTask(listNote);
@@ -160,19 +152,18 @@ class NotesProvider extends ChangeNotifier with Helpers {
     if (await checkInternetConnection()) {
       _dataSync = true;
       notifyListeners();
-      await databaseReference
-          .child(Preferences.getUserID())
-          .once()
-          .then((DataSnapshot snapshot) {
-        if (snapshot.value != null) {
-          if (snapshot.value['name'] != null) {
-            _name = snapshot.value['name'];
-            Preferences.setUserName(snapshot.value['name']);
+      await databaseReference.child('').once().then((value) => {});
+      await databaseReference.child(Preferences.getUserID()).once().then((DatabaseEvent event) {
+        if (event.snapshot.value != null) {
+          var data = event.snapshot.value as Map;
+          if (data['name'] != null) {
+            _name = data['name'];
+            Preferences.setUserName(data['name']);
           }
 
-          if (snapshot.value['task'] != null) {
+          if (data['task'] != null) {
             listNote = Preferences.getStoredTask();
-            var tempTask = snapshot.value['task'].split(',');
+            var tempTask = data['task'].split(',');
             for (var item in tempTask) {
               if (!listNote.contains(item)) listNote.add(item);
             }
@@ -182,9 +173,9 @@ class NotesProvider extends ChangeNotifier with Helpers {
             Preferences.storeTask(listNote);
           }
 
-          if (snapshot.value['completeTask'] != null) {
+          if (data['completeTask'] != null) {
             completedList = Preferences.getCompleteTask();
-            var tempTask = snapshot.value['completeTask'].split(',');
+            var tempTask = data['completeTask'].split(',');
             for (var item in tempTask) {
               if (!completedList.contains(item)) completedList.add(item);
             }
