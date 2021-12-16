@@ -19,6 +19,7 @@ class AuthenticationProvider extends ChangeNotifier with Helpers {
   bool get isAuthProcess => _authProcess;
   UserCredential? userCredential;
   FirebaseAuth firebaseAuthInstance = FirebaseAuth.instance;
+  var databaseReference = FirebaseDatabase.instance.ref().child('notes_todo');
 
   void turnSingIn(bool login, String name, String email, String password){
     _isLogin = login;
@@ -39,7 +40,7 @@ class AuthenticationProvider extends ChangeNotifier with Helpers {
         Preferences.setUserID(userCredential!.user!.uid);
         Preferences.setSyncEnabled(true);
         Preferences.setSyncExplicitly(true);
-        if(!isLogin) FirebaseDatabase.instance.ref().child('notes_todo').child(userCredential!.user!.uid).update({'name' : name });
+        if(!isLogin) databaseReference.child(userCredential!.user!.uid).update({'name' : name });
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           showSnackBar(_context,'The password provided is too weak.');
@@ -81,8 +82,8 @@ class AuthenticationProvider extends ChangeNotifier with Helpers {
   void deleteUserData(BuildContext _context) async{
     _syncDataDelete = true;
     notifyListeners();
-    await FirebaseDatabase.instance.ref().child('notes_todo').child(Preferences.getUserID()).child('task').remove();
-    await FirebaseDatabase.instance.ref().child('notes_todo').child(Preferences.getUserID()).child('completeTask').remove();
+    await databaseReference.child(Preferences.getUserID()).child('task').remove();
+    await databaseReference.child(Preferences.getUserID()).child('completeTask').remove();
     showSnackBar(_context, 'All Sync data has been deleted successfully');
     _syncDataDelete = false;
     notifyListeners();

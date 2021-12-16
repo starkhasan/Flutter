@@ -16,7 +16,7 @@ class EmptyMessage extends StatelessWidget {
             Icon(Icons.add_circle,size: 16,color: Theme.of(context).toggleableActiveColor),
             Text(' in bottom right corner',style: TextStyle(color: darkMode ? Colors.white : Colors.black,fontSize: 12))
           ]
-        ),
+        )
       )
     );
   }

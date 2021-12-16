@@ -128,14 +128,9 @@ class NotesProvider extends ChangeNotifier with Helpers {
   void storeCompleteTaskLocally() async {
     if (Preferences.getSyncEnabled()) {
       if (completedList.isEmpty) {
-        await databaseReference
-            .child(Preferences.getUserID())
-            .child('completeTask')
-            .remove();
+        await databaseReference.child(Preferences.getUserID()).child('completeTask').remove();
       } else {
-        await databaseReference
-            .child(Preferences.getUserID())
-            .update({'completeTask': completedList.join(',')});
+        await databaseReference.child(Preferences.getUserID()).update({'completeTask': completedList.join(',')});
       }
     }
     Preferences.storeCompleteTask(completedList);
@@ -167,9 +162,7 @@ class NotesProvider extends ChangeNotifier with Helpers {
             for (var item in tempTask) {
               if (!listNote.contains(item)) listNote.add(item);
             }
-            databaseReference
-                .child(Preferences.getUserID())
-                .update({'task': listNote.join(',')});
+            databaseReference.child(Preferences.getUserID()).update({'task': listNote.join(',')});
             Preferences.storeTask(listNote);
           }
 
@@ -179,9 +172,7 @@ class NotesProvider extends ChangeNotifier with Helpers {
             for (var item in tempTask) {
               if (!completedList.contains(item)) completedList.add(item);
             }
-            databaseReference
-                .child(Preferences.getUserID())
-                .update({'completeTask': completedList.join(',')});
+            databaseReference.child(Preferences.getUserID()).update({'completeTask': completedList.join(',')});
             Preferences.storeCompleteTask(completedList);
           }
           Preferences.setLocalDelete(false);

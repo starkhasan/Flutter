@@ -57,8 +57,6 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver, SingleTi
       _isDarkMode = value;
       Preferences.setAppTheme(value);
     }));
-
-
     animationController.addListener(() => setState((){}));
   }
 
@@ -114,7 +112,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver, SingleTi
           child: GestureDetector(
             onTap: () => {
               _mainScreen = true,
-              widget.notesProvider.fabAction(),
+              widget.notesProvider.fabAction()
             },
             child: Container(
               width: MediaQuery.of(context).size.width * 0.115,
@@ -123,8 +121,8 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver, SingleTi
                 color: Preferences.getAppTheme() ? Colors.tealAccent[400] : Colors.indigo,
                 shape: BoxShape.circle
               ),
-              child: Icon(Icons.add,color: _isDarkMode ? Colors.black : Colors.white),
-            ),
+              child: Icon(Icons.add,color: _isDarkMode ? Colors.black : Colors.white)
+            )
           )
         ),
         body: Container(
