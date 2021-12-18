@@ -22,7 +22,7 @@ class _CharacterDetailsState extends State<CharacterDetails> {
             stretch: true,
             expandedHeight: MediaQuery.of(context).size.height * 0.50,
             flexibleSpace: FlexibleSpaceBar(
-              title: Text(widget.characterDetails.name),
+              title: Text(widget.characterDetails.name,style: const TextStyle(color: Colors.black)),
               titlePadding: const EdgeInsetsDirectional.only(start: 50,bottom: 16),
               stretchModes: const [StretchMode.zoomBackground],
               background: Image.network(widget.characterDetails.images.lg,fit: BoxFit.fill)
@@ -214,10 +214,35 @@ class _CharacterDetailsState extends State<CharacterDetails> {
   Widget publisherLogo(String? publisher){
     var logo = '';
     switch (publisher) {
+      case 'Angel Salvadore':
+      case 'Rune King Thor':
+      case 'Scorpion':
+      case 'Deadpool':
+      case 'Vindicator II':
+      case 'Anti-Vision':
+      case 'Thunderbird II':
+      case 'Ant-Man':
+      case 'Giant-Man':
+      case 'Ms Marvel II':
+      case 'Goliath':
+      case 'Jean Grey':
+      case 'She-Thing':
+      case 'Binary':
       case 'Marvel Comics':
         logo = 'asset/mcu.png';
         break;
+      case 'Aztar':
+      case 'Red Hood':
+      case 'Red Robin':
+      case 'Robin III':
+      case 'Robin II':
+      case 'Batgirl':
+      case 'Nightwing':
+      case 'Spoiler':
+      case 'Batman II':
+      case 'Oracle':
       case 'DC Comics':
+      case 'Batgirl V':
         logo = 'asset/dc.png';
         break;
       case 'Image Comics':
@@ -238,53 +263,23 @@ class _CharacterDetailsState extends State<CharacterDetails> {
       case 'IDW Publishing':
         logo = 'asset/IDW.png';
         break;
-      case 'Batgirl V':
-        logo = 'asset/dc.png';
-        break;
       case 'Dark Horse Comics':
         logo = 'asset/dark_horse.png';
-        break;
-      case 'She-Thing':
-        logo = 'asset/mcu.png';
         break;
       case 'Shueisha':
         logo = 'asset/Shueisha.jpg';
         break;
-      case 'Batman II':
-        logo = 'asset/dc.png';
-        break;
       case 'SyFy':
         logo = 'asset/syfy.png';
-        break;
-      case 'Batgirl':
-        logo = 'asset/dc.png';
         break;
       case 'Sony Pictures':
         logo = 'asset/sony.png';
         break;
-      case 'Jean Grey':
-        logo = 'asset/mcu.png';
-        break;
       case 'Star Trek':
         logo = 'asset/star_trek.png';
         break;
-      case 'Robin II':
-        logo = 'asset/dc.png';
-        break;
-      case 'Robin III':
-        logo = 'asset/dc.png';
-        break;
       case 'George Lucas':
         logo = 'asset/George_Lucas.png';
-        break;
-      case 'Red Hood':
-        logo = 'asset/dc.png';
-        break;
-      case 'Red Robin':
-        logo = 'asset/dc.png';
-        break;
-      case 'Goliath':
-        logo = 'asset/mcu.png';
         break;
       case 'J. R. R. Tolkien':
         logo = 'asset/new_line_cinema.png';
@@ -295,48 +290,12 @@ class _CharacterDetailsState extends State<CharacterDetails> {
       case 'Venom III':
         logo = 'asset/sony.png';
         break;
-      case 'Ms Marvel II':
-        logo = 'asset/mcu.png';
-        break;
-      case 'Aztar':
-        logo = 'asset/dc.png';
-        break;
       case 'ABC Studios':
         logo = 'asset/image_comics.png';
         break;
-      case 'Superman Prime One-Million':
-        logo = '';
-        break;
-      case 'Angel Salvadore':
-        logo = 'asset/mcu.png';
-        break;
-      case 'Rune King Thor':
-        logo = 'asset/mcu.png';
-        break;
       case 'Anti-Venom':
         logo = 'asset/sony.png';
-        break;
-      case 'Scorpion':
-        logo = 'asset/mcu.png';
-        break;
-      case 'Deadpool':
-        logo = 'asset/mcu.png';
-        break;
-      case 'Vindicator II':
-        logo = 'asset/mcu.png';
-        break;
-      case 'Anti-Vision':
-        logo = 'Anti-Vision';
-        break;
-      case 'Thunderbird II':
-        logo = 'asset/mcu.png';
-        break;
-      case 'Ant-Man':
-        logo = 'asset/mcu.png';
-        break;
-      case 'Giant-Man':
-        logo = 'asset/mcu.png';
-        break;  
+        break; 
       default:
         logo = 'asset/sony.png';
     }
