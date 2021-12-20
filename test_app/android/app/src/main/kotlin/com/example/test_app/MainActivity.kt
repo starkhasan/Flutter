@@ -18,7 +18,7 @@ class MainActivity: FlutterActivity() {
     private val CHANNEL = "com.example.test_app/battery_level"
     private val EVENT_CHANNEL = "com.example.test_app/location_service"
     private val PERMISSION_REQUEST_CODE = 1
-    var listVideos = mutableListOf<VideoModel>()
+    var listVideos = mutableListOf<String>()
     override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         
@@ -96,7 +96,7 @@ class MainActivity: FlutterActivity() {
             val size = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.SIZE))
             val id = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Video.Media._ID))
             val url = ContentUris.withAppendedId(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,id)
-            listVideos.add(VideoModel(name,size,url.toString()))
+            listVideos.add(name.toString()+"+"+url.toString()+"+"+size.toString())
         }
     }
 }
