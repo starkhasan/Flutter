@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:test_app/ui/full_screen_player.dart';
 import 'package:test_app/utils/helper.dart';
 import 'package:video_player/video_player.dart';
@@ -16,6 +17,8 @@ class VideoPlayScreen extends StatefulWidget {
 
 class _VideoPlayScreenState extends State<VideoPlayScreen>{
   late VideoPlayerController videoPlayerController;
+
+  static const platformMethodChannel = MethodChannel('com.example.test_app/battery_level');
 
   @override
   void initState() {
@@ -36,13 +39,9 @@ class _VideoPlayScreenState extends State<VideoPlayScreen>{
       appBar: AppBar(centerTitle: true, title: const Text('Videos')),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          if (await checkStoragePermission()) {
-            readInternalFiles(context);
-          } else {
-            Helper.show_snack_bar(context, "Permission Denied");
-          }
+          readInternalFiles(context);
         },
-        child: const Icon(Icons.file_download),
+        child: const Icon(Icons.file_download)
       ),
       body: FutureBuilder(
         future: getAllVideos(),
@@ -95,36 +94,16 @@ class _VideoPlayScreenState extends State<VideoPlayScreen>{
     return listVideoAssets;
   }
 
-  readInternalFiles(BuildContext _context) async {
-    //getLibraryDirectory() of path provider only available for the iOS and macOS
-    var dir = await getApplicationDocumentsDirectory();
-    String mp3Path = dir.toString();
-    print(mp3Path);
-    // List<FileSystemEntity> _files;
-    // List<FileSystemEntity> _songs = [];
-    // _files = dir!.listSync(recursive: true, followLinks: false);
-    // for(FileSystemEntity entity in _files) {
-    //   String path = entity.path;
-    //   if(path.endsWith('.mp4'))
-    //     _songs.add(entity);
-    // }
-    // print(_songs);
-    // print(_songs.length);
+  Future<void> readInternalFiles(BuildContext context) async{
+      String batteryLevel = '';
+      try {
+        var result = await platformMethodChannel.invokeMethod('readExternalFile');
+        print(result);
+      } catch (e) {
+        batteryLevel = 'Failed to read the file';
+      }
   }
 
-  Future<bool> checkStoragePermission() async {
-    if (await Permission.storage.status.isGranted) {
-      return true;
-    } else {
-      return await requestingPermission();
-    }
-  }
 
-  Future<bool> requestingPermission() async {
-    if (await Permission.storage.request().isGranted) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+
 }
