@@ -104,7 +104,7 @@ class _VideoPlayScreenState extends State<VideoPlayScreen>{
     if(m > 1){
       returnSize = m.toStringAsFixed(2) + ' MB';
     }else{
-      returnSize = k.toStringAsFixed(3) + ' KB';
+      returnSize = k.toStringAsFixed(1) + ' KB';
     }
     return returnSize;
   }
