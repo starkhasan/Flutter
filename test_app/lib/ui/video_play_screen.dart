@@ -23,7 +23,7 @@ class _VideoPlayScreenState extends State<VideoPlayScreen>{
   @override
   void initState() {
     super.initState();
-    videoPlayerController = VideoPlayerController.asset('asset/video/bee.mp4')
+    videoPlayerController = VideoPlayerController.contentUri(Uri.parse('content://media/external/video/media/261'))
       ..initialize().then((value) => setState(() {}));
   }
 
@@ -37,14 +37,8 @@ class _VideoPlayScreenState extends State<VideoPlayScreen>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(centerTitle: true, title: const Text('Videos')),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          readInternalFiles(context);
-        },
-        child: const Icon(Icons.file_download)
-      ),
       body: FutureBuilder(
-        future: getAllVideos(),
+        future: readInternalFiles(context),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasError) {
             return const Center(child: Text('Unable to load Assets'));
@@ -58,19 +52,18 @@ class _VideoPlayScreenState extends State<VideoPlayScreen>{
               physics: const ScrollPhysics(),
               padding: EdgeInsets.zero,
               itemBuilder: (BuildContext context, int index) {
+                var videoData = snapshot.data[index].split('+');
                 return InkWell(
-                  onTap: () => Navigator.push(context,MaterialPageRoute(builder: (context) => FullScreenPlayer(videoAssetName: snapshot.data[index]))),
+                  onTap: () => Navigator.push(context,MaterialPageRoute(builder: (context) => FullScreenPlayer(videoContentUri: videoData[1]))),
                   child: Card(
                     color: Colors.white,
                     child: ListTile(
                       leading: SizedBox(
                         width: 50.0,
                         height: 50.0,
-                        child: videoPlayerController.value.isInitialized
-                        ? VideoPlayer(videoPlayerController)
-                        : const Center(child: CircularProgressIndicator(strokeWidth: 2.0))
+                        child: ThumbNailWidget(contentUri: videoData[1])
                       ),
-                      title: Text(snapshot.data[index].substring(12, snapshot.data[index].length - 4))
+                      title: Text(videoData[0])
                     )
                   )
                 );
@@ -82,28 +75,70 @@ class _VideoPlayScreenState extends State<VideoPlayScreen>{
     );
   }
 
+  //Get All Videos of the Assets
   Future<dynamic> getAllVideos() async {
     var listVideoAssets = [];
-    var manifestJson =
-        await DefaultAssetBundle.of(context).loadString('AssetManifest.json');
-    var images = json
-        .decode(manifestJson)
-        .keys
-        .where((String key) => key.startsWith('asset/video'));
+    var manifestJson = await DefaultAssetBundle.of(context).loadString('AssetManifest.json');
+    var images = json.decode(manifestJson).keys.where((String key) => key.startsWith('asset/video'));
     images.forEach((element) => listVideoAssets.add(element));
     return listVideoAssets;
   }
 
-  Future<void> readInternalFiles(BuildContext context) async{
-      String batteryLevel = '';
-      try {
-        var result = await platformMethodChannel.invokeMethod('readExternalFile');
-        print(result);
-      } catch (e) {
-        batteryLevel = 'Failed to read the file';
-      }
+  //Get All Videos File From Android Internal Storage Using the Platform Channel
+  Future<dynamic> readInternalFiles(BuildContext context) async{
+    var listVideos = [];
+    try {
+      var result = await platformMethodChannel.invokeMethod('readExternalFile');
+      result.forEach((item) => listVideos.add(item));
+    } catch (e) {
+      listVideos = [];
+    }
+    return listVideos;
+  }
+}
+
+class ThumbNailWidget extends StatefulWidget {
+  final String contentUri;
+  const ThumbNailWidget({ Key? key, required this.contentUri}) : super(key: key);
+
+  @override
+  _ThumbNailWidgetState createState() => _ThumbNailWidgetState();
+}
+
+class _ThumbNailWidgetState extends State<ThumbNailWidget> {
+
+  late VideoPlayerController videoPlayerController;
+  late Future<void> initializedVideoPLayerFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    videoPlayerController = VideoPlayerController.contentUri(Uri.parse(widget.contentUri));
+    initializedVideoPLayerFuture = videoPlayerController.initialize().then((value) => setState((){}));
+  }
+
+  @override
+  void dispose() {
+    videoPlayerController.dispose();
+    super.dispose();
   }
 
 
-
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: initializedVideoPLayerFuture,
+      builder: (BuildContext context,AsyncSnapshot snapshot){
+        if (snapshot.connectionState == ConnectionState.done) {
+          return Container(
+            key: PageStorageKey(widget.contentUri),
+            child: VideoPlayer(videoPlayerController), 
+          );
+        }
+        else {
+          return const Center(child: CircularProgressIndicator(strokeWidth: 2.0));
+        }
+      }
+    );
+  }
 }

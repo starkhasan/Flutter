@@ -5,8 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
 
 class FullScreenPlayer extends StatefulWidget {
-  final String videoAssetName;
-  const FullScreenPlayer({ Key? key,required this.videoAssetName}) : super(key: key);
+  final String videoContentUri;
+  const FullScreenPlayer({ Key? key,required this.videoContentUri}) : super(key: key);
 
   @override
   _FullScreenPlayerState createState() => _FullScreenPlayerState();
@@ -26,7 +26,7 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
   @override
   void initState() {
     super.initState();
-    videoPlayerController = VideoPlayerController.asset(widget.videoAssetName)
+    videoPlayerController = VideoPlayerController.contentUri(Uri.parse(widget.videoContentUri))
     ..initialize().then((value) => {
       timerToHideController(),
       videoPlayerController.addListener(() {
@@ -37,6 +37,7 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
           startTime = "${videoPlayerController.value.position.inHours}:${videoPlayerController.value.position.inMinutes.remainder(60)}:${(videoPlayerController.value.position.inSeconds.remainder(60))}";
           endTime = "${videoPlayerController.value.duration.inHours}:${videoPlayerController.value.duration.inMinutes.remainder(60)}:${(videoPlayerController.value.duration.inSeconds.remainder(60))}";
         });
+        
       })
     });
     videoPlayerController.play();
