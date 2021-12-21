@@ -33,8 +33,10 @@ class _VideoPlayScreenState extends State<VideoPlayScreen>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(centerTitle: true, title: const Text('Videos')),
-      body: GridView.builder(
+      appBar: AppBar(centerTitle: true, title: const Text('Videos',style: TextStyle(fontSize: 14))),
+      body: listVideos.isEmpty
+      ? const Center(child: Text("There's nothing here."))
+      : GridView.builder(
         itemCount: listVideos.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: MediaQuery.of(context).orientation == Orientation.portrait ? 3 : 4), 
         padding: const EdgeInsets.all(4),
