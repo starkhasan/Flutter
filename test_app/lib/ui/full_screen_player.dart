@@ -37,7 +37,6 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
           startTime = "${videoPlayerController.value.position.inHours}:${videoPlayerController.value.position.inMinutes.remainder(60)}:${(videoPlayerController.value.position.inSeconds.remainder(60))}";
           endTime = "${videoPlayerController.value.duration.inHours}:${videoPlayerController.value.duration.inMinutes.remainder(60)}:${(videoPlayerController.value.duration.inSeconds.remainder(60))}";
         });
-        
       })
     });
     videoPlayerController.play();
@@ -51,11 +50,7 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
   }
 
   timerToHideController(){
-    Timer(const Duration(seconds: 5),() => {
-      setState((){
-        controllerVisible = controllerVisible ? false : true; 
-      })
-    });
+    Timer(const Duration(seconds: 4),() => setState(() => controllerVisible = false));
   }
 
 
@@ -76,115 +71,120 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
               width: MediaQuery.of(context).size.width,
               child: GestureDetector(
                 onTap: () => {
-                  setState(() => controllerVisible = true),
-                  timerToHideController()
+                  if(!controllerVisible){
+                    setState(() => controllerVisible = true),
+                    timerToHideController()
+                  }
                 },
                 child: VideoPlayer(videoPlayerController)
               )
             ),
             Visibility(
               visible: controllerVisible,
-              child: Container(
-                color: Colors.black.withOpacity(0.6),
-                child: Stack(
-                  children: [
-                    Align(
-                      alignment: Alignment.center,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          InkWell(
-                            onTap: () => videoPlayerController.seekTo(const Duration(seconds: -10)),
-                            child: const Icon(
-                              Icons.replay_10_sharp,
-                              size: 40,
-                              color: Colors.white
-                            )
-                          ),
-                          const SizedBox(width: 30),
-                          InkWell(
-                            onTap: () => {
-                              setState(() {
-                                videoPlayerController.value.isPlaying
-                                ? videoPlayerController.pause()
-                                : videoPlayerController.play();
-                              })
-                            },
-                            child: Icon(
-                              videoPlayerController.value.isPlaying
-                              ? Icons.pause_circle
-                              : Icons.play_circle,
-                              size: 60,
-                              color: Colors.white
-                            )
-                          ),
-                          const SizedBox(width: 30),
-                          InkWell(
-                            onTap: () => videoPlayerController.seekTo(const Duration(seconds: 10)),
-                            child: const Icon(
-                              Icons.forward_10_sharp,
-                              size: 40,
-                              color: Colors.white
-                            )
-                          )
-                        ]
-                      )
-                    ),
-                    Positioned(
-                      top: 30,
-                      left: 20,
-                      child: IconButton(
-                        onPressed: () => {
-                          if(videoPlayerController.value.isInitialized) videoPlayerController.dispose(),
-                          Navigator.pop(context),
-                        },
-                        icon: const Icon(Icons.arrow_back,color: Colors.white)
-                      )
-                    ),
-                    Positioned(
-                      bottom: 5,
-                      child: Container(
-                        padding: EdgeInsets.zero,
-                        width: MediaQuery.of(context).size.width,
+              child: GestureDetector(
+                onTap: () => setState(() => controllerVisible = false),
+                child: Container(
+                  color: Colors.black.withOpacity(0.6),
+                  child: Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.center,
                         child: Row(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                startTime,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14
-                                )
+                            InkWell(
+                              onTap: () => videoPlayerController.seekTo(const Duration(seconds: -10)),
+                              child: const Icon(
+                                Icons.replay_10_sharp,
+                                size: 40,
+                                color: Colors.white
                               )
                             ),
-                            Expanded(
-                              child: Slider(
-                                activeColor: Colors.red,
-                                inactiveColor: Colors.white54,
-                                value: trackValue, 
-                                max: maxValue, 
-                                min: minValue,
-                                onChanged: (value) => {
-                                  videoPlayerController.seekTo(Duration(seconds: value.toInt()))
-                                }
+                            const SizedBox(width: 30),
+                            InkWell(
+                              onTap: () => {
+                                setState(() {
+                                  videoPlayerController.value.isPlaying
+                                  ? videoPlayerController.pause()
+                                  : videoPlayerController.play();
+                                })
+                              },
+                              child: Icon(
+                                videoPlayerController.value.isPlaying
+                                ? Icons.pause_circle
+                                : Icons.play_circle,
+                                size: 60,
+                                color: Colors.white
                               )
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: Text(
-                                endTime,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14
-                                )
+                            const SizedBox(width: 30),
+                            InkWell(
+                              onTap: () => videoPlayerController.seekTo(const Duration(seconds: 10)),
+                              child: const Icon(
+                                Icons.forward_10_sharp,
+                                size: 40,
+                                color: Colors.white
                               )
                             )
                           ]
                         )
+                      ),
+                      Positioned(
+                        top: 30,
+                        left: 20,
+                        child: IconButton(
+                          onPressed: () => {
+                            if(videoPlayerController.value.isInitialized) videoPlayerController.dispose(),
+                            Navigator.pop(context),
+                          },
+                          icon: const Icon(Icons.arrow_back,color: Colors.white)
+                        )
+                      ),
+                      Positioned(
+                        bottom: 5,
+                        child: Container(
+                          padding: EdgeInsets.zero,
+                          width: MediaQuery.of(context).size.width,
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10),
+                                child: Text(
+                                  startTime,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14
+                                  )
+                                )
+                              ),
+                              Expanded(
+                                child: Slider(
+                                  activeColor: Colors.red,
+                                  inactiveColor: Colors.white54,
+                                  value: trackValue, 
+                                  max: maxValue, 
+                                  min: minValue,
+                                  onChanged: (value) => {
+                                    videoPlayerController.seekTo(Duration(seconds: value.toInt()))
+                                  }
+                                )
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: Text(
+                                  endTime,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14
+                                  )
+                                )
+                              )
+                            ]
+                          )
+                        )
                       )
-                    )
-                  ]
+                    ]
+                  )
                 )
               )
             )
