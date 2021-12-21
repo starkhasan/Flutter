@@ -34,25 +34,33 @@ class _VideoPlayScreenState extends State<VideoPlayScreen>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(centerTitle: true, title: const Text('Videos')),
-      body: ListView.builder(
+      body: GridView.builder(
         itemCount: listVideos.length,
-        shrinkWrap: true,
-        physics: const ScrollPhysics(),
-        padding: EdgeInsets.zero,
-        itemBuilder: (BuildContext context, int index) {
-          var videoData = listVideos[index].split('+');
-          return InkWell(
-            onTap: () => Navigator.push(context,MaterialPageRoute(builder: (context) => FullScreenPlayer(videoContentUri: videoData[1]))),
-            child: Card(
-              color: Colors.white,
-              child: ListTile(
-                leading: SizedBox(
-                  width: 50.0,
-                  height: 50.0,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: MediaQuery.of(context).orientation == Orientation.portrait ? 3 : 4), 
+        padding: const EdgeInsets.all(4),
+        itemBuilder: (BuildContext context,int index){
+          var videoData = listVideos[index].split("+");
+          return GestureDetector(
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => FullScreenPlayer(videoContentUri: videoData[1]))),
+            child: Stack(
+              children: [
+                Container(
+                  color: Colors.black,
+                  margin: const EdgeInsets.all(2),
                   child: ThumbNailWidget(contentUri: videoData[1])
                 ),
-                title: Text(videoData[0])
-              )
+                Positioned(
+                  top: 8,
+                  right: 8,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(formatFileSize(double.parse(videoData[2])),style: const TextStyle(color: Colors.white,fontSize: 9.0)),
+                      const Icon(Icons.play_circle,color: Colors.white,size: 18)
+                    ]
+                  )
+                )
+              ]
             )
           );
         }
@@ -86,6 +94,19 @@ class _VideoPlayScreenState extends State<VideoPlayScreen>{
     }
     setState(() {});
   }
+
+  String formatFileSize(double size){
+    var returnSize = "";
+    double k = size/1024.0;
+    double m = (size/1024.0)/1024.0;
+    if(m > 1){
+      returnSize = m.toStringAsFixed(2) + ' MB';
+    }else{
+      returnSize = k.toStringAsFixed(3) + ' KB';
+    }
+    return returnSize;
+  }
+
 }
 
 class ThumbNailWidget extends StatefulWidget {
