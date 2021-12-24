@@ -174,7 +174,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                           SizedBox(height: 2),
                           Text('9760656467',style: TextStyle(color: Colors.black,fontSize: 12))
                         ]
-                      ),
+                      )
                     )
                   ]
                 )
