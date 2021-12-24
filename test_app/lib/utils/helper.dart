@@ -17,7 +17,7 @@ import 'package:test_app/ui/firebase_authentication.dart';
 
 class Helper {
   
-  static void showSnackbar(BuildContext context,String message){
+  void showSnackbar(BuildContext context,String message){
     var snackbar = SnackBar(content: Text(message),duration: const Duration(seconds: 1));
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
@@ -135,6 +135,9 @@ class Helper {
       default:
     }
   }
+
+  var groceryMoreItems = ['My Account','My Wishlist','Saved Addresses','All Orders','My Rewards'];
+
 
 }
 

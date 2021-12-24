@@ -11,7 +11,7 @@ class WebViewPage extends StatefulWidget {
   _WebViewPageState createState() => _WebViewPageState();
 }
 
-class _WebViewPageState extends State<WebViewPage> with SingleTickerProviderStateMixin { 
+class _WebViewPageState extends State<WebViewPage> with SingleTickerProviderStateMixin , Helper{ 
   final Completer<WebViewController> _controller = Completer<WebViewController>();
 
   List<IconData> menuItems = [Icons.remove,Icons.home,Icons.notification_add,Icons.settings];
@@ -60,11 +60,11 @@ class _WebViewPageState extends State<WebViewPage> with SingleTickerProviderStat
   updateMenu(IconData icon) {
     if (icon != Icons.menu) {
       if(icon == Icons.settings) {
-        Helper.showSnackbar(context, 'Settings Click');
+        showSnackbar(context, 'Settings Click');
       } else if(icon == Icons.notification_add){
-        Helper.showSnackbar(context, 'Notification Click');
+        showSnackbar(context, 'Notification Click');
       }else if(icon == Icons.home){
-        Helper.showSnackbar(context, 'Home Click');
+        showSnackbar(context, 'Home Click');
       }
       setState((){});
     }
@@ -128,10 +128,9 @@ class FlowMenuDelegate extends FlowDelegate {
   }
 }
 
-class NavigationController extends StatelessWidget {
+class NavigationController extends StatelessWidget with Helper{
   final Future<WebViewController> webViewController;
-  const NavigationController({Key? key, required this.webViewController})
-      : super(key: key);
+  NavigationController({Key? key, required this.webViewController}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -149,7 +148,7 @@ class NavigationController extends StatelessWidget {
                   if(await controller!.canGoBack()){
                     await controller.goBack();
                   }else{
-                    Helper.showSnackbar(context, 'No Previous Page Found');
+                    showSnackbar(context, 'No Previous Page Found');
                   }
                 },
               icon: const Icon(Icons.arrow_back_ios)
@@ -161,7 +160,7 @@ class NavigationController extends StatelessWidget {
                   if(await controller!.canGoForward()){
                     await controller.goForward();
                   }else{
-                    Helper.showSnackbar(context, 'No Next Page Found');
+                    showSnackbar(context, 'No Next Page Found');
                   }
                 },
               icon: const Icon(Icons.arrow_forward_ios)

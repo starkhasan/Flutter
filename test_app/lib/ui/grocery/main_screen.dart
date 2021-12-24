@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/ui/grocery/grocery_home.dart';
+import 'package:test_app/ui/grocery/more_screen.dart';
 import 'package:test_app/ui/grocery/orders_screen.dart';
 import 'package:test_app/ui/grocery/place_order_screen.dart';
 
@@ -13,7 +14,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
 
   var selectedIndex = 0;
-  var listScreens = [const GroceryHome(),const OrdersScreen(),const PlaceOrderScreen(),null];
+  var listScreens = [const GroceryHome(),const OrdersScreen(),const PlaceOrderScreen(),const MoreScreen()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
