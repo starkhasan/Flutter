@@ -60,11 +60,11 @@ class _WebViewPageState extends State<WebViewPage> with SingleTickerProviderStat
   updateMenu(IconData icon) {
     if (icon != Icons.menu) {
       if(icon == Icons.settings) {
-        Helper.show_snack_bar(context, 'Settings Click');
+        Helper.showSnackbar(context, 'Settings Click');
       } else if(icon == Icons.notification_add){
-        Helper.show_snack_bar(context, 'Notification Click');
+        Helper.showSnackbar(context, 'Notification Click');
       }else if(icon == Icons.home){
-        Helper.show_snack_bar(context, 'Home Click');
+        Helper.showSnackbar(context, 'Home Click');
       }
       setState((){});
     }
@@ -149,7 +149,7 @@ class NavigationController extends StatelessWidget {
                   if(await controller!.canGoBack()){
                     await controller.goBack();
                   }else{
-                    Helper.show_snack_bar(context, 'No Previous Page Found');
+                    Helper.showSnackbar(context, 'No Previous Page Found');
                   }
                 },
               icon: const Icon(Icons.arrow_back_ios)
@@ -161,7 +161,7 @@ class NavigationController extends StatelessWidget {
                   if(await controller!.canGoForward()){
                     await controller.goForward();
                   }else{
-                    Helper.show_snack_bar(context, 'No Next Page Found');
+                    Helper.showSnackbar(context, 'No Next Page Found');
                   }
                 },
               icon: const Icon(Icons.arrow_forward_ios)
