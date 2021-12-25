@@ -8,11 +8,13 @@ class PageViewLabelIndicator extends StatefulWidget {
   final MainAxisAlignment? mainAxisAlignment;
   final double? height;
   final ValueNotifier<int> currentPageNotifier;
+  final ValueChanged<int>? onPageSelect;
   final List<String> label;
   const PageViewLabelIndicator({ 
     Key? key,
     required this.currentPageNotifier,
     required this.label,
+    this.onPageSelect,
     this.height,
     this.mainAxisAlignment,
     this.backgroundColor,
@@ -49,14 +51,17 @@ class _PageViewLabelIndicatorState extends State<PageViewLabelIndicator> {
       child: Row(
         mainAxisAlignment: widget.mainAxisAlignment ?? MainAxisAlignment.spaceAround,
         mainAxisSize: MainAxisSize.max,
-        children: List.generate(widget.label.length, (index) => Text(
-          widget.label[index],
-          style: TextStyle(
-            fontSize: widget.labelFontSize ?? 14,
-            color: currentPageIndex == index 
-            ? widget.selectedColor ?? Colors.blue 
-            : widget.unselectedColor ?? Colors.grey,
-            fontWeight: FontWeight.bold
+        children: List.generate(widget.label.length, (index) => GestureDetector(
+          onTap: () => widget.onPageSelect == null ? null : widget.onPageSelect!(index),
+          child: Text(
+            widget.label[index],
+            style: TextStyle(
+              fontSize: widget.labelFontSize ?? 14,
+              color: currentPageIndex == index 
+              ? widget.selectedColor ?? Colors.blue 
+              : widget.unselectedColor ?? Colors.grey,
+              fontWeight: FontWeight.bold
+              )
             )
           )
         )

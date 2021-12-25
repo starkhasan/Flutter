@@ -12,13 +12,13 @@ class AuthenticationScreen extends StatefulWidget {
 
 class _AuthenticationScreenState extends State<AuthenticationScreen> with SingleTickerProviderStateMixin{
 
-  late TabController tabController;
+  late PageController pageController;
   List<String>  page = ['Signup','Signin'];
   final currentPageNotifier = ValueNotifier<int>(0);
 
   @override
   void initState() {
-    tabController = TabController(length: 2, vsync: this);
+    pageController = PageController(initialPage: 0);
     super.initState();
   }
   @override
@@ -35,13 +35,18 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> with Single
               height: MediaQuery.of(context).size.height * 0.08,
               label: page,
               currentPageNotifier: currentPageNotifier,
-              selectedColor: Colors.green
+              selectedColor: Colors.green,
+              onPageSelect: (index) => {
+                pageController.animateToPage(index, duration: const Duration(milliseconds: 400), curve: Curves.linear),
+                currentPageNotifier.value = index
+              }
             ),
             Container(
               color: Colors.white,
               height: MediaQuery.of(context).size.height * 0.72,
               padding: const EdgeInsets.all(15),
               child: PageView(
+                controller: pageController,
                 children: const [Signup(),Signin()],
                 onPageChanged: (value) => currentPageNotifier.value = value,
               )
