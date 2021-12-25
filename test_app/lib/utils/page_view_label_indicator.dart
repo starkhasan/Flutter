@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PageViewLabelIndicator extends StatefulWidget {
+  final double? labelFontSize;
   final Color? selectedColor;
   final Color? unselectedColor;
   final Color? backgroundColor;
@@ -16,7 +17,8 @@ class PageViewLabelIndicator extends StatefulWidget {
     this.mainAxisAlignment,
     this.backgroundColor,
     this.unselectedColor,
-    this.selectedColor
+    this.selectedColor,
+    this.labelFontSize
   }) : super(key: key);
 
   @override
@@ -38,7 +40,7 @@ class _PageViewLabelIndicatorState extends State<PageViewLabelIndicator> {
     widget.currentPageNotifier.removeListener(_handleLabelListener);
     super.dispose();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -50,6 +52,7 @@ class _PageViewLabelIndicatorState extends State<PageViewLabelIndicator> {
         children: List.generate(widget.label.length, (index) => Text(
           widget.label[index],
           style: TextStyle(
+            fontSize: widget.labelFontSize ?? 14,
             color: currentPageIndex == index 
             ? widget.selectedColor ?? Colors.blue 
             : widget.unselectedColor ?? Colors.grey,
@@ -57,7 +60,7 @@ class _PageViewLabelIndicatorState extends State<PageViewLabelIndicator> {
             )
           )
         )
-      ),
+      )
     );
   }
 
