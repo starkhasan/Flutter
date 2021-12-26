@@ -25,13 +25,9 @@ class _TicTacToaState extends State<TicTacToa> with Helper{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        var item = showGameDialog(0);
-        print(item);
-      },child: Icon(Icons.add)),
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Tic - Tac - Toe',style: TextStyle(fontSize: 14))
+        title: const Text('Tic-Tac-Toe',style: TextStyle(fontSize: 14))
       ),
       body: Container(
         padding: const EdgeInsets.all(10),
@@ -88,9 +84,9 @@ class _TicTacToaState extends State<TicTacToa> with Helper{
                           padding: const EdgeInsets.only(left: 5,right: 5,top: 2,bottom: 2),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text('Player2'),
-                              Transform.rotate(angle: pi/4,child: const Icon(Icons.circle_outlined,size:24))
+                            children: const [
+                              Text('Player2'),
+                              Icon(Icons.circle_outlined,size:22)
                             ]
                           )
                         ),
@@ -134,12 +130,12 @@ class _TicTacToaState extends State<TicTacToa> with Helper{
     );
   }
 
-  showGameDialog(int result) {
-    showGeneralDialog<bool>(
+  Future<bool> showGameDialog(int result) async{
+    return await showDialog(
       barrierLabel: 'GameDialog',
       barrierDismissible: true,
       context: context, 
-      pageBuilder: (_, __,___){
+      builder: (context){
         return Align(
           alignment: Alignment.center,
           child: Container(
@@ -163,28 +159,23 @@ class _TicTacToaState extends State<TicTacToa> with Helper{
             )
           )
         ); 
-      },
-      transitionBuilder: (_, anim, __, child) {
-        return SlideTransition(
-          position: Tween(begin: const Offset(0, 1), end: const Offset(0, 0)).animate(anim),
-          child: child,
-        );
       }
-    );
+    ) ?? true;
   }
 
-  clearData(int result){
+  clearData(int result) async{
     if(result == 0){
       playerCross++;
     }else if(result == 1){
       playerCircle++;
     }
+    await showGameDialog(result);
     playTurn = 0;
     map.clear();
     setState((){});
   }
 
-  onClickContainer(BuildContext context,int index){
+  onClickContainer(BuildContext context,int index) async{
     if(playTurn < 9){
       setState((){
         playTurn++;
@@ -198,11 +189,9 @@ class _TicTacToaState extends State<TicTacToa> with Helper{
       });
       var result = gameAlgorithm();
       if(result != -1){
-        showSnackbar(context, 'Player${result+1} WON');
-        clearData(result);
+        await clearData(result);
       }else if(playTurn == 9 && result == -1){
-        showSnackbar(context, 'Draw');
-        clearData(result);
+        await clearData(result);
       }
     }else{
       showSnackbar(context, 'Please Reset Game No Turn is available');
