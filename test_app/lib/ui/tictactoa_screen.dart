@@ -142,6 +142,7 @@ class _TicTacToaState extends State<TicTacToa> with Helper{
             height: MediaQuery.of(context).size.height * 0.30,
             width: MediaQuery.of(context).size.width * 0.60,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 result == -1
                 ? Row(mainAxisAlignment: MainAxisAlignment.center,children: [ Transform.rotate(angle: pi/4,child: const Icon(Icons.add,size: 100,color: Colors.white)),const Icon(Icons.circle_outlined,size: 70,color: Colors.white)])
