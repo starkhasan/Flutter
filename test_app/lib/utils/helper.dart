@@ -64,8 +64,7 @@ class Helper {
     'Widget Element Keys',
     'Scroll Position',
     'Video Player',
-    'Grocery Plus',
-    'Tic Tac Toa'
+    'Grocery Plus'
   ];
   static var screenAssets = [
     'asset/facebook.png',
@@ -133,9 +132,6 @@ class Helper {
         break;
       case 14:
         Navigator.push(context,MaterialPageRoute(builder: (context) => const MainScreen()));
-        break;
-      case 15:
-        Navigator.push(context,MaterialPageRoute(builder: (context) => const TicTacToa()));
         break;
       default:
     }
