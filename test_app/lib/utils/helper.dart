@@ -3,11 +3,11 @@ import 'package:test_app/ui/deeplink/platform_integration_page.dart';
 import 'package:test_app/ui/facebook_page.dart';
 import 'package:test_app/ui/crypto_page.dart';
 import 'package:test_app/ui/grocery/main_screen.dart';
+import 'package:test_app/ui/isolates_example.dart';
 import 'package:test_app/ui/keys_example/scroll_position_example.dart';
 import 'package:test_app/ui/keys_example/widget_element_keys.dart';
 import 'package:test_app/ui/payment_gateway/razorpay_payment.dart';
 import 'package:test_app/ui/rest_api.dart';
-import 'package:test_app/ui/tictactoa_screen.dart';
 import 'package:test_app/ui/twitter_page.dart';
 import 'package:test_app/ui/video_play_screen.dart';
 import 'package:test_app/ui/web_socket.dart';
@@ -64,7 +64,8 @@ class Helper {
     'Widget Element Keys',
     'Scroll Position',
     'Video Player',
-    'Grocery Plus'
+    'Grocery Plus',
+    'Learning Isolates'
   ];
   static var screenAssets = [
     'asset/facebook.png',
@@ -132,6 +133,9 @@ class Helper {
         break;
       case 14:
         Navigator.push(context,MaterialPageRoute(builder: (context) => const MainScreen()));
+        break;
+      case 15:
+        Navigator.push(context,MaterialPageRoute(builder: (context) => const IsolateExample()));
         break;
       default:
     }
