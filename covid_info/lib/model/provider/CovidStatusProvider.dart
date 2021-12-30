@@ -67,8 +67,7 @@ class CovidStatusProvider extends ChangeNotifier {
   List<int> vaccineResponse = [0, 0, 0, 0];
   List<String> vaccineName = [];
   var firebase = FirebaseDatabase.instance;
-  var firebaseDatabase =
-      FirebaseDatabase.instance.reference().child('covid_info');
+  var firebaseDatabase = FirebaseDatabase.instance.ref().child('covid_info');
 
   Future<void> covidStatus(bool isIndicator) async {
     _callApi = isIndicator;
@@ -178,14 +177,15 @@ class CovidStatusProvider extends ChangeNotifier {
   }
 
   vaccineList() async {
-    await firebaseDatabase.once().then((DataSnapshot snapshot) {
-      if (snapshot.value != null) {
-        sites = snapshot.value['sites'];
-        sitesGovernment = snapshot.value['government'];
-        sitesPrivate = snapshot.value['private'];
-        vaccineName = snapshot.value['vaccine'].split('-');
-        stateVaccineUrl = snapshot.value['stateVaccineUrl'];
-        var strAr = snapshot.value['vaccination'].split(' ');
+    await firebaseDatabase.once().then((DatabaseEvent event) {
+      if (event.snapshot.value != null) {
+        var data = event.snapshot.value as Map;
+        sites = data['sites'];
+        sitesGovernment = data['government'];
+        sitesPrivate = data['private'];
+        vaccineName = data['vaccine'].split('-');
+        stateVaccineUrl = data['stateVaccineUrl'];
+        var strAr = data['vaccination'].split(' ');
         vaccineResponse[0] = int.parse(strAr[0]);
         vaccineResponse[1] = int.parse(strAr[1]);
         vaccineResponse[2] = int.parse(strAr[2]);
@@ -195,9 +195,10 @@ class CovidStatusProvider extends ChangeNotifier {
   }
 
   population() async {
-    await firebaseDatabase.once().then((DataSnapshot snapshot) {
-      if (snapshot.value != null) {
-        covidStatusResponse[0] = snapshot.value['population'];
+    await firebaseDatabase.once().then((DatabaseEvent event) {
+      if (event.snapshot.value != null) {
+        var data = event.snapshot.value as Map;
+        covidStatusResponse[0] = data['population'];
         // var coronaCase = snapshot.value['corona'].split(' ');
         // covidStatusResponse[1] = int.parse(coronaCase[0]);
         // covidStatusResponse[2] = int.parse(coronaCase[1]);
@@ -256,7 +257,8 @@ class CovidStatusProvider extends ChangeNotifier {
     notifyListeners();
     try {
       var data = await rootBundle.loadString('assets/jsonAsset/faqs.json');
-      faqResponse = List<FAQResponse>.from(jsonDecode(data).map((x) => FAQResponse.fromJson(x)));
+      faqResponse = List<FAQResponse>.from(
+          jsonDecode(data).map((x) => FAQResponse.fromJson(x)));
     } catch (e) {
       faqResponse = [];
     }

@@ -50,7 +50,7 @@ class _MainScreenState extends State<MainScreen> {
                 children: [
                   Image.asset('assets/images/logo.jpg',height: MediaQuery.of(context).size.height * 0.12, width: MediaQuery.of(context).size.height * 0.12),
                   Text(
-                    'CoBit Info',
+                    'Covid Info',
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,fontFamily: '')
                   )
                 ]
