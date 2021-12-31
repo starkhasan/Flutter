@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:virtual_chat/extensions/extensionFile.dart';
+import 'dart:io';
 
 class ChatMedia extends StatefulWidget {
   final String path;
@@ -37,7 +38,7 @@ class _ChatMedia extends State<ChatMedia>{
                 child: Center(
                   child: Hero(
                     tag: 'Image Hero',
-                    child: Image.network(widget.path)
+                    child: Image.file(File(widget.path))
                   )
                 )
               )

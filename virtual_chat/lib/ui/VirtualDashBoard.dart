@@ -4,11 +4,14 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:virtual_chat/ui/ChatMedia.dart';
 import 'package:virtual_chat/ui/ChatSetting.dart';
 import 'package:virtual_chat/ui/ChattingScreen.dart';
 import 'package:virtual_chat/ui/LoginScreen.dart';
 import 'package:virtual_chat/util/PreferenceUtil.dart';
+import 'dart:io';
+import 'package:http/http.dart' as http;
 
 class VirtualDashBoard extends StatefulWidget {
   @override
@@ -84,14 +87,23 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> with WidgetsBinding
                             Row(
                               children: [
                                 InkWell(
-                                  onTap: () {
-                                    if(allUser[key]['profile'] != ' ') Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: allUser[key]['profile'], name: key,dateTime:'')));
+                                  onTap: () async{
+                                    var imagePath = await getImagePath(key[0], allUser[key]['profile']);
+                                    if(allUser[key]['profile'].isNotEmpty) Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: imagePath, name: key,dateTime:'')));
                                   },
-                                  child: CircleAvatar(
-                                    radius: 24,
-                                    backgroundColor: Colors.indigo,
-                                    child: allUser[key]['profile'] == ' ' ? Icon(Icons.person,size: 26,color: Colors.white) : null,
-                                    backgroundImage: allUser[key]['profile'] == ' ' ? null : NetworkImage(allUser[key]['profile']),
+                                  child: FutureBuilder(
+                                    future: getImagePath(key[0], allUser[key]['profile']),
+                                    builder: (BuildContext context, AsyncSnapshot snapshot){
+                                      if(snapshot.connectionState == ConnectionState.done && snapshot.data != null){
+                                        return  CircleAvatar(
+                                          radius: 24,
+                                          backgroundColor: Colors.grey,
+                                          backgroundImage: FileImage(File(snapshot.data))
+                                        );
+                                      }else{
+                                        return Padding(padding: EdgeInsets.all(4),child: CircularProgressIndicator(strokeWidth: 2.0));
+                                      }
+                                    }
                                   )
                                 ),
                                 SizedBox(width: 15),
@@ -128,7 +140,7 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> with WidgetsBinding
               }else{
                 return Container(child: Center(child: Lottie.asset('assets/animationLottie/emptyScreen.json',height: lottieHeight,width: lottieWidth)));
               }
-            },
+            }
           )
         )
       )
@@ -174,6 +186,19 @@ class _VirtualDashBoardState extends State<VirtualDashBoard> with WidgetsBinding
         }
       }
     );
+  }
+
+  Future<String> getImagePath(String name,String url) async{
+    url = url.isEmpty ? 'https://i.ibb.co/Tm8jmFY/add-1.png' : url;
+    //var imageName = notes[key]['time'].substring(0,10).replaceAll('-','')
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/IMG-${name.replaceAll(RegExp(r"[\\-\s+\\,:.]"),'')}.jpg');
+    if (await file.exists()) {
+      return file.path;
+    }
+    final response = await http.get(Uri.parse(url));
+    await file.writeAsBytes(response.bodyBytes);
+    return file.path;
   }
 
   Future<bool> onBackPress() async{

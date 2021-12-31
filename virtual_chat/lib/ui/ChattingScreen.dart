@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:io';
-
+import 'package:http/http.dart'as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -8,6 +8,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:virtual_chat/ui/ChatMedia.dart';
 import 'package:virtual_chat/ui/ChatSetting.dart';
 
@@ -54,7 +55,7 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
     lottieWidth = MediaQuery.of(context).size.width * 0.45;
     imageHeight = MediaQuery.of(context).size.height * 0.045;
     imageWidth = MediaQuery.of(context).size.width * 0.50;
-    appBarImageSize = MediaQuery.of(context).size.width * 0.04;
+    appBarImageSize = MediaQuery.of(context).size.width * 0.05;
   }
 
   @override
@@ -196,20 +197,30 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                                   ]
                                 )
                                 : GestureDetector(
-                                  onTap: ()  {
+                                  onTap: ()  async {
+                                    var imaegPath = await getImagePath(notes[key]['time'],notes[key]['message']);
                                     var user = notes[key]['sender'] == widget.sender ? 'You' : notes[key]['sender'];
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: notes[key]['message'], name: user,dateTime: notes[key]['time'])));
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: imaegPath, name: user,dateTime: notes[key]['time'])));
                                   },
                                   child: Hero(
                                     tag: 'Image Hero$index',
                                     child: Stack(
                                       children: [
-                                        ClipRRect(
-                                          borderRadius: BorderRadius.circular(5),
-                                          child: Image.network(
-                                            notes[key]['message'],
-                                            width: imageWidth
-                                          )
+                                        FutureBuilder(
+                                          future: getImagePath(notes[key]['time'], notes[key]['message']),
+                                          builder: (BuildContext context, AsyncSnapshot snapshot) {
+                                            if(snapshot.connectionState == ConnectionState.done && snapshot.data != null){
+                                              return ClipRRect(
+                                                borderRadius: BorderRadius.circular(5),
+                                                child: Image.file(
+                                                  File(snapshot.data),
+                                                  width: imageWidth
+                                                )
+                                              );
+                                            }else{
+                                              return Container(color: Colors.white,width: imageWidth,height: imageWidth,child: Center(child: CircularProgressIndicator(strokeWidth: 2.0,color: Colors.indigo,)));
+                                            }
+                                          },
                                         ),
                                         Positioned(
                                           right: 0,
@@ -310,6 +321,18 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
         ]
       )
     );
+  }
+
+  Future<String> getImagePath(String time,String url) async{
+    //var imageName = notes[key]['time'].substring(0,10).replaceAll('-','')
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/IMG-${widget.sender+widget.receiver}-${time.replaceAll(RegExp(r"[\\-\s+\\,:.]"),'')}.jpg');
+    if (await file.exists()) {
+      return file.path;
+    }
+    final response = await http.get(Uri.parse(url));
+    await file.writeAsBytes(response.bodyBytes);
+    return file.path;
   }
 
   sendImage() async{

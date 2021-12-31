@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:virtual_chat/ui/RegisterScreen.dart';
 import 'package:virtual_chat/ui/VirtualDashBoard.dart';

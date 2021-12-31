@@ -111,7 +111,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       databaseReference.child(_idCont.text).set({
         'about': 'Hey there! I am using VirtualChat',
         'password': _passCont.text,
-        'profile':' ',
+        'profile':'https://i.ibb.co/Tm8jmFY/add-1.png',
         'dob': ''
       }).then((value){
         showSnackBar('User Registered Successfully');

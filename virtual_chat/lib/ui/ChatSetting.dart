@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:virtual_chat/ui/ChatMedia.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:http/http.dart' as http;
 
 class ChatSetting extends StatefulWidget {
   final String sender;
@@ -84,15 +86,25 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
                       child: Stack(
                         children: [
                           GestureDetector(
-                            onTap: () {
+                            onTap: ()  async {
+                              var imagePath = await getImagePath(widget.sender, notes['profile']);
                               notes['profile'] != ' '
-                                ? Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: notes['profile'], name: widget.update ? 'Profile' : widget.sender[0].toUpperCase()+widget.sender.substring(1),dateTime:'')))
+                                ? Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: imagePath, name: widget.update ? 'Profile' : widget.sender[0].toUpperCase()+widget.sender.substring(1),dateTime:'')))
                                 : showSnackBar('Image Not Found');
                             },
-                            child: CircleAvatar(
-                              backgroundColor: Colors.grey[200],
-                              backgroundImage: notes['profile'] == ' ' ? NetworkImage('https://i.ibb.co/Tm8jmFY/add-1.png') : NetworkImage(notes['profile']),
-                              radius: _imageSize
+                            child: FutureBuilder(
+                              future: getImagePath(widget.sender, notes['profile']),
+                              builder: (BuildContext context, AsyncSnapshot snapshot){
+                                if(snapshot.connectionState == ConnectionState.done && snapshot.data != null){
+                                  return  CircleAvatar(
+                                    radius: _imageSize,
+                                    backgroundColor: Colors.grey[200],
+                                    backgroundImage: FileImage(File(snapshot.data))
+                                  );
+                                }else{
+                                  return Padding(padding: EdgeInsets.all(4),child: CircularProgressIndicator(strokeWidth: 2.0));
+                                }
+                              }
                             )
                           ),
                           Positioned(
@@ -207,6 +219,19 @@ class _ChatSettingState extends State<ChatSetting> with WidgetsBindingObserver{
         )
       )
     );
+  }
+
+  Future<String> getImagePath(String name,String url) async{
+    url = url.isEmpty ? 'https://i.ibb.co/Tm8jmFY/add-1.png' : url;
+    //var imageName = notes[key]['time'].substring(0,10).replaceAll('-','')
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/IMG-${name.replaceAll(RegExp(r"[\\-\s+\\,:.]"),'')}.jpg');
+    if (await file.exists()) {
+      return file.path;
+    }
+    final response = await http.get(Uri.parse(url));
+    await file.writeAsBytes(response.bodyBytes);
+    return file.path;
   }
 
   Future<ImageSource> chooseImageSource() async{
