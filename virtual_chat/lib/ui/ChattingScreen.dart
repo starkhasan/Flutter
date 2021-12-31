@@ -136,7 +136,7 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
         children: [
           Expanded(
             child: Container(
-              padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
+              padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
               color: Colors.white,
               child: StreamBuilder(
                 stream: myRefSender.child(senderReceiver).onValue,
@@ -152,6 +152,7 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                       shrinkWrap: true,
                       physics: BouncingScrollPhysics(),
                       itemCount: notes.length,
+                      padding: EdgeInsets.zero,
                       itemBuilder: (context,index){
                         var key = notes.keys.elementAt(index);
                         imageName = key;
@@ -159,7 +160,12 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                           child: Align(
                             alignment: notes[key]['sender'] == sender ? Alignment.centerRight : Alignment.centerLeft,
                             child: Container(
-                              margin: EdgeInsets.fromLTRB(5, 2, 5, 0),
+                              margin: EdgeInsets.only(
+                                left: notes[key]['sender'] == sender ? 20 : 5, 
+                                top: 3, 
+                                right: notes[key]['sender'] == sender ? 5 : 20, 
+                                bottom: 0
+                              ),
                               child: Container(
                                 padding: notes[key]['type'] == 'text' ? EdgeInsets.all(6) : EdgeInsets.all(4),
                                 decoration: BoxDecoration(
@@ -171,9 +177,11 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    Text(
-                                      notes[key]['message'],
-                                      style: TextStyle(color: notes[key]['sender'] == sender ? Colors.white : Colors.black,fontSize: 12)
+                                    Flexible(
+                                      child: Text(
+                                        notes[key]['message'],
+                                        style: TextStyle(color: notes[key]['sender'] == sender ? Colors.white : Colors.black,fontSize: 12)
+                                      )
                                     ),
                                     SizedBox(width: 8),
                                     Text(
@@ -233,8 +241,8 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                   }else
                     return Container(child: Center(child: Lottie.asset('assets/animationLottie/emptyScreen.json',height: lottieHeight,width: lottieWidth)));
                 }
-              ),
-            ),
+              )
+            )
           ),
           Container(
             padding: EdgeInsets.fromLTRB(5, 4, 5, 5),
