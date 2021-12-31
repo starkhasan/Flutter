@@ -24,12 +24,12 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    databaseReference = FirebaseDatabase.instance.reference().child('users');
-    databaseReference.once().then((DataSnapshot snapshot){
-    if(snapshot.value != null){
-        for(var user in snapshot.value.keys){
-          _listUser.add(user);
-        }
+    databaseReference = FirebaseDatabase.instance.ref().child('users');
+    databaseReference.once().then((DatabaseEvent event){
+    if(event.snapshot.value != null){
+        // for(var user in event.snapshot.value.keys){
+        //   _listUser.add(user);
+        // }
       }
     });
   }
@@ -120,13 +120,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
   userLogin() async{
     if(validation()){
-      await databaseReference.once().then((DataSnapshot snapshot) {
-        for(var v in snapshot.value.keys) {
-          if(_idCont.text == v && snapshot.value[v]['password'] == _passCont.text){
-            isUserFound = true;
-            break;
-          }
-        }
+      await databaseReference.once().then((DatabaseEvent event) {
+        // for(var v in snapshot.value.keys) {
+        //   if(_idCont.text == v && snapshot.value[v]['password'] == _passCont.text){
+        //     isUserFound = true;
+        //     break;
+        //   }
+        // }
       });
       if(isUserFound){
         showSnackBar('User Login Successfully');
