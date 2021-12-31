@@ -5,7 +5,6 @@ import 'package:covid_info/ui/AboutCovid.dart';
 import 'package:covid_info/ui/CovidStatus.dart';
 import 'package:covid_info/ui/Vaccination.dart';
 import 'package:covid_info/ui/FAQScreen.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 

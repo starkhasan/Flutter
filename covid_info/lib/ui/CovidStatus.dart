@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:covid_info/constant/HelperAbout.dart';
 import 'package:covid_info/model/provider/CovidStatusProvider.dart';
 import 'package:covid_info/ui/CountrySearchResult.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';

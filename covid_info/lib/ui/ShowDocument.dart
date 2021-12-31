@@ -1,5 +1,8 @@
+import 'dart:io';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:advance_pdf_viewer/advance_pdf_viewer.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:pdf_viewer_plugin/pdf_viewer_plugin.dart';
 
 class ShowDocument extends StatefulWidget {
   final String url;
@@ -10,26 +13,30 @@ class ShowDocument extends StatefulWidget {
 
 class _ShowDocumentState extends State<ShowDocument> {
 
-  late PDFDocument document;
-  bool _isLoading = true;
-  bool _dataNotFound = false;
+  String? pdfFlePath; 
+
+  Future<String> downloadAndSavePdf() async {
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/${widget.url.substring(62)}');
+    if (await file.exists()) {
+      return file.path;
+    }
+    final response = await http.get(Uri.parse(widget.url));
+    await file.writeAsBytes(response.bodyBytes);
+    return file.path;
+  }
+
+  void loadPdf() async {
+    pdfFlePath = await downloadAndSavePdf();
+    setState(() {});
+  }
 
   @override
   void initState() {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) => loadPdf());
     super.initState();
-    loadDocument();
   }
 
-  loadDocument() async{
-    try{
-      document = await PDFDocument.fromURL(widget.url);
-    }catch(e){
-      _dataNotFound = true;
-    }
-    setState(() {
-      _isLoading = false;
-    });
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,23 +48,7 @@ class _ShowDocumentState extends State<ShowDocument> {
           style: TextStyle(fontSize: 14)
         )
       ),
-      body: Container(
-        child: Center(
-          child: _isLoading
-          ? CircularProgressIndicator(
-            strokeWidth: 1.5,
-            valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF0B3054)),
-          )
-          : _dataNotFound
-            ? Text('States vaccination data not available.')
-            : PDFViewer(
-              progressIndicator: CircularProgressIndicator(strokeWidth: 1.5,valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF0B3054))),
-              indicatorText: Colors.white,
-              document: document,
-              zoomSteps: 5
-          )
-        )
-      ),
+      body: Center(child: pdfFlePath == null ? CircularProgressIndicator() : PdfView(path: pdfFlePath!))
     );
   }
 }
