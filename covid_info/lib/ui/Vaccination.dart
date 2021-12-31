@@ -100,7 +100,7 @@ class _VaccineScreenState extends State<VaccineScreen> {
               backgroundColor: Color(0xFF0B3054),
               centerTitle: true,
               floating: true,
-              title: Text('Dose',style: TextStyle(fontSize: 14)),
+              title: Text('Vaccination',style: TextStyle(fontSize: 14)),
               expandedHeight: kToolbarHeight,
               systemOverlayStyle: SystemUiOverlayStyle.light,
             ),

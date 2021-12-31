@@ -1,13 +1,9 @@
 import 'package:covid_info/constant/HelperAbout.dart';
 import 'package:covid_info/model/response/VaccineResponse.dart';
 import 'package:covid_info/utils/VaccinationDialog.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:covid_info/model/provider/CovidStatusProvider.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 

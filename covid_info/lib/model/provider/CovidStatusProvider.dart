@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:isolate';
 
 import 'package:covid_info/model/response/FAQResponse.dart';
 import 'package:covid_info/model/response/VaccineResponse.dart';
@@ -103,8 +104,7 @@ class CovidStatusProvider extends ChangeNotifier {
       if (response.statusCode == 200) {
         countryResponse.clear();
         originalCountryResponse.clear();
-        var temp = List<CountryResponse>.from(
-            json.decode(response.body).map((x) => CountryResponse.fromJson(x)));
+        var temp = List<CountryResponse>.from(json.decode(response.body).map((x) => CountryResponse.fromJson(x)));
         countryResponse.addAll(temp);
         originalCountryResponse.addAll(temp);
         print(countryResponse.length);
@@ -121,21 +121,15 @@ class CovidStatusProvider extends ChangeNotifier {
   Future<void> worldVaccineCases(bool isIndicator) async {
     _worldVaccineApi = isIndicator;
     notifyListeners();
-    try {
-      var response = await Api.worldVaccineCases();
-      if (response.statusCode == 200) {
-        worldVaccineResponse.clear();
-        originalWorldVaccineResponse.clear();
-        var temp = List<VaccinationResponse>.from(json
-            .decode(response.body)
-            .map((x) => VaccinationResponse.fromJson(x)));
-        print(temp.length);
-        worldVaccineResponse.addAll(temp);
-        originalWorldVaccineResponse.addAll(temp);
-      } else {
-        worldVaccineResponse = [];
-      }
-    } catch (e) {
+    final port = ReceivePort();
+    await Isolate.spawn(getVaccineData, port.sendPort);
+    List<VaccinationResponse> data = await port.first;
+    if(data.isNotEmpty){
+      worldVaccineResponse.clear();
+      originalWorldVaccineResponse.clear();
+      worldVaccineResponse.addAll(data);
+      originalWorldVaccineResponse.addAll(data);
+    }else{
       worldVaccineResponse = [];
     }
     _worldVaccineApi = false;
@@ -268,3 +262,16 @@ class CovidStatusProvider extends ChangeNotifier {
 }
 //#0B3054
 
+Future getVaccineData(SendPort port) async {
+  try {
+    var response = await Api.worldVaccineCases();
+    if (response.statusCode == 200) {
+      var temp = List<VaccinationResponse>.from(json.decode(response.body).map((x) => VaccinationResponse.fromJson(x)));
+      Isolate.exit(port, temp);
+    } else {
+      Isolate.exit(port, []);
+    }
+  } catch (e) {
+    Isolate.exit(port, []);
+  }
+}
