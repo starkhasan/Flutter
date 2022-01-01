@@ -24,8 +24,8 @@ class ChattingScreen extends StatefulWidget {
 class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObserver{
 
   var statusDatabase;
-  var myRefSender;
-  var myRefReceiver;
+  late DatabaseReference myRefSender;
+  late DatabaseReference myRefReceiver;
   var firebaseStore;
   var database;
   var _contMessage = TextEditingController();
@@ -63,8 +63,8 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
     WidgetsBinding.instance!.addObserver(this);
     database = FirebaseDatabase.instance;
     firebaseStore = FirebaseStorage.instance;
-    myRefSender = database.reference().child('messages');
-    myRefReceiver = database.reference().child('messages');
+    myRefSender = FirebaseDatabase.instance.ref().child('messages');
+    myRefReceiver = FirebaseDatabase.instance.ref().child('messages');
     statusDatabase = database.reference().child('users');
     setState(() {
       sender = widget.sender;
@@ -141,54 +141,50 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
               color: Colors.white,
               child: StreamBuilder(
                 stream: myRefSender.child(senderReceiver).onValue,
-                builder: (context,AsyncSnapshot snapshot){
-                  if(!snapshot.hasData || snapshot.hasError){
+                builder: (BuildContext context,AsyncSnapshot<DatabaseEvent> event){
+                  if(!event.hasData || event.hasError){
                     return Container(child: Center(child:  CircularProgressIndicator(color: Colors.indigo,strokeWidth: 3))); 
-                  }else if(snapshot.hasData && snapshot.data.snapshot.value != null){
+                  }else if(event.hasData && event.data!.snapshot.value != null){
                     scrollToBottom();
-                    var notes = snapshot.data.snapshot.value;
                     return ListView.builder(
-                      reverse: false,
                       controller: _scrollController,
+                      itemCount: event.data!.snapshot.children.length,
                       shrinkWrap: true,
-                      physics: BouncingScrollPhysics(),
-                      itemCount: notes.length,
-                      padding: EdgeInsets.zero,
-                      itemBuilder: (context,index){
-                        var key = notes.keys.elementAt(index);
-                        imageName = key;
+                      itemBuilder: (BuildContext context,int index){
+                        var data = event.data!.snapshot.children;
+                        var notes = data.elementAt(index).value as Map;
                         return Container(
                           child: Align(
-                            alignment: notes[key]['sender'] == sender ? Alignment.centerRight : Alignment.centerLeft,
+                            alignment: notes['sender'] == sender ? Alignment.centerRight : Alignment.centerLeft,
                             child: Container(
                               margin: EdgeInsets.only(
-                                left: notes[key]['sender'] == sender ? 20 : 5, 
+                                left: notes['sender'] == sender ? 20 : 5, 
                                 top: 3, 
-                                right: notes[key]['sender'] == sender ? 5 : 20, 
+                                right: notes['sender'] == sender ? 5 : 20, 
                                 bottom: 0
                               ),
                               child: Container(
-                                padding: notes[key]['type'] == 'text' ? EdgeInsets.all(6) : EdgeInsets.all(4),
+                                padding: notes['type'] == 'text' ? EdgeInsets.all(6) : EdgeInsets.all(4),
                                 decoration: BoxDecoration(
-                                  color: notes[key]['sender'] == sender ? Colors.indigo : Colors.grey[300],
+                                  color: notes['sender'] == sender ? Colors.indigo : Colors.grey[300],
                                   borderRadius: BorderRadius.all(Radius.circular(5))
                                 ),
-                                child: notes[key]['type'] == 'text'
+                                child: notes['type'] == 'text'
                                 ? Row(
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Flexible(
                                       child: Text(
-                                        notes[key]['message'],
-                                        style: TextStyle(color: notes[key]['sender'] == sender ? Colors.white : Colors.black,fontSize: 12)
+                                        notes['message'],
+                                        style: TextStyle(color: notes['sender'] == sender ? Colors.white : Colors.black,fontSize: 12)
                                       )
                                     ),
                                     SizedBox(width: 8),
                                     Text(
-                                      notes[key]['time'].substring(11,16),
+                                      notes['time'].substring(11,16),
                                       style: TextStyle(
-                                        color: notes[key]['sender'] == sender ? Colors.white70 : Colors.black54,
+                                        color: notes['sender'] == sender ? Colors.white70 : Colors.black54,
                                         fontSize: 10,
                                         fontStyle: FontStyle.italic,
                                         fontWeight: FontWeight.normal
@@ -198,16 +194,16 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                                 )
                                 : GestureDetector(
                                   onTap: ()  async {
-                                    var imaegPath = await getImagePath(notes[key]['time'],notes[key]['message']);
-                                    var user = notes[key]['sender'] == widget.sender ? 'You' : notes[key]['sender'];
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: imaegPath, name: user,dateTime: notes[key]['time'])));
+                                    var imaegPath = await getImagePath(notes['time'],notes['message']);
+                                    var user = notes['sender'] == widget.sender ? 'You' : notes['sender'];
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => ChatMedia(path: imaegPath, name: user,dateTime: notes['time'])));
                                   },
                                   child: Hero(
                                     tag: 'Image Hero$index',
                                     child: Stack(
                                       children: [
                                         FutureBuilder(
-                                          future: getImagePath(notes[key]['time'], notes[key]['message']),
+                                          future: getImagePath(notes['time'], notes['message']),
                                           builder: (BuildContext context, AsyncSnapshot snapshot) {
                                             if(snapshot.connectionState == ConnectionState.done && snapshot.data != null){
                                               return ClipRRect(
@@ -234,7 +230,7 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                                             ),
                                             padding: EdgeInsets.fromLTRB(10,10,5,5),
                                             child: Text(
-                                              notes[key]['time'].substring(11,16),
+                                              notes['time'].substring(11,16),
                                               style: TextStyle(fontSize: 10,color: Colors.white,fontStyle: FontStyle.italic,decoration: TextDecoration.none)
                                             )
                                           )
@@ -248,7 +244,7 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
                           )
                         );
                       }
-                    );                    
+                    );
                   }else
                     return Container(child: Center(child: Lottie.asset('assets/animationLottie/emptyScreen.json',height: lottieHeight,width: lottieWidth)));
                 }
@@ -324,7 +320,6 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
   }
 
   Future<String> getImagePath(String time,String url) async{
-    //var imageName = notes[key]['time'].substring(0,10).replaceAll('-','')
     final directory = await getApplicationDocumentsDirectory();
     final file = File('${directory.path}/IMG-${widget.sender+widget.receiver}-${time.replaceAll(RegExp(r"[\\-\s+\\,:.]"),'')}.jpg');
     if (await file.exists()) {
@@ -360,7 +355,7 @@ class _ChattingScreenState extends State<ChattingScreen> with WidgetsBindingObse
 
   Future<void> uploadImageFile(ImageSource imgSource) async{
     setState(() { imageUploading = true;});
-    var photo = await ImagePicker().getImage(source: imgSource);
+    var photo = await ImagePicker.platform.getImage(source: imgSource);
     if(photo!=null){
       file = File(photo.path);
       firebaseStore = FirebaseStorage.instance.ref().child("messages/images/$imageName"); 
