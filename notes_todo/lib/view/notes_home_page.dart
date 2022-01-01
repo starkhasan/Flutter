@@ -425,12 +425,12 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver, SingleTi
         text: TextSpan(
           style: TextStyle(color: _isDarkMode ? Colors.black : Colors.white),
           children: [
-            TextSpan(text: title,style: const TextStyle(fontStyle: FontStyle.italic,fontSize: 11)),
-            TextSpan(text: message,style: const TextStyle(fontSize: 11))
+            TextSpan(text: title,style: const TextStyle(fontStyle: FontStyle.italic,fontSize: 12)),
+            TextSpan(text: message,style: const TextStyle(fontSize: 12))
           ]
         )
       ),
-      duration: const Duration(seconds: 2),
+      duration: const Duration(seconds: 1),
       action: SnackBarAction(
         label: 'UNDO',
         textColor: _isDarkMode ? Colors.indigo : Colors.yellow,

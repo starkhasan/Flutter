@@ -7,15 +7,18 @@ class EmptyMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Align(
-        alignment: Alignment.center,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text('To add Notes click on ',style: TextStyle(color: darkMode ? Colors.white : Colors.black,fontSize: 12)),
-            Icon(Icons.add_circle,size: 16,color: Theme.of(context).toggleableActiveColor),
-            Text(' in bottom right corner',style: TextStyle(color: darkMode ? Colors.white : Colors.black,fontSize: 12))
-          ]
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10,right: 10),
+        child: Align(
+          alignment: Alignment.center,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Click on ',style: TextStyle(color: darkMode ? Colors.white : Colors.black,fontSize: 12)),
+              Icon(Icons.add_circle,size: 16,color: Theme.of(context).toggleableActiveColor),
+              Text(' to add Notes',style: TextStyle(color: darkMode ? Colors.white : Colors.black,fontSize: 12))
+            ]
+          )
         )
       )
     );
