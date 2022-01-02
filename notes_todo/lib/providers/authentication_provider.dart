@@ -59,15 +59,19 @@ class AuthenticationProvider extends ChangeNotifier with Helpers {
     }
   }
 
-  Future<void> logoutUser() async {
-    await FirebaseAuth.instance.signOut();
-    Preferences.setUserEmail('');
-    Preferences.setUserLogin(false);
-    Preferences.setUserID('');
-    Preferences.setSyncEnabled(false);
-    Preferences.setUserName('');
-    Preferences.storeCompleteTask([]);
-    Preferences.storeTask([]);
+  Future<void> logoutUser(BuildContext _context) async {
+    if(await checkInternetConnection()){
+      await FirebaseAuth.instance.signOut();
+      Preferences.setUserEmail('');
+      Preferences.setUserLogin(false);
+      Preferences.setUserID('');
+      Preferences.setSyncEnabled(false);
+      Preferences.setUserName('');
+      Preferences.storeCompleteTask([]);
+      Preferences.storeTask([]);
+    }else{
+      showSnackBar(_context, 'No Internet Connection');
+    }
   }
 
   void modifySyncData(){
@@ -80,13 +84,17 @@ class AuthenticationProvider extends ChangeNotifier with Helpers {
   }
 
   void deleteUserData(BuildContext _context) async{
-    _syncDataDelete = true;
-    notifyListeners();
-    await databaseReference.child(Preferences.getUserID()).child('task').remove();
-    await databaseReference.child(Preferences.getUserID()).child('completeTask').remove();
-    showSnackBar(_context, 'All Sync data has been deleted successfully');
-    _syncDataDelete = false;
-    notifyListeners();
+    if(await checkInternetConnection()){
+      _syncDataDelete = true;
+      notifyListeners();
+      await databaseReference.child(Preferences.getUserID()).child('task').remove();
+      await databaseReference.child(Preferences.getUserID()).child('completeTask').remove();
+      showSnackBar(_context, 'All Sync data has been deleted successfully');
+      _syncDataDelete = false;
+      notifyListeners();
+    }else{
+      showSnackBar(_context, 'No Internet Connection');
+    }
   }
 
   void fillEmailPassword(String name,String email,String password){
@@ -134,4 +142,5 @@ class AuthenticationProvider extends ChangeNotifier with Helpers {
     }
     return true;
   }
+  
 }

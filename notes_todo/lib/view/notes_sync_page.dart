@@ -126,7 +126,7 @@ class _LoginPageState extends State<LoginPage> {
                             Expanded(
                               flex: 1,
                               child: ElevatedButton(
-                                onPressed: () => widget.authProvider.logoutUser(),
+                                onPressed: () => widget.authProvider.logoutUser(context),
                                 child: const Text('Sign out',style: TextStyle(fontSize: 11))
                               )
                             )
