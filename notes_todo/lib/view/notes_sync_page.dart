@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:notes_todo/helper/delete_notes_dialog.dart';
+import 'package:notes_todo/helper_view/delete_notes_dialog.dart';
 import 'package:notes_todo/providers/authentication_provider.dart';
 import 'package:notes_todo/service/authentication_service.dart';
 import 'package:notes_todo/utils/preferences.dart';
 import 'package:provider/provider.dart';
+import 'package:notes_todo/helper_view/authentication_tag.dart';
+import 'package:notes_todo/utils/constants.dart';
 
 class NotesBackupPage extends StatefulWidget {
   const NotesBackupPage({Key? key}) : super(key: key);
@@ -69,34 +71,22 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         Text(
                           widget.authProvider.isSyncEnabled
-                          ? 'Sync Enabled'
-                          : 'Sync Disabled',
+                          ? Constants.syncEnabled
+                          : Constants.syncDisabled,
                           style: TextStyle(fontSize: 12,color: widget.authProvider.isSyncEnabled ? Colors.green : Colors.red,fontWeight: FontWeight.bold)),
                         const SizedBox(height: 5),
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'All your notes data sync with your registered id',
-                                style: TextStyle(fontSize: 12,color: Preferences.getAppTheme() ? Colors.white : Colors.black)
-                              ),
-                              TextSpan(
-                                text: ' on Google Firebase Cloud. Notes automatically sync with Firebase Cloud at the time of notes creating and deletion',
-                                style: TextStyle(fontSize: 12,color: Preferences.getAppTheme() ? Colors.white : Colors.black)
-                              )
-                            ]
-                          )
+                        Text(
+                          Constants.syncMessage,
+                          style: TextStyle(fontSize: 12,color: Preferences.getAppTheme() ? Colors.white : Colors.black)
                         ),
                         const SizedBox(height: 10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(
-                              widget.authProvider.isSyncEnabled
-                              ? 'Enabled Sync'
-                              : 'Disabled Sync',
-                              style: const TextStyle(fontSize: 12)
+                            const Text(
+                              Constants.sync,
+                              style: TextStyle(fontSize: 12)
                             ),
                             Switch(
                               value: widget.authProvider.isSyncEnabled, 
@@ -141,10 +131,10 @@ class _LoginPageState extends State<LoginPage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: const [
-                                  Text('Delete All Notes',style: TextStyle(fontSize: 12)),
-                                  Text('Delete all your notes from Firebase Cloud',style: TextStyle(color: Colors.grey,fontSize: 10)),
+                                  Text(Constants.deleteNotes,style: TextStyle(fontSize: 12)),
+                                  Text(Constants.deleteNotesMessage,style: TextStyle(color: Colors.grey,fontSize: 10))
                                 ]
-                              ),
+                              )
                             ),
                             Expanded(
                               flex: 1,
@@ -328,23 +318,6 @@ class _LogoutPageState extends State<LogoutPage> {
           )
         ]
       )
-    );
-  }
-}
-
-class AuthenticationTab extends StatelessWidget{
-  final bool isLogin;
-  final String tag;
-  const AuthenticationTab({Key? key,required this.isLogin,required this.tag}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(width: 2.0,color: isLogin ? Colors.transparent : Theme.of(context).toggleableActiveColor))
-      ),
-      padding: const EdgeInsets.only(top: 12,bottom: 12),
-      child: Text(tag,textAlign: TextAlign.center,style: TextStyle(fontSize: 12,color: isLogin ? Colors.grey : Theme.of(context).toggleableActiveColor, fontWeight: FontWeight.bold))
     );
   }
 }

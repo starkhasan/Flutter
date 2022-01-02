@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:notes_todo/helper/delete_notes_dialog.dart';
-import 'package:notes_todo/helper/empty_message.dart';
+import 'package:notes_todo/helper_view/delete_notes_dialog.dart';
+import 'package:notes_todo/helper_view/empty_message.dart';
 import 'package:notes_todo/providers/notes_provider.dart';
 import 'package:notes_todo/utils/preferences.dart';
 import 'package:notes_todo/view/notes_sync_page.dart';
