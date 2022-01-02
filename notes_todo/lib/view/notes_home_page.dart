@@ -38,8 +38,8 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver, SingleTi
   bool _isDarkMode = false;
   bool _mainScreen = true;
   var textController = TextEditingController();
-  List<IconData> drawerIcons = [Icons.sync,Icons.dark_mode_outlined,Icons.light_mode];
-  List<String> drawerTitle = ['Sync Notes','Dark mode'];
+  List<IconData> drawerIcons = [Icons.backup,Icons.dark_mode_outlined,Icons.light_mode];
+  List<String> drawerTitle = ['Notes backup','Dark mode'];
   late AnimationController animationController;
 
   @override

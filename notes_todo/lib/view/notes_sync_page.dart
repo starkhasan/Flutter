@@ -22,7 +22,7 @@ class _NotesBackupPageState extends State<NotesBackupPage> {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text('Sync Notes',style: TextStyle(fontSize: 14)),
+          title: const Text('Notes backup',style: TextStyle(fontSize: 14)),
         ),
         body: StreamBuilder(
           stream: AuthenticationService().onAuthStateChange,
@@ -63,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(widget.authProvider.isSyncEnabled ? Icons.sync : Icons.sync_disabled_sharp,size: 22,color: widget.authProvider.isSyncEnabled ? Colors.green : Colors.red),
+                  Icon(widget.authProvider.isSyncEnabled ? Icons.cloud_upload_outlined : Icons.cloud_off_outlined,size: 22,color: widget.authProvider.isSyncEnabled ? Colors.green : Colors.red),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Column(
@@ -206,15 +206,15 @@ class _LogoutPageState extends State<LogoutPage> {
                       return Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Icon(Icons.sync_disabled_sharp,size: 20),
+                          const Icon(Icons.cloud_upload,size: 20),
                           const SizedBox(width: 8),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text('Sync Notes',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12)),
+                                const Text('Backup Notes',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12)),
                                 const SizedBox(height: 5),
-                                const Text("Sync your notes with Google Firebase Cloud. you can restore them when you reinstall Notes Todo App. Your notes will also sync to your phone's internal storage",style: TextStyle(fontSize: 11)),
+                                const Text("Backup your notes with Google Firebase Cloud. you can restore them when you reinstall Notes Todo. Your notes will also backup to your phone's internal storage",style: TextStyle(fontSize: 11)),
                                 const SizedBox(height: 5),
                                 const Text("Currently your notes data is stored internally",style: TextStyle(color: Colors.red,fontSize: 11)),
                                 const SizedBox(height: 8),
