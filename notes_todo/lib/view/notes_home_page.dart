@@ -38,8 +38,8 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver, SingleTi
   bool _isDarkMode = false;
   bool _mainScreen = true;
   var textController = TextEditingController();
-  List<IconData> icons = [Icons.sync,Icons.dark_mode_outlined];
-  List<String> screenName = ['Sync Notes','Dark mode'];
+  List<IconData> drawerIcons = [Icons.sync,Icons.dark_mode_outlined,Icons.light_mode];
+  List<String> drawerTitle = ['Sync Notes','Dark mode'];
   late AnimationController animationController;
 
   @override
@@ -336,9 +336,9 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver, SingleTi
                       padding: const EdgeInsets.all(10),
                       child: Row(
                         children: [
-                          Icon(icons[0],size: 20,color: Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo),
+                          Icon(drawerIcons[0],size: 20,color: Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo),
                           const SizedBox(width: 5),
-                          Text(screenName[0],style: const TextStyle(fontSize: 12))
+                          Text(drawerTitle[0],style: const TextStyle(fontSize: 12))
                         ]
                       )
                     )
@@ -351,9 +351,9 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver, SingleTi
                       children: [
                         Row(
                           children: [
-                            Icon(icons[1],size: 20,color: Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo),
+                            Icon(_isDarkMode ? drawerIcons[1] : drawerIcons[2],size: 20,color: Theme.of(context).toggleableActiveColor),
                             const SizedBox(width: 5),
-                            Text(screenName[1],style: const TextStyle(fontSize: 12))
+                            Text(drawerTitle[1],style: const TextStyle(fontSize: 12))
                           ]
                         ),
                         Switch(
