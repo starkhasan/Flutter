@@ -204,11 +204,11 @@ class _LogoutPageState extends State<LogoutPage> {
   Widget build(BuildContext context) {
     return Container(
       color: Preferences.getAppTheme() ? const Color(0xFF161616) : Colors.white,
-      padding: const EdgeInsets.all(10),
       child: Column(
         children: [
           Expanded(
             child: SingleChildScrollView(
+              padding: const EdgeInsets.all(10),
               child: Column(
                 children: [
                   Consumer<AuthenticationProvider>(
@@ -233,25 +233,13 @@ class _LogoutPageState extends State<LogoutPage> {
                                     Expanded(
                                       child: GestureDetector(
                                         onTap: () => provider.turnSingIn(false,nameCont.text,emailCont.text,passwordCont.text),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            border: Border(bottom: BorderSide(width: 2.0,color: provider.isLoginUser ? Colors.transparent : Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo))
-                                          ),
-                                          padding: const EdgeInsets.only(top: 12,bottom: 12),
-                                          child: Text('Sign up',textAlign: TextAlign.center,style: TextStyle(fontSize: 12,color: provider.isLoginUser ? Colors.grey : Preferences.getAppTheme() ? Theme.of(context).toggleableActiveColor : Colors.indigo, fontWeight: FontWeight.bold))
-                                        )
+                                        child: AuthenticationTab(isLogin: provider.isLoginUser,tag: 'Sign up')
                                       )
                                     ),
                                     Expanded(
                                       child: GestureDetector(
                                         onTap: () => provider.turnSingIn(true,'',emailCont.text,passwordCont.text),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            border: Border(bottom: BorderSide(width: 2.0,color: provider.isLoginUser ? Theme.of(context).toggleableActiveColor : Colors.transparent))
-                                          ),
-                                          padding: const EdgeInsets.only(top: 12,bottom: 12),
-                                          child: Text('Sign in',textAlign: TextAlign.center,style: TextStyle(fontSize: 12,color: provider.isLoginUser ? Theme.of(context).toggleableActiveColor : Colors.grey,fontWeight: FontWeight.bold))
-                                        )
+                                        child: AuthenticationTab(isLogin: !provider.isLoginUser,tag: 'Sign in')
                                       )
                                     )
                                   ]
@@ -340,6 +328,23 @@ class _LogoutPageState extends State<LogoutPage> {
           )
         ]
       )
+    );
+  }
+}
+
+class AuthenticationTab extends StatelessWidget{
+  final bool isLogin;
+  final String tag;
+  const AuthenticationTab({Key? key,required this.isLogin,required this.tag}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(bottom: BorderSide(width: 2.0,color: isLogin ? Colors.transparent : Theme.of(context).toggleableActiveColor))
+      ),
+      padding: const EdgeInsets.only(top: 12,bottom: 12),
+      child: Text(tag,textAlign: TextAlign.center,style: TextStyle(fontSize: 12,color: isLogin ? Colors.grey : Theme.of(context).toggleableActiveColor, fontWeight: FontWeight.bold))
     );
   }
 }

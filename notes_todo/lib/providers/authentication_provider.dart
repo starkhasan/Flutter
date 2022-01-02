@@ -28,7 +28,7 @@ class AuthenticationProvider extends ChangeNotifier with Helpers {
   }
 
   Future<void> userAuthenticate(bool isLogin,BuildContext _context,String name, String email, String password) async {
-    if (validation(_context,name, email, password)) {
+    if (await validation(_context,name, email, password)) {
       _authProcess = true;
       notifyListeners();
       try {
@@ -111,7 +111,7 @@ class AuthenticationProvider extends ChangeNotifier with Helpers {
     notifyListeners();
   }
 
-  bool validation(BuildContext _context,String name, String email, String password) {
+  Future<bool> validation(BuildContext _context,String name, String email, String password) async{
     if(!_isLogin && name.isEmpty){
       showSnackBar(_context, 'Please provider name');
       return false;
@@ -127,6 +127,9 @@ class AuthenticationProvider extends ChangeNotifier with Helpers {
       return false;
     }else if(password.length < 6){
       showSnackBar(_context, 'Weak Password!!! Length of Password Should be atleast 6');
+      return false;
+    }else if(!await checkInternetConnection()){
+      showSnackBar(_context, 'No Internet Connection');
       return false;
     }
     return true;
