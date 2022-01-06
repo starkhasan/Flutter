@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:test_app/ui/deeplink/platform_integration_page.dart';
 import 'package:test_app/ui/facebook_page.dart';
 import 'package:test_app/ui/crypto_page.dart';
+import 'package:test_app/ui/get_started/get_started_home.dart';
 import 'package:test_app/ui/grocery/main_screen.dart';
 import 'package:test_app/ui/isolates_example.dart';
 import 'package:test_app/ui/keys_example/scroll_position_example.dart';
@@ -65,7 +66,8 @@ class Helper {
     'Scroll Position',
     'Video Player',
     'Grocery Plus',
-    'Learning Isolates'
+    'Learning Isolates',
+    'Get Started With Flutter'
   ];
   static var screenAssets = [
     'asset/facebook.png',
@@ -137,12 +139,14 @@ class Helper {
       case 15:
         Navigator.push(context,MaterialPageRoute(builder: (context) => const IsolateExample()));
         break;
+      case 16:
+        Navigator.push(context,MaterialPageRoute(builder: (context) => const GetStartedHome()));
+        break;
       default:
     }
   }
 
   var groceryMoreItems = ['My Account','My Wishlist','Saved Addresses','All Orders','My Rewards'];
-
 
 }
 
