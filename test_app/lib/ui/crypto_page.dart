@@ -43,26 +43,26 @@ class _CryptoState extends State<Crypto> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(height: 10),
-                        const Text('Hello,',style: TextStyle(color: Colors.grey,fontSize: 22,fontWeight: FontWeight.bold)),
+                        const Text('Hello,',style: TextStyle(color: Colors.grey,fontSize: 18,fontWeight: FontWeight.bold)),
                         const SizedBox(height: 5),
-                        const Text('Mr. Ali Hasan',style: TextStyle(color: Colors.black,fontSize: 28,fontWeight: FontWeight.bold)),
+                        const Text('Mr. Ali Hasan',style: TextStyle(color: Colors.black,fontSize: 24,fontWeight: FontWeight.bold)),
                         Container(
                           width: double.infinity,
-                          padding: const EdgeInsets.all(25),
-                          margin: const EdgeInsets.only(top: 25),
+                          padding: const EdgeInsets.all(15),
+                          margin: const EdgeInsets.only(top: 15),
                           decoration: BoxDecoration(
                             color: const Color(0xFF10085e),
-                            borderRadius: BorderRadius.circular(20)
+                            borderRadius: BorderRadius.circular(10)
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text('Account Balance',style: TextStyle(color: Colors.white,fontSize: 20)),
-                              const SizedBox(height: 10),
+                              const Text('Account Balance',style: TextStyle(color: Colors.white,fontSize: 16)),
+                              const SizedBox(height: 8),
                               RichText(
                                 text: const TextSpan(
                                   children: [
-                                    TextSpan(text: '280.07',style: TextStyle(color: Colors.white,fontSize: 30,fontWeight: FontWeight.bold)),
+                                    TextSpan(text: '280.07',style: TextStyle(color: Colors.white,fontSize: 24,fontWeight: FontWeight.bold)),
                                     TextSpan(text: 'ETH',style: TextStyle(fontSize: 8,color: Colors.white))
                                   ]
                                 )
@@ -77,13 +77,13 @@ class _CryptoState extends State<Crypto> {
                                     child: GestureDetector(
                                       onTap: () => onClickCardButton(0),
                                       child: Container(
-                                        padding: const EdgeInsets.all(15),
+                                        padding: const EdgeInsets.all(10),
                                         decoration: BoxDecoration(
                                           color: selectedIndex == 0 ? Colors.blue : Colors.transparent,
                                           border: Border.all(color: selectedIndex == 0 ? Colors.blue : Colors.grey,width: 1),
-                                          borderRadius: BorderRadius.circular(15)
+                                          borderRadius: BorderRadius.circular(10)
                                         ),
-                                        child: const Text('Deposit',style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold))
+                                        child: const Text('Deposit',style: TextStyle(color: Colors.white,fontSize: 14,fontWeight: FontWeight.bold))
                                       ),
                                     ),
                                   ),
@@ -91,13 +91,13 @@ class _CryptoState extends State<Crypto> {
                                     child: GestureDetector(
                                       onTap: () => onClickCardButton(1),
                                       child: Container(
-                                        padding: const EdgeInsets.all(15),
+                                        padding: const EdgeInsets.all(10),
                                         decoration: BoxDecoration(
                                           color: selectedIndex == 1 ? Colors.blue : Colors.transparent,
                                           border: Border.all(color: selectedIndex == 1 ? Colors.blue : Colors.grey,width: 1),
-                                          borderRadius: BorderRadius.circular(15)
+                                          borderRadius: BorderRadius.circular(10)
                                         ),
-                                        child: const Text('Cash',style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold))
+                                        child: const Text('Cash',style: TextStyle(color: Colors.white,fontSize: 14,fontWeight: FontWeight.bold))
                                       ),
                                     ),
                                   ),
@@ -105,15 +105,15 @@ class _CryptoState extends State<Crypto> {
                                     child: GestureDetector(
                                       onTap: () => onClickCardButton(2),
                                       child: Container(
-                                        padding: const EdgeInsets.all(15),
+                                        padding: const EdgeInsets.all(10),
                                         decoration: BoxDecoration(
                                           color: selectedIndex == 2 ? Colors.blue : Colors.transparent,
                                           border: Border.all(color: selectedIndex == 2 ? Colors.blue : Colors.grey,width: 1),
-                                          borderRadius: BorderRadius.circular(15)
+                                          borderRadius: BorderRadius.circular(10)
                                         ),
-                                        child: const Text('Bill',style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold))
-                                      ),
-                                    ),
+                                        child: const Text('Bill',style: TextStyle(color: Colors.white,fontSize: 14,fontWeight: FontWeight.bold))
+                                      )
+                                    )
                                   )
                                 ]
                               )
@@ -123,7 +123,7 @@ class _CryptoState extends State<Crypto> {
                       ]
                     )
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
                   Container(
                     margin: const EdgeInsets.only(top: 10,bottom: 10),
                     height: MediaQuery.of(context).size.height * 0.18,
@@ -134,16 +134,17 @@ class _CryptoState extends State<Crypto> {
                       itemBuilder: (BuildContext context,int index){
                         return Container(
                           width: MediaQuery.of(context).size.width * 0.45,
-                          padding: const EdgeInsets.all(15),
+                          padding: const EdgeInsets.all(10),
                           margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.04,top: 5,bottom: 5),
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(8),
                             boxShadow: const [
                               BoxShadow(blurRadius: 2,color: Colors.grey)
                             ]
                           ),
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
@@ -152,12 +153,12 @@ class _CryptoState extends State<Crypto> {
                                   GestureDetector(
                                     onTap: () => showSnackBar(context,'Sorry!! Apps is now in testing mode'),
                                     child: Container(
-                                      padding: const EdgeInsets.all(5),
+                                      padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.001),
                                       decoration: BoxDecoration(
                                         color: Colors.blue,
-                                        borderRadius: BorderRadius.circular(12),
+                                        borderRadius: BorderRadius.circular(8),
                                       ),
-                                      child: const Icon(Icons.add,color: Colors.white,size: 30)
+                                      child: const Icon(Icons.add,color: Colors.white,size: 28)
                                     )
                                   ),
                                   const CircleAvatar(
@@ -166,51 +167,62 @@ class _CryptoState extends State<Crypto> {
                                   )
                                 ]
                               ),
-                              const SizedBox(height: 25),
-                              const Text('Launch a Transaction',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 18)),
-                              const Text('3,122 Launches',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 14))
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: const [
+                                  Text('Launch a Transaction',maxLines: 1,overflow: TextOverflow.ellipsis,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 14)),
+                                  Text('3,122 Launches',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 11))
+                                ]
+                              )
                             ]
                           )
                         );
                       }
                     ) 
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 15),
                   Container(
                     padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.04,right: MediaQuery.of(context).size.width * 0.04),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text('Tender Transaction',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 18)),
-                        Row(
+                        const Expanded(
+                          flex: 1,
+                          child: Text('Tender Transaction',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 15)),
+                        ),
+                        Flexible(
+                          child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: const [
-                            Icon(Icons.timelapse,color: Colors.grey),
+                            Icon(Icons.timelapse,color: Colors.grey,size: 22),
                             SizedBox(width: 5),
-                            Text('Nearly 3 days',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold))
+                            Text('Nearly 3 days',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 12))
                           ],
+                        ),
                         )
                       ]
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 15),
                   Container(
                     padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.04),
                     child: Divider(height: 1,thickness: 1,color: Colors.grey[400])
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 15),
                   Container(
                     padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.04,right: MediaQuery.of(context).size.width * 0.04),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text('Blockhain Analysis Report',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 18)),
-                        Text('16.00 ETH',style: TextStyle(color: Colors.tealAccent[400],fontWeight: FontWeight.bold,fontSize: 18))
+                      children: const [
+                        Expanded(
+                          child: Text('Blockhain Analysis Report',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 15))
+                        ),
+                        Text('16.00 ETH',style: TextStyle(color: Color.fromARGB(255, 16, 209, 113),fontWeight: FontWeight.bold,fontSize: 16))
                       ]
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 15),
                   Container(
+                    margin: const EdgeInsets.only(bottom: 10),
                     padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.04,right: MediaQuery.of(context).size.width * 0.04),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -219,20 +231,20 @@ class _CryptoState extends State<Crypto> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text('Created : ${DateTime.now().toString().substring(0,10).split('-').reversed.join('-')}',style: const TextStyle(color: Colors.grey,fontWeight: FontWeight.normal)),
+                            Text('Created : ${DateTime.now().toString().substring(0,10).split('-').reversed.join('-')}',style: const TextStyle(fontSize: 12,color: Colors.grey,fontWeight: FontWeight.normal)),
                             const SizedBox(width: 5),
-                            const Text('Originator : Ali Hasan',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.normal))
+                            const Text('Originator : Ali Hasan',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.normal,fontSize: 12))
                           ],
                         ),
                         GestureDetector(
                           onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const TransactionPage())),
                           child: Container(
-                            padding: const EdgeInsets.only(left: 30,right: 30,top: 14,bottom: 14),
+                            padding: const EdgeInsets.only(left: 20,right: 20,top: 12,bottom: 12),
                             decoration: BoxDecoration(
                               color: Colors.blue,
-                              borderRadius: BorderRadius.circular(10)
+                              borderRadius: BorderRadius.circular(8)
                             ),
-                            child: const Text('View',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 15))
+                            child: const Text('View',style: TextStyle(color: Colors.white,fontWeight: FontWeight.normal,fontSize: 14))
                           )
                         )
                       ]

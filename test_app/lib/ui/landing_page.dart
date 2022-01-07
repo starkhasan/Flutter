@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:test_app/utils/preferences.dart';
 import 'package:test_app/utils/helper.dart';
 
@@ -132,6 +133,8 @@ class _LandingPageState extends State<LandingPage> with Helper{
 
   @override
   void initState() {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown,DeviceOrientation.portraitUp]);
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.blue));
     Preferences.init();
     super.initState();
   }
@@ -142,7 +145,7 @@ class _LandingPageState extends State<LandingPage> with Helper{
       appBar: AppBar(
         title: const Text('Templates Design'),
         centerTitle: true,
-        backgroundColor: Colors.teal
+        backgroundColor: Colors.blue
       ),
       floatingActionButton: const FloatingActionButton(
         onPressed: null,

@@ -25,8 +25,59 @@ class _NetworkingState extends State<Networking> {
         shrinkWrap: true,
         itemBuilder: (context, index){
           return Container(
-            padding: const EdgeInsets.all(10),
-            child: Text(listUserResponse[index].name),
+            width: double.infinity,
+            margin: const EdgeInsets.all(10),
+            decoration: const BoxDecoration(color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(10)),boxShadow: [BoxShadow(blurRadius: 2.0,color: Colors.grey)]),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  color: Colors.white,
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(listUserResponse[index].name,style: const TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
+                      Text(listUserResponse[index].email,style: const TextStyle(color: Colors.grey)),
+                      Text(listUserResponse[index].phone,style: const TextStyle(color: Colors.grey)),
+                      Text(listUserResponse[index].webSite,style: const TextStyle(color: Colors.grey))
+                    ]
+                  )
+                ),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.only(left: 8,top: 8,bottom: 8),
+                  color: const Color.fromARGB(255, 214, 214, 214),
+                  child: const Text('Company',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold))
+                ),
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(listUserResponse[index].company.name,style: const TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
+                      Text('catchPhrase : ${listUserResponse[index].company.catchPhrase}',style: const TextStyle(color: Colors.black)),
+                    ]
+                  )
+                ),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.only(left: 8,top: 8,bottom: 8),
+                  color: const Color.fromARGB(255, 214, 214, 214),
+                  child: const Text('Address',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold))
+                ),
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('${listUserResponse[index].address.street}, ${listUserResponse[index].address.suite}, ${listUserResponse[index].address.city} ',style: const TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
+                      Text(listUserResponse[index].address.zipCode,style: const TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
+                    ]
+                  )
+                )
+              ]
+            )
           );
         }
       ),
