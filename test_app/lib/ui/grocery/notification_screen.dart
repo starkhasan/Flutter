@@ -15,10 +15,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            title: const Text('Notifications',style: TextStyle(color: Colors.black)),
+            title: const Text('Notifications',style: TextStyle(color: Colors.black,fontSize: 14)),
             floating: true,
             snap: true,
             backgroundColor: Colors.white,
+            titleSpacing: 0,
             leading: InkWell(onTap: () => Navigator.pop(context),child: const Icon(Icons.arrow_back,color: Colors.black)),
           ),
           SliverList(delegate: SliverChildListDelegate([mainBody()]))
@@ -35,7 +36,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       padding: const EdgeInsets.only(top: 0),
       itemBuilder: (BuildContext context,int index){
         return Container(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.only(left: 10,right: 10,top: 5,bottom: 5),
           margin: const EdgeInsets.all(5),
           decoration: const BoxDecoration(color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(5)),boxShadow: [BoxShadow(blurRadius: 2.0,color: Colors.grey)]),
           child: Column(
@@ -43,21 +44,22 @@ class _NotificationScreenState extends State<NotificationScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: const [
-                  Text('Order #2314',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold)),
-                  Text('4:23 PM')
+                  Text('Order #2314',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold)),
+                  Text('4:23 PM',style: TextStyle(fontSize: 12))
                 ]
               ),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Expanded(child: Text('Your order is confirmed. Please check everything is okay')),
+                  const Expanded(child: Text('Your order is confirmed. Please check everything is okay',style: TextStyle(fontSize: 12))),
                   InkWell(
                     onTap: () => print('Click Here to call'),
                     child: Container(
                       margin: const EdgeInsets.only(left: 8,right: 10),
                       padding: const EdgeInsets.all(5),
                       decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.red[50]),
-                      child: const Icon(Icons.phone),
+                      child: const Icon(Icons.phone,color: Colors.red,size: 22)
                     )
                   )
                 ]

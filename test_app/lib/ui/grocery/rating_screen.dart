@@ -56,7 +56,7 @@ class _RatingScreenState extends State<RatingScreen> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.08,
                 width: MediaQuery.of(context).size.width * 0.12,
-                child: Image.network(widget.imagePath),
+                child: Image.network(widget.imagePath)
               )
             ]
           ),
@@ -74,12 +74,13 @@ class _RatingScreenState extends State<RatingScreen> {
             itemSize: 40.0,
             itemPadding: EdgeInsets.zero,
             itemBuilder: (context, _) => const Icon(Icons.star, color: Colors.amber),
-            onRatingUpdate: (rating) => newRating = rating,
+            onRatingUpdate: (rating) => newRating = rating
           ),
           const SizedBox(height: 20),
           const Text('Review Title',style: TextStyle(fontSize: 14,color: Colors.black,fontWeight: FontWeight.bold)),
           TextField(
             keyboardType: TextInputType.text,
+            textInputAction: TextInputAction.next,
             controller: titleController,
             decoration: const InputDecoration(hintText: 'Ex. Job Done Successfully',hintStyle: TextStyle(color: Colors.grey,fontSize: 14)),
           ),
@@ -87,6 +88,7 @@ class _RatingScreenState extends State<RatingScreen> {
           const Text('Write Review',style: TextStyle(fontSize: 14,color: Colors.black,fontWeight: FontWeight.bold)),
           TextField(
             keyboardType: TextInputType.text,
+            textInputAction: TextInputAction.done,
             controller: reviewController,
             maxLength: 300,
             maxLines: null,
@@ -135,10 +137,10 @@ class _RatingScreenState extends State<RatingScreen> {
                           padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(color: Colors.red[50],border: Border.all(width: 1.0,color: Colors.red),borderRadius: const BorderRadius.all(Radius.circular(10.0))),
                           child: const Text('Remove',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.red,fontSize: 13))
-                        ),
+                        )
                       )
                     ]
-                  ),
+                  )
                 )
               ]
             ),
@@ -187,4 +189,5 @@ class _RatingScreenState extends State<RatingScreen> {
       });
     }
   }
+
 }

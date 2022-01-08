@@ -21,6 +21,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> with Single
     pageController = PageController(initialPage: 0);
     super.initState();
   }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

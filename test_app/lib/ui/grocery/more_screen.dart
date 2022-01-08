@@ -1,12 +1,9 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:test_app/ui/grocery/authentication_screen.dart';
 import 'package:test_app/utils/helper.dart';
 
 class MoreScreen extends StatefulWidget {
   const MoreScreen({ Key? key }) : super(key: key);
-
   @override
   _MoreScreenState createState() => _MoreScreenState();
 }
@@ -14,17 +11,13 @@ class MoreScreen extends StatefulWidget {
 class _MoreScreenState extends State<MoreScreen> with Helper{
 
   @override
-  void initState() {
-    super.initState();
-  }
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(child: AppBar(backgroundColor: Colors.green), preferredSize: const Size.fromHeight(0)),
       body: CustomScrollView(
         slivers: [
           const SliverAppBar(
-            title: Text('More',style: TextStyle(color: Colors.black)),
+            title: Text('More',style: TextStyle(color: Colors.black,fontSize: 14)),
             floating: true,
             snap: true,
             backgroundColor: Colors.white,

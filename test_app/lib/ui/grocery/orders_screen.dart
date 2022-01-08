@@ -31,7 +31,7 @@ class _OrdersScreenState extends State<OrdersScreen> with SingleTickerProviderSt
               pinned: true,
               snap: true,
               backgroundColor: Colors.white,
-              title: const Text('Orders',style: TextStyle(color: Colors.black)),
+              title: const Text('Orders',style: TextStyle(color: Colors.black,fontSize: 14)),
               bottom: TabBar(
                 isScrollable: false,
                 indicatorSize: TabBarIndicatorSize.label,
@@ -44,7 +44,7 @@ class _OrdersScreenState extends State<OrdersScreen> with SingleTickerProviderSt
                   Tab(text: 'Ongoing'),
                   Tab(text: 'Complete')
                 ]
-              ),
+              )
             )
           ];
         },
@@ -55,7 +55,7 @@ class _OrdersScreenState extends State<OrdersScreen> with SingleTickerProviderSt
             CompletedOrderScreen()
           ]
         )
-      ),
+      )
     );
   }
 }
@@ -71,7 +71,7 @@ class _OngoingOrderScreenState extends State<OngoingOrderScreen> {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text('There is no ongoing order right now\nyou can order from home',textAlign: TextAlign.center)
+      child: Text('There is no ongoing order right now\nyou can order from home',textAlign: TextAlign.center,style: TextStyle(fontSize: 14,color: Colors.black))
     );
   }
 }
@@ -105,7 +105,7 @@ class _CompletedOrderScreenState extends State<CompletedOrderScreen> {
         return InkWell(
           onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => OrderDetails(imagePath: listImageURL[index]))),
           child: Container(
-            padding: EdgeInsets.zero,
+            padding: const EdgeInsets.only(left: 8,right: 8),
             color: Colors.white,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -116,13 +116,13 @@ class _CompletedOrderScreenState extends State<CompletedOrderScreen> {
                   child: Image.network(listImageURL[index]),
                 ),
                 const SizedBox(width: 10),
-                const Text('Aashirvaad Whole Wheat Atta 10 kg',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold))
+                const Text('Aashirvaad Whole Wheat Atta 10 kg',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold))
               ]
             )
-          ),
+          )
         );
       },
-      separatorBuilder: (context,index) => const Divider(color: Colors.grey,height: 1,thickness: 1),
+      separatorBuilder: (context,index) => const Divider(color: Color.fromARGB(255, 191, 191, 191),height: 0.8,thickness: 0.8),
       itemCount: listImageURL.length
     );
   }
