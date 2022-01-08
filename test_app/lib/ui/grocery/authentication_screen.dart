@@ -27,13 +27,13 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> with Single
       appBar: PreferredSize(preferredSize: const Size.fromHeight(0),child: AppBar(backgroundColor: Colors.green)),
       body: Stack(
         children: [
-          Container(width: double.infinity,height: double.infinity,child: Align(alignment: Alignment.bottomRight,child: Image.asset('asset/grocery_background.jpg'))),
+          Container(color: const Color.fromARGB(255, 246, 246, 246),width: double.infinity,height: double.infinity,child: Align(alignment: Alignment.bottomRight,child: Image.asset('asset/grocery_background.jpg'))),
           SingleChildScrollView(
             scrollDirection: Axis.vertical,
             physics: const BouncingScrollPhysics(),
             child: Column(
               children: [
-                Container(
+                SizedBox(
                   height: MediaQuery.of(context).size.height * 0.20,
                   child: const Align(alignment: Alignment.center,child: Text('Grocery Plus',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 20)))
                 ),
@@ -59,8 +59,8 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> with Single
                 )
               ]
             )
-          ),
-        ],
+          )
+        ]
       )
     );
   }
