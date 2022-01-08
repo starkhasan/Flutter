@@ -29,7 +29,7 @@ class _RatingScreenState extends State<RatingScreen> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            title: const Text('Write Review',style: TextStyle(color: Colors.black)),
+            title: const Text('Write Review',style: TextStyle(color: Colors.black,fontSize: 14)),
             floating: true,
             snap: true,
             backgroundColor: Colors.white,
@@ -52,7 +52,7 @@ class _RatingScreenState extends State<RatingScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Aashirvaad Whole Wheat Atta 10 kg',style: TextStyle(fontSize: 16)),
+              const  Expanded(child: Text('Aashirvaad Whole Wheat Atta 10 kg',style: TextStyle(fontSize: 14))),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.08,
                 width: MediaQuery.of(context).size.width * 0.12,
@@ -61,7 +61,7 @@ class _RatingScreenState extends State<RatingScreen> {
             ]
           ),
           const SizedBox(height: 10),
-          const Text('Rate your experience',style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold)),
+          const Text('Rate your experience',style: TextStyle(fontSize: 14,color: Colors.black,fontWeight: FontWeight.bold)),
           const SizedBox(height: 5),
           RatingBar.builder(
             initialRating: widget.productRating,
@@ -77,20 +77,20 @@ class _RatingScreenState extends State<RatingScreen> {
             onRatingUpdate: (rating) => newRating = rating,
           ),
           const SizedBox(height: 20),
-          const Text('Review Title',style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold)),
+          const Text('Review Title',style: TextStyle(fontSize: 14,color: Colors.black,fontWeight: FontWeight.bold)),
           TextField(
             keyboardType: TextInputType.text,
             controller: titleController,
-            decoration: const InputDecoration(hintText: 'Ex. Job Done Successfully',hintStyle: TextStyle(color: Colors.grey)),
+            decoration: const InputDecoration(hintText: 'Ex. Job Done Successfully',hintStyle: TextStyle(color: Colors.grey,fontSize: 14)),
           ),
           const SizedBox(height: 20),
-          const Text('Write Review',style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold)),
+          const Text('Write Review',style: TextStyle(fontSize: 14,color: Colors.black,fontWeight: FontWeight.bold)),
           TextField(
             keyboardType: TextInputType.text,
             controller: reviewController,
             maxLength: 300,
             maxLines: null,
-            decoration: const InputDecoration(hintText: 'Write your experience',hintStyle: TextStyle(color: Colors.grey)),
+            decoration: const InputDecoration(hintText: 'Write your experience',hintStyle: TextStyle(color: Colors.grey,fontSize: 14)),
           ),
           const SizedBox(height: 10),
           imagePath.isEmpty
@@ -116,7 +116,7 @@ class _RatingScreenState extends State<RatingScreen> {
           : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Attached Photo',style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold)),
+                const Text('Attached Photo',style: TextStyle(fontSize: 14,color: Colors.black,fontWeight: FontWeight.bold)),
                 const SizedBox(height: 5),
                 Padding(
                   padding: const EdgeInsets.only(left: 5,right: 15,top: 5),
@@ -133,8 +133,8 @@ class _RatingScreenState extends State<RatingScreen> {
                         onTap: () => setState(() => imagePath = ''),
                         child: Container(
                           padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(color: Colors.red[50],border: Border.all(width: 1.0,color: Colors.red),borderRadius: const BorderRadius.all(Radius.circular(20.0))),
-                          child: const Text('Remove',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.red))
+                          decoration: BoxDecoration(color: Colors.red[50],border: Border.all(width: 1.0,color: Colors.red),borderRadius: const BorderRadius.all(Radius.circular(10.0))),
+                          child: const Text('Remove',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.red,fontSize: 13))
                         ),
                       )
                     ]

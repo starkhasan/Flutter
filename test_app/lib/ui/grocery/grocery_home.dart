@@ -24,7 +24,7 @@ class _GroceryHomeState extends State<GroceryHome> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('Grocery Plus',style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.bold)),
+                  const Text('Grocery Plus',style: TextStyle(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold)),
                   IconButton(
                     onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationScreen())),
                     icon: const Icon(Icons.notifications),
@@ -34,8 +34,8 @@ class _GroceryHomeState extends State<GroceryHome> {
               Row(
                 children: [
                   const CircleAvatar(
-                    radius: 18,
-                    child: Icon(Icons.location_pin,color: Colors.white),
+                    radius: 16,
+                    child: Icon(Icons.location_pin,color: Colors.white,size: 22),
                     backgroundColor: Colors.green
                   ),
                   const SizedBox(width: 10),
@@ -43,23 +43,24 @@ class _GroceryHomeState extends State<GroceryHome> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
                       Text('Your Location',style: TextStyle(fontSize: 12, color: Colors.grey)),
-                      Text('Wali Ganj, Arrah, Arrah Town',style: TextStyle(color: Colors.black,fontSize: 16))
+                      Text('Wali Ganj, Arrah, Arrah Town',style: TextStyle(color: Colors.black,fontSize: 14))
                     ]
                   )
                 ]
               ),
               Container(
-                padding: const EdgeInsets.only(left: 10,right: 10,top: 12,bottom: 12),
+                padding: const EdgeInsets.only(left: 8,right: 8,top: 10,bottom: 10),
                 margin: const EdgeInsets.only(top: 15),
                 decoration: BoxDecoration(color: Colors.grey[300],borderRadius: const BorderRadius.all(Radius.circular(4))),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: const [
                     Icon(Icons.search),
-                    SizedBox(width: 10),
+                    SizedBox(width: 8),
                     Expanded(
                       child: TextField(
-                        decoration: InputDecoration.collapsed(hintText: 'Search Anything')
+                        style: TextStyle(fontSize: 14),
+                        decoration: InputDecoration.collapsed(hintText: 'Search Anything',hintStyle: TextStyle(fontSize: 14))
                       )
                     )
                   ]
@@ -82,7 +83,7 @@ class _GroceryHomeState extends State<GroceryHome> {
                           Expanded(child: Image.network(Helper.listImageURL[index])),
                           Padding(
                             padding: const EdgeInsets.only(bottom: 10.0),
-                            child: Text(Helper.listProductName[index],style: const TextStyle(fontWeight: FontWeight.bold)),
+                            child: Text(Helper.listProductName[index],style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 12)),
                           )
                         ]
                       )

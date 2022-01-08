@@ -30,13 +30,13 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
         child: Container(
           height: 50,
           color: Colors.deepOrange,
-          child: const Center(child: Text('Place Order',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Colors.white)))
+          child: const Center(child: Text('Place Order',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.white)))
         )
       ),
       body: CustomScrollView(
         slivers: [
           const SliverAppBar(
-            title: Text('Place Orders',style: TextStyle(color: Colors.black)),
+            title: Text('Place Orders',style: TextStyle(color: Colors.black,fontSize: 14)),
             backgroundColor: Colors.white,
             floating: true,
             snap: true,
@@ -56,7 +56,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
         children: [
           const Padding(
             padding: EdgeInsets.only(top: 15, left: 15,right: 15),
-            child: Text('Products',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold))
+            child: Text('Products',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold))
           ),
           ListView.separated(
             shrinkWrap: true,
@@ -79,25 +79,25 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text('Aashirvaad Whole Wheat Atta 10 kg',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+                            const Text('Aashirvaad Whole Wheat Atta 10 kg',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold)),
                             const SizedBox(height: 5),
-                            const Text('\u{20B9}180',style: TextStyle(fontSize: 16,color: Colors.grey,fontWeight: FontWeight.normal,decoration: TextDecoration.lineThrough)),
+                            const Text('\u{20B9}180',style: TextStyle(fontSize: 15,color: Colors.grey,fontWeight: FontWeight.normal,decoration: TextDecoration.lineThrough)),
                             const SizedBox(height: 4),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
                                   children: [
-                                    const Text('\u{20B9}149',style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.normal)),
+                                    const Text('\u{20B9}149',style: TextStyle(fontSize: 15,color: Colors.black,fontWeight: FontWeight.bold)),
                                     const SizedBox(width: 10),
                                     Container(
                                       padding: const EdgeInsets.only(left: 5,top: 2,right: 5,bottom: 2),
                                       decoration: BoxDecoration(color:Colors.green[800],borderRadius: const BorderRadius.all(Radius.circular(2))),
                                       child: Row(
                                         children: const [
-                                          Text('4.5',style: TextStyle(color: Colors.white)),
+                                          Text('4.5',style: TextStyle(color: Colors.white,fontSize: 12)),
                                           SizedBox(width: 5),
-                                          Icon(Icons.star,size: 15,color: Colors.white)
+                                          Icon(Icons.star,size: 14,color: Colors.white)
                                         ]
                                       )
                                     )
@@ -109,19 +109,19 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                       onTap: () => updateItemCount('down'),
                                       child: Container(
                                         margin: const EdgeInsets.only(right: 8),
-                                        padding: const EdgeInsets.all(5),
+                                        padding: const EdgeInsets.all(4),
                                         decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.red[50]),
-                                        child: const Icon(Icons.remove),
+                                        child: const Icon(Icons.remove,size: 22),
                                       )
                                     ),
-                                    Text(itemCount.toString(),style: const TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.bold)),
+                                    Text(itemCount.toString(),style: const TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.bold)),
                                     InkWell(
                                       onTap: () => updateItemCount('up'),
                                       child: Container(
                                         margin: const EdgeInsets.only(left: 8,right: 10),
-                                        padding: const EdgeInsets.all(5),
+                                        padding: const EdgeInsets.all(4),
                                         decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.green[50]),
-                                        child: const Icon(Icons.add),
+                                        child: const Icon(Icons.add,size: 22),
                                       )
                                     )
                                   ]
@@ -148,10 +148,10 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Deliver Location',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+                    const Text('Deliver Location',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold)),
                     InkWell(
                       onTap: () => print('Click Here to Change Address'),
-                      child: const Text('Change Address',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,color: Colors.blue)),
+                      child: const Text('Change Address',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,color: Colors.blue)),
                     )
                   ]
                 ),
@@ -168,7 +168,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: const [
-                          Text('Ali Hasan',style: TextStyle(color: Colors.black,fontSize: 16)),
+                          Text('Ali Hasan',style: TextStyle(color: Colors.black,fontSize: 14)),
                           SizedBox(height: 2),
                           Text('MOH - Wali Ganj Infront of Badi Masjid, Arrah, Bhojpur Bihar 802301',style: TextStyle(color: Colors.black,fontSize: 12)),
                           SizedBox(height: 2),

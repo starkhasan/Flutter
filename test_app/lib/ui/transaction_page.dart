@@ -81,12 +81,17 @@ class _TransactionPageState extends State<TransactionPage> {
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text('Launched',style: TextStyle(color: currentTransactionPage == 0 ? Colors.black : Colors.grey[400],fontSize: currentTransactionPage == 0 ? 22 : 18,fontWeight: FontWeight.bold)),
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 500),
+                      child: Text('Launched',style: TextStyle(color: currentTransactionPage == 0 ? Colors.black : Colors.grey[400],fontSize: currentTransactionPage == 0 ? 22 : 18,fontWeight: FontWeight.bold)),
+                    ),
                     const SizedBox(width: 20),
-                    Text('Received',style: TextStyle(color: currentTransactionPage == 1 ? Colors.black : Colors.grey[400],fontSize: currentTransactionPage == 1 ? 22 : 18,fontWeight: FontWeight.bold))
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 500),
+                      child: Text('Received',style: TextStyle(color: currentTransactionPage == 1 ? Colors.black : Colors.grey[400],fontSize: currentTransactionPage == 1 ? 22 : 18,fontWeight: FontWeight.bold))
+                    )
                   ]
                 ),
-                const SizedBox(height: 10),
                 Container(
                   height: MediaQuery.of(context).size.height * 0.52,
                   padding: EdgeInsets.zero,

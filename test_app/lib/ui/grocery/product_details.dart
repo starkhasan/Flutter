@@ -32,13 +32,13 @@ class _ProductDetailsState extends State<ProductDetails> {
         child: Container(
           height: 50,
           color: Colors.deepOrange,
-          child: const Center(child: Text('Add to Cart',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Colors.white)))
+          child: const Center(child: Text('Add to Cart',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.white)))
         ),
       ),
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            title: const Text('Product Details',style: TextStyle(color: Colors.black)),
+            title: const Text('Product Details',style: TextStyle(color: Colors.black,fontSize: 14)),
             backgroundColor: Colors.white,
             floating: true,
             snap: true,
@@ -86,7 +86,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   'Aashirvaad Whole Wheat Atta 10 kg',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 20,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold
                   ),
                 ),
@@ -96,7 +96,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   children: [
                     Row(
                       children: [
-                        const Text('\u{20B9}300',style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold)),
+                        const Text('\u{20B9}300',style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold)),
                         const SizedBox(width: 10),
                         Container(
                           padding: const EdgeInsets.only(left: 5,top: 2,right: 5,bottom: 2),
@@ -105,7 +105,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                             children: const [
                               Text('4.5',style: TextStyle(color: Colors.white)),
                               SizedBox(width: 5),
-                              Icon(Icons.star,size: 15,color: Colors.white)
+                              Icon(Icons.star,size: 14,color: Colors.white)
                             ]
                           )
                         )
@@ -117,26 +117,26 @@ class _ProductDetailsState extends State<ProductDetails> {
                           onTap: () => updateItemCount('down'),
                           child: Container(
                             margin: const EdgeInsets.only(right: 8),
-                            padding: const EdgeInsets.all(5),
+                            padding: const EdgeInsets.all(4),
                             decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.red[50]),
-                            child: const Icon(Icons.remove),
+                            child: const Icon(Icons.remove,size: 22),
                           )
                         ),
                         Text(itemCount.toString(),style: const TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.bold)),
                         InkWell(
                           onTap: () => updateItemCount('up'),
                           child: Container(
-                            margin: const EdgeInsets.only(left: 8,right: 10),
-                            padding: const EdgeInsets.all(5),
+                            margin: const EdgeInsets.only(left: 8),
+                            padding: const EdgeInsets.all(4),
                             decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.green[50]),
-                            child: const Icon(Icons.add),
+                            child: const Icon(Icons.add,size: 22),
                           )
                         )
                       ],
                     )
                   ]
                 ),
-                const SizedBox(height: 5),
+                const SizedBox(height: 8),
                 Row(
                   children: [
                     const Icon(Icons.watch_later_outlined,color: Colors.red,size: 24),
@@ -144,8 +144,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [
-                        Text('Manufactured date 02 Nov 2021',style: TextStyle(fontWeight: FontWeight.bold)),
-                        Text('Best Before 29 July 2022',style: TextStyle(color: Colors.grey,fontSize: 12))
+                        Text('Manufactured date 02 Nov 2021',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12)),
+                        Text('Best Before 29 July 2022',style: TextStyle(color: Color.fromARGB(255, 107, 107, 107),fontSize: 11))
                       ]
                     )
                   ]
@@ -191,7 +191,7 @@ class _ProductDetailsState extends State<ProductDetails> {
           Divider(height: 1,thickness: 1,color: Colors.grey[400]), 
           const Padding(
             padding: EdgeInsets.only(top: 15, left: 15),
-            child: Text('You can also check this item',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+            child: Text('You can also check this item',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold)),
           ),
           ListView.separated(
             shrinkWrap: true,
@@ -212,22 +212,22 @@ class _ProductDetailsState extends State<ProductDetails> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Aashirvaad Whole Wheat Atta 10 kg',style: TextStyle(fontSize: 16)),
+                          const Text('Aashirvaad Whole Wheat Atta 10 kg',style: TextStyle(fontSize: 14)),
                           const SizedBox(height: 5),
-                          const Text('\u{20B9}180',style: TextStyle(fontSize: 16,color: Colors.grey,fontWeight: FontWeight.normal,decoration: TextDecoration.lineThrough)),
+                          const Text('\u{20B9}180',style: TextStyle(fontSize: 14,color: Colors.grey,fontWeight: FontWeight.normal,decoration: TextDecoration.lineThrough)),
                           const SizedBox(height: 4),
                           Row(
                             children: [
-                              const Text('\u{20B9}300',style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.normal)),
+                              const Text('\u{20B9}300',style: TextStyle(fontSize: 14,color: Colors.black,fontWeight: FontWeight.bold)),
                               const SizedBox(width: 10),
                               Container(
                                 padding: const EdgeInsets.only(left: 5,top: 2,right: 5,bottom: 2),
                                 decoration: BoxDecoration(color:Colors.green[800],borderRadius: const BorderRadius.all(Radius.circular(2))),
                                 child: Row(
                                   children: const [
-                                    Text('4.5',style: TextStyle(color: Colors.white)),
-                                    SizedBox(width: 5),
-                                    Icon(Icons.star,size: 15,color: Colors.white)
+                                    Text('4.5',style: TextStyle(color: Colors.white,fontSize: 12)),
+                                    SizedBox(width: 4),
+                                    Icon(Icons.star,size: 14,color: Colors.white)
                                   ]
                                 )
                               )

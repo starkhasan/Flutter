@@ -25,34 +25,42 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> with Single
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(preferredSize: const Size.fromHeight(0),child: AppBar(backgroundColor: Colors.green)),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          children: [
-            Container(color: Colors.white,height: MediaQuery.of(context).size.height * 0.20,child: const Align(alignment: Alignment.center,child: Text('Grocery Plus',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 20)))),
-            PageViewLabelIndicator(
-              height: MediaQuery.of(context).size.height * 0.08,
-              label: page,
-              currentPageNotifier: currentPageNotifier,
-              selectedColor: Colors.green,
-              onPageSelect: (index) => {
-                pageController.animateToPage(index, duration: const Duration(milliseconds: 400), curve: Curves.linear),
-                currentPageNotifier.value = index
-              }
-            ),
-            Container(
-              color: Colors.white,
-              height: MediaQuery.of(context).size.height * 0.72,
-              padding: const EdgeInsets.all(15),
-              child: PageView(
-                controller: pageController,
-                children: const [Signup(),Signin()],
-                onPageChanged: (value) => currentPageNotifier.value = value,
-              )
+      body: Stack(
+        children: [
+          Container(width: double.infinity,height: double.infinity,child: Align(alignment: Alignment.bottomRight,child: Image.asset('asset/grocery_background.jpg'))),
+          SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              children: [
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.20,
+                  child: const Align(alignment: Alignment.center,child: Text('Grocery Plus',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 20)))
+                ),
+                PageViewLabelIndicator(
+                  height: MediaQuery.of(context).size.height * 0.08,
+                  label: page,
+                  backgroundColor: Colors.transparent,
+                  currentPageNotifier: currentPageNotifier,
+                  selectedColor: Colors.green,
+                  onPageSelect: (index) => {
+                    pageController.animateToPage(index, duration: const Duration(milliseconds: 400), curve: Curves.linear),
+                    currentPageNotifier.value = index
+                  }
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.72,
+                  padding: const EdgeInsets.all(15),
+                  child: PageView(
+                    controller: pageController,
+                    children: const [Signup(),Signin()],
+                    onPageChanged: (value) => currentPageNotifier.value = value,
+                  )
+                )
+              ]
             )
-          ]
-        )
+          ),
+        ],
       )
     );
   }
@@ -89,7 +97,7 @@ class _SigninState extends State<Signin> with Helper{
         TextField(
           controller: passwordCont,
           obscureText: true,
-          textInputAction: TextInputAction.next,
+          textInputAction: TextInputAction.done,
           keyboardType: TextInputType.visiblePassword,
           decoration: const InputDecoration(
             hintText: '********',
@@ -160,7 +168,7 @@ class _SignupState extends State<Signup> with Helper{
         TextField(
           controller: passwordCont,
           obscureText: true,
-          textInputAction: TextInputAction.next,
+          textInputAction: TextInputAction.done,
           keyboardType: TextInputType.visiblePassword,
           decoration: const InputDecoration(
             hintText: '********',

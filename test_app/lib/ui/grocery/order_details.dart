@@ -24,7 +24,7 @@ class _OrderDetailsState extends State<OrderDetails> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            title: const Text('Order #OD0011238514',style: TextStyle(color: Colors.black)),
+            title: const Text('Order #OD0011238514',style: TextStyle(color: Colors.black,fontSize: 14)),
             backgroundColor: Colors.white,
             floating: true,
             snap: true,
@@ -53,13 +53,15 @@ class _OrderDetailsState extends State<OrderDetails> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text('Aashirvaad Whole Wheat Atta 10 kg',style: TextStyle(fontSize: 16)),
-                    SizedBox(height: 2),
-                    Text('\u{20B9}300',style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold))
-                  ]
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text('Aashirvaad Whole Wheat Atta 10 kg',style: TextStyle(fontSize: 14)),
+                      SizedBox(height: 2),
+                      Text('\u{20B9}300',style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold))
+                    ]
+                  ),
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.08,
@@ -140,13 +142,13 @@ class _OrderDetailsState extends State<OrderDetails> {
             margin: const EdgeInsets.all(15),
             height: 48,
             decoration: BoxDecoration(color: Colors.green[100],borderRadius: const BorderRadius.all(Radius.circular(5))),
-            child: const Center(child: Text('Delivery Details',style: TextStyle(fontWeight: FontWeight.bold,)))
+            child: const Center(child: Text('Delivery Details',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14)))
           ),
           Container(
             margin: const EdgeInsets.only(left: 15,right: 15,bottom: 15),
             height: 48,
             decoration: BoxDecoration(color: Colors.green[100],borderRadius: const BorderRadius.all(Radius.circular(5))),
-            child: const Center(child: Text('Show Full Package',style: TextStyle(fontWeight: FontWeight.bold,)))
+            child: const Center(child: Text('Show Full Package',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14)))
           ),
           Divider(height: 1,thickness: 1,color: Colors.grey[400]), 
           Padding(
@@ -154,23 +156,23 @@ class _OrderDetailsState extends State<OrderDetails> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Deliver Man',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                const SizedBox(height: 10),
+                const Text('Deliver Man',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold)),
+                const SizedBox(height: 8),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       children: [
                         const CircleAvatar(
-                          radius: 18,
-                          child: Icon(Icons.person,color: Colors.white),
+                          radius: 16,
+                          child: Icon(Icons.person,color: Colors.white,size: 22),
                           backgroundColor: Colors.green
                         ),
                         const SizedBox(width: 10),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: const [
-                            Text('Ali Hasan',style: TextStyle(color: Colors.black,fontSize: 16)),
+                            Text('Ali Hasan',style: TextStyle(color: Colors.black,fontSize: 14)),
                             Text('9760656467',style: TextStyle(color: Colors.black,fontSize: 12))
                           ]
                         )
@@ -179,10 +181,10 @@ class _OrderDetailsState extends State<OrderDetails> {
                     InkWell(
                       onTap: () => print('Click Here to call'),
                       child: Container(
-                        margin: const EdgeInsets.only(left: 8,right: 10),
-                        padding: const EdgeInsets.all(8),
+                        margin: const EdgeInsets.only(left: 8),
+                        padding: const EdgeInsets.all(5),
                         decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.red[50]),
-                        child: const Icon(Icons.phone,color: Colors.red)
+                        child: const Icon(Icons.phone,color: Colors.red,size: 22)
                       )
                     )
                   ]
@@ -196,13 +198,13 @@ class _OrderDetailsState extends State<OrderDetails> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Deliver Location',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+                const Text('Deliver Location',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold)),
                 const SizedBox(height: 10),
                 Row(
                   children: [
                     const CircleAvatar(
-                      radius: 18,
-                      child: Icon(Icons.location_pin,color: Colors.white),
+                      radius: 16,
+                      child: Icon(Icons.location_pin,color: Colors.white,size: 22),
                       backgroundColor: Colors.green
                     ),
                     const SizedBox(width: 10),
@@ -210,7 +212,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: const [
-                          Text('Ali Hasan',style: TextStyle(color: Colors.black,fontSize: 16)),
+                          Text('Ali Hasan',style: TextStyle(color: Colors.black,fontSize: 14)),
                           SizedBox(height: 2),
                           Text('MOH - Wali Ganj Infront of Badi Masjid, Arrah, Bhojpur Bihar 802301',style: TextStyle(color: Colors.black,fontSize: 12)),
                           SizedBox(height: 2),
@@ -279,7 +281,7 @@ class _OrderDetailsState extends State<OrderDetails> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Rating & Review',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+                const Text('Rating & Review',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold)),
                 const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -300,7 +302,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                     ),
                     InkWell(
                       onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => RatingScreen(productId: 'Aashirvaad Whole Wheat Atta 10 kg',imagePath: widget.imagePath,productRating: productRating))),
-                      child: const Text('Write a Review',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.blue)),
+                      child: const Padding(padding: EdgeInsets.all(5),child: Text('Write a Review',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,color: Colors.blue))),
                     )
                   ]
                 )
