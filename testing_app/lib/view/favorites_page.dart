@@ -26,11 +26,7 @@ class FavoritesPage extends StatelessWidget {
 
 class FavoriteItemTile extends StatelessWidget {
   final int itemNo;
-
-  const FavoriteItemTile({
-    Key? key,
-    required this.itemNo,
-  }): super(key: key);
+  const FavoriteItemTile({Key? key, required this.itemNo}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +38,7 @@ class FavoriteItemTile extends StatelessWidget {
         ),
         title: Text(
           'Item $itemNo',
-          key: Key('favorites_text_$itemNo'),
+          key: Key('favorites_text_$itemNo')
         ),
         trailing: IconButton(
           key: Key('remove_icon_$itemNo'),

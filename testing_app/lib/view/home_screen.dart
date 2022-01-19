@@ -11,21 +11,21 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Testing Sample'),
-        actions: <Widget>[
+        actions:[
           TextButton.icon(
             style: TextButton.styleFrom(primary: Colors.white),
             onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const FavoritesPage())),
             icon: const Icon(Icons.favorite_border),
-            label: const Text('Favorites'),
-          ),
-        ],
+            label: const Text('Favorites')
+          )
+        ]
       ),
       body: ListView.builder(
         itemCount: 100,
         cacheExtent: 20.0,
         padding: const EdgeInsets.symmetric(vertical: 16),
-        itemBuilder: (context, index) => ItemTile(itemNo: index),
-      ),
+        itemBuilder: (context, index) => ItemTile(itemNo: index)
+      )
     );
   }
 }
@@ -50,7 +50,7 @@ class ItemTile extends StatelessWidget {
         trailing: IconButton(
           key: Key('icon_$itemNo'),
           icon: favoritesList.items.contains(itemNo)
-              ? const Icon(Icons.favorite)
+              ? const Icon(Icons.favorite,color: Colors.red)
               : const Icon(Icons.favorite_border),
           onPressed: () {
             !favoritesList.items.contains(itemNo)
