@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:testing_app/view/counter_screen.dart';
 import 'package:testing_app/view/home_screen.dart';
+import 'package:testing_app/view/widget_testing_screen.dart';
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({ Key? key }) : super(key: key);
@@ -11,7 +12,7 @@ class LandingScreen extends StatefulWidget {
 
 class _LandingScreenState extends State<LandingScreen> {
 
-  var screen = const ['Favorite List','Counter Application'];
+  var screen = const ['Favorite List','Counter Application','Widget Testting'];
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +41,9 @@ class _LandingScreenState extends State<LandingScreen> {
         break;
       case 1:
         Navigator.push(context, MaterialPageRoute(builder: (context) => const CounterScreen()));
+        break;
+      case 2:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const WidgetTestingScreen()));
         break;
       default:
         break;
