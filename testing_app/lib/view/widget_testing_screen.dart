@@ -16,14 +16,26 @@ class _WidgetTestingScreenState extends State<WidgetTestingScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Widget Testing Screen',style: TextStyle(fontSize: 14)),
+        title: const Text('Counter Testing',style: TextStyle(fontSize: 14)),
       ),
       body: Center(
         child: Text('$_counter')
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: incrementCounter,
-        child: const Icon(Icons.add)
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          FloatingActionButton(
+            heroTag: 'increment',
+            onPressed: incrementCounter,
+            child: const Icon(Icons.add)
+          ),
+          const SizedBox(height: 10),
+          FloatingActionButton(
+            heroTag: 'decrement',
+            onPressed: decrementCounter,
+            child: const Icon(Icons.remove)
+          )
+        ]
       )
     );
   }
@@ -33,4 +45,11 @@ class _WidgetTestingScreenState extends State<WidgetTestingScreen> {
       _counter++;
     });
   }
+
+  decrementCounter(){
+    setState(() {
+      _counter--;
+    });
+  }
+
 }

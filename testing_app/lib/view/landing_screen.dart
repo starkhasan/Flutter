@@ -12,7 +12,7 @@ class LandingScreen extends StatefulWidget {
 
 class _LandingScreenState extends State<LandingScreen> {
 
-  var screen = const ['Favorite List','Counter Application','Widget Testting'];
+  var screen = const ['Favorite List','Counter Application','Counter Testing'];
 
   @override
   Widget build(BuildContext context) {

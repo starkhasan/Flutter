@@ -38,5 +38,11 @@ void main() {
 
     expect(find.text("0"), findsNothing);
     expect(find.text('1'), findsOneWidget);
+
+    //performing operation on decrement counter
+    await tester.tap(find.byIcon(Icons.remove));
+    await tester.pump();
+    expect(find.text('0'), findsOneWidget);
+    expect(find.text('1'), findsNothing);
   });
 }
