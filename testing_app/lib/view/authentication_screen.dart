@@ -34,7 +34,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
             TextField(
               key: const Key('EmailKey'),
               controller: emailController,
-              decoration: const InputDecoration(hintText: 'Email',label: Text('Enter Email'),enabledBorder: OutlineInputBorder()),
+              decoration: const InputDecoration(hintText: 'Email'),
             ),
             const SizedBox(height: 10),
             TextField(
@@ -50,11 +50,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
             )
           ]
         )
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => readLocalAssets(),
-        child: const Icon(Icons.download),
-      ),
+      )
     );
   }
 
@@ -62,9 +58,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
   Future<void> readLocalAssets() async{
     var file = await DefaultAssetBundle.of(context).loadString('assets/localJson/defaultUserInformation.json');
     var response = List<UserResponse>.from(jsonDecode(file).map((item) => UserResponse.fromJson(item)));
-    response.forEach((element) { 
-      print(element.name);
-    });
+    print(response); 
   }
 
   authentication(BuildContext context){

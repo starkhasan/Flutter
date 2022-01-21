@@ -15,7 +15,7 @@ class TestingApp extends StatelessWidget {
     return ChangeNotifierProvider<FavoritesPovider>(
       create: (context) => FavoritesPovider(),
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: true,
         title: 'Testing Sample',
         theme: ThemeData(
           primarySwatch: Colors.blue,
