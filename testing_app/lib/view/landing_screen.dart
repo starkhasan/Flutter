@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:testing_app/view/authentication_screen.dart';
 import 'package:testing_app/view/counter_screen.dart';
 import 'package:testing_app/view/home_screen.dart';
 import 'package:testing_app/view/widget_testing_screen.dart';
@@ -12,7 +13,7 @@ class LandingScreen extends StatefulWidget {
 
 class _LandingScreenState extends State<LandingScreen> {
 
-  var screen = const ['Favorite List','Counter Application','Counter Testing'];
+  var screen = const ['Favorite List','Counter Application','Counter Testing','Authentication Screen'];
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +45,9 @@ class _LandingScreenState extends State<LandingScreen> {
         break;
       case 2:
         Navigator.push(context, MaterialPageRoute(builder: (context) => const WidgetTestingScreen()));
+        break;
+      case 3:
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const AuthenticationScreen()));
         break;
       default:
         break;

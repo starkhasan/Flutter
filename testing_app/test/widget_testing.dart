@@ -17,8 +17,7 @@ void main() {
 
   testWidgets('Counter increment test', (WidgetTester tester) async {
     //pumpWidget() Renders the UI from the given widget
-    await tester
-        .pumpWidget(createWidgetForTesting(child: const WidgetTestingScreen()));
+    await tester.pumpWidget(createWidgetForTesting(child: const WidgetTestingScreen()));
     //After the initial call to pumpWidget() the WidgetTester provides additional ways to rebuilt the same widget. This is useful if you are working with a StatefulWidget or animations
     //to rebuilt the widget in test environment we will call the pump() function
 
