@@ -25,11 +25,11 @@ class BuySheet extends StatefulWidget {
   static final GlobalKey<ScaffoldState> scaffoldKey =
       GlobalKey<ScaffoldState>();
 
-  BuySheet(
-      {this.applePayEnabled,
+  const BuySheet(
+      {Key? key, this.applePayEnabled,
       this.googlePayEnabled,
       this.applePayMerchantId,
-      this.squareLocationId});
+      this.squareLocationId}) : super(key: key);
 
   @override
   BuySheetState createState() => BuySheetState();
@@ -93,33 +93,33 @@ class BuySheetState extends State<BuySheet> {
     if ('sandbox-sq0idb-SDo00t1mjESNdPC3dp1fXQ'.startsWith('sandbox')) {
       hostUrl = 'https://connect.squareupsandbox.com';
     }
-    var uuid = Uuid().v4();
+    var uuid = const Uuid().v4();
 
     if (verificationToken == null) {
       print(
           'curl --request POST $hostUrl/v2/payments \\'
-          '--header \"Content-Type: application/json\" \\'
-          '--header \"Authorization: Bearer EAAAELUlW3QKjLxy65AEG59yryCakHLl50uQSMOsovOHND84QbVa8P9XDHqW-fE0\" \\'
-          '--header \"Accept: application/json\" \\'
+          '--header "Content-Type: application/json" \\'
+          '--header "Authorization: Bearer EAAAELUlW3QKjLxy65AEG59yryCakHLl50uQSMOsovOHND84QbVa8P9XDHqW-fE0" \\'
+          '--header "Accept: application/json" \\'
           '--data \'{'
-          '\"idempotency_key\": \"$uuid\",'
-          '\"amount_money\": {'
-          '\"amount\": $cookieAmount,'
-          '\"currency\": \"USD\"},'
-          '\"source_id\": \"$nonce\"'
+          '"idempotency_key": "$uuid",'
+          '"amount_money": {'
+          '"amount": $cookieAmount,'
+          '"currency": "USD"},'
+          '"source_id": "$nonce"'
           '}\'');
     } else {
       print('curl --request POST $hostUrl/v2/payments \\'
-          '--header \"Content-Type: application/json\" \\'
-          '--header \"Authorization: Bearer EAAAELUlW3QKjLxy65AEG59yryCakHLl50uQSMOsovOHND84QbVa8P9XDHqW-fE0\" \\'
-          '--header \"Accept: application/json\" \\'
+          '--header "Content-Type: application/json" \\'
+          '--header "Authorization: Bearer EAAAELUlW3QKjLxy65AEG59yryCakHLl50uQSMOsovOHND84QbVa8P9XDHqW-fE0" \\'
+          '--header "Accept: application/json" \\'
           '--data \'{'
-          '\"idempotency_key\": \"$uuid\",'
-          '\"amount_money\": {'
-          '\"amount\": $cookieAmount,'
-          '\"currency\": \"USD\"},'
-          '\"source_id\": \"$nonce\",'
-          '\"verification_token\": \"$verificationToken\"'
+          '"idempotency_key": "$uuid",'
+          '"amount_money": {'
+          '"amount": $cookieAmount,'
+          '"currency": "USD"},'
+          '"source_id": "$nonce",'
+          '"verification_token": "$verificationToken"'
           '}\'');
     }
   }
