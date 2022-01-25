@@ -15,7 +15,7 @@ class _NamedRouteFirstState extends State<NamedRouteFirst> {
       appBar: AppBar(centerTitle: true,title: const Text('First Route',style: TextStyle(fontSize: 14))),
       body: Center(
         child: ElevatedButton(
-          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const NamedRouteSecond())),
+          onPressed: () => Navigator.pushNamed(context, '/get_started/second'),
           child: const Text('Next')
         )
       )

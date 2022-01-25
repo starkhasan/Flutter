@@ -1,6 +1,8 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:test_app/ui/get_started/named_route_first.dart';
+import 'package:test_app/ui/get_started/named_route_second.dart';
 import 'package:test_app/ui/landing_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -50,7 +52,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(primarySwatch: Colors.blue, brightness: Brightness.light),
-      home: const LandingPage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const LandingPage(),
+        '/get_started/first': (context) => const NamedRouteFirst(),
+        '/get_started/second': (context) => const NamedRouteSecond()
+      }
     );
   }
 }
