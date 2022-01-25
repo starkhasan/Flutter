@@ -156,6 +156,6 @@ Future backgroundTask(SendPort p) async {
       Isolate.exit(p,null);
     }
   } catch (e) {
-    Isolate.exit(p,null);
+    Isolate.exit(p,null); 
   }
 }
