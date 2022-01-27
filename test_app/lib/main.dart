@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:test_app/ui/get_started/named_route_first.dart';
 import 'package:test_app/ui/get_started/named_route_second.dart';
+import 'package:test_app/ui/get_started/sqlite_example.dart';
 import 'package:test_app/ui/landing_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -47,7 +48,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {  
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
@@ -56,7 +57,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const LandingPage(),
         '/get_started/first': (context) => const NamedRouteFirst(),
-        '/get_started/second': (context) => const NamedRouteSecond()
+        '/extractArguments': (context) => const NamedRouteSecond(),
+        '/get_started/sqLite': (context) => const SQLiteExample(),
       }
     );
   }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/ui/get_started/basic_widget_composition.dart';
 import 'package:test_app/ui/get_started/constraint.dart';
-import 'package:test_app/ui/get_started/named_route_first.dart';
 import 'package:test_app/ui/get_started/networking.dart';
 
 class GetStartedHome extends StatelessWidget {
@@ -9,7 +8,7 @@ class GetStartedHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var listScreen = ['Basic Widgets','Network Operation','Understanding Constraint','Named Route'];
+    var listScreen = ['Basic Widgets','Network Operation','Understanding Constraint','Named Route','SQLite'];
     return Scaffold(
       appBar: AppBar(title: const Text('GetStartedHome')),
       body: ListView.builder(
@@ -44,7 +43,10 @@ class GetStartedHome extends StatelessWidget {
         Navigator.push(_context, MaterialPageRoute(builder: (context) => const UnderstandingConstraint()));
         break;
       case 3:
-        Navigator.push(_context, MaterialPageRoute(builder: (context) => const NamedRouteFirst()));
+        Navigator.pushNamed(_context, '/get_started/first');
+        break;
+      case 4:
+        Navigator.pushNamed(_context, '/get_started/sqLite');
         break;
       default:
     }
