@@ -17,6 +17,8 @@ class _SQLiteExampleState extends State<SQLiteExample> {
   var nameController = TextEditingController();
   var ageController = TextEditingController();
   List<Dog> listDogs = [];
+  var bottonTag = 'Add Dog';
+  bool idFieldEnabled = true;
 
   @override
   void initState() {
@@ -51,6 +53,7 @@ class _SQLiteExampleState extends State<SQLiteExample> {
             const SizedBox(height: 10),
             TextField(
               controller: idController,
+              enabled: idFieldEnabled,
               keyboardType: TextInputType.number,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               decoration: const InputDecoration(
@@ -59,8 +62,10 @@ class _SQLiteExampleState extends State<SQLiteExample> {
             ),
             const SizedBox(height: 10),
             ElevatedButton(
-              onPressed: () => addDog(context),
-              child: const Text('Add Dog')
+              onPressed: () => idFieldEnabled
+              ? addDog(context)
+              : updateDog(context),
+              child: Text(bottonTag)
             ),
             Expanded(
               child: ListView.builder(
@@ -69,9 +74,15 @@ class _SQLiteExampleState extends State<SQLiteExample> {
                 itemBuilder: (BuildContext context, int index){
                   return Card(
                     child: ListTile(
-                      title: Text(listDogs[index].name),
-                      subtitle: Text(listDogs[index].age.toString()),
-                      trailing: IconButton(onPressed: () => deleteDog(listDogs[index].id),icon: const Icon(Icons.delete,color: Colors.red))
+                      title: Text('Name: ${listDogs[index].name}'),
+                      subtitle: Text('Age : ${listDogs[index].age.toString()}'),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(onPressed: () => updateMyDog(listDogs[index]),icon: const Icon(Icons.edit,color: Colors.blue)),
+                          IconButton(onPressed: () => deleteDog(listDogs[index].id),icon: const Icon(Icons.delete,color: Colors.red))
+                        ]
+                      )
                     )
                   );
                 }
@@ -79,10 +90,6 @@ class _SQLiteExampleState extends State<SQLiteExample> {
             )
           ]
         )
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => getAllDogs(),
-        child: const Icon(Icons.pets)
       )
     );
   }
@@ -99,6 +106,17 @@ class _SQLiteExampleState extends State<SQLiteExample> {
     setState(() {});
   }
 
+
+  updateMyDog(Dog dog) async{
+    setState(() {
+      idController.text = dog.id.toString();
+      nameController.text = dog.name;
+      ageController.text = dog.age.toString();
+      bottonTag = 'Update Dog';
+      idFieldEnabled = false;
+    });
+  }
+
   creatingDatabase() async {
     database = openDatabase(
       join(await getDatabasesPath(), 'doggie_database.db'),
@@ -108,12 +126,15 @@ class _SQLiteExampleState extends State<SQLiteExample> {
       }, 
       version: 1
     );
+    getAllDogs();
   }
 
   //Define a function that inserts dogs into the database
   Future<void> insertDog(Dog dog) async {
     final db = await database;
-    await db.insert('dogs', dog.toMap(),conflictAlgorithm: ConflictAlgorithm.replace);
+    var data = await db.insert('dogs', dog.toMap(),conflictAlgorithm: ConflictAlgorithm.replace);
+    clearTextField();
+    getAllDogs();
   }
 
   //Reterive all the dogs from  the dog table
@@ -130,14 +151,21 @@ class _SQLiteExampleState extends State<SQLiteExample> {
   }
 
   //Update a Dog
-  Future<void> updateDog(Dog dog) async{
-    final db = await database;
-    await db.update(
-      'dogs', 
-      dog.toMap(),
-      where: 'id = ?',
-      whereArgs: [dog.id]
-    );
+  Future<void> updateDog(BuildContext context) async{
+    if(validation(context)){
+      var dog = Dog(id: int.parse(idController.text), name: nameController.text, age: int.parse(ageController.text));
+      final db = await database;
+      await db.update(
+        'dogs', 
+        dog.toMap(),
+        where: 'id = ?',
+        whereArgs: [dog.id]
+      );
+      bottonTag = 'Add Dog';
+      idFieldEnabled = true;
+      clearTextField();
+      getAllDogs();
+    }
   }
 
   //Delete a Dog
@@ -165,6 +193,12 @@ class _SQLiteExampleState extends State<SQLiteExample> {
     }else{
       return true;
     }
+  }
+
+  clearTextField(){
+    idController.clear();
+    nameController.clear();
+    ageController.clear();
   }
 
   //showing SnackBar
