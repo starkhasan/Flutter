@@ -117,6 +117,7 @@ class _SQLiteExampleState extends State<SQLiteExample> {
     });
   }
 
+  //Creating Database
   creatingDatabase() async {
     database = openDatabase(
       join(await getDatabasesPath(), 'doggie_database.db'),

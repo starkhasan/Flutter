@@ -8,7 +8,14 @@ class GetStartedHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var listScreen = ['Basic Widgets','Network Operation','Understanding Constraint','Named Route','SQLite'];
+    var listScreen = [
+      'Basic Widgets',
+      'Network Operation',
+      'Understanding Constraint',
+      'Named Route',
+      'SQLite',
+      'Ripple'
+    ];
     return Scaffold(
       appBar: AppBar(title: const Text('GetStartedHome')),
       body: ListView.builder(
@@ -47,6 +54,9 @@ class GetStartedHome extends StatelessWidget {
         break;
       case 4:
         Navigator.pushNamed(_context, '/get_started/sqLite');
+        break;
+      case 5:
+        Navigator.pushNamed(_context, '/get_started/ripple_effect');
         break;
       default:
     }

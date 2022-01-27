@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:test_app/ui/get_started/named_route_first.dart';
 import 'package:test_app/ui/get_started/named_route_second.dart';
+import 'package:test_app/ui/get_started/ripple_effect_example.dart';
 import 'package:test_app/ui/get_started/sqlite_example.dart';
 import 'package:test_app/ui/landing_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -46,7 +47,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key); 
   @override
   Widget build(BuildContext context) {  
     return MaterialApp(
@@ -59,6 +60,7 @@ class MyApp extends StatelessWidget {
         '/get_started/first': (context) => const NamedRouteFirst(),
         '/extractArguments': (context) => const NamedRouteSecond(),
         '/get_started/sqLite': (context) => const SQLiteExample(),
+        '/get_started/ripple_effect': (context) => const RippleEffect(),
       }
     );
   }
