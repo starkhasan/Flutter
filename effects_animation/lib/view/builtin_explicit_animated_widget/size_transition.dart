@@ -16,7 +16,7 @@ class SizeTransitionExampleState extends State<SizeTransitionExample> with Singl
   void initState() {
     animationController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 2)
+      duration: const Duration(seconds: 3)
     )..repeat();
     animation = CurvedAnimation(parent: animationController, curve: Curves.fastOutSlowIn);
     super.initState();
@@ -24,18 +24,33 @@ class SizeTransitionExampleState extends State<SizeTransitionExample> with Singl
 
 
   @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
+
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(centerTitle: true,title: const Text('Size Transition',style: TextStyle(fontSize: 14))),
-      body: Container(
-        child: Center(
-          child: SizeTransition(
-            sizeFactor: animation,
-            axis: Axis.vertical,
-            axisAlignment: 0,
-            child: const FlutterLogo(size: 200),
-          ),
-        )
+      body: Center(
+        child: SizeTransition(
+          sizeFactor: animation,
+          axis: Axis.vertical,
+          axisAlignment: -1,
+          child: Container(
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset('asset/indian_navy_logo.png',width: MediaQuery.of(context).size.width * 0.40, height: MediaQuery.of(context).size.height * 0.30),
+                  const Text('Indian Navy',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 35))
+                ]
+              )
+            )
+          )
+        ),
       )
     );
   }
