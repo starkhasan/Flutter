@@ -1,6 +1,7 @@
 import 'package:effects_animation/view/builtin_explicit_animated_widget/home_explicit_animted.dart';
 import 'package:effects_animation/view/builtin_explicit_animated_widget/rotation_transition.dart';
 import 'package:effects_animation/view/builtin_explicit_animated_widget/slide_transition_example.dart';
+import 'package:effects_animation/view/builtin_explicit_animated_widget/size_transition.dart';
 import 'package:effects_animation/view/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:effects_animation/view/implicit_animation.dart';
@@ -25,7 +26,8 @@ class MyApp extends StatelessWidget {
         '/implicit_tween_animation': (context) => const ImplicitTweenAnimation(),
         '/explicit_built_animation': (context) => const HomeExplicitAnimated(),
         '/rotation_transition': (context) => const RotationTransitionExample(),
-        '/slide_transition': (context) => const SlideTransitionExample()
+        '/slide_transition': (context) => const SlideTransitionExample(),
+        '/size_transition': (context) => const SizeTransitionExample()
       }
     );
   }

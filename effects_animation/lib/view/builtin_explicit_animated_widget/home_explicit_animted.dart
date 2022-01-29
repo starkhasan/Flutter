@@ -7,7 +7,8 @@ class HomeExplicitAnimated extends StatelessWidget {
   Widget build(BuildContext context) {
     var listScreen = [
       'Rotation Transition',
-      'Slide Transition'
+      'Slide Transition',
+      'Size Transition'
     ];
     return Scaffold(
       appBar: AppBar(centerTitle: true,title: const Text('Explit Built Animation',style: TextStyle(fontSize: 14))),
@@ -35,6 +36,9 @@ class HomeExplicitAnimated extends StatelessWidget {
         break;
       case 1:
         Navigator.pushNamed(context, '/slide_transition');
+        break;
+      case 2:
+        Navigator.pushNamed(context, '/size_transition');
         break;
       default:
     }
