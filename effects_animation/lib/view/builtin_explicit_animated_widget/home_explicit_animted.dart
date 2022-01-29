@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomeExplicitAnimated extends StatelessWidget {
+  const HomeExplicitAnimated({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var listScreen = [
-      'Implicit Animation',
-      'Implicit Tween Animation',
-      'Explicit Built Animation'
+      'Rotation Transition',
+      'Slide Transition'
     ];
     return Scaffold(
-      appBar: AppBar(centerTitle: true,title: const Text('Home',style: TextStyle(fontSize: 14))),
+      appBar: AppBar(centerTitle: true,title: const Text('Explit Built Animation',style: TextStyle(fontSize: 14))),
       body: ListView.builder(
         itemCount: listScreen.length,
         padding: const EdgeInsets.all(10),
@@ -32,13 +31,10 @@ class HomeScreen extends StatelessWidget {
   void clickItem(BuildContext context, int index){
     switch (index) {
       case 0:
-        Navigator.pushNamed(context, '/implicit_animation');
+        Navigator.pushNamed(context, '/rotation_transition');
         break;
       case 1:
-        Navigator.pushNamed(context, '/implicit_tween_animation');
-        break;
-      case 2:
-        Navigator.pushNamed(context, '/explicit_built_animation');
+        Navigator.pushNamed(context, '/slide_transition');
         break;
       default:
     }
