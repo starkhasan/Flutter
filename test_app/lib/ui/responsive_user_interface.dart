@@ -113,34 +113,34 @@ class _ResponsiveUseInterfaceState extends State<ResponsiveUseInterface> {
 
 extension ConvertDateTime on String{
   String todayDate() {
-    var day = DateFormat('EEE, d M').format(DateTime.now());
-    switch (day.substring(8)) {
-      case '1':
-        return day = day.substring(0,8) + 'Jan';
-      case '2':
-        return day = day.substring(0,8) + 'Feb';
-      case '3':
-        return day = day.substring(0,8) + 'Mar';
-      case '4':
-        return day = day.substring(0,8) + 'Apr';
-      case '5':
-        return day = day.substring(0,8) + 'May';
-      case '6':
-        return day = day.substring(0,8) + 'Jun';
-      case '7':
-        return day = day.substring(0,8) + 'Jul';
-      case '8':
-        return day = day.substring(0,8) + 'Aug';
-      case '9':
-        return day = day.substring(0,8) + 'Sep';
+    var day = DateFormat('EEE, d MM').format(DateTime.now());
+    switch (day.substring(7)) {
+      case '01':
+        return day = day.substring(0,7) + 'Jan';
+      case '02':
+        return day = day.substring(0,7) + 'Feb';
+      case '03':
+        return day = day.substring(0,7) + 'Mar';
+      case '04':
+        return day = day.substring(0,7) + 'Apr';
+      case '05':
+        return day = day.substring(0,7) + 'May';
+      case '06':
+        return day = day.substring(0,7) + 'Jun';
+      case '07':
+        return day = day.substring(0,7) + 'Jul';
+      case '08':
+        return day = day.substring(0,7) + 'Aug';
+      case '09':
+        return day = day.substring(0,7) + 'Sep';
       case '10':
-        return day = day.substring(0,8) + 'Oct';
+        return day = day.substring(0,7) + 'Oct';
       case '11':
-        return day = day.substring(0,8) + 'Nov';
+        return day = day.substring(0,7) + 'Nov';
       case '12':
-        return day = day.substring(0,8) + 'Dec';
+        return day = day.substring(0,7) + 'Dec';
       default:
-        return 'Err';
+        return 'Error';
     }
   }
 }
