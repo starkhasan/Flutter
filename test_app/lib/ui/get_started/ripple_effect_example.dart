@@ -18,7 +18,7 @@ class RippleEffect extends StatelessWidget {
             child: const Center(child: Text('Click'))
           )
         )
-      ),
+      )
     );
   }
 }

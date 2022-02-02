@@ -16,12 +16,12 @@ class _CryptoState extends State<Crypto> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Crypto',style: TextStyle(color: Colors.black)),
+        title: const Text('Crypto',style: TextStyle(color: Colors.black,fontSize: 14)),
         backgroundColor: Colors.white,
         leading: IconButton(onPressed: () => showSnackBar(context,'Sorry!! Click on Navigation Bar Icon'),icon: const Icon(Icons.menu,color: Colors.black)),
         actions: [
           IconButton(onPressed: () => showSnackBar(context,'Sorry!! Click on Notificaiton Icon'), icon: const Icon(Icons.notification_add,color: Colors.black))
-        ],
+        ]
       ),
       body: mainBody()
     );
@@ -161,9 +161,23 @@ class _CryptoState extends State<Crypto> {
                                       child: const Icon(Icons.add,color: Colors.white,size: 28)
                                     )
                                   ),
-                                  const CircleAvatar(
-                                    radius: 15,
-                                    backgroundImage: NetworkImage('https://i.picsum.photos/id/0/5616/3744.jpg?hmac=3GAAioiQziMGEtLbfrdbcoenXoWAW-zlyEAMkfEdBzQ')
+                                  ClipOval(
+                                    child: SizedBox.fromSize(
+                                      size: const Size.fromRadius(18), // Image radius
+                                      child: Image.network(
+                                        'https://i.picsum.photos/id/0/5616/3744.jpg?hmac=3GAAioiQziMGEtLbfrdbcoenXoWAW-zlyEAMkfEdBzQ',
+                                        fit: BoxFit.cover,
+                                        loadingBuilder: (context, child, loadingProgress) {
+                                            if(loadingProgress == null) {
+                                              return child;
+                                            }
+                                            return const Padding(padding: EdgeInsets.all(5),child: CircularProgressIndicator(strokeWidth: 2.0));
+                                        },
+                                        errorBuilder: (context, child, stackTrack) {
+                                          return const Icon(Icons.image);
+                                        }
+                                      )
+                                    ),
                                   )
                                 ]
                               ),
@@ -188,20 +202,20 @@ class _CryptoState extends State<Crypto> {
                       children: [
                         const Expanded(
                           flex: 1,
-                          child: Text('Tender Transaction',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 15)),
+                          child: Text('Tender Transaction',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 15))
                         ),
                         Flexible(
                           child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: const [
-                            Icon(Icons.timelapse,color: Colors.grey,size: 22),
-                            SizedBox(width: 5),
-                            Text('Nearly 3 days',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 12))
-                          ],
-                        ),
+                            mainAxisSize: MainAxisSize.min,
+                            children: const [
+                              Icon(Icons.timelapse,color: Colors.grey,size: 22),
+                              SizedBox(width: 5),
+                              Text('Nearly 3 days',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold,fontSize: 12))
+                            ]
+                          )
                         )
                       ]
-                    ),
+                    )
                   ),
                   const SizedBox(height: 15),
                   Container(
@@ -218,7 +232,7 @@ class _CryptoState extends State<Crypto> {
                         ),
                         Text('16.00 ETH',style: TextStyle(color: Color.fromARGB(255, 16, 209, 113),fontWeight: FontWeight.bold,fontSize: 16))
                       ]
-                    ),
+                    )
                   ),
                   const SizedBox(height: 15),
                   Container(
@@ -234,7 +248,7 @@ class _CryptoState extends State<Crypto> {
                             Text('Created : ${DateTime.now().toString().substring(0,10).split('-').reversed.join('-')}',style: const TextStyle(fontSize: 12,color: Colors.grey,fontWeight: FontWeight.normal)),
                             const SizedBox(width: 5),
                             const Text('Originator : Ali Hasan',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.normal,fontSize: 12))
-                          ],
+                          ]
                         ),
                         GestureDetector(
                           onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const TransactionPage())),
@@ -251,11 +265,11 @@ class _CryptoState extends State<Crypto> {
                     )
                   )
                 ]
-              ),
-            ),
-          ),
-        ],
-      ),
+              )
+            )
+          )
+        ]
+      )
     );
   }
 
@@ -280,3 +294,4 @@ class _CryptoState extends State<Crypto> {
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 }
+
