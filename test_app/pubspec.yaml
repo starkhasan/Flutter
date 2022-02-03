@@ -89,6 +89,25 @@ flutter:
     - asset/whatsapp.png
     - asset/crypto.png
     - asset/video/bee.mp4
+    - asset/video/VID-20190805-WA0016.mp4
+    - asset/video/VID-20190805-WA0017.mp4
+    - asset/video/VID-20190805-WA0018.mp4
+    - asset/video/VID-20190805-WA0021.mp4
+    - asset/video/VID-20190805-WA0025.mp4
+    - asset/video/VID-20190805-WA0049.mp4
+    - asset/video/VID-20190806-WA0036.mp4
+    - asset/video/VID-20190807-WA0000.mp4
+    - asset/video/VID-20190808-WA0007.mp4
+    - asset/video/VID-20190826-WA0036.mp4
+    - asset/video/VID-20190826-WA0037.mp4
+    - asset/video/VID-20190826-WA0038.mp4
+    - asset/video/VID-20190915-WA0036.mp4
+    - asset/video/VID-20190901-WA0007.mp4
+    - asset/video/VID-20190923-WA0000.mp4
+    - asset/video/VID-20190923-WA0001.mp4
+    - asset/video/VID-20190925-WA0012.mp4
+    - asset/video/VID-20190926-WA0021.mp4
+    - asset/video/VID-20190926-WA0023.mp4
     - asset/grocery_background.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see

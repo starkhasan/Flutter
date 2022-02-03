@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/ui/get_started/basic_widget_composition.dart';
 import 'package:test_app/ui/get_started/constraint.dart';
+import 'package:test_app/ui/get_started/demo_example.dart';
 import 'package:test_app/ui/get_started/networking.dart';
 
 class GetStartedHome extends StatelessWidget {
@@ -14,7 +15,8 @@ class GetStartedHome extends StatelessWidget {
       'Understanding Constraint',
       'Named Route',
       'SQLite',
-      'Ripple'
+      'Ripple',
+      'Demo Example'
     ];
     return Scaffold(
       appBar: AppBar(title: const Text('GetStartedHome')),
@@ -57,6 +59,9 @@ class GetStartedHome extends StatelessWidget {
         break;
       case 5:
         Navigator.pushNamed(_context, '/get_started/ripple_effect');
+        break;
+       case 6:
+        Navigator.push(_context, MaterialPageRoute(builder: (context) => const DemoExample()));
         break;
       default:
     }
