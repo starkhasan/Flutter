@@ -172,6 +172,7 @@ class _ContactDetailsState extends State<ContactDetails> {
   manipulateContactDetails(){
     indexName.clear();
     mapContact.clear();
+    listContact.sort();
     List.generate(listContact.length, (index) {
       indexName.add(listContact[index].substring(0,1));
       if(mapContact.containsKey(listContact[index].substring(0,1))){

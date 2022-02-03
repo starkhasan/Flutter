@@ -2,8 +2,8 @@ import 'package:block_arch/bloc/first_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class MainScreen extends StatelessWidget {
-  const MainScreen({ Key? key }) : super(key: key);
+class BlocBuilderExample extends StatelessWidget {
+  const BlocBuilderExample({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class FirstScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('First'),
+        title: const Text('Bloc Builder'),
       ),
       body: BlocBuilder<FirstBloc, int>(
         builder: (context,count){
@@ -31,7 +31,7 @@ class FirstScreen extends StatelessWidget {
             child: Text(
               '$count',
               style: const TextStyle(fontSize: 30,fontWeight: FontWeight.bold)
-            ),
+            )
           );
         }
       ),
@@ -42,19 +42,21 @@ class FirstScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(5),
             child: FloatingActionButton(
+              heroTag: 'Increment FAB',
               child: const Icon(Icons.add),
-              onPressed: () => context.read<FirstBloc>().add(CounterEvent.increment),
+              onPressed: () => BlocProvider.of<FirstBloc>(context).add(CounterEvent.increment),
             )
           ),
           Padding(
             padding: const EdgeInsets.all(5),
             child: FloatingActionButton(
+              heroTag: 'Decrement FAB',
               child: const Icon(Icons.remove),
               onPressed: () => context.read<FirstBloc>().add(CounterEvent.decrement),
             )
           )
         ]
-      ),
+      )
     );
   }
 }
