@@ -8,7 +8,8 @@ class HomeScreen extends StatelessWidget {
     var listScreen = [
       'Implicit Animation',
       'Implicit Tween Animation',
-      'Explicit Built Animation'
+      'Explicit Built Animation',
+      'Staggered Animation'
     ];
     return Scaffold(
       appBar: AppBar(centerTitle: true,title: const Text('Home',style: TextStyle(fontSize: 14))),
@@ -39,6 +40,9 @@ class HomeScreen extends StatelessWidget {
         break;
       case 2:
         Navigator.pushNamed(context, '/explicit_built_animation');
+        break;
+      case 3:
+        Navigator.pushNamed(context, '/staggered_animation');
         break;
       default:
     }

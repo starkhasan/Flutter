@@ -4,6 +4,7 @@ import 'package:effects_animation/view/builtin_explicit_animated_widget/slide_tr
 import 'package:effects_animation/view/builtin_explicit_animated_widget/size_transition.dart';
 import 'package:effects_animation/view/builtin_explicit_animated_widget/align_transition.dart';
 import 'package:effects_animation/view/builtin_explicit_animated_widget/fade_transition.dart';
+import 'package:effects_animation/view/staggered_animation_example.dart';
 import 'package:effects_animation/view/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:effects_animation/view/implicit_animation.dart';
@@ -31,7 +32,8 @@ class MyApp extends StatelessWidget {
         '/slide_transition': (context) => const SlideTransitionExample(),
         '/size_transition': (context) => const SizeTransitionExample(),
         '/align_transition': (context) => const AlignTransitionExample(),
-        '/fade_transition': (context) => const FadeTransitionExample()
+        '/fade_transition': (context) => const FadeTransitionExample(),
+        '/staggered_animation': (context) => const StaggeredAnimationExample()
       }
     );
   }
