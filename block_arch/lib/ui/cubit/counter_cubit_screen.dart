@@ -25,6 +25,7 @@ class MainScreen extends StatelessWidget {
         title: const Text('CounterScreen Cubit'),
       ),
       body: BlocBuilder<CounterCubit, int>(
+        bloc: CounterCubit(),
         builder: (context, count){
           return Center(
             child: Text('$count'),

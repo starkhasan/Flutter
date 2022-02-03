@@ -1,4 +1,3 @@
-import 'package:block_arch/super_heroes_villian_universe/splash_page.dart';
 import 'package:block_arch/ui/animation/home_animation.dart';
 import 'package:block_arch/ui/block/bloc_consumer_example.dart';
 import 'package:block_arch/ui/block/weather_report_screen.dart';
@@ -13,7 +12,7 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _listScreen = ['Counter Bloc','Weather Bloc','Contact Details','Single Select','Multi Select','List Slidable','Home Animation','Super Heroes'];
+    var _listScreen = ['Counter Bloc','Weather Bloc','Contact Details','Single Select','Multi Select','List Slidable','Home Animation'  ];
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -45,9 +44,6 @@ class LandingPage extends StatelessWidget {
                   break;
                 case 6:
                   navigateScreen(context, const HomeAnimation());
-                  break;
-                case 7:
-                  navigateScreen(context, const SplashPage());
                   break;
                 default:
               }
