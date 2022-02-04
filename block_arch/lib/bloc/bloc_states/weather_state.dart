@@ -12,3 +12,5 @@ class WeatherFetchedState extends WeatherState {
 }
 
 class WeatherErrorState extends WeatherState {}
+
+class WeatherNoInternetState extends WeatherState {}

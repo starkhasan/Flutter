@@ -1,4 +1,4 @@
-import 'package:block_arch/ui/landing_page.dart';
+import 'package:block_arch/view/landing_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {

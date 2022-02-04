@@ -1,9 +1,10 @@
-import 'package:block_arch/ui/animation/home_animation.dart';
-import 'package:block_arch/ui/block/bloc_authentication.dart';
-import 'package:block_arch/ui/block/first_screen.dart';
-import 'package:block_arch/ui/block/weather_report_screen.dart';
-import 'package:block_arch/ui/contact_details.dart';
-import 'package:block_arch/ui/list_slidable.dart';
+import 'package:block_arch/view/animation/home_animation.dart';
+import 'package:block_arch/view/block/bloc_authentication.dart';
+import 'package:block_arch/view/block/first_screen.dart';
+import 'package:block_arch/view/block/weather_report_screen.dart';
+import 'package:block_arch/view/contact_details.dart';
+import 'package:block_arch/view/demoA.dart';
+import 'package:block_arch/view/list_slidable.dart';
 import 'package:flutter/material.dart';
 
 class LandingPage extends StatelessWidget {
@@ -11,8 +12,14 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _listScreen = ['Counter Bloc','Weather Bloc','Contact Details','List Slidable','Home Animation',
-      'BlocAuthentication'
+    var _listScreen = [
+      'Counter Bloc',
+      'Weather Bloc',
+      'Contact Details',
+      'List Slidable',
+      'Home Animation',
+      'BlocAuthentication',
+      'DemoA'
     ];
     return Scaffold(
       appBar: AppBar(
@@ -42,6 +49,9 @@ class LandingPage extends StatelessWidget {
                   break;
                 case 5:
                   navigateScreen(context, const BlocAuthenticationExample());
+                  break;
+                case 6:
+                  navigateScreen(context, const DemoA());
                   break;
                 default:
               }

@@ -1,11 +1,11 @@
-import 'package:block_arch/ui/animation/bounce_ball_explicit.dart';
-import 'package:block_arch/ui/animation/bounce_ball_implicit.dart';
-import 'package:block_arch/ui/animation/custom_painting.dart';
-import 'package:block_arch/ui/animation/fade_animation.dart';
-import 'package:block_arch/ui/animation/icon_shake.dart';
-import 'package:block_arch/ui/animation/shape_effect.dart';
-import 'package:block_arch/ui/animation/tween_animation.dart';
-import 'package:block_arch/ui/animation/tween_explicit.dart';
+import 'package:block_arch/view/animation/bounce_ball_explicit.dart';
+import 'package:block_arch/view/animation/bounce_ball_implicit.dart';
+import 'package:block_arch/view/animation/custom_painting.dart';
+import 'package:block_arch/view/animation/fade_animation.dart';
+import 'package:block_arch/view/animation/icon_shake.dart';
+import 'package:block_arch/view/animation/shape_effect.dart';
+import 'package:block_arch/view/animation/tween_animation.dart';
+import 'package:block_arch/view/animation/tween_explicit.dart';
 import 'package:flutter/material.dart';
 
 class HomeAnimation extends StatelessWidget {

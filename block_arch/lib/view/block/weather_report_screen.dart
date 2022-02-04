@@ -29,7 +29,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<WeatherBloc>().add(WeatherEvent.initialRequestEvent);
+    context.read<WeatherBloc>().add(WeatherInitialRequest());
   }
 
   @override
@@ -47,7 +47,10 @@ class _MainScreenState extends State<MainScreen> {
       body: BlocConsumer<WeatherBloc, WeatherState>(
         listener: (context, state){
           if (state is WeatherErrorState) {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Something went wrong"),duration: Duration(seconds: 1)));
+            showSnackBar(context, "Something went wrong");
+          }
+          if(state is WeatherNoInternetState){
+            showSnackBar(context, "No Internet Connection");
           }
         },
         builder: (BuildContext context, state) {
@@ -59,6 +62,8 @@ class _MainScreenState extends State<MainScreen> {
               return response == null
               ? buildWidget('Server not respoding')
               : buildContent(response.weatherResponse);
+          }else if (state is WeatherNoInternetState) {
+            return buildWidget('No Internet Connection');
           }else {
             response = state as WeatherFetchedState;
             return buildContent(state.weatherResponse);
@@ -66,7 +71,7 @@ class _MainScreenState extends State<MainScreen> {
         }
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.read<WeatherBloc>().add(WeatherEvent.fabRequestEvent),
+        onPressed: () => context.read<WeatherBloc>().add(WeatherFabRequest()),
         child: const Icon(Icons.refresh_rounded)
       )
     );
@@ -87,5 +92,10 @@ class _MainScreenState extends State<MainScreen> {
         ]
       )
     );
+  }
+
+  void showSnackBar(BuildContext context, String message){
+    var snackBar = SnackBar(content: Text(message,style: const TextStyle(fontSize: 14)), duration: const Duration(seconds: 1));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

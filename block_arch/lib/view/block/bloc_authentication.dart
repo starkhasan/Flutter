@@ -20,8 +20,7 @@ class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
 
   @override
-  MainScreenState createState() =>
-      MainScreenState();
+  MainScreenState createState() => MainScreenState();
 }
 
 class MainScreenState extends State<MainScreen> {
@@ -35,13 +34,15 @@ class MainScreenState extends State<MainScreen> {
       appBar: AppBar(centerTitle: true,title: const Text('Bloc Authentication',style: TextStyle(fontSize: 14))),
       body: Padding(
         padding: const EdgeInsets.all(10),
-        child: BlocBuilder<AuthenticationBloc, AuthState>(
-          builder: (context, state) {
+        child: BlocConsumer<AuthenticationBloc, AuthState>(
+          listener:(context, state) {
             if(state is AuthSucess){
-              print('Authentication Successfull');
+              showSnackBar(context,'Authentication Successfull');
             }else if(state is AuthFailed){
-              print('Authentication Failed');
+              showSnackBar(context,'Authentication Failed');
             }
+          },
+          builder: (context, state) {
             return Column(
               children: [
                 TextField(
@@ -63,5 +64,9 @@ class MainScreenState extends State<MainScreen> {
     );
   }
 
+  void showSnackBar(BuildContext context, String messaga){
+    var snackBar = SnackBar(duration: const Duration(seconds: 1),content: Text(messaga,style: const TextStyle(fontSize: 14)));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
 
 }
