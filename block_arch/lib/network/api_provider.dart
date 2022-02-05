@@ -3,10 +3,20 @@ import 'package:http/http.dart' as http;
 
 class ApiProvider {
   final Uri baseURL = Uri.parse("https://api.openweathermap.org/data/2.5/weather?q=Arrah&appid=e661b5089b025ac13a439a48b73ae5cf");
+  final Uri photoUrl = Uri.parse("https://jsonplaceholder.typicode.com/photos");
 
   Future<dynamic> getWeatherDetails() async {
     try {
       var response = await http.get(baseURL);
+      return response;
+    } on SocketException catch(e){
+      return e;
+    }
+  }
+
+  Future<dynamic> getPhotos() async{
+    try {
+      var response = await http.get(photoUrl);
       return response;
     } on SocketException catch(e){
       return e;

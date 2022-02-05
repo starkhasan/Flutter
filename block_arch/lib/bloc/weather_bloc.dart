@@ -1,5 +1,5 @@
 import 'package:block_arch/bloc/bloc_states/weather_state.dart';
-import 'package:block_arch/repository/weather_repository.dart';
+import 'package:block_arch/repository/repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 abstract class WeatherEvent {}
@@ -11,7 +11,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   WeatherBloc() : super(WeatherUninitializedState()){
     on<WeatherEvent>((event, emit) async{
       emit(WeatherFetchingState());
-      var weatherState = await WeatherRepository().fetchWeatherData();
+      var weatherState = await Repository().fetchWeatherData();
       emit(weatherState);
     });
   }

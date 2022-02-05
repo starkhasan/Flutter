@@ -1,9 +1,9 @@
 import 'package:block_arch/view/animation/home_animation.dart';
 import 'package:block_arch/view/block/bloc_authentication.dart';
+import 'package:block_arch/view/block/bloc_photo_profile.dart';
 import 'package:block_arch/view/block/first_screen.dart';
 import 'package:block_arch/view/block/weather_report_screen.dart';
 import 'package:block_arch/view/contact_details.dart';
-import 'package:block_arch/view/demoA.dart';
 import 'package:block_arch/view/list_slidable.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +19,7 @@ class LandingPage extends StatelessWidget {
       'List Slidable',
       'Home Animation',
       'BlocAuthentication',
-      'DemoA'
+      'Photo Profile'
     ];
     return Scaffold(
       appBar: AppBar(
@@ -51,7 +51,7 @@ class LandingPage extends StatelessWidget {
                   navigateScreen(context, const BlocAuthenticationExample());
                   break;
                 case 6:
-                  navigateScreen(context, const DemoA());
+                  navigateScreen(context, const BlocPhotoProfile());
                   break;
                 default:
               }
