@@ -1,6 +1,4 @@
 import 'package:block_arch/models/photo_response.dart';
-import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 
 // abstract class PhotoState {}
 
@@ -30,11 +28,13 @@ class PhotoState {
   final List<PhotoResponse> photoResponse;
   final int selected;
   final PhotoStateStatus status;
+  final bool deleted;
   
   const PhotoState({
     this.photoResponse = const [],
     this.selected = 0,
-    this.status = PhotoStateStatus.initial
+    this.status = PhotoStateStatus.initial,
+    this.deleted = false
   });
 
 
@@ -42,14 +42,16 @@ class PhotoState {
     List<PhotoResponse>? photoResponse,
     PhotoStateStatus? status,
     int? selected,
+    bool? deleted
   }) {
     return PhotoState(
       photoResponse: photoResponse ?? this.photoResponse,
       status: status ?? this.status,
       selected: selected ?? this.selected,
+      deleted: deleted ?? this.deleted
     );
   }
 
   // @override
-  // List<Object?> get props => [photoResponse, selected, status];
+  // List<Object?> get props => [photoResponse, selected, status]; 
 }

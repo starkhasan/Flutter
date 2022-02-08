@@ -27,7 +27,7 @@ class PhotoAPIEvent extends PhotoEvent {}
 class PhotoBloc extends Bloc<PhotoEvent, PhotoState> {
   PhotoBloc() : super(const PhotoState()) {
     on<PhotoFetchEvent>((event, emit) async {
-      emit(state.copyWith(status: PhotoStateStatus.loading));
+      emit(state.copyWith(deleted: false,status: PhotoStateStatus.loading));
       try {
         final data = await Repository().getPhotoProfile();
         emit(state.copyWith(status: PhotoStateStatus.success, photoResponse: data));
@@ -38,7 +38,7 @@ class PhotoBloc extends Bloc<PhotoEvent, PhotoState> {
     on<PhotoDeleteEven>((event, emit) async {
       var data = state.photoResponse;
       data.removeAt(event.index);
-      emit(state.copyWith(status: PhotoStateStatus.success,photoResponse: data));
+      emit(state.copyWith(deleted: true,status: PhotoStateStatus.success,photoResponse: data));
     });
     on<PhotoUpdateEvent>((event, emit) => {});
   }

@@ -37,7 +37,7 @@ class _MainScreenState extends State<MainScreen> {
       ),
       body: BlocConsumer<PhotoBloc, PhotoState>(
         listener: (context, state){
-          print(state);
+          if(state.deleted) { showSnackBar(context, 'Message deleted');}
         },
         builder:(context, state) {
           return state.status.isSuccess
@@ -74,5 +74,9 @@ class _MainScreenState extends State<MainScreen> {
         }
       )
     );
+  }
+
+  void showSnackBar(BuildContext context,String message){
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message),duration: const Duration(seconds: 1)));
   }
 }
