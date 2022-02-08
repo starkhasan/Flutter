@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
@@ -21,7 +20,6 @@ class DemoExampleState extends State<DemoExample>{
     getAllVideos();
     videoPlayerController = VideoPlayerController.asset('asset/video/bee.mp4')
       ..initialize().then((value) => setState((){}));
-    videoPlayerController.play();
     pageController = PageController(initialPage: 0)
       ..addListener(pageViewListener);
     super.initState();
@@ -32,9 +30,6 @@ class DemoExampleState extends State<DemoExample>{
     if(data.toString().length == 3){
       if(videoIndex != data!.toInt()){
         videoIndex = data.toInt();
-        setState(() {
-          videoPlayerController = VideoPlayerController.asset(listVideos[videoIndex])..initialize()..play();
-        });
       }
     }
   }
@@ -49,9 +44,10 @@ class DemoExampleState extends State<DemoExample>{
         physics: const PageScrollPhysics(),
         itemBuilder: (BuildContext context,int index){
           return Container(
+            color: Colors.white,
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            child: VideoPlayer(videoPlayerController),
+            child: VideoPlayer(VideoPlayerController.asset(listVideos[index])..initialize()),
           );
         }
       )

@@ -89,6 +89,16 @@ flutter:
     - asset/whatsapp.png
     - asset/crypto.png
     - asset/video/bee.mp4
+    - asset/video/a.mp4
+    - asset/video/b.mp4
+    - asset/video/c.mp4
+    - asset/video/d.mp4
+    - asset/video/e.mp4
+    - asset/video/f.mp4
+    - asset/video/g.mp4
+    - asset/video/h.mp4
+    - asset/video/i.mp4
+    - asset/video/j.mp4
     - asset/grocery_background.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
