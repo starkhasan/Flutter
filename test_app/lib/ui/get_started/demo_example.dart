@@ -47,7 +47,7 @@ class DemoExampleState extends State<DemoExample>{
             color: Colors.white,
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            child: VideoPlayer(VideoPlayerController.asset(listVideos[index])..initialize()),
+            child: ThumbNailWidget(assetName: listVideos[index])
           );
         }
       )
@@ -61,5 +61,48 @@ class DemoExampleState extends State<DemoExample>{
     var video = jsonDecode(manifestJson).keys.where((String key) => key.startsWith('asset/video'));
     video.forEach((element) => listVideoAssets.add(element));
     setState(() => listVideos.addAll(listVideoAssets));
+  }
+}
+
+class ThumbNailWidget extends StatefulWidget {
+  final String assetName;
+  const ThumbNailWidget({ Key? key, required this.assetName}) : super(key: key);
+  @override
+  _ThumbNailWidgetState createState() => _ThumbNailWidgetState();
+}
+
+class _ThumbNailWidgetState extends State<ThumbNailWidget> {
+  late VideoPlayerController videoPlayerController;
+  late Future<void> initializedVideoPLayerFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    videoPlayerController = VideoPlayerController.asset(widget.assetName);
+    initializedVideoPLayerFuture = videoPlayerController.initialize().then((value) => setState((){}));
+  }
+
+  @override
+  void dispose() {
+    videoPlayerController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: initializedVideoPLayerFuture,
+      builder: (BuildContext context,AsyncSnapshot snapshot){
+        if (snapshot.connectionState == ConnectionState.done) {
+          return Container(
+            key: PageStorageKey(widget.assetName),
+            child: VideoPlayer(videoPlayerController)
+          );
+        }
+        else {
+          return const Center(child: CircularProgressIndicator(strokeWidth: 2.0));
+        }
+      }
+    );
   }
 }
