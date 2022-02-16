@@ -35,7 +35,7 @@ dependencies:
   firebase_core: ^1.10.6
   firebase_database: ^9.0.4
   connectivity_plus: ^2.1.0
-  google_mobile_ads: ^1.0.1
+  google_mobile_ads: ^1.1.0
   device_info: ^2.0.3
   pdf_viewer_plugin: ^2.0.1
   path_provider: ^2.0.8

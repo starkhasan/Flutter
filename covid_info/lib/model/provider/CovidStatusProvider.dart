@@ -76,8 +76,7 @@ class CovidStatusProvider extends ChangeNotifier {
     try {
       var response = await Api.getCountriesCases();
       if (response.statusCode == 200) {
-        covidResponse =
-            CovidCountryCasesResponse.fromJson(json.decode(response.body));
+        covidResponse = CovidCountryCasesResponse.fromJson(json.decode(response.body));
         covidStatusResponse[1] = covidResponse.cases;
         covidStatusResponse[2] = covidResponse.recovered;
         covidStatusResponse[3] = covidResponse.active;
