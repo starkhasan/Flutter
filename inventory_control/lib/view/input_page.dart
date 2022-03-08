@@ -37,7 +37,7 @@ class _MainInputScreenState extends State<MainInputScreen>{
   var productController = TextEditingController();
   var quantityController = TextEditingController();
   var descriptionConstroller = TextEditingController();
-  var firebaseDataBaseReferene = FirebaseDatabase.instance.reference().child('inventory_control').child(Preferences.getUserId()).child(Preferences.getInventoryName());
+  var firebaseDataBaseReferene = FirebaseDatabase.instance.ref().child('inventory_control').child(Preferences.getUserId()).child(Preferences.getInventoryName());
   late ScrollController scrollController;
 
   @override

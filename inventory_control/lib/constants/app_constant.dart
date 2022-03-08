@@ -9,6 +9,10 @@ class AppConstant {
     Icon(Icons.inventory,color: Colors.green)
   ];
 
-  static List<Icon> homeIcon = const [Icon(Icons.inventory,size: 22),Icon(Icons.settings,size: 22)];
+  static List<Icon> homeIcon = const [
+    Icon(Icons.inventory,size: 22),
+    Icon(Icons.settings,size: 22)
+  ];
+  
   static List<String> screenName = ['Add Inventory','Settings'];
 }

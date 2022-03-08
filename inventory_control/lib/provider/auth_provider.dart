@@ -32,26 +32,27 @@ class AuthProvider extends ChangeNotifier with Helper{
         Preferences.setUserId(userCredential!.user!.uid);
         if(!_isSignin) {
           Preferences.setUserName(name);
-          await FirebaseDatabase.instance.reference().child('inventory_control').child(userCredential!.user!.uid).update({
+          await FirebaseDatabase.instance.ref().child('inventory_control').child(userCredential!.user!.uid).update({
             'email': email,
             'userName': name,
             'createdAt': DateTime.now().toString(),
             'profileImage': 'https://i.ibb.co/Tm8jmFY/add-1.png'
           });
         }else{
-          await FirebaseDatabase.instance.reference().child('inventory_control').child(userCredential!.user!.uid).once().then((snapshot){
-            if(snapshot.value != null){
-              Preferences.setUserName(snapshot.value['userName']);
-              Preferences.setImagePath(snapshot.value['profileImage']);
+          await FirebaseDatabase.instance.ref().child('inventory_control').child(userCredential!.user!.uid).once().then((DatabaseEvent databaseEvent){
+            if(databaseEvent.snapshot.value != null){
+              var data = databaseEvent.snapshot.value as Map;
+              Preferences.setUserName(data['userName']);
+              Preferences.setImagePath(data['profileImage']);
               List<String> temp = [];
-              snapshot.value.keys.forEach((item) {
+              for (var item in data.keys) {
                 if(item != 'email' && item != 'userName' && item != 'createdAt' && item != 'profileImage'){
                   if(Preferences.getInventoryName().isEmpty){
                     Preferences.setInventoryName(item);
                   }
                   temp.add(item);
                 }
-              });
+              }
               Preferences.setTotalInventory(temp);
             }
           });

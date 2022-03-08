@@ -1,4 +1,3 @@
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory_control/utils/helper.dart';
@@ -9,7 +8,7 @@ class HomeProvider extends ChangeNotifier with Helper{
   bool get isLoading => _loading;
   bool _inventoryAvailable = false;
   bool get isInventoryAvailable => _inventoryAvailable;
-  var firebaseReference = FirebaseDatabase.instance.reference().child('inventory_control').child(Preferences.getUserId());
+  var firebaseReference = FirebaseDatabase.instance.ref().child('inventory_control').child(Preferences.getUserId());
   List<PopupMenuItem> listPopupMenu  = [];
 
   getPopupMenuData() {
@@ -62,19 +61,20 @@ class HomeProvider extends ChangeNotifier with Helper{
   }
 
   updatedInventory() async{
-    await FirebaseDatabase.instance.reference().child('inventory_control').child(Preferences.getUserId()).once().then((snapshot){
-      if(snapshot.value != null){
-        Preferences.setUserName(snapshot.value['userName']);
-        Preferences.setImagePath(snapshot.value['profileImage']);
+    await FirebaseDatabase.instance.ref().child('inventory_control').child(Preferences.getUserId()).once().then((DatabaseEvent databaseEvent){
+      if(databaseEvent.snapshot.value != null){
+        var data = databaseEvent.snapshot.value as Map;
+        Preferences.setUserName(data['userName']);
+        Preferences.setImagePath(data['profileImage']);
         List<String> temp = [];
-        snapshot.value.keys.forEach((item) {
+        for (var item in data.keys) {
           if(item != 'email' && item != 'userName' && item != 'createdAt' && item != 'profileImage'){
             if(Preferences.getInventoryName().isEmpty){
               Preferences.setInventoryName(item);
             }
             temp.add(item);
           }
-        });
+        }
         Preferences.setTotalInventory(temp);
       }
     });

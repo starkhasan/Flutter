@@ -13,21 +13,22 @@ class SettingProvider extends ChangeNotifier with Helper {
   bool get loading => _isLoading;
   var inventoryData = SettingModel('', '', '2021-11-08 11:23:08.316419', [],'');
 
-  var firebaseReference = FirebaseDatabase.instance.reference().child('inventory_control').child(Preferences.getUserId());
+  var firebaseReference = FirebaseDatabase.instance.ref().child('inventory_control').child(Preferences.getUserId());
 
   getInventoryData() async {
     if(!_isLoading){
       _isLoading = true;
       notifyListeners();
     }
-    await firebaseReference.once().then((snapshot) {
-      if(snapshot.value != null){
-        inventoryData.createdAt = snapshot.value['createdAt'];
-        inventoryData.email = snapshot.value['email'];
-        inventoryData.userName = snapshot.value['userName'];
-        inventoryData.imagePath = snapshot.value['profileImage'];
+    await firebaseReference.once().then((DatabaseEvent databaseEvent) {
+      if(databaseEvent.snapshot.value != null){
+        var data = databaseEvent.snapshot.value as Map;
+        inventoryData.createdAt = data['createdAt'];
+        inventoryData.email = data['email'];
+        inventoryData.userName = data['userName'];
+        inventoryData.imagePath = data['profileImage'];
         List<String> tempInventory = [];
-        for(var item in snapshot.value.keys){
+        for(var item in data.keys){
           if(item != 'createdAt' && item != 'email' && item != 'userName' && item != 'profileImage'){
             tempInventory.add(item);
           }

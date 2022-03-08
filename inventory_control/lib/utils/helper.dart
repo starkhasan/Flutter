@@ -8,7 +8,7 @@ import 'package:inventory_control/view/setting_page.dart';
 
 mixin Helper{
   
-  showSnackBar(BuildContext _context,String message){
+  void showSnackBar(BuildContext _context,String message){
     var snackBar = SnackBar(content: Text(message,style: const TextStyle(fontSize: 11)),duration: const Duration(seconds: 3));
     ScaffoldMessenger.of(_context).showSnackBar(snackBar);
   }
@@ -21,7 +21,7 @@ mixin Helper{
     return false;
   }
 
-  homePageNavigation(BuildContext _context,int index){
+  void homePageNavigation(BuildContext _context,int index){
     switch (index) {
       case 0:
         Navigator.push(_context, MaterialPageRoute(builder: (context) => const InputPage()));
@@ -36,7 +36,7 @@ mixin Helper{
     }
   }
 
-  drawerClick(BuildContext _context,int index,HomeProvider provider){
+  void drawerClick(BuildContext _context,int index,HomeProvider provider){
     switch (index) {
       case 0:
         Navigator.pop(_context);

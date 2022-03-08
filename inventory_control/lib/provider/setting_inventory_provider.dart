@@ -9,7 +9,7 @@ class SettingInventoryProvider extends ChangeNotifier with Helper{
   bool get loading => _isLoading;
   List<String> allInventory = [];
 
-  var firebaseReference = FirebaseDatabase.instance.reference().child('inventory_control').child(Preferences.getUserId());
+  var firebaseReference = FirebaseDatabase.instance.ref().child('inventory_control').child(Preferences.getUserId());
   var settingInventoryData = SettingInventoryModel('2021-11-08 11:23:08.316419', false,0,0,0,0,0);
 
   getInventoryData(bool loading,BuildContext context,String inventoryName) async{
@@ -18,34 +18,36 @@ class SettingInventoryProvider extends ChangeNotifier with Helper{
       notifyListeners();
     }
     if(allInventory.isEmpty){
-      await firebaseReference.once().then((snapshot){
-        if(snapshot.value != null){
-          snapshot.value.keys.forEach((item) {
+      await firebaseReference.once().then((DatabaseEvent databaseEvent){
+        if(databaseEvent.snapshot.value != null){
+          var data = databaseEvent.snapshot.value as Map;
+          for (var item in data.keys) {
             if(item != 'email' && item != 'userName' && item != 'createdAt' && item != 'profileImage' && item != inventoryName){
               allInventory.add(item);
             }
-          });
+          }
         }
       });
     }
-    await firebaseReference.child(inventoryName).once().then((DataSnapshot snapshot) {
-      if(snapshot.value != null){
-        settingInventoryData.createdAt = snapshot.value['createdAt'];
-        settingInventoryData.enabled = snapshot.value['enable'];
-        if(snapshot.value['input'] != null){
-          settingInventoryData.inputEntry = snapshot.value['input'].length;
+    await firebaseReference.child(inventoryName).once().then((DatabaseEvent databaseEvent) {
+      if(databaseEvent.snapshot.value != null){
+        var data = databaseEvent.snapshot.value as Map;
+        settingInventoryData.createdAt = data['createdAt'];
+        settingInventoryData.enabled = data['enable'];
+        if(data['input'] != null){
+          settingInventoryData.inputEntry = data['input'].length;
         }
-        if(snapshot.value['output'] != null){
-          settingInventoryData.outputEntry = snapshot.value['output'].length;
+        if(data['output'] != null){
+          settingInventoryData.outputEntry = data['output'].length;
         }
-        if(snapshot.value['inventory'] != null){
-          settingInventoryData.totalProduct = snapshot.value['inventory'].length;
+        if(data['inventory'] != null){
+          settingInventoryData.totalProduct = data['inventory'].length;
           var inStock = 0;
           var outStock = 0;
           allInventory.clear();
-          for(var item in snapshot.value['inventory'].keys){
+          for(var item in data['inventory'].keys){
             allInventory.add(item);
-            if(snapshot.value['inventory'][item]['quantity'] > 0){
+            if(data['inventory'][item]['quantity'] > 0){
               inStock+=1;
             }else{
               outStock+=1;
@@ -71,9 +73,9 @@ class SettingInventoryProvider extends ChangeNotifier with Helper{
       _isLoading = true;
       notifyListeners();
       var oldData = <String,dynamic>{};
-      await firebaseReference.child(oldName).once().then((DataSnapshot snapshot) {
-        if(snapshot.value != null){
-          oldData = Map<String,dynamic>.from(snapshot.value);
+      await firebaseReference.child(oldName).once().then((DatabaseEvent databaseEvent) {
+        if(databaseEvent.snapshot.value != null){
+          oldData = databaseEvent.snapshot.value as Map<String, dynamic>;
         }
       });
       await firebaseReference.child(newName).update(oldData);

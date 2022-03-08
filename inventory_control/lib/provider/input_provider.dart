@@ -2,9 +2,10 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory_control/model/inventory_model.dart';
 import 'package:inventory_control/services/connectivity_service.dart';
+import 'package:inventory_control/utils/helper.dart';
 import 'package:inventory_control/utils/preferences.dart';
 
-class InputProvider extends ChangeNotifier {
+class InputProvider extends ChangeNotifier with Helper{
   bool _isInventoryDisabled = true;
   bool _inventoryFab = false;
   bool _searchBar = false;
@@ -23,7 +24,7 @@ class InputProvider extends ChangeNotifier {
   List<InventoryModel> inventoryModel = [];
   List<InventoryModel> inventoryModelOriginal = [];
   List<String> productId = [];
-  var firebaseDataBaseReferene = FirebaseDatabase.instance.reference().child('inventory_control').child(Preferences.getUserId()).child(Preferences.getInventoryName());
+  var firebaseDataBaseReferene = FirebaseDatabase.instance.ref().child('inventory_control').child(Preferences.getUserId()).child(Preferences.getInventoryName());
 
   void fabVisibility(bool visible) {
     if(visible){
@@ -44,16 +45,16 @@ class InputProvider extends ChangeNotifier {
   }
 
   void getInventoryData(String product) async{
-    await firebaseDataBaseReferene.child('inventory').once().then((snapshot){
-      if(snapshot.value != null){
+    await firebaseDataBaseReferene.child('inventory').once().then((DatabaseEvent databaseEvent){
+      if(databaseEvent.snapshot.value != null){
+        var data = databaseEvent.snapshot.value as Map;
         inventoryData.clear();
         productId.clear();
-        var invData = snapshot.value;
-        for(var item in invData.keys){
+        for(var item in data.keys){
           productId.add(item);
-          inventoryData[item] = invData[item]['quantity'];
+          inventoryData[item] = data[item]['quantity'];
           if(product.isNotEmpty){
-            _quantity = invData[product]['quantity'];
+            _quantity = data[product]['quantity'];
           }
         }
       }else{
@@ -64,9 +65,10 @@ class InputProvider extends ChangeNotifier {
   }
 
   void isInventoryEnabled() async{
-    await firebaseDataBaseReferene.once().then((snapshot){
-      if(snapshot.value != null){
-        _isInventoryDisabled = snapshot.value['enable'];
+    await firebaseDataBaseReferene.once().then((DatabaseEvent databaseEvent){
+      if(databaseEvent.snapshot.value != null){
+        var data = databaseEvent.snapshot.value as Map;
+        _isInventoryDisabled = data['enable'];
       }else{
         _isInventoryDisabled = true;
       }
@@ -82,13 +84,13 @@ class InputProvider extends ChangeNotifier {
 
   bool validation(BuildContext _context,String productId,String quantity){
     if(productId.isEmpty){
-      snackBar(_context,'Please provide product id');
+      showSnackBar(_context,'Please provide product id');
       return false;
     }else if(quantity.isEmpty){
-      snackBar(_context,'Please provide quantity');
+      showSnackBar(_context,'Please provide quantity');
       return false;
     }else if(int.parse(quantity) <= 0){
-      snackBar(_context,'Please provide valid quantity');
+      showSnackBar(_context,'Please provide valid quantity');
       return false;
     }
     return true;
@@ -109,12 +111,12 @@ class InputProvider extends ChangeNotifier {
           'quantity': ServerValue.increment(int.parse(quantity)),
           'productDescription': description
         });
-        snackBar(_context,'Input Added');
+        showSnackBar(_context,'Input Added');
         return true;
       }
       return false;
     }else{
-      snackBar(_context,'No Internet Connection');
+      showSnackBar(_context,'No Internet Connection');
       return false;
     }
   }
@@ -134,12 +136,12 @@ class InputProvider extends ChangeNotifier {
           'quantity': ServerValue.increment(-int.parse(quantity)),
         });
         getInventoryData(productId);
-        snackBar(_context,'Input Added');
+        showSnackBar(_context,'Input Added');
         return true;
       }
       return false;
     }else{
-      snackBar(_context,'No Internet Connection');
+      showSnackBar(_context,'No Internet Connection');
       return false;
     }
   }
@@ -147,9 +149,9 @@ class InputProvider extends ChangeNotifier {
   Future<void> getTotalInventory(BuildContext _context,bool showIndicator) async{
     _inventoryLoading = showIndicator;
     notifyListeners();
-    await firebaseDataBaseReferene.child('inventory').once().then((snapshot) {
-      if(snapshot.value != null){
-        var input = snapshot.value;
+    await firebaseDataBaseReferene.child('inventory').once().then((DatabaseEvent databaseEvent) {
+      if(databaseEvent.snapshot.value != null){
+        var input = databaseEvent.snapshot.value as Map;
         inventoryModel.clear();
         inventoryModelOriginal.clear();
         List<InventoryModel> temp = [];
@@ -189,30 +191,25 @@ class InputProvider extends ChangeNotifier {
 
   bool outputValidation(BuildContext _context,String productId,String quantity){
     if(productId.isEmpty){
-      snackBar(_context,'Please provide product id');
+      showSnackBar(_context,'Please provide product id');
       return false;
     }else if(!inventoryData.containsKey(productId)){
-      snackBar(_context,'Product not found, Please add first');
+      showSnackBar(_context,'Product not found, Please add first');
       return false;
     }else if(quantity.isEmpty){
-      snackBar(_context,'Please provide quantity');
+      showSnackBar(_context,'Please provide quantity');
       return false;
     }else if(int.parse(quantity) <= 0){
-      snackBar(_context,'Please provide valid quantity');
+      showSnackBar(_context,'Please provide valid quantity');
       return false;
     }else if(inventoryData[productId] < int.parse(quantity)){
       if(inventoryData[productId] == 0){
-        snackBar(_context,'Out of Stock');
+        showSnackBar(_context,'Out of Stock');
       }else{
-        snackBar(_context,'Maximum ${inventoryData[productId]} stock available of $productId');
+        showSnackBar(_context,'Maximum ${inventoryData[productId]} stock available of $productId');
       }
       return false;
     }
     return true;
-  }
-
-  void snackBar(BuildContext _context,String message){
-    var snackbar = SnackBar(content: Text(message),duration: const Duration(seconds: 2));
-    ScaffoldMessenger.of(_context).showSnackBar(snackbar);
   }
 }
