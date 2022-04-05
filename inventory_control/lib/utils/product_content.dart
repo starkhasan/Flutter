@@ -61,7 +61,7 @@ class ProductContent extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
-              color: Colors.grey[200],
+              color: Colors.blue[50],
               borderRadius: const BorderRadius.all(Radius.circular(2))
             ),
             child: Row(
