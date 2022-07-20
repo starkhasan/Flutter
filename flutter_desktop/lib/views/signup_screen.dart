@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_desktop/constants/routes.dart';
+import '../controllers/signup_controller.dart';
 import 'package:get/get.dart';
-import '../constants/routes.dart';
-import '../controllers/login_controller.dart';
-import '../../constants/app_colors.dart';
-import '../../constants/font_path.dart';
-import '../../constants/strings.dart';
-import '../../custom_widgets/custom_text.dart';
+import '../constants/app_colors.dart';
+import '../constants/font_path.dart';
+import '../constants/strings.dart';
+import '../custom_widgets/custom_text.dart';
 
-class LoginScreen extends StatelessWidget{
+class SignupScreen extends StatelessWidget {
 
-  const LoginScreen({
-    super.key
-  });
+  const SignupScreen({super.key});
 
   @override
   Widget build(BuildContext context){
-    final loginController = Get.put(LoginController());
+    final signupController = Get.put(SignupController());
     return Scaffold(
       appBar: PreferredSize(preferredSize: const Size.fromHeight(0),child: AppBar()),
       body: Container(
@@ -39,31 +37,40 @@ class LoginScreen extends StatelessWidget{
               boxShadow: [BoxShadow(color: AppColors.grey, blurRadius: 5.0)]
             ),
             child: SingleChildScrollView(
-              child: GetBuilder<LoginController>(
-                init: loginController,
+              child: GetBuilder<SignupController>(
+                init: signupController,
                 builder: (context) {
                   return Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       const CustomText( 
-                        title: Strings.welcome,
+                        title: Strings.signup,
                         textSize: 16,
                         textColor: AppColors.black,
                         textAlign: TextAlign.center,
                         fontWeight: FontWeight.bold,
                         fontFamily: FontPath.montserratSemiBole,
                       ),
-                      const SizedBox(height: 2.0),
-                      const CustomText(
-                        title: Strings.credentialMessage,
-                        textColor: AppColors.black,
-                        textAlign: TextAlign.center,
-                        fontWeight: FontWeight.normal,
-                        fontFamily: FontPath.montserratSemiBole,
-                      ),
                       const SizedBox(height: 30),
                       TextField(
-                        controller: loginController.emailTextController,
+                        controller: signupController.nameTextController,
+                        style: const TextStyle(fontSize: 12, color: AppColors.black),
+                        decoration: InputDecoration(
+                          label: const Text(' ${Strings.name} '),
+                          isDense: true,
+                          border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(6.0))),
+                          hintStyle: const TextStyle(fontSize: 12, color: AppColors.grey),
+                          prefixIcon: const Icon(Icons.person),
+                          errorText: signupController.errorName.isEmpty
+                          ? null
+                          : signupController.errorName
+                        ),
+                        onChanged: (value) => signupController.onNameTextChange(),
+                        onSubmitted: (value) => signupController.signupUser(),
+                      ),
+                      const SizedBox(height: 10),
+                      TextField(
+                        controller: signupController.emailTextController,
                         style: const TextStyle(fontSize: 12, color: AppColors.black),
                         decoration: InputDecoration(
                           label: const Text(' ${Strings.email} '),
@@ -71,17 +78,17 @@ class LoginScreen extends StatelessWidget{
                           border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(6.0))),
                           hintStyle: const TextStyle(fontSize: 12, color: AppColors.grey),
                           prefixIcon: const Icon(Icons.email),
-                          errorText: loginController.errorEmail.isEmpty
+                          errorText: signupController.errorEmail.isEmpty
                           ? null
-                          : loginController.errorEmail
+                          : signupController.errorEmail
                         ),
-                        onChanged: (value) => loginController.onEmailTextChange(),
-                        onSubmitted: (value) => loginController.loginUser(),
+                        onChanged: (value) => signupController.onEmailTextChange(),
+                        onSubmitted: (value) => signupController.signupUser(),
                       ),
                       const SizedBox(height: 10),
                       TextField(
-                        obscureText: !loginController.showPassword,
-                        controller:  loginController.passwordTextController,
+                        obscureText: !signupController.showPassword,
+                        controller:  signupController.passwordTextController,
                         style: const TextStyle(fontSize: 12, color: AppColors.black),
                         decoration: InputDecoration(
                           label: const Text(' ${Strings.password} '),
@@ -90,24 +97,24 @@ class LoginScreen extends StatelessWidget{
                           hintStyle: const TextStyle(fontSize: 12, color: AppColors.grey),
                           prefixIcon: const Icon(Icons.password),
                           suffixIcon: InkWell(
-                            onTap: () => loginController.passwordVisibility(),
+                            onTap: () => signupController.passwordVisibility(),
                             child: Icon(
-                              loginController.showPassword
+                              signupController.showPassword
                               ? Icons.remove_red_eye
                               : Icons.lock
                               , color: AppColors.black
                             ),
                           ),
-                          errorText: loginController.errorPassword.isEmpty
+                          errorText: signupController.errorPassword.isEmpty
                           ? null
-                          : loginController.errorPassword
+                          : signupController.errorPassword
                         ),
-                        onChanged: (value) => loginController.onPasswordTextChange(),
-                        onSubmitted: (value) => loginController.loginUser(),
+                        onChanged: (value) => signupController.onPasswordTextChange(),
+                        onSubmitted: (value) => signupController.signupUser(),
                       ),
                       const SizedBox(height: 20),
                       InkWell(
-                        onTap: () => loginController.loginUser(),
+                        onTap: () => signupController.signupUser(),
                         child: Container(
                           width: double.infinity,
                           padding: const EdgeInsets.only(top: 10, bottom: 10),
@@ -116,7 +123,7 @@ class LoginScreen extends StatelessWidget{
                             borderRadius: BorderRadius.all(Radius.circular(6.0))
                           ),
                           child: const CustomText(
-                            title: Strings.login,
+                            title: Strings.signup,
                             textSize: 12,
                             textColor: AppColors.white,
                             textAlign: TextAlign.center,
@@ -129,14 +136,14 @@ class LoginScreen extends StatelessWidget{
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const CustomText(
-                            title: Strings.loginAccountMessage,
+                            title: Strings.signAccountMessage,
                             textSize: 12,
                             textColor: AppColors.grey
                           ),
                           InkWell(
-                            onTap:() => Get.toNamed(Routes.signupScreen),
+                            onTap:() => Get.toNamed(Routes.loginScreen),
                             child: const CustomText(
-                              title: Strings.signup,
+                              title: Strings.login,
                               textColor: AppColors.blue,
                               textSize: 12
                             ) 
