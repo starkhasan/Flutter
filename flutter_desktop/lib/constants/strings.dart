@@ -1,6 +1,7 @@
 class Strings {
   Strings._();
-
+  
+  static const String emptyValue = '';
   static const String appName = 'Weather 2.0';
   static const String degree = "\u00B0C";
   static const String login = 'Login';
