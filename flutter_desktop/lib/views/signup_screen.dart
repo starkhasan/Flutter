@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_desktop/constants/routes.dart';
-import '../controllers/signup_controller.dart';
 import 'package:get/get.dart';
+import '../constants/routes.dart';
+import '../controllers/signup_controller.dart';
 import '../constants/app_colors.dart';
 import '../constants/font_path.dart';
 import '../constants/strings.dart';

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_desktop/views/dashboard_screen.dart';
 import '../views/desktop_view/desktop_dashboard_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -17,7 +18,7 @@ class HomeScreen extends StatelessWidget {
             child: Center(child: Text('Tablet Phone')),
           );
         } else{
-          return const DektopDashboardScreen();
+          return const DashboardScreen();
         }
       }),
     );

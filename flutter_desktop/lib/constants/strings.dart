@@ -13,4 +13,8 @@ class Strings {
   static const String signup = 'Signup';
   static const String signAccountMessage = 'Already have an account ';
   static const String loginAccountMessage = "Don't have an account? ";
+  static const String dashboard = 'Dashboard';
+  static const String post = 'Post';
+  static const String answers = 'Answers';
+  static const String search = 'Search';
 }

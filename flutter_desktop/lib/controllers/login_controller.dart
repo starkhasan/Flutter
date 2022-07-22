@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_desktop/constants/routes.dart';
 import 'package:flutter_desktop/constants/strings.dart';
 import '../networks/api/api_client.dart';
 import '../utils/progress_dialog.dart';
@@ -45,6 +46,7 @@ class LoginController extends GetxController {
       _dialog.show();
       await Future.delayed(const Duration(seconds: 5));
       _dialog.hide();
+      Get.offAllNamed(Routes.homeScreen);
     }
   }
 
