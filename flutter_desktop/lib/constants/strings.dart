@@ -17,4 +17,5 @@ class Strings {
   static const String post = 'Post';
   static const String answers = 'Answers';
   static const String search = 'Search';
+  static const String zeroValue = '0';
 }

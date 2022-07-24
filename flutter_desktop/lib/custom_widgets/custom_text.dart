@@ -25,7 +25,7 @@ class CustomText extends StatelessWidget {
     return Text(
       title,
       style: TextStyle(
-        fontSize: textSize ?? 14,
+        fontSize: textSize ?? 12,
         color: textColor ?? AppColors.black,
         fontWeight: fontWeight ?? FontWeight.normal,
         fontFamily: fontFamily ?? FontPath.montserrat
