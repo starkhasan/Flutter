@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:covid_info/service/ConnectivityService.dart';
-import 'package:covid_info/ui/Dashboard.dart';
+import 'package:covid_info/service/connectivity_service.dart';
+import 'package:covid_info/ui/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';

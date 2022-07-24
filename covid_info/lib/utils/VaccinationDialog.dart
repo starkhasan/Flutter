@@ -1,4 +1,4 @@
-import 'package:covid_info/model/response/VaccineResponse.dart';
+import 'package:covid_info/model/response/vaccine_response.dart';
 import 'package:flutter/material.dart';
 
 class VaccinationDialog extends StatelessWidget {

@@ -1,10 +1,10 @@
-import 'package:covid_info/constant/HelperVaccination.dart';
-import 'package:covid_info/ui/CountrySearchResult.dart';
-import 'package:covid_info/ui/ShowDocument.dart';
+import 'package:covid_info/constant/helper_vaccination.dart';
+import 'package:covid_info/ui/country_search_result_screen.dart';
+import 'package:covid_info/ui/show_document_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:covid_info/constant/HelperAbout.dart';
-import 'package:covid_info/model/provider/CovidStatusProvider.dart';
+import 'package:covid_info/constant/helper_about.dart';
+import 'package:covid_info/controllers/covid_status_controller.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';

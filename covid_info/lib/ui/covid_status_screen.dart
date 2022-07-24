@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:covid_info/constant/HelperAbout.dart';
-import 'package:covid_info/model/provider/CovidStatusProvider.dart';
-import 'package:covid_info/ui/CountrySearchResult.dart';
+import 'package:covid_info/constant/helper_about.dart';
+import 'package:covid_info/controllers/covid_status_controller.dart';
+import 'package:covid_info/ui/country_search_result_screen.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';

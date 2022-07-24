@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:covid_info/constant/HelperAbout.dart';
+import 'package:covid_info/constant/helper_about.dart';
 import 'package:flutter/services.dart';
 class AboutCovid extends StatefulWidget {
 

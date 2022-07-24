@@ -1,10 +1,10 @@
-import 'package:covid_info/model/provider/CovidStatusProvider.dart';
+import 'package:covid_info/controllers/covid_status_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:covid_info/ui/AboutCovid.dart';
-import 'package:covid_info/ui/CovidStatus.dart';
-import 'package:covid_info/ui/Vaccination.dart';
-import 'package:covid_info/ui/FAQScreen.dart';
+import 'package:covid_info/ui/about_covid_screen.dart';
+import 'package:covid_info/ui/covid_status_screen.dart';
+import 'package:covid_info/ui/vaccination_screen.dart';
+import 'package:covid_info/ui/faq_screen.dart';
 import 'package:provider/provider.dart';
 
 

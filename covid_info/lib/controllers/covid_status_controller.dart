@@ -1,14 +1,14 @@
 import 'dart:io';
 import 'dart:isolate';
 
-import 'package:covid_info/model/response/FAQResponse.dart';
-import 'package:covid_info/model/response/VaccineResponse.dart';
+import 'package:covid_info/model/response/faq_response.dart';
+import 'package:covid_info/model/response/vaccine_response.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:covid_info/model/Api.dart';
-import 'package:covid_info/model/response/CountryResponse.dart';
-import 'package:covid_info/model/response/CovidCountryCasesResponse.dart';
+import 'package:covid_info/model/api.dart';
+import 'package:covid_info/model/response/country_response.dart';
+import 'package:covid_info/model/response/covid_country_cases_response.dart';
 import 'dart:convert';
-import 'package:covid_info/model/response/PopulationResponse.dart';
+import 'package:covid_info/model/response/population_response.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:device_info/device_info.dart';
 import 'package:flutter/services.dart';

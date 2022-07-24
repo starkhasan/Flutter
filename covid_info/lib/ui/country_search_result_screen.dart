@@ -1,8 +1,8 @@
-import 'package:covid_info/constant/HelperAbout.dart';
-import 'package:covid_info/model/response/VaccineResponse.dart';
+import 'package:covid_info/constant/helper_about.dart';
+import 'package:covid_info/model/response/vaccine_response.dart';
 import 'package:covid_info/utils/VaccinationDialog.dart';
 import 'package:flutter/material.dart';
-import 'package:covid_info/model/provider/CovidStatusProvider.dart';
+import 'package:covid_info/controllers/covid_status_controller.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:covid_info/ui/SplashScreen.dart';
+import 'package:covid_info/ui/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
