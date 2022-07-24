@@ -1,6 +1,5 @@
-import 'dart:io';
+import 'dart:developer';
 import 'dart:isolate';
-
 import 'package:covid_info/model/response/faq_response.dart';
 import 'package:covid_info/model/response/vaccine_response.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,8 +9,8 @@ import 'package:covid_info/model/response/covid_country_cases_response.dart';
 import 'dart:convert';
 import 'package:covid_info/model/response/population_response.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:device_info/device_info.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class CovidStatusProvider extends ChangeNotifier {
   bool _callApi = false;
@@ -106,7 +105,7 @@ class CovidStatusProvider extends ChangeNotifier {
         var temp = List<CountryResponse>.from(json.decode(response.body).map((x) => CountryResponse.fromJson(x)));
         countryResponse.addAll(temp);
         originalCountryResponse.addAll(temp);
-        print(countryResponse.length);
+        log(countryResponse.length.toString());
       } else {
         countryResponse = [];
       }
@@ -120,9 +119,22 @@ class CovidStatusProvider extends ChangeNotifier {
   Future<void> worldVaccineCases(bool isIndicator) async {
     _worldVaccineApi = isIndicator;
     notifyListeners();
-    final port = ReceivePort();
-    await Isolate.spawn(getVaccineData, port.sendPort);
-    List<VaccinationResponse> data = await port.first;
+    List<VaccinationResponse> data = [];
+    if(kIsWeb){
+      try {
+        var response = await Api.worldVaccineCases();
+        if (response.statusCode == 200) {
+          var temp = List<VaccinationResponse>.from(json.decode(response.body).map((x) => VaccinationResponse.fromJson(x)));
+          data = temp;
+        }
+      } catch (e) {
+        log('Something went wrong');
+      }
+    }else{
+      final port = ReceivePort();
+      await Isolate.spawn(getVaccineData, port.sendPort);
+      data = await port.first;
+    }
     if(data.isNotEmpty){
       worldVaccineResponse.clear();
       originalWorldVaccineResponse.clear();
@@ -207,24 +219,24 @@ class CovidStatusProvider extends ChangeNotifier {
     });
   }
 
-  userCount(bool isOnline) async {
-    var deviceId = "";
-    if (Platform.isAndroid) {
-      var deviceInfo = await DeviceInfoPlugin().androidInfo;
-      deviceId = deviceInfo.androidId;
-    } else {
-      var deviceInfo = await DeviceInfoPlugin().iosInfo;
-      deviceId = deviceInfo.identifierForVendor;
-    }
-    if (isOnline) {
-      firebaseDatabase.child('Users').child(deviceId).set({'status': 'Online'});
-    } else {
-      firebaseDatabase
-          .child('Users')
-          .child(deviceId)
-          .set({'status': 'Offline'});
-    }
-  }
+  // userCount(bool isOnline) async {
+  //   var deviceId = "";
+  //   if (Platform.isAndroid) {
+  //     var deviceInfo = await DeviceInfoPlugin().androidInfo;
+  //     deviceId = deviceInfo.androidId;
+  //   } else {
+  //     var deviceInfo = await DeviceInfoPlugin().iosInfo;
+  //     deviceId = deviceInfo.identifierForVendor;
+  //   }
+  //   if (isOnline) {
+  //     firebaseDatabase.child('Users').child(deviceId).set({'status': 'Online'});
+  //   } else {
+  //     firebaseDatabase
+  //         .child('Users')
+  //         .child(deviceId)
+  //         .set({'status': 'Offline'});
+  //   }
+  // }
 
   Future<void> vaccination(bool isIndicator) async {
     _vaccineApi = isIndicator;

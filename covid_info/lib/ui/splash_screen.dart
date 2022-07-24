@@ -1,27 +1,31 @@
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:covid_info/service/connectivity_service.dart';
-import 'package:covid_info/ui/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import '../service/connectivity_service.dart';
+import '../ui/dashboard_screen.dart';
 
 class SplashScreen extends StatelessWidget {
+  const SplashScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return StreamProvider<ConnectivityResult>(
       initialData: ConnectivityResult.none,
       create: (_) => ConnectivityService().connectionStream,
       builder: (context, child) {
-        return MainScreen();
+        return const MainScreen();
       }
     );
   }
 }
 
 class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
   @override
-  _MainScreenState createState() => _MainScreenState();
+  State createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
@@ -31,12 +35,12 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,DeviceOrientation.portraitDown]);
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Color(0xff0B3054),statusBarIconBrightness: Brightness.light));
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Color(0xff0B3054),statusBarIconBrightness: Brightness.light));
   }
 
   @override
   Widget build(BuildContext context) {
-    provider = Provider.of<ConnectivityResult>(context);
+    //provider = Provider.of<ConnectivityResult>(context);
     startTimer(context);
     return Scaffold(
       body: Container(
@@ -49,7 +53,7 @@ class _MainScreenState extends State<MainScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Image.asset('assets/images/logo.jpg',height: MediaQuery.of(context).size.height * 0.12, width: MediaQuery.of(context).size.height * 0.12),
-                  Text(
+                  const Text(
                     'Covid Info',
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,fontFamily: '')
                   )
@@ -77,22 +81,24 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  startTimer(BuildContext _context) {
-    Timer(Duration(seconds: 3), (){
-        if(provider != null){
-        if(provider == ConnectivityResult.wifi || provider == ConnectivityResult.mobile){
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Dashboard()));
-        }else{
-          var snackBar = SnackBar(
-            elevation: 0.0,
-            backgroundColor: Colors.red,
-            behavior: SnackBarBehavior.floating,
-            content: Text('No Internet Connection',style: TextStyle(color: Colors.white)),
-            margin: EdgeInsets.fromLTRB(10, 0, 10, 20),
-          );
-          ScaffoldMessenger.of(_context).showSnackBar(snackBar);
-        }
+  startTimer(BuildContext mContext) {
+    Timer(const Duration(seconds: 3), (){
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Dashboard()));
+        // if(provider != null){
+        //   if(provider == ConnectivityResult.wifi || provider == ConnectivityResult.mobile || provider == ConnectivityResult.ethernet){
+        //     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Dashboard()));
+        //   }else{
+        //     var snackBar = const SnackBar(
+        //       elevation: 0.0,
+        //       backgroundColor: Colors.red,
+        //       behavior: SnackBarBehavior.floating,
+        //       content: Text('No Internet Connection',style: TextStyle(color: Colors.white)),
+        //       margin: EdgeInsets.fromLTRB(10, 0, 10, 20),
+        //     );
+        //     ScaffoldMessenger.of(mContext).showSnackBar(snackBar);
+        //   }
+        // }
       }
-    });
+    );
   }
 }

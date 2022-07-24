@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:covid_info/constant/helper_vaccination.dart';
 import 'package:covid_info/ui/country_search_result_screen.dart';
 import 'package:covid_info/ui/show_document_screen.dart';
@@ -32,51 +34,51 @@ class _VaccinationState extends State<Vaccination> {
 
 class VaccineScreen extends StatefulWidget {
   final CovidStatusProvider provider;
-  VaccineScreen({required this.provider});
+  const VaccineScreen({super.key, required this.provider});
 
   @override
-  _VaccineScreenState createState() => _VaccineScreenState();
+  State createState() => _VaccineScreenState();
 }
 
 class _VaccineScreenState extends State<VaccineScreen> {
 
   var formatter = NumberFormat('#,##,###');
   var refreshIndicatorMargin = 0.0;
-  late BannerAd _bannerAd;
-  late AdWidget adWidget;
+  // late BannerAd _bannerAd;
+  // late AdWidget adWidget;
   
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
        widget.provider.vaccination(true);
     });
-    _bannerAd = BannerAd(
-      adUnitId: "ca-app-pub-9422971308124709/7654126838",
-      request: AdRequest(),
-      size: AdSize.banner,
-      listener: BannerAdListener(
-        onAdLoaded: (Ad ad) {
-          widget.provider.adMobVisibility(true);
-          print('$BannerAd loaded.');
-        },
-        onAdFailedToLoad: (Ad ad, LoadAdError error) {
-          widget.provider.adMobVisibility(false);
-          print('$BannerAd failedToLoad: $error');
-          ad.dispose();
-        },
-        onAdOpened: (Ad ad) => print('$BannerAd onAdOpened.'),
-        onAdClosed: (Ad ad) => print('$BannerAd onAdClosed.'),
-      ),
-    );
-    _bannerAd.load();
-    adWidget = AdWidget(ad: _bannerAd);
+    // _bannerAd = BannerAd(
+    //   adUnitId: "ca-app-pub-9422971308124709/7654126838",
+    //   request: const AdRequest(),
+    //   size: AdSize.banner,
+    //   listener: BannerAdListener(
+    //     onAdLoaded: (Ad ad) {
+    //       widget.provider.adMobVisibility(true);
+    //       log('$BannerAd loaded.');
+    //     },
+    //     onAdFailedToLoad: (Ad ad, LoadAdError error) {
+    //       widget.provider.adMobVisibility(false);
+    //       log('$BannerAd failedToLoad: $error');
+    //       ad.dispose();
+    //     },
+    //     onAdOpened: (Ad ad) => log('$BannerAd onAdOpened.'),
+    //     onAdClosed: (Ad ad) => log('$BannerAd onAdClosed.'),
+    //   ),
+    // );
+    // _bannerAd.load();
+    // adWidget = AdWidget(ad: _bannerAd);
   }
 
   @override
   void dispose() {
     super.dispose();
-    _bannerAd.dispose();
+    //_bannerAd.dispose();
   }
 
   @override
@@ -91,12 +93,12 @@ class _VaccineScreenState extends State<VaccineScreen> {
     return Scaffold(
       body: RefreshIndicator(
         displacement: refreshIndicatorMargin,
-        color: Color(0xff0B3054),
+        color: const Color(0xff0B3054),
         onRefresh: refresh,
         child: CustomScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           slivers:[
-            SliverAppBar(
+            const SliverAppBar(
               backgroundColor: Color(0xFF0B3054),
               centerTitle: true,
               floating: true,
@@ -121,62 +123,60 @@ class _VaccineScreenState extends State<VaccineScreen> {
 
   Widget vaccinationStatusWidget(){
     return Container(
-      padding: EdgeInsets.fromLTRB(8, 10, 8, 10),
+      padding: const EdgeInsets.fromLTRB(8, 10, 8, 10),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Text(
-                    widget.provider.apiVaccine
-                    ? 'Loading...'
-                    : 'Last updated: 1 days ago',
-                    style: TextStyle(color: Colors.grey,fontSize: 11,fontFamily: ''),
-                  )
-                ),
-                Flexible(
-                  child: GestureDetector(
-                    onTap: ()  async {
-                      var result = await Navigator.push(context, MaterialPageRoute(builder: (context) => CountrySearchResult(vaccineResult: true)));
-                      print(result);
-                    },
-                    child: Container(
-                      color: Colors.transparent,
-                      padding: EdgeInsets.all(5),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Image.network(
-                            'https://flagcdn.com/w160/in.png',
-                            height: 24,
-                            width: 24,
-                            errorBuilder: (context,exception,stackTrace){return Icon(Icons.flag);},
-                          ),
-                          SizedBox(width: 10),
-                          Text('India',style: TextStyle(fontSize: 11,fontFamily: '')),
-                          SizedBox(width: 5),
-                          Icon(Icons.arrow_drop_down_sharp,color: Colors.black,size: 26)
-                        ]
-                      )
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Text(
+                  widget.provider.apiVaccine
+                  ? 'Loading...'
+                  : 'Last updated: 1 days ago',
+                  style: const TextStyle(color: Colors.grey,fontSize: 11,fontFamily: ''),
+                )
+              ),
+              Flexible(
+                child: GestureDetector(
+                  onTap: ()  async {
+                    var result = await Navigator.push(context, MaterialPageRoute(builder: (context) => const CountrySearchResult(vaccineResult: true)));
+                    log(result);
+                  },
+                  child: Container(
+                    color: Colors.transparent,
+                    padding: const EdgeInsets.all(5),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.network(
+                          'https://flagcdn.com/w160/in.png',
+                          height: 24,
+                          width: 24,
+                          errorBuilder: (context,exception,stackTrace){return Icon(Icons.flag);},
+                        ),
+                        SizedBox(width: 10),
+                        Text('India',style: TextStyle(fontSize: 11,fontFamily: '')),
+                        SizedBox(width: 5),
+                        Icon(Icons.arrow_drop_down_sharp,color: Colors.black,size: 26)
+                      ]
                     )
                   )
                 )
-              ]
-            )
+              )
+            ]
           ),
-          Visibility(
-            visible: widget.provider.showBanner,
-            child: Container(
-              margin: EdgeInsets.only(top: 10),
-              child: adWidget, 
-              width: _bannerAd.size.width.toDouble(),
-              height: _bannerAd.size.height.toDouble()
-            )
-          ),
+          // Visibility(
+          //   visible: widget.provider.showBanner,
+          //   child: Container(
+          //     margin: EdgeInsets.only(top: 10),
+          //     child: adWidget, 
+          //     width: _bannerAd.size.width.toDouble(),
+          //     height: _bannerAd.size.height.toDouble()
+          //   )
+          // ),
           ListView.builder(
             itemCount: HelperAbout.listVaccineTag.length,
             shrinkWrap: true,

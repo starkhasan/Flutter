@@ -4,8 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class FAQScreen extends StatefulWidget {
+  const FAQScreen({super.key});
   @override
-  _FAQScreenState createState() => _FAQScreenState();
+  State createState() => _FAQScreenState();
 }
 
 class _FAQScreenState extends State<FAQScreen> {
@@ -24,20 +25,20 @@ class _FAQScreenState extends State<FAQScreen> {
 
 class MainScreen extends StatefulWidget {
   final CovidStatusProvider provider;
-  MainScreen({required this.provider});
+  const MainScreen({super.key, required this.provider});
   @override
-  _MainScreen createState() => _MainScreen();
+  State createState() => _MainScreen();
 }
 
 class _MainScreen extends State<MainScreen> {
 
   var subHeaderLeftMargin = 0.0;
-  var _scrollController = ScrollController();
+  final _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       widget.provider.loadFAQData();
     });
     _scrollController.addListener(_scrollListener);
@@ -62,18 +63,18 @@ class _MainScreen extends State<MainScreen> {
     return Scaffold(
       floatingActionButton: widget.provider.faqFABVisible
         ? FloatingActionButton.extended(
-            backgroundColor: Color(0xFF0B3054),
-            onPressed: () => _scrollController.animateTo(0.0, duration: Duration(seconds: 1), curve: Curves.bounceInOut),
-            icon: Icon(Icons.arrow_upward_sharp,size: 22),
-            label: Text('TOP'),
+            backgroundColor: const Color(0xFF0B3054),
+            onPressed: () => _scrollController.animateTo(0.0, duration: const Duration(seconds: 1), curve: Curves.bounceInOut),
+            icon: const Icon(Icons.arrow_upward_sharp,size: 22),
+            label: const Text('TOP'),
             isExtended: false,
           )
         : null,
       body: CustomScrollView(
         controller: _scrollController,
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         slivers:[
-          SliverAppBar(
+          const SliverAppBar(
             backgroundColor: Color(0xFF0B3054),
             centerTitle: true,
             floating: true,
@@ -98,7 +99,7 @@ class _MainScreen extends State<MainScreen> {
       color: Colors.white,
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height - (kToolbarHeight + kBottomNavigationBarHeight),
-      child: Center(
+      child: const Center(
         child: Text('Loading...',style: TextStyle(fontSize: 12))
       ),
     );
@@ -109,13 +110,13 @@ class _MainScreen extends State<MainScreen> {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: response.length,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       scrollDirection: Axis.vertical,
       padding: EdgeInsets.zero,
       itemBuilder: (context,index){
         return Container(
-          margin: EdgeInsets.fromLTRB(5.0, 8.0, 5.0, 0.0),
-          decoration: BoxDecoration(
+          margin: const EdgeInsets.fromLTRB(5.0, 8.0, 5.0, 0.0),
+          decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(5.0)),
             boxShadow: [
@@ -126,13 +127,13 @@ class _MainScreen extends State<MainScreen> {
             ]
           ),
           child: ExpansionTile(
-            title: Text(response[index].question,style: TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.normal)),
+            title: Text(response[index].question,style: const TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.normal)),
             subtitle: Text(response[index].tag,style: TextStyle(fontSize: 11,fontStyle: FontStyle.italic,color: response[index].tag == 'corona' ? Colors.red : Colors.green)),
             children: [
               Container(
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.fromLTRB(subHeaderLeftMargin, 0, 10, 10),
-                child: Text(response[index].answer,style: TextStyle(fontSize: 11))
+                child: Text(response[index].answer,style: const TextStyle(fontSize: 11))
               )
             ]
           )

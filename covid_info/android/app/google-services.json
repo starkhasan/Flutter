@@ -33,7 +33,8 @@
             }
           ]
         }
-      }
+      },
+      "admob_app_id": "ca-app-pub-9422971308124709~7992682965"
     },
     {
       "client_info": {
@@ -59,6 +60,93 @@
             "certificate_hash": "ee45a3f821e57cda82d49b28c5e0587c917954e5"
           }
         },
+        {
+          "client_id": "1066275591079-sre3umd5v64kfnu4fsceor1k734h1h5t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrBreohrQS942n0wxohazQ9yyw-NAYr_A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1066275591079-sre3umd5v64kfnu4fsceor1k734h1h5t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1066275591079:android:775fde47d50491f5201c82",
+        "android_client_info": {
+          "package_name": "com.example.test_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1066275591079-sre3umd5v64kfnu4fsceor1k734h1h5t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrBreohrQS942n0wxohazQ9yyw-NAYr_A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1066275591079-sre3umd5v64kfnu4fsceor1k734h1h5t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1066275591079:android:b8d904cb95c39aad201c82",
+        "android_client_info": {
+          "package_name": "com.traversal.grocery_plus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1066275591079-sre3umd5v64kfnu4fsceor1k734h1h5t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrBreohrQS942n0wxohazQ9yyw-NAYr_A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1066275591079-sre3umd5v64kfnu4fsceor1k734h1h5t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1066275591079:android:4e2673b9529218de201c82",
+        "android_client_info": {
+          "package_name": "com.traversal.inventory_control"
+        }
+      },
+      "oauth_client": [
         {
           "client_id": "1066275591079-sre3umd5v64kfnu4fsceor1k734h1h5t.apps.googleusercontent.com",
           "client_type": 3

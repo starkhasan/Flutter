@@ -6,9 +6,9 @@ import 'package:pdf_viewer_plugin/pdf_viewer_plugin.dart';
 
 class ShowDocument extends StatefulWidget {
   final String url;
-  ShowDocument({required this.url});
+  const ShowDocument({super.key, required this.url});
   @override
-  _ShowDocumentState createState() => _ShowDocumentState();
+  State createState() => _ShowDocumentState();
 }
 
 class _ShowDocumentState extends State<ShowDocument> {
@@ -33,7 +33,7 @@ class _ShowDocumentState extends State<ShowDocument> {
 
   @override
   void initState() {
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) => loadPdf());
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) => loadPdf());
     super.initState();
   }
 
@@ -41,14 +41,14 @@ class _ShowDocumentState extends State<ShowDocument> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF0B3054),
+        backgroundColor: const Color(0xFF0B3054),
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'States Vaccination Report',
           style: TextStyle(fontSize: 14)
         )
       ),
-      body: Center(child: pdfFlePath == null ? CircularProgressIndicator() : PdfView(path: pdfFlePath!))
+      body: Center(child: pdfFlePath == null ? const CircularProgressIndicator() : PdfView(path: pdfFlePath!))
     );
   }
 }

@@ -10,6 +10,8 @@ import 'package:provider/provider.dart';
 
 class Dashboard extends StatelessWidget {
 
+  const Dashboard({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<CovidStatusProvider>(
@@ -24,20 +26,20 @@ class Dashboard extends StatelessWidget {
 
 class MainScreen extends StatefulWidget {
   final CovidStatusProvider provider;
-  MainScreen({required this.provider});
+  const MainScreen({super.key, required this.provider});
   @override
-  _MainScreenState createState() => _MainScreenState();
+  State createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver{
 
   var _currentIndex = 0;
 
-  var _listScreens = [
-    CovidStatus(),
+  final _listScreens = [
+    const CovidStatus(),
     Vaccination(),
     AboutCovid(),
-    FAQScreen()
+    const FAQScreen()
   ];
 
   onTapped(int index){
@@ -49,39 +51,42 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver{
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addObserver(this);
-    widget.provider.userCount(true);
+    WidgetsBinding.instance.addObserver(this);
+    //widget.provider.userCount(true);
   }
 
   @override
   void dispose() {
     super.dispose();
-    WidgetsBinding.instance!.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
   }
 
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-    if(state == AppLifecycleState.resumed)
-      widget.provider.userCount(true);
-    if(state == AppLifecycleState.paused)
-      widget.provider.userCount(false);
-  }
+  // @override
+  // void didChangeAppLifecycleState(AppLifecycleState state) {
+  //   super.didChangeAppLifecycleState(state);
+  //   if(state == AppLifecycleState.resumed) {
+  //     widget.provider.userCount(true);
+  //   }
+  //   if(state == AppLifecycleState.paused) {
+  //     widget.provider.userCount(false);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
+      onWillPop: onBackPress,
       child: Scaffold(
         bottomNavigationBar: BottomNavigationBar(
           unselectedItemColor: Colors.grey[600],
           selectedItemColor: Colors.white,
-          backgroundColor: Color(0xFF0B3054),
+          backgroundColor: const Color(0xFF0B3054),
           type: BottomNavigationBarType.fixed,
           elevation: 10.0,
           onTap: onTapped,
           currentIndex: _currentIndex,
-          items: [
+          items: const [
             BottomNavigationBarItem(
               label: 'Status',
               icon: Icon(Icons.equalizer_outlined,size: 18)
@@ -101,8 +106,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver{
           ]
         ),
         body: _listScreens[_currentIndex]
-      ),
-      onWillPop: onBackPress
+      )
     );
   }
 
@@ -112,19 +116,19 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver{
       barrierDismissible: false,
       builder: (context){
         return CupertinoAlertDialog(
-          title: Text('Exit'),
-          content: Text('Are you sure you want to exit?'),
+          title: const Text('Exit'),
+          content: const Text('Are you sure you want to exit?'),
           actions: [
             CupertinoDialogAction(
               onPressed: () => Navigator.pop(context, false),
-              child: Text('No',style: TextStyle(color: Colors.red))
+              child: const Text('No',style: TextStyle(color: Colors.red))
             ),
             CupertinoDialogAction(
-              onPressed: () async{
-                await widget.provider.userCount(false);
+              onPressed: () async {
+                //await widget.provider.userCount(false);
                 Navigator.pop(context, true);
               },  
-              child: Text('Yes'),
+              child: const Text('Yes'),
             )
           ]
         );

@@ -38,6 +38,8 @@ dependencies:
   device_info: ^2.0.3
   pdf_viewer_plugin: ^2.0.1
   path_provider: ^2.0.11
+  firebase_messaging: ^12.0.1
+  firebase_core_web: ^1.7.1
 
 dev_dependencies:
 
