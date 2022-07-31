@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_desktop/constants/font_path.dart';
 import 'package:flutter_desktop/custom_widgets/custom_dropdown_button.dart';
 import 'package:get/get.dart';
 import '../constants/app_colors.dart';
@@ -81,7 +82,7 @@ class DashboardScreen extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: const [
-                                    CustomText(title: 'Follower Analytics', textColor: AppColors.black, fontWeight: FontWeight.bold),
+                                    CustomText(title: 'Follower Analytics', textColor: AppColors.black, fontWeight: FontWeight.bold, textSize: 18, fontFamily: FontPath.montserratSemiBole),
                                     CustomText(title: "Here's your follower analytics for today", textColor: AppColors.grey, textSize: 10)
                                   ],
                                 ),

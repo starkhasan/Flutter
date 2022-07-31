@@ -10,7 +10,7 @@ class VaccinationDialog extends StatelessWidget {
     return Align(
       alignment: Alignment.center,
       child: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white,
         ),
         margin: EdgeInsets.only(
@@ -24,21 +24,21 @@ class VaccinationDialog extends StatelessWidget {
           children: [
             Container(
               width: double.infinity,
-              padding: EdgeInsets.only(top: 12,bottom: 12),
-              decoration: BoxDecoration(
+              padding: const EdgeInsets.only(top: 12,bottom: 12),
+              decoration: const BoxDecoration(
                 color: Color(0xFF0B3054),
               ),
               child: Text(
                 response.country,
-                style: TextStyle(color: Colors.white,fontSize: 12,decoration: TextDecoration.none,fontWeight: FontWeight.bold,fontFamily: ''),
+                style: const TextStyle(color: Colors.white,fontSize: 12,decoration: TextDecoration.none,fontWeight: FontWeight.bold,fontFamily: ''),
                 textAlign: TextAlign.center,
               ),
             ),
             Container(
-              color: Color(0xFFE3F2FD),
-              padding: EdgeInsets.only(left: 5,right: 5,top: 6,bottom: 6),
+              color: const Color(0xFFE3F2FD),
+              padding: const EdgeInsets.only(left: 5,right: 5,top: 6,bottom: 6),
               child: Row(
-                children: [
+                children: const [
                   Expanded(
                     child: Text(
                       'Date',
@@ -71,16 +71,16 @@ class VaccinationDialog extends StatelessWidget {
             ),
             Flexible(
               child: Scrollbar(
-                radius: Radius.circular(15),
+                radius: const Radius.circular(15),
                 child: ListView.separated(
-                  physics: ScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   itemCount: response.data.length,
                   shrinkWrap: true,
                   padding: EdgeInsets.zero,
                   itemBuilder: (context,index){
                     return Container(
                       color: index%2 == 0 ? Colors.white : Colors.grey[100],
-                      padding: EdgeInsets.only(left: 5,right: 5,top: 10,bottom: 10),
+                      padding: const EdgeInsets.only(left: 5,right: 5,top: 10,bottom: 10),
                       child: Row(
                         children: [
                           Expanded(
@@ -88,7 +88,7 @@ class VaccinationDialog extends StatelessWidget {
                               response.data[index].date.split('-').reversed.join('-'),
                               textAlign: TextAlign.left,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontFamily: '',color: Colors.black,fontSize: 10,decoration: TextDecoration.none,fontWeight: FontWeight.normal)
+                              style: const TextStyle(fontFamily: '',color: Colors.black,fontSize: 10,decoration: TextDecoration.none,fontWeight: FontWeight.normal)
                             )
                           ),
                           Expanded(
@@ -98,7 +98,7 @@ class VaccinationDialog extends StatelessWidget {
                               : 'N/A',
                               textAlign: TextAlign.center,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontFamily: '',color: Colors.black,fontSize: 10,decoration: TextDecoration.none,fontWeight: FontWeight.normal)
+                              style: const TextStyle(fontFamily: '',color: Colors.black,fontSize: 10,decoration: TextDecoration.none,fontWeight: FontWeight.normal)
                             )
                           ),
                           Expanded(
@@ -108,7 +108,7 @@ class VaccinationDialog extends StatelessWidget {
                               : 'N/A',
                               textAlign: TextAlign.right,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontFamily: '',color: Colors.black,fontSize: 10,decoration: TextDecoration.none,fontWeight: FontWeight.normal)
+                              style: const TextStyle(fontFamily: '',color: Colors.black,fontSize: 10,decoration: TextDecoration.none,fontWeight: FontWeight.normal)
                             )
                           ),
                           Expanded(
@@ -118,15 +118,13 @@ class VaccinationDialog extends StatelessWidget {
                               : 'N/A',
                               textAlign: TextAlign.right,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontFamily: '',color: Colors.black,fontSize: 10,decoration: TextDecoration.none,fontWeight: FontWeight.normal)
+                              style: const TextStyle(fontFamily: '',color: Colors.black,fontSize: 10,decoration: TextDecoration.none,fontWeight: FontWeight.normal)
                             )
                           )
                         ],
                       )
                     );
-                  }, separatorBuilder: (BuildContext context, int index) {
-                    return Divider(height: 1,thickness: 1);
-                  }
+                  }, separatorBuilder: (BuildContext context, int index) => const Divider(height: 1,thickness: 1)
                 )
               )
             )

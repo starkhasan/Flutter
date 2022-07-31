@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:covid_info/constant/strings.dart';
 import 'package:covid_info/ui/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Covid Info',
+      title: Strings.appName,
       theme: ThemeData(
         primaryColor: const Color(0xFF0B3054)
       ),
