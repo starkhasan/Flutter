@@ -1,12 +1,12 @@
 import 'dart:developer';
 
-import 'package:covid_info/constant/helper_vaccination.dart';
-import 'package:covid_info/ui/country_search_result_screen.dart';
-import 'package:covid_info/ui/show_document_screen.dart';
+import '../constant/helper_vaccination.dart';
+import '../ui/country_search_result_screen.dart';
+import '../ui/show_document_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:covid_info/constant/helper_about.dart';
-import 'package:covid_info/controllers/covid_status_controller.dart';
+import '../constant/helper_about.dart';
+import '../controllers/covid_status_controller.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -14,8 +14,10 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class Vaccination extends StatefulWidget {
+  const Vaccination({Key? key}) : super(key: key);
+
   @override
-  _VaccinationState createState() => _VaccinationState();
+  State createState() => _VaccinationState();
 }
 
 class _VaccinationState extends State<Vaccination> {
@@ -155,12 +157,12 @@ class _VaccineScreenState extends State<VaccineScreen> {
                           'https://flagcdn.com/w160/in.png',
                           height: 24,
                           width: 24,
-                          errorBuilder: (context,exception,stackTrace){return Icon(Icons.flag);},
+                          errorBuilder: (context,exception,stackTrace) => const Icon(Icons.flag),
                         ),
-                        SizedBox(width: 10),
-                        Text('India',style: TextStyle(fontSize: 11,fontFamily: '')),
-                        SizedBox(width: 5),
-                        Icon(Icons.arrow_drop_down_sharp,color: Colors.black,size: 26)
+                        const SizedBox(width: 10),
+                        const Text('India',style: TextStyle(fontSize: 11,fontFamily: '')),
+                        const SizedBox(width: 5),
+                        const Icon(Icons.arrow_drop_down_sharp,color: Colors.black,size: 26)
                       ]
                     )
                   )
@@ -180,13 +182,13 @@ class _VaccineScreenState extends State<VaccineScreen> {
           ListView.builder(
             itemCount: HelperAbout.listVaccineTag.length,
             shrinkWrap: true,
-            padding: EdgeInsets.only(top: 10),
-            physics: NeverScrollableScrollPhysics(),
+            padding: const EdgeInsets.only(top: 10),
+            physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index){
               return Container(
-                padding: EdgeInsets.all(10),
-                margin: EdgeInsets.fromLTRB(0, 8, 0, 0),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.all(10),
+                margin: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(5)),
                   boxShadow: [
@@ -207,14 +209,14 @@ class _VaccineScreenState extends State<VaccineScreen> {
                             HelperAbout.listVaccineTag[index],
                             style: TextStyle(color: Colors.grey[800],fontSize: 11,fontFamily: ''),
                           ),
-                          SizedBox(height: 5),
+                          const SizedBox(height: 5),
                           widget.provider.apiVaccine
-                          ? SizedBox(height: 4,width: 40, child: LinearProgressIndicator(minHeight: 2,backgroundColor: Colors.white,color: Color(0xFF0B3054)))
+                          ? const SizedBox(height: 4,width: 40, child: LinearProgressIndicator(minHeight: 2,backgroundColor: Colors.white,color: Color(0xFF0B3054)))
                           : Text(
                             widget.provider.vaccineResponse[index] == 0
                             ? '0'
                             : formatter.format(widget.provider.vaccineResponse[index]),
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.black,
                               fontSize: 22,
                               fontFamily: '',
@@ -231,9 +233,9 @@ class _VaccineScreenState extends State<VaccineScreen> {
             }
           ),
           Container(
-            padding: EdgeInsets.all(10),
-            margin: EdgeInsets.fromLTRB(0, 8, 0, 0),
-            decoration: BoxDecoration(
+            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+            decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(5)),
               boxShadow: [
@@ -254,21 +256,21 @@ class _VaccineScreenState extends State<VaccineScreen> {
                         'Total Sites',
                         style: TextStyle(color: Colors.grey[800],fontSize: 11,fontFamily: ''),
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       widget.provider.apiVaccine
-                      ? SizedBox(height: 4,width: 40, child: LinearProgressIndicator(minHeight: 2,backgroundColor: Colors.white,color: Color(0xFF0B3054)))
+                      ? const SizedBox(height: 4,width: 40, child: LinearProgressIndicator(minHeight: 2,backgroundColor: Colors.white,color: Color(0xFF0B3054)))
                       : Text(
                         widget.provider.sites == 0
                         ? '0'
                         : formatter.format(widget.provider.sites),
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 22,
                           fontFamily: '',
                           fontWeight: FontWeight.bold
                         )
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Row(
                         children: [
                           Expanded(
@@ -279,14 +281,14 @@ class _VaccineScreenState extends State<VaccineScreen> {
                                   'Government',
                                   style: TextStyle(color: Colors.grey[800],fontSize: 10,fontFamily: ''),
                                 ),
-                                SizedBox(height: 2),
+                                const SizedBox(height: 2),
                                 widget.provider.apiVaccine
-                                ? SizedBox(height: 2,width: 40, child: LinearProgressIndicator(minHeight: 2,backgroundColor: Colors.white,color: Color(0xFF0B3054)))
+                                ? const SizedBox(height: 2,width: 40, child: LinearProgressIndicator(minHeight: 2,backgroundColor: Colors.white,color: Color(0xFF0B3054)))
                                 : Text(
                                   widget.provider.sitesGovernment == 0
                                   ? '0'
                                   : formatter.format(widget.provider.sitesGovernment),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 20,
                                     fontFamily: '',

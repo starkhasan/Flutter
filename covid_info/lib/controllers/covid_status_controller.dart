@@ -1,16 +1,16 @@
 import 'dart:developer';
 import 'dart:isolate';
-import 'package:covid_info/model/response/faq_response.dart';
-import 'package:covid_info/model/response/vaccine_response.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:covid_info/model/api.dart';
-import 'package:covid_info/model/response/country_response.dart';
-import 'package:covid_info/model/response/covid_country_cases_response.dart';
 import 'dart:convert';
-import 'package:covid_info/model/response/population_response.dart';
+import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import '../model/response/faq_response.dart';
+import '../model/response/vaccine_response.dart';
+import '../model/api.dart';
+import '../model/response/country_response.dart';
+import '../model/response/covid_country_cases_response.dart';
+import '../model/response/population_response.dart';
 
 class CovidStatusProvider extends ChangeNotifier {
   bool _callApi = false;

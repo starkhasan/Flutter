@@ -11,17 +11,17 @@ String countryResponseToJson(List<CountryResponse> data) => json.encode(List<dyn
 class CountryResponse {
     CountryResponse({
         required this.country,
-        required this.cases,
-        required this.todayCases,
-        required this.deaths,
-        required this.todayDeaths,
-        required this.recovered,
-        required this.active,
-        required this.critical,
-        required this.casesPerOneMillion,
-        required this.deathsPerOneMillion,
-        required this.totalTests,
-        required this.testsPerOneMillion,
+        this.cases,
+        this.todayCases,
+        this.deaths,
+        this.todayDeaths,
+        this.recovered,
+        this.active,
+        this.critical,
+        this.casesPerOneMillion,
+        this.deathsPerOneMillion,
+        this.totalTests,
+        this.testsPerOneMillion,
     });
 
     String country;

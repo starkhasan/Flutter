@@ -1,11 +1,11 @@
-import 'package:covid_info/controllers/covid_status_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:covid_info/ui/about_covid_screen.dart';
-import 'package:covid_info/ui/covid_status_screen.dart';
-import 'package:covid_info/ui/vaccination_screen.dart';
-import 'package:covid_info/ui/faq_screen.dart';
 import 'package:provider/provider.dart';
+import '../ui/about_covid_screen.dart';
+import '../ui/covid_status_screen.dart';
+import '../ui/vaccination_screen.dart';
+import '../ui/faq_screen.dart';
+import '../controllers/covid_status_controller.dart';
 
 
 class Dashboard extends StatelessWidget {
